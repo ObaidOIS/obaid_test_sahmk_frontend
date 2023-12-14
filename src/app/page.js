@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-    
+
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <HeroSection />
@@ -28,7 +28,6 @@ export default function Home() {
       <PricingSection />
       <TryMeSection />
       <Footer />
-    
       
     </>
   )

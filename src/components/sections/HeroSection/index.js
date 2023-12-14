@@ -32,7 +32,7 @@ const HeroSection = () => {
             الأسهم وسيعطيك إجابات دقيقة بإمكانك مع نظام سهمك الذكي الاستفسار
             بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة
           </div>
-          <div className="sm:flex grid gap-y-2 justify-center mt-4 gap-x-4">
+          <div className="flex gap-y-2 justify-center mt-4 gap-x-4">
             <OutlineButton button="جرب الخدمة"  icon={<Image src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5" alt="img" />}/>
             <PrimaryButton button="شهر مجانا" buttonStyle="py-2.5 shadow-lg" icon={<Image src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5" alt="img" />}/>
           </div>

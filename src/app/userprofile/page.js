@@ -1,14 +1,13 @@
-import ArrowList from '@/components/widgets/ArrowList'
-import SimpleLineChart from '@/components/widgets/SimpleLineChart'
-import React from 'react'
+import React from "react";
+import UserProfileSection from "@/components/sections/UserProfileSection";
 
 const UserProfile = () => {
+  
   return (
     <div>
-      <ArrowList />
-      <SimpleLineChart />
+      <UserProfileSection />
     </div>
-  )
-}
+  );
+};
 
-export default UserProfile
+export default UserProfile;

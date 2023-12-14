@@ -1,7 +1,26 @@
-import { Noto_Sans_Arabic } from 'next/font/google'
-import './globals.css'
-
-const inter = Noto_Sans_Arabic({ subsets: ['arabic'] })
+import './globals.css';
+import localFont from 'next/font/local';
+ 
+// Font files can be colocated inside of `pages`
+const myFont = localFont({
+  src: [
+    {
+      path: '../fonts/DIN-Next-LT-Arabic-Light/DIN-Next-LT-Arabic-Light.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/DIN-Next-LT-Arabic-Bold/DIN-Next-LT-Arabic-Bold.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/DIN-Next-LT-Arabic-Medium/DIN-Next-LT-Arabic-Medium.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -11,7 +30,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir='rtl'>
-      <body className={inter.className}>{children}</body>
+      <body className={myFont.className}>{children}</body>
     </html>
   )
 }

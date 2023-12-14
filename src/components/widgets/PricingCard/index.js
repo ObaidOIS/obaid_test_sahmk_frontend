@@ -2,6 +2,7 @@ import React from "react";
 import PrimaryButton from "../PrimaryButton";
 import Image from "next/image";
 import OutlineButton from "../OutlineButton";
+import MainBadge from "../MainBadge";
 
 const PricingCard = ({primaryCard, card}) => {
 
@@ -19,7 +20,10 @@ const PricingCard = ({primaryCard, card}) => {
     <div>
       <div className="pt-5 mx-4 md:mx-0 flex flex-row">
         <div className={`${primaryCard ? "ring-4 ring-teal-500" : "border border-gray-300"} w-full p-8 rounded-3xl bg-white`}>
-          <h1 className={`${primaryCard ? "text-teal-500" : ""} font-semibold text-2xl`}>باقة البريميوم</h1>
+          <div className="flex justify-between">
+            <h1 className={`${primaryCard ? "text-teal-500" : ""} font-semibold text-2xl`}>باقة البريميوم</h1>
+            {primaryCard && <div><MainBadge title="موصى به"  badgeStyle="bg-indigo-600 text-white" /></div>}
+          </div>
           <p className="pt-2 tracking-wide my-4">
             <span className="text-gray-400/70 text-sm">
               الباقة الأساسية تستطيع من خلالها الاستعلام عن اسعار الاسهم وسعر
@@ -34,11 +38,11 @@ const PricingCard = ({primaryCard, card}) => {
            {primaryCard ? 
             <PrimaryButton
               button="اشترك الآن"
-              buttonStyle="w-full rounded-md d-flex justify-center text-xl font-medium py-3 !bg-teal-500"
+              buttonStyle="w-full rounded-md d-flex justify-center text-xl font-semibold py-3 !bg-teal-500"
             /> : 
             <OutlineButton
               button="اشترك الآن"
-              buttonStyle="w-full rounded-md d-flex justify-center !border-teal-500 border-2 text-xl font-medium py-3 !text-teal-500"
+              buttonStyle="w-full rounded-md d-flex justify-center !border-teal-500 border-2 text-xl font-semibold py-3 !text-teal-500"
             /> }
           </div>
 
@@ -55,7 +59,7 @@ const PricingCard = ({primaryCard, card}) => {
                         alt="img"
                     />
                     </div>
-                    <span className={`${(card == "intermediate" || card == "enterprise") && (index != 0 && index != 1)  ? "text-gray-300" : "text-gray-700"} font-medium ml-3`}>{item.name}</span>
+                    <span className={`${(card == "intermediate" || card == "enterprise") && (index != 0 && index != 1)  ? "text-gray-300" : "text-gray-700"} font-semibold ml-3`}>{item.name}</span>
                 </li>
               );
             })}

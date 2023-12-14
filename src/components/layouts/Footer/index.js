@@ -76,14 +76,14 @@ const Footer = () => {
                   <Link
                     href="#_"
                     key={index}
-                    className="font-medium hover:text-gray-500"
+                    className="font-semibold hover:text-gray-500"
                   >
                     {item.name}
                   </Link>
                 );
               })}
             </div>
-            <div className="flex items-center gap-12 bg-white py-8 px-10">
+            <div className="flex items-center gap-12 py-8 px-10">
               {socialIncons.map((item, index) => {
                 return (
                   <Link href="#_" key={index}>
@@ -94,10 +94,10 @@ const Footer = () => {
             </div>
           </div>
           <div className="">
-            <p className="text-base font-medium text-center">
+            <p className="text-base font-semibold text-center">
               © جميع الحقوق محفوظة لمنصة سهمك{" "}
             </p>
-            <p className="text-base font-medium mt-3 text-center">
+            <p className="text-base font-semibold mt-3 text-center">
               سجل تجاري رقم 11234567890{" "}
             </p>
           </div>

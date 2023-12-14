@@ -8,13 +8,13 @@ const TryMeSection = () => {
 
   return (
     <div className="flex items-end w-full mb-32 min-h-screen bg-white">
-        <div className="w-full text-gray-700 mx-6 md:mx-0 body-font">
+        <div className="w-full text-gray-700 mx-6 body-font">
         <div
             className="container flex flex-col flex-wrap py-24 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap">
             <div className="flex-shrink-0 w-full lg:w-1/3 px-1 mx-auto md:mx-0">
-            <div className="mb-3 mt-10 flex">
+            <div className="mb-3 mt-10 flex w-4/5">
                 <div className="">
-                    <div className="text-xl text-teal-500 font-semibold mb-5 leading-none">
+                    <div className="text-xl text-teal-500 font-extrabold mb-5 leading-none">
                     جرب أسأل النظام
                     </div>
                     <div className="text-3xl font-semibold mb-5 leading-none">
