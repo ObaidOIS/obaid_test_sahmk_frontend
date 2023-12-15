@@ -6,6 +6,11 @@ const myFont = localFont({
   src: [
     {
       path: '../fonts/DIN-Next-LT-Arabic-Light/DIN-Next-LT-Arabic-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/DIN-Next-LT-Arabic-Regular/DIN-Next-LT-Arabic-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
@@ -16,7 +21,7 @@ const myFont = localFont({
     },
     {
       path: '../fonts/DIN-Next-LT-Arabic-Medium/DIN-Next-LT-Arabic-Medium.ttf',
-      weight: '700',
+      weight: '400',
       style: 'normal',
     },
   ],

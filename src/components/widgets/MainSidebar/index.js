@@ -21,6 +21,7 @@ const MainSidebar = ({ isSidebarOpen, toggleSidebar, list }) => {
             height={35}
             onClick={toggleSidebar}
             className="fixed z-[2147483647] right-[330px] sm:right-[400px] top-8"
+            alt="img"
           />
         )}
         <nav

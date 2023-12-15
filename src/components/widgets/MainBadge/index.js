@@ -1,8 +1,8 @@
 import React from "react";
 
-const MainBadge = ({title, badgeStyle}) => {
+const MainBadge = ({title, badgeStyle, badgeContainerStyle}) => {
   return (
-    <div className="text-center">
+    <div className={`text-center ${badgeContainerStyle}`}>
       <span
         className={`inline-flex items-center rounded-full py-1 px-6 group focus:outline-none ${badgeStyle}`}
         role="alert"
