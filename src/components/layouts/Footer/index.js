@@ -15,6 +15,8 @@ const Footer = () => {
     { name: "المميزات" },
     { name: "خدماتنا" },
     { name: "تجربة النظام" },
+    { name: "حساب تعريفي" },
+    { name: "اتصل بنا" },
   ];
 
   const socialIncons = [
@@ -57,15 +59,17 @@ const Footer = () => {
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
           <div className="grid grid-cols-2 align-middle items-center gap-20 my-8">
+            <Link href="/">
             <Image
-              src="/assets/logos/logo.png"
-              width={200} height={200}
+              src="/assets/logos/logo.svg"
+              width={170} height={170}
               alt="img"
             />
+            </Link>
           <div className="mx-auto">
             <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
             <div className="flex justify-center mt-5">
-            <Image src="/assets/images/tadawul.png" width={170} height={170} className="" alt="img" />
+            <Image src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" />
             </div>
           </div>
           </div>

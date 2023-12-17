@@ -37,13 +37,13 @@ const ProfileFooter = () => {
     <footer className="w-full border-t shadow-2xl transition duration-300">
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
-          <div className="mt-8 mb-14">
+          <Link href="/" className="mt-8 mb-14">
             <Image
-              src="/assets/logos/logo.png"
+              src="/assets/logos/logo.svg"
               width={150} height={100}
               alt="img"
             />
-          </div>
+          </Link>
           <div className="flex flex-col items-center gap-6">
             <div className="flex flex-wrap items-center justify-center gap-10 lg:gap-20 gap-y-3 lg:flex-nowrap text-dark-grey-900">
               {footerLinks.map((item, index) => {

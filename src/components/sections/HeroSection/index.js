@@ -16,18 +16,19 @@ const HeroSection = () => {
                 </span>
             </div>
         </div>
-          <div className="text-6xl font-semibold text-gray-900 leading-tight md:leading-none">
+          <div className="sm:text-6xl text-5xl font-semibold text-gray-900 leading-tight md:leading-none">
             <span>اتخذ قرارات مالية <br />أفضل مع</span>
-            <span className=" text-teal-900/90"> نظام سهمك الذكي</span>
-          </div>
-          
-          <div className="my-8 text-xl text-gray-500/90 w-9/12 mx-auto antialiased">
-          <Image 
-                src="/assets/images/zline.png"
+            <span className=" relative whitespace-nowrap text-teal-900/90"> نظام سهمك الذكي
+            <Image 
+                src="/assets/icons/zline.svg"
                 width={500}
                 height={33}
-                className="absolute md:flex hidden top-96 right-1/3"
-                alt="img" />
+                className="absolute flex top-14 left-0"
+                alt="img" /></span>
+          </div>
+          
+          <div className="mb-8 mt-12 text-xl text-gray-500/90 w-9/12 mx-auto antialiased">
+          
             بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن
             الأسهم وسيعطيك إجابات دقيقة بإمكانك مع نظام سهمك الذكي الاستفسار
             بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة
@@ -39,7 +40,7 @@ const HeroSection = () => {
           <div className="mx-auto my-20">
             <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
             <div className="flex justify-center mt-5">
-            <Image src="/assets/images/tadawul.png" width={150} height={150} className="" alt="img" />
+            <Image src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" />
             </div>
           </div>
           

@@ -7,7 +7,7 @@ const PricingSection = () => {
   const radioTabOptions = [{ tab: "شهري" }, { tab: "سنوي" }];
 
   return (
-    <div className="bg-gray-100 py-2">
+    <div id="pricing" className="bg-gray-100 py-2">
       <div className="md:mx-8 ">
         <div className="max-w-2xl mb-8 mt-20 mx-auto text-center ">
           <div className="text-3xl font-semibold mb-5 leading-tight md:leading-none">

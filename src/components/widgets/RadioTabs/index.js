@@ -25,7 +25,7 @@ const RadioTabs = ({radioTabOptions}) => {
           />
           <label
             htmlFor={`tab-${index}`}
-            className={`block cursor-pointer text-center text-lg select-none rounded-full px-2 py-1 ${
+            className={`block cursor-pointer text-center font-normal text-lg select-none rounded-full px-2 pb-2 pt-0 ${
               selectedTab === index
                 ? 'bg-teal-500 px-7 hover:shadow-xl text-white'
                 : ''

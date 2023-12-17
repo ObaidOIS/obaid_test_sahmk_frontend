@@ -4,7 +4,7 @@ const MainBadge = ({title, badgeStyle, badgeContainerStyle}) => {
   return (
     <div className={`text-center ${badgeContainerStyle}`}>
       <span
-        className={`inline-flex items-center rounded-full py-1 px-6 group focus:outline-none ${badgeStyle}`}
+        className={`inline-flex items-center rounded-full pb-2 pt-0 px-6 group focus:outline-none ${badgeStyle}`}
         role="alert"
         tabindex="0"
       >

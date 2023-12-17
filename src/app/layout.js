@@ -16,12 +16,12 @@ const myFont = localFont({
     },
     {
       path: '../fonts/DIN-Next-LT-Arabic-Bold/DIN-Next-LT-Arabic-Bold.ttf',
-      weight: '500',
+      weight: '600',
       style: 'normal',
     },
     {
       path: '../fonts/DIN-Next-LT-Arabic-Medium/DIN-Next-LT-Arabic-Medium.ttf',
-      weight: '400',
+      weight: '500',
       style: 'normal',
     },
   ],

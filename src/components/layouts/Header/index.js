@@ -8,11 +8,11 @@ import { IoMdMenu } from "react-icons/io";
 const Header = ({toggleSidebar}) => {
 
   const navLinks = [
-    { name: "الرئيسية" },
-    { name: "الخدمات" },
-    { name: "اشتراكاتنا" },
-    { name: "من نحن" },
-    { name: "تواصل معنا" },
+    { name: "الرئيسية", link: "#" },
+    { name: "الخدمات", link: "#features" },
+    { name: "اشتراكاتنا", link: "#services" },
+    { name: "من نحن", link: "#pricing" },
+    { name: "تواصل معنا", link: "#try-us" },
   ];
 
   const [activeTab, setActiveTab] = useState(0);
@@ -32,28 +32,28 @@ const Header = ({toggleSidebar}) => {
             alt="img"
           />
           <div className="lg:container flex items-center p-6 mx-auto flex-row">
-            <a className="flex items-center">
+            <Link href="/" className="flex items-center">
               <Image
-                src="/assets/logos/logo.png"
+                src="/assets/logos/logo.svg"
                 width={100}
                 height={33}
                 className=" cursor-pointer"
                 alt="img"
               />
-            </a>
+            </Link>
             <nav className="lg:flex hidden items-center justify-center text-base md:ml-auto mr-5">
               {navLinks.map((item, index) => {
                 return (
                   <Link
-                    href="#_"
+                    href={item.link}
                     key={index}
                     className={`${ activeTab === index ? "" : ""} cursor-pointer mr-8 `}
                   >
                     <p
                         className={`cursor-pointer px-4 py-2 truncate ${
                         activeTab === index
-                            ? 'text-teal-500 border-b-2 border-teal-500 hover:border-teal-700 font-semibold hover:text-teal-700'
-                            : 'hover:text-gray-900 font-semibold' 
+                            ? 'text-teal-500 border-b-2 border-teal-500 hover:border-teal-700 font-normal hover:text-teal-700'
+                            : 'hover:text-black font-normal' 
                         }`}
                         onClick={() => handleTabClick(index)}
                     >
@@ -65,12 +65,12 @@ const Header = ({toggleSidebar}) => {
             </nav>
             <div className="lg:hidden flex flex-1 justify-end " onClick={()=>toggleSidebar()}><IoMdMenu size={24} /></div>
             <div className="items-center h-full lg:flex hidden ">
-              <a href="#_" className="font-semibold hover:text-gray-900">
+              <a href="#_" className="hover:text-gray-900 font-normal">
                 {" "}
                 تسجل الدخول{" "}
               </a>
               <div className="mr-4 inline">
-                <PrimaryButton button="سجل معنا"  />
+                <PrimaryButton button="سجل معنا" buttonStyle={`font-normal`}  />
               </div>
             </div>
           </div>

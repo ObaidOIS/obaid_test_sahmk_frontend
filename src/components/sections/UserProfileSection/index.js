@@ -8,6 +8,7 @@ import MainBadge from "@/components/widgets/MainBadge";
 import ProfileFooter from "@/components/sections/ProfileFooter";
 import { IoMdMenu } from "react-icons/io";
 import MainSidebar from "@/components/widgets/MainSidebar";
+import Link from "next/link";
 
 const UserProfileSection = () => {
     
@@ -102,21 +103,21 @@ const UserProfileSection = () => {
           alt="Background Image"
         />
         <div className="lg:container flex items-center pt-8 justify-center mx-auto">
-          <a className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image
-              src="/assets/logos/logo.png"
+              src="/assets/logos/logo.svg"
               width={150}
               height={90}
               className="cursor-pointer"
               alt="Logo"
             />
-          </a>
+          </Link>
         </div>
       </header>
 
-      <div className="container lg:w-3/6 px-5 md:mx-auto">
+      <div className="container lg:w-5/12 px-5 md:mx-auto">
         <BasicHeading
-          styling="!mt-9"
+          styling="!mt-12"
           heading="مرحبا بك في نظام سهمك"
           desc="يمكنك إدارة حسابك والاطلاع على تفاصيل الاسهم وباقتك"
         />

@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import RegisterPricingModal from "../RegisterPricingModal";
 
 const PrimaryPackageCard = () => {
   const features = [
@@ -10,8 +12,25 @@ const PrimaryPackageCard = () => {
     { title: "السؤال عن أوقات التوزيعات لأي سهم" },
   ];
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+
   return (
-    <div className=" rounded-lg">
+    <div>
+      {isModalOpen && (
+        <div className="">
+          <RegisterPricingModal />
+        </div>
+      )}
+       <div className=" rounded-lg">
       <div className="border-b">
         <div className="px-6 pb-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -27,7 +46,9 @@ const PrimaryPackageCard = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 cursor-pointer align-middle text-teal-500 hover:text-teal-700">
+          <div 
+           onClick={openModal}
+          className="flex items-center gap-2 cursor-pointer align-middle text-teal-500 hover:text-teal-700">
             <span>تغيير الباقة</span>
             <IoIosArrowRoundBack size={24} />
           </div>
@@ -48,6 +69,8 @@ const PrimaryPackageCard = () => {
         </ul>
       </div>
     </div>
+    </div>
+   
   );
 };
 

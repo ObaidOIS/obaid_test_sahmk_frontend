@@ -15,10 +15,10 @@ const ArrowList = ({title, desc, icon, bgColor}) => {
                     {/* <Image  src="/assets/icons/24hours.svg" width={60} height={60} alt="img" /> */}
                     </div>
                     <div className="flex-1 min-w-0 leading-8 align-middle">
-                        <p className="text-lg font-extrabold text-gray-900 truncate">
+                        <p className="text-lg text-gray-900 font-medium truncate">
                         {title}
                         </p>
-                        <p className="text-gray-400 font-semibold truncate">
+                        <p className="text-gray-400 font-medium truncate">
                         {desc}
                         </p>
                     </div>

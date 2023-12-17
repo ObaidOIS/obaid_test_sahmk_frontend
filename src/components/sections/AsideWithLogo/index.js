@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const AsideWithLogo = () => {
   // const width= calc(~"100% - 3px");
@@ -31,15 +32,16 @@ const AsideWithLogo = () => {
           />
         </div>
         <div className="grid grid-cols-1 mt-32 ml-24">
-          <div className="ms-auto text-center">
-            <div className="w-full flex justify-center">
+          <div className="ms-auto text-center z-50">
+            <Link href="/" className="w-full flex justify-center">
             <Image
-              src="/assets/logos/logo-accent.png"
+              src="/assets/logos/logo-accent.svg"
               height={150}
               width={150}
               alt="image"
+              className="cursor-pointer"
             />
-            </div>
+            </Link>
             <div className="w-60 mt-40">
               <p className="text-white text-2xl  w-full">
                 وصولك لأسعار الأسهم أصبح أسرع مع سهمك

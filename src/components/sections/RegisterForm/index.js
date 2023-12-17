@@ -8,6 +8,7 @@ import PrimaryButton from "@/components/widgets/PrimaryButton";
 import Image from "next/image";
 
 const RegisterForm = () => {
+
   const selectboxList = [
     { title: "کمپنی ایک" },
     { title: "کمپنی دو" },
@@ -36,7 +37,7 @@ const RegisterForm = () => {
     <div className="mb-20 relative">
       <div className="bg-gray-100 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
         <div>
-          <h2 className={` text-2xl px-3 mt-2`}>
+          <h2 className={`font-medium text-2xl px-3 mt-2`}>
             <span className=" text-teal-500">01 . </span>
             <span>الباقات </span>
           </h2>
@@ -45,7 +46,7 @@ const RegisterForm = () => {
           </div>
         </div>
         <div>
-          <h2 className={` text-2xl px-3 my-8`}>
+          <h2 className={`font-medium text-2xl px-3 my-8`}>
             <span className=" text-teal-500">02 . </span>
             <span> معلومات الحساب </span>
           </h2>
@@ -60,7 +61,7 @@ const RegisterForm = () => {
           </div>
         </div>
         <div>
-          <h2 className={` text-2xl px-3 mt-6`}>
+          <h2 className={`font-medium text-2xl px-3 mt-6`}>
             <span className=" text-teal-500">03 . </span>
             <span>الخطوة الأخيرة </span>
           </h2>

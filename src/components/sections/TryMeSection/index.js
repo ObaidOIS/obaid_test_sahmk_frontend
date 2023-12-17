@@ -7,7 +7,7 @@ const TryMeSection = () => {
   const data = Array.from({ length: 5 }, (_, index) => index + 1);
 
   return (
-    <div className="flex items-end w-full mb-32 min-h-screen bg-white">
+    <div id='try-us' className="flex items-end w-full mb-32 min-h-screen bg-white">
         <div className="w-full text-gray-700 mx-6 body-font">
         <div
             className="container flex flex-col flex-wrap py-24 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap">
@@ -46,7 +46,7 @@ const TryMeSection = () => {
             </div>
         </div>
         <div className="w-full text-center">
-            <div className="bg-gray-100 px-5 py-3 mx-auto inline-flex border border-gray-400 rounded-full">
+            <div className="bg-gray-100 px-5 cursor-pointer py-3 mx-auto inline-flex border border-gray-400 rounded-full">
                 <span className="text-sm text-gray-600 font-semibold capitalize xl:text-center flex">  جرب النظام الذكي على الواتساب  
                 <span className='text-teal-500 flex mr-2  font-bold'> عيش التجربة  
                 <Image src="/assets/icons/green-right-arrow.svg" width={16} height={16} className="mr-5" alt="img" /> </span></span>
