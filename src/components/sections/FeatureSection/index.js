@@ -1,8 +1,10 @@
 "use client";
 import PrimaryCard from "@/components/widgets/PrimaryCard";
+import { PrimaryFeatures } from "@/components/widgets/PrimaryFeatures";
 import TabSection from "@/components/widgets/TabSection";
 import Image from "next/image";
 import React, { useState } from "react";
+import DesktopImage from "/public/assets/images/desktop.svg";
 
 const FeatureSection = () => {
   const Features = [
@@ -18,6 +20,7 @@ const FeatureSection = () => {
           alt="img"
         />
       ),
+      image: "/assets/images/desktop.svg",
     },
     {
       title: "إدارة الأسعار المستهدفة",
@@ -31,6 +34,7 @@ const FeatureSection = () => {
           alt="img"
         />
       ),
+      image: "/assets/images/desktop.svg",
     },
     {
       title: "إستلام تقرير اسبوعي لحالة أسهمك والشركات.",
@@ -44,6 +48,7 @@ const FeatureSection = () => {
           alt="img"
         />
       ),
+      image: "/assets/images/desktop.svg",
     },
   ];
 
@@ -56,9 +61,9 @@ const FeatureSection = () => {
   return (
     <section
       id="features"
-      className="relative bg-gradient-to-tr from-teal-700 to-teal-500 via-teal-950 from-10% to-100% pt-20 "
+      className="relative h-full bg-gradient-to-tr from-teal-700 to-teal-500 via-teal-950 from-10% to-100% pt-20 pb-20"
     >
-      <div className="mx-auto h-[980px] lg:h-[780px] xl:h-[750px] overflow-hidden relative">
+      <div className="mx-auto h-[1000px] sm:h-[1200px] md:h-[1200px] lg:h-[880px] xl:h-[950px] overflow-hidden relative">
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
           <div className="text-3xl font-semibold text-white mb-5 leading-none">
             كل بيانات الأسهم أصبحت أسرع وأقرب إليك
@@ -71,9 +76,9 @@ const FeatureSection = () => {
         <div className="mt-16 relative grid grid-cols-1 mx-auto items-center gap-y-2 pt-10 sm:gap-y-6 lg:grid-cols-12 lg:pt-0">
           <div className="-mx-4 absolute lg:w-[500px] lg:top-8 lg:right-[700px] lg:overflow-x-auto pb-4 sm:mx-0 overflow-visible sm:pb-0 lg:col-span-5">
             <div className="relative z-10 flex space-y-0 px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block ">
-              <div className="lg:hidden flex justify-center mx-auto w-screen mt-20 ">
-                <div className="flex items-center !w-[700px] justify-center bg-white/10 rounded-t-xl border border-b-0">
-                  <ul className="mx-auto grid w-full grid-cols-3 relative px-8 py-4 overflow-x-scroll">
+              <div className="lg:hidden flex justify-center mx-auto w-screen sm:mt-20 mt-36">
+                <div className="flex items-center md:!w-[750px] overflow-x-scroll justify-center bg-white/10 sm:rounded-t-xl border border-b-0">
+                  <ul className="mx-auto flex w-full gap-6 relative px-4 py-4 overflow-x-scroll">
                     {Features.map((item, index) => {
                       return (
                         <li className="" key={index}>
@@ -88,12 +93,19 @@ const FeatureSection = () => {
                       );
                     })}
                   </ul>
-                  
+
                   {Features.map((item, index) => {
                     return (
-                      <div key={index} className={`absolute top-[8.7rem] text-center sm:!w-[700px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${index == activeTab ? "visible opacity-100" : "opacity-0 invisible"}`}>
+                      <div
+                        key={index}
+                        className={`absolute sm:top-[8.7rem] top-[12.7rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
+                          index == activeTab
+                            ? "visible opacity-100"
+                            : "opacity-0 invisible"
+                        }`}
+                      >
                         <div className="bg-white/10 rounded-b-xl border border-t-0 p-5 h-36 my-3 text-right ">
-                        {item.desc}
+                          {item.desc}
                         </div>
                       </div>
                     );
@@ -123,24 +135,39 @@ const FeatureSection = () => {
               })}
             </div>
           </div>
-          <div className="lg:col-span-7 hidden lg:flex">
-            <Image
-              src="/assets/images/desktop.png"
-              width={700}
-              height={800}
-              className="absolute xl:right-0 right-[-30] top-[0px]"
-              alt="img"
-            />
-          </div>
-          <div className="col-span-12 lg:hidden flex justify-center ">
-            <Image
-              src="/assets/images/desktop.png"
-              width={700}
-              height={800}
-              className="absolute top-64 sm:top-56"
-              alt="img"
-            />
-          </div>
+          {Features.map((item, index) => {
+            return activeTab === index ? (
+              <div key={index} className="lg:col-span-7 hidden lg:flex">
+                <Image
+                  src={item.image}
+                  width={700}
+                  height={800}
+                  className="absolute xl:right-0 right-[-30] top-[0px]"
+                  alt="img"
+                />
+              </div>
+            ) : (
+              ""
+            );
+          })}
+          {Features.map((item, index) => {
+            return activeTab === index ? (
+              <div
+                key={index}
+                className="col-span-12 z-30 lg:hidden flex justify-center "
+              >
+                <Image
+                  src={item.image}
+                  width={750}
+                  height={800}
+                  className="absolute top-64 sm:top-56"
+                  alt="img"
+                />
+              </div>
+            ) : (
+              ""
+            );
+          })}
         </div>
       </div>
     </section>

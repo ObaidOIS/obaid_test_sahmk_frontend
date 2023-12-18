@@ -11,36 +11,46 @@ import {
 
 const Footer = () => {
   const footerLinks = [
-    { name: "الرئيسية" },
-    { name: "المميزات" },
-    { name: "خدماتنا" },
-    { name: "تجربة النظام" },
-    { name: "حساب تعريفي" },
-    { name: "اتصل بنا" },
+    { name: "الرئيسية", href: '#' },
+    { name: "المميزات", href: '#features' },
+    { name: "خدماتنا", href: '#services' },
+    { name: "تجربة النظام", href: '#pricing' },
+    { name: "حساب تعريفي", href: '/userprofile' },
+    { name: "اتصل بنا", href: '#try-us' },
   ];
 
   const socialIncons = [
     {
+      name: 'YouTube',
+      href: '#',
       icon: (
         <FaYoutube size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
+      name: 'GitHub',
+      href: '#',
       icon: (
         <FaGithub size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
+      name: 'Twitter',
+      href: '#',
       icon: (
         <FaTwitter size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
+      name: 'Instagram',
+      href: '#',
       icon: (
         <FaInstagram size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
+      name: 'Facebook',
+      href: '#',
       icon: (
         <FaFacebook size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
@@ -59,18 +69,20 @@ const Footer = () => {
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
           <div className="grid grid-cols-2 align-middle items-center gap-20 my-8">
-            <Link href="/">
+            <Link href="#">
             <Image
               src="/assets/logos/logo.svg"
-              width={170} height={170}
+              width={200} height={200}
+              className=" cursor-pointer"
               alt="img"
             />
             </Link>
           <div className="mx-auto">
             <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
-            <div className="flex justify-center mt-5">
-            <Image src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" />
-            </div>
+            <Link href="#" className="flex justify-center mt-5">
+            <Image src="/assets/images/tadawul.svg"
+             width={170} height={170} className="cursor-pointer" alt="img" />
+            </Link>
           </div>
           </div>
           <div className="flex flex-col items-center gap-6 mb-2">
@@ -78,7 +90,7 @@ const Footer = () => {
               {footerLinks.map((item, index) => {
                 return (
                   <Link
-                    href="#_"
+                    href={item.href}
                     key={index}
                     className="font-semibold hover:text-gray-500"
                   >
@@ -90,7 +102,7 @@ const Footer = () => {
             <div className="flex items-center gap-12 py-8 px-10">
               {socialIncons.map((item, index) => {
                 return (
-                  <Link href="#_" key={index}>
+                  <Link href={item.href} key={index}>
                     {item.icon}
                   </Link>
                 );

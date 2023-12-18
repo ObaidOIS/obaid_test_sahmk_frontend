@@ -1,36 +1,93 @@
-import React from "react";
+import React, {useState} from "react";
 import PricingCard from "@/components/widgets/PricingCard";
 import BasicHeading from "@/components/widgets/BasicHeading";
 import RadioTabs from "@/components/widgets/RadioTabs";
+import { RadioGroup } from "@headlessui/react";
 
 const PricingSection = () => {
-  const radioTabOptions = [{ tab: "شهري" }, { tab: "سنوي" }];
+  
+  const frequencies = [
+    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
+  ];
 
+  const [frequency, setFrequency] = useState(frequencies[0]);
+
+  const tiers = [
+    {
+      name: "الباقة المجانية",
+      id: "tier-freelancer",
+      href: "#",
+      price: { monthly: "49 ريال", annually: "488 ريال" },
+      description: "الباقة الأساسية تستطيع من خلالها الاستعلام عن اسعار الاسهم وسعر الافتتاح والاغلاق اليومي لكل سهم",
+      button: "اشترك الآن",
+      features: [
+        "وصول لأسهم أكثر من +300 شركة",
+        "معرفة تفاصيل الشركات المدرجة في الأسهم",
+        "السؤال عن أوقات التوزيعات لأي سهم",
+        "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+        "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+        "الحصول على تقرير اسبوعي لأداء السهم PDF",
+      ],
+      mostPopular: false,
+    },
+    {
+      name: "باقة البريميوم",
+      id: "tier-startup",
+      href: "#",
+      price: { monthly: "49 ريال", annually: "488 ريال" },
+      description: "الباقة الأساسية تستطيع من خلالها الاستعلام عن اسعار الاسهم وسعر الافتتاح والاغلاق اليومي لكل سهم",
+      button: "اشترك الآن",
+      features: [
+        "وصول لأسهم أكثر من +300 شركة",
+        "معرفة تفاصيل الشركات المدرجة في الأسهم",
+        "السؤال عن أوقات التوزيعات لأي سهم",
+        "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+        "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+        "الحصول على تقرير اسبوعي لأداء السهم PDF",
+      ],
+      mostPopular: true,
+      badge: "موصى به"
+    },
+    {
+      name: "الباقة المتقدمة",
+      id: "tier-enterprise",
+      href: "#",
+      price: { monthly: "49 ريال", annually: "488 ريال" },
+      description: "الباقة الأساسية تستطيع من خلالها الاستعلام عن اسعار الاسهم وسعر الافتتاح والاغلاق اليومي لكل سهم",
+      button: "اشترك الآن",
+      features: [
+        "وصول لأسهم أكثر من +300 شركة",
+        "معرفة تفاصيل الشركات المدرجة في الأسهم",
+        "السؤال عن أوقات التوزيعات لأي سهم",
+        "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+        "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+        "الحصول على تقرير اسبوعي لأداء السهم PDF",
+      ],
+      mostPopular: false,
+    },
+  ];
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
   return (
-    <div id="pricing" className="bg-gray-100 py-2">
-      <div className="md:mx-8 ">
-        <div className="max-w-2xl mb-8 mt-20 mx-auto text-center ">
-          <div className="text-3xl font-semibold mb-5 leading-tight md:leading-none">
-            كل بيانات الأسهم أصبحت أسرع وأقرب إليك
-          </div>
-          <p className=" font-semibold text-gray-400 ">
-            بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن
-            الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة{" "}
+    <div id="pricing" className=" bg-bgColor dark:bg-darkColor py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="mt-2 text-4xl font-bold tracking-tight text-darkColor dark:text-whiteColor  sm:text-5xl">
+          كل بيانات الأسهم أصبحت أسرع وأقرب إليك
           </p>
         </div>
-        <div className="my-20">
-          <RadioTabs radioTabOptions={radioTabOptions} />
+        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-darkColor/50 dark:text-gray-300">
+        بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة 
+        </p>
+        <div className="mt-16 flex justify-center">
+          <RadioTabs frequencies={frequencies} setFrequency={setFrequency} frequency={frequency} />
         </div>
-        <div className="grid lg:grid-cols-3 grid-cols-1 mb-20 gap-x-6">
-          <div>
-            <PricingCard card="enterprise" />
-          </div>
-          <div>
-            <PricingCard primaryCard={true} card="intermediate" />
-          </div>
-          <div>
-            <PricingCard card="basic" />
-          </div>
+        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          {tiers.map((tier, index) => {
+            return <div key={index}><PricingCard tier={tier} frequencies={frequencies} frequency={frequency} setFrequency={setFrequency} /></div>;
+          })}
         </div>
       </div>
     </div>

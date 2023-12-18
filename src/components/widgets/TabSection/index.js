@@ -3,7 +3,7 @@ import React from "react";
 const TabSection = ({title, desc, handleTabClick, index, activeTab}) => {
   return (
     <>
-      <div className=" flex">
+      <div className=" flex justify-center">
 
           <input
             className="peer sr-only"

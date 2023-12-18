@@ -63,7 +63,13 @@ const Header = ({toggleSidebar}) => {
                 );
               })}
             </nav>
-            <div className="lg:hidden flex flex-1 justify-end " onClick={()=>toggleSidebar()}><IoMdMenu size={24} /></div>
+            <div className="lg:hidden flex items-center flex-1 justify-end " onClick={()=>toggleSidebar()}>
+            <div className="ml-4 inline">
+                    <PrimaryButton button="سجل معنا" buttonStyle="!py-1" />
+            </div>
+              <IoMdMenu size={24} />
+              
+              </div>
             <div className="items-center h-full lg:flex hidden ">
               <a href="#_" className="hover:text-gray-900 font-normal">
                 {" "}

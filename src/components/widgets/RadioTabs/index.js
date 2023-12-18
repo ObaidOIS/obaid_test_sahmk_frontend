@@ -1,43 +1,35 @@
-"use client";
-import React, { useState } from 'react'
+import React from "react";
+import { RadioGroup } from "@headlessui/react";
 
-const RadioTabs = ({radioTabOptions}) => {
+const RadioTabs = ({ frequencies, setFrequency, frequency }) => {
 
-    const [selectedTab, setSelectedTab] = useState(0);
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
-    const handleTabChange = (index) => {
-      setSelectedTab(index);
-    };
-    
   return (
-    <main className="grid place-items-center">
-    <div className="grid grid-cols-2 gap-2 rounded-full border border-gray-400 bg-white px-3 py-1.5">
-      {radioTabOptions.map((item, index) => (
-        <div key={index}>
-          <input
-            type="radio"
-            name="option"
-            id={`tab-${index}`}
-            value={item.tab}
-            className="peer hidden"
-            checked={selectedTab === index}
-            onChange={() => handleTabChange(index)}
-          />
-          <label
-            htmlFor={`tab-${index}`}
-            className={`block cursor-pointer text-center font-normal text-lg select-none rounded-full px-2 pb-2 pt-0 ${
-              selectedTab === index
-                ? 'bg-teal-500 px-7 hover:shadow-xl text-white'
-                : ''
-            }`}
-          >
-            {item.tab}
-          </label>
-        </div>
+    <RadioGroup
+      value={frequency}
+      onChange={setFrequency}
+      className="grid grid-cols-2 gap-x-1 rounded-full bg-black/5 p-1 text-center text-xs font-semibold leading-5 text-white"
+    >
+      <RadioGroup.Label className="sr-only">Payment frequency</RadioGroup.Label>
+      {frequencies.map((option) => (
+        <RadioGroup.Option
+          key={option.value}
+          value={option}
+          className={({ checked }) =>
+            classNames(
+              checked ? "bg-accentColor text-whitColor" : "text-darkColor",
+              "cursor-pointer rounded-full px-2.5 py-1"
+            )
+          }
+        >
+          <span>{option.label}</span>
+        </RadioGroup.Option>
       ))}
-    </div>
-  </main>
-  )
-}
+    </RadioGroup>
+  );
+};
 
-export default RadioTabs
+export default RadioTabs;

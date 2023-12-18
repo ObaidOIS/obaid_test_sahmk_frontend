@@ -21,7 +21,9 @@ export default function Home() {
     <>
 
       <Header toggleSidebar={toggleSidebar} />
+      <div className={` ${isSidebarOpen ? "" : ""} w-96 z-[2147483647] flex lg:hidden`}>
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      </div>
       <HeroSection />
       <FeatureSection />
       <ServiceSection />
