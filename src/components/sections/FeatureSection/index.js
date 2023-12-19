@@ -63,7 +63,7 @@ const FeatureSection = () => {
       id="features"
       className="relative h-full bg-gradient-to-tr from-teal-700 to-teal-500 via-teal-950 from-10% to-100% pt-20 pb-20"
     >
-      <div className="mx-auto h-[1000px] sm:h-[1200px] md:h-[1200px] lg:h-[880px] xl:h-[950px] overflow-hidden relative">
+      <div className="mx-auto h-[1000px] sm:h-[1200px] md:h-[1200px] lg:h-[880px] xl:h-[900px] overflow-hidden relative">
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
           <div className="text-3xl font-semibold text-white mb-5 leading-none">
             كل بيانات الأسهم أصبحت أسرع وأقرب إليك

@@ -28,7 +28,7 @@ const SimpleLineChart = () => {
             <Area type="monotone" dataKey="uv" stroke="#1D6362" className=' cursor-pointer'
             activeDot={{ stroke: '#1D6362', strokeWidth: 4, r: 7, fill: '#51C77A'}} strokeWidth={2} fill="url(#colorUv)" />
             <CartesianGrid stroke="#ccc" strokeDasharray="" horizontal={false} />
-            <XAxis dataKey="name" tickLine={false} dy={8} className='font-bold text-sm !text-black' />
+            <XAxis dataKey="name" tickLine={false} dy={8} className='font-medium text-sm text-darkColor' />
             <YAxis orientation='right' axisLine={false} dx={20} tickLine={false} className='text-xs text-black'/>
             <Tooltip 
               cursor={{ stroke:"teal", strokeWidth:2 }}

@@ -51,7 +51,7 @@ const ProfileFooter = () => {
                   <Link
                     href="#_"
                     key={index}
-                    className="font-semibold text-lg hover:text-gray-500"
+                    className=" font-medium text-lg hover:text-gray-500"
                   >
                     {item.name}
                   </Link>
@@ -69,10 +69,10 @@ const ProfileFooter = () => {
             </div>
           </div>
           <div className="">
-            <p className="text-base font-semibold text-center">
+            <p className="text-base font-medium text-center">
               © جميع الحقوق محفوظة لمنصة سهمك{" "}
             </p>
-            <p className="text-base font-semibold mt-3 text-center">
+            <p className="text-base font-medium mt-3 text-center">
               سجل تجاري رقم 11234567890{" "}
             </p>
           </div>
