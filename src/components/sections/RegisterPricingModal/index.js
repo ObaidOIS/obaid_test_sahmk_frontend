@@ -13,7 +13,15 @@ const RegisterPricingModal = () => {
     const handleCheckboxChange = () => {
         setChecked(!isChecked);
     };
-  const radioTabOptions = [{ tab: "شهري" }, { tab: "سنوي" }];
+
+    
+  const frequencies = [
+    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
+  ];
+
+  const [frequency, setFrequency] = useState(frequencies[0]);
+
 
   const footerLinks = [
     {
@@ -61,11 +69,11 @@ const RegisterPricingModal = () => {
     <div>
       <BasicModal heading={`الباقات`}>
         <div>
-          <RadioTabs radioTabOptions={radioTabOptions} />
+          <RadioTabs frequencies={frequencies} setFrequency={setFrequency} frequency={frequency} />
           <div>
             {footerLinks.map((item, index) => {
               return (
-                <div key={index}>
+                <div key={index} onClick={handleCheckboxChange}>
                   <PricingRadioButton
                    isChecked={isChecked}
                     title={item.title}

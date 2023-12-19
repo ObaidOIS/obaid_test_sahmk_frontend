@@ -8,27 +8,18 @@ const RadioTabs = ({ frequencies, setFrequency, frequency }) => {
   }
 
   return (
-    <RadioGroup
-      value={frequency}
-      onChange={setFrequency}
-      className="grid grid-cols-2 gap-x-1 rounded-full bg-black/5 p-1 text-center text-xs font-semibold leading-5 text-white"
-    >
-      <RadioGroup.Label className="sr-only">Payment frequency</RadioGroup.Label>
-      {frequencies.map((option) => (
-        <RadioGroup.Option
-          key={option.value}
-          value={option}
-          className={({ checked }) =>
-            classNames(
-              checked ? "bg-accentColor text-whitColor" : "text-darkColor",
-              "cursor-pointer rounded-full px-2.5 py-1"
-            )
-          }
-        >
-          <span>{option.label}</span>
-        </RadioGroup.Option>
+    <fieldset className="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center bg-whiteColor text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200">
+        {frequencies.map((option) => (
+        <label key={option.value} className={`${frequency.value === option.value ? 'bg-accentColor text-white' : 'text-gray-500'} cursor-pointer rounded-full px-2.5 py-1`}>
+          <input type="radio" name="frequency" 
+            value={option.value}
+            className="sr-only"
+            checked={frequency.value === option.value}
+            onChange={() => setFrequency(option)} />
+           <span>{option.label}</span>
+        </label>
       ))}
-    </RadioGroup>
+      </fieldset>
   );
 };
 

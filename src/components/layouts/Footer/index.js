@@ -11,12 +11,12 @@ import {
 
 const Footer = () => {
   const footerLinks = [
-    { name: "الرئيسية", href: '#' },
-    { name: "المميزات", href: '#features' },
+    { name: "الرئيسية", href: '#features' },
+    { name: "المميزات", href: '#' },
     { name: "خدماتنا", href: '#services' },
-    { name: "تجربة النظام", href: '#pricing' },
+    { name: "تجربة النظام", href: '#' },
     { name: "حساب تعريفي", href: '/userprofile' },
-    { name: "اتصل بنا", href: '#try-us' },
+    { name: "اتصل بنا", href: '#' },
   ];
 
   const socialIncons = [

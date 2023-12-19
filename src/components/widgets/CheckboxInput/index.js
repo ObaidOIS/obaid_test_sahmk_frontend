@@ -23,8 +23,7 @@ const CheckboxInput = ({title, desc, badge}) => {
              {badge == "" ? "" :
             <MainBadge
               title={badge}
-              badgeContainerStyle="text-right sm:text-center mb-3"
-              badgeStyle="bg-amber-100 text-amber-600 text-sm !px-3 !py-1"
+              badgeStyle="bg-amber-100 text-amber-600 text-sm px-3 py-1 "
             /> }
           </div>
         <div className="ml-2 text-sm text-gray-400 mx-2">{desc}</div>

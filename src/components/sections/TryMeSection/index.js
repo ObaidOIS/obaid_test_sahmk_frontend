@@ -14,13 +14,13 @@ const TryMeSection = () => {
             <div className="flex-shrink-0 w-full lg:w-1/3 px-1 mx-auto md:mx-0">
             <div className="mb-3 mt-10 flex w-4/5">
                 <div className="">
-                    <div className="text-xl text-teal-500 font-extrabold mb-5 leading-none">
+                    <div className="text-xl text-accentColor font-medium mb-5 leading-none">
                     جرب أسأل النظام
                     </div>
-                    <div className="text-3xl font-semibold mb-5 leading-none">
+                    <div className="text-3xl text-black font-semibold mb-5 leading-none">
                     وصول لأسعار الأسهم ومعلومات السوق
                     </div>
-                    <p className=" font-semibold text-gray-400 leading-7 lg:pl-20">جرب بإمكانك تجربة منصة سهمك من خلال سؤال عن الأسئلة في سوق الاسهم  النظام</p>
+                    <p className=" text-gray-400/80 leading-7 lg:pl-20">جرب بإمكانك تجربة منصة سهمك من خلال سؤال عن الأسئلة في سوق الاسهم  النظام</p>
                 </div>
             </div>
             </div>
