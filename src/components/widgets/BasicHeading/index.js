@@ -7,7 +7,7 @@ const BasicHeading = ({ heading, desc, styling, id }) => {
         <div className="text-3xl font-semibold mb-5 leading-none">
           {heading}
         </div>
-        <p className=" font-semibold text-gray-400 leading-7 ">{desc}</p>
+        <p className=" font-small text-gray-400 leading-7 ">{desc}</p>
       </div>
     </div>
   );
