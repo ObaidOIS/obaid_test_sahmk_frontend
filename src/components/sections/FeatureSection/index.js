@@ -65,10 +65,10 @@ const FeatureSection = () => {
     >
       <div className="mx-auto h-[1000px] sm:h-[1200px] md:h-[1200px] lg:h-[880px] xl:h-[900px] overflow-hidden relative">
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
-          <div className="text-3xl font-semibold text-white mb-5 leading-none">
+          <div className="text-2xl font-semibold text-white mb-5 leading-none">
             كل بيانات الأسهم أصبحت أسرع وأقرب إليك
           </div>
-          <p className=" font-semibold text-gray-400 ">
+          <p className=" font-small text-gray-300 ">
             بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن
             الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة{" "}
           </p>

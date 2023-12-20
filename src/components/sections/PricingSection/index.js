@@ -74,11 +74,11 @@ const PricingSection = () => {
     <div id="pricing" className=" bg-bgColor dark:bg-darkColor py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="mt-2 text-4xl font-bold tracking-tight text-darkColor dark:text-whiteColor  sm:text-5xl">
-          كل بيانات الأسهم أصبحت أسرع وأقرب إليك
+          <p className="mt-2 text-2xl font-bold tracking-tight text-darkColor dark:text-whiteColor  sm:text-4xl">
+         اشترك الآن
           </p>
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-darkColor/50 dark:text-gray-300">
+        <p className="mx-auto mt-6 max-w-2xl text-center text-l leading-8 text-darkColor/50 dark:text-gray-300">
         بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة 
         </p>
         <div className="mt-16 flex justify-center">

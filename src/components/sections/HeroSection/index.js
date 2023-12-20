@@ -10,7 +10,7 @@ const HeroSection = () => {
         <div className="lg:2/5 xl:w-2/3 text-center xs:mx-5 sm:mx-20">
         <div className="w-full text-center mb-10">
             <div className="bg-green-100/60 px-6 py-3 mx-auto inline-flex rounded-full">
-                <span className="text-sm text-teal-800 font-bold capitalize xl:text-center flex"> 
+                <span className="text-sm text-teal-800 font-small capitalize xl:text-center flex"> 
                 <Image src="/assets/icons/whatsapp.svg" width={20} height={20} className="ml-5" alt="img" /> 
                 عن طريق الواتساب توصلك كل معلومات الأسهم
                 </span>
@@ -27,7 +27,7 @@ const HeroSection = () => {
                 alt="img" /></span>
           </div>
           
-          <div className="mb-8 mt-12 text-xl text-gray-500/90 w-9/12 mx-auto antialiased">
+          <div className="mb-8 mt-12 text-l text-gray-500/90 w-9/12 mx-auto antialiased">
           
             بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن
             الأسهم وسيعطيك إجابات دقيقة بإمكانك مع نظام سهمك الذكي الاستفسار
