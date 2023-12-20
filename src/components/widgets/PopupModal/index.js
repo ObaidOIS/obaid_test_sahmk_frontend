@@ -1,16 +1,28 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
-const PopupModal = ({image, title, desc}) => {
-  const [open, setOpen] = useState(true);
+const PopupModal = ({image, title, desc, openModal, setOpenModal}) => {
+  // const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
 
+  
+  useEffect(() => {
+    // Close the modal after 2000 milliseconds (2 seconds)
+    const timeoutId = setTimeout(() => {
+      setOpenModal(false);
+    }, 1000);
+
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, []); 
+
+
   return (
     <div>
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Transition.Root show={openModal} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={()=>setOpenModal(false)}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

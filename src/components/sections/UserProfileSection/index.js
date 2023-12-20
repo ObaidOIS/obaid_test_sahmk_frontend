@@ -8,13 +8,22 @@ import ProfileFooter from "@/components/sections/ProfileFooter";
 import MainSidebar from "@/components/widgets/MainSidebar";
 import DarkNavOverlay from "../DarkNavOverlay";
 import Stats from "@/components/widgets/Stats";
-import IconSwitch from "@/components/widgets/IconSwitch";
-import PricingAddPanel from "@/components/widgets/PricingAddPanel";
-import ModalUI from "@/components/widgets/ModalUI";
-import PopupModal from "@/components/widgets/PopupModal";
+import UserProfileFeatureOne from "../UserProfileFeatureOne";
+import UserProfileFeatureTwo from "../UserProfileFeatureTwo";
 
 const UserProfileSection = () => {
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isNotificationChecked, setIsNotificationChecked] = useState(false);
+  const [isTvChecked, setIsTvChecked] = useState(false);
+  const [isPricesChecked, setIsPricesChecked] = useState(false);
+  const [isSecondFeatureModalOpen, setIsSecondFeatureModalOpen] = useState(false);
+
+
+  // let [page, setPage] = useState({
+  //   name: "userprofile",
+  //   value: "الخدمات الرئىيسية",
+  // });
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -26,11 +35,9 @@ const UserProfileSection = () => {
     }
   );
 
-  // let [page, setPage] = useState({ name: "target-prices", value: "الأسعار المستهدفة للأسهم" });
- 
   useEffect(() => {
     setPage(JSON.parse(localStorage.getItem("page")));
-  }, [])
+  }, []);
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page); // Implement a function to remove circular references
@@ -53,13 +60,9 @@ const UserProfileSection = () => {
     );
   }
 
-  const [isNotificationChecked, setIsNotificationChecked] = useState(false);
-
   const handleNotificationSwitch = () => {
     setIsNotificationChecked((prevChecked) => !prevChecked);
   };
-
-  const [isTvChecked, setIsTvChecked] = useState(false);
 
   const handleTvSwitch = () => {
     setIsTvChecked((prevChecked) => !prevChecked);
@@ -144,45 +147,13 @@ const UserProfileSection = () => {
     { id: 3, name: "3 أشهر", active: false },
   ];
 
-  const [isPricingAddPanelOpen, setIsPricingAddPanelOpen] = useState(false);
 
-  const handleFeedClick = () => {
-    setIsPricingAddPanelOpen(!isPricingAddPanelOpen);
+  const handlePricesSwitch = () => {
+    setIsPricesChecked((prevChecked) => !prevChecked);
   };
-
-  const dataList = [
-    {name: 'الاتصالات السعودية', selected: false},
-    {name: 'شركة علم', selected: false},
-    {name: 'مصرف الانماء', selected: true},
-    {name: 'الجزيرة', selected: true},
-    {name: 'الاتصالات المتكاملة', selected: false},
-    {name: 'الرياض', selected: false},
-    {name: 'سابك', selected: false},
-  ]
-  const [openSucessModal, setOpenSucessModal] = useState(false)
 
   return (
     <div>
-      {openSucessModal ? <PopupModal
-      onClickHandle={()=>{ setIsPricingAddPanelOpen(false); setOpenSucessModal(true);}}
-      onClose={() => setIsPricingAddPanelOpen(false)} 
-      image={<Image
-        src="/assets/icons/success-new-icon.svg"
-        width={400}
-        height={400}
-        alt="img"
-        className=""
-      />}
-      title="تم إضافة أسهمك بنجاح"
-      desc="ستصلك يوميا أسعار الافتتاج والاغلاق"
-       /> : ""}
-      {isPricingAddPanelOpen ? <ModalUI 
-      onClickHandle={()=>setOpenSucessModal(true)}
-      onClose={() => setIsPricingAddPanelOpen(false)} 
-      dataList={dataList}
-      title="إضافة تعديل أسهمي"
-      button="حفظ"
-       /> : ""}
       <DarkNavOverlay
         page={page}
         setPage={setPage}
@@ -190,6 +161,7 @@ const UserProfileSection = () => {
       >
         <MainSidebar
           isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
           toggleSidebar={toggleSidebar}
           list={list}
         />
@@ -233,15 +205,15 @@ const UserProfileSection = () => {
                 {tagsList.map((item, index) => {
                   return (
                     <span key={index}>
-                    <MainBadge
-                      title={item.name}
-                      index={index}
-                      badgeStyle={`${
-                        item.active == true
-                          ? "bg-darkColor text-whiteColor"
-                          : "bg-gray-200/80 text-darkColor"
-                      } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block`}
-                    />
+                      <MainBadge
+                        title={item.name}
+                        index={index}
+                        badgeStyle={`${
+                          item.active == true
+                            ? "bg-darkColor text-whiteColor"
+                            : "bg-gray-200/80 text-darkColor"
+                        } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block`}
+                      />
                     </span>
                   );
                 })}
@@ -263,15 +235,15 @@ const UserProfileSection = () => {
                     {chartTagsList.map((item, index) => {
                       return (
                         <span key={index}>
-                        <MainBadge
-                          title={item.name}
-                          index={index}
-                          badgeStyle={`${
-                            item.active == true
-                              ? "bg-darkColor text-whiteColor"
-                              : "bg-gray-200/80 text-darkColor"
-                          } truncate px-4 justify-center py-1.5 ml-3 block`}
-                        />
+                          <MainBadge
+                            title={item.name}
+                            index={index}
+                            badgeStyle={`${
+                              item.active == true
+                                ? "bg-darkColor text-whiteColor"
+                                : "bg-gray-200/80 text-darkColor"
+                            } truncate px-4 justify-center py-1.5 ml-3 block`}
+                          />
                         </span>
                       );
                     })}
@@ -282,62 +254,20 @@ const UserProfileSection = () => {
             </div>
           </div>
         ) : page.name == "stock-notification" ? (
-          <div className="space-y-6">
-            <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-              <div className="space-y-4">
-                <ArrowList
-                  leftIcon={
-                    <IconSwitch
-                      handleSwitch={handleNotificationSwitch}
-                      isChecked={isNotificationChecked}
-                    />
-                  }
-                  cardStyle="p-5"
-                  title=" استقبال أسعار الافتتاح والإغلاق  للشركات"
-                  desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
-                  icon={
-                    <Image
-                      src="/assets/icons/green-bell-icon.svg"
-                      width={25}
-                      height={25}
-                      alt="img"
-                      className="ml-5"
-                    />
-                  }
-                  isChecked={isNotificationChecked}
-                  addPanel={<PricingAddPanel handleFeedClick={handleFeedClick} />}
-                />
-                <ArrowList
-                  leftIcon={
-                    <IconSwitch
-                      handleSwitch={handleTvSwitch}
-                      isChecked={isTvChecked}
-                    />
-                  }
-                  cardStyle="p-5"
-                  title=" استلام ملخص السوق"
-                  desc="رسائل ملخص السوق العام"
-                  icon={
-                    <Image
-                      src="/assets/icons/tv-icon.svg"
-                      width={25}
-                      height={25}
-                      alt="img"
-                      className="ml-5"
-                      isChecked={isTvChecked}
-                    />
-                  }
-                />
-              </div>
-            </div>
-          </div>
+          <UserProfileFeatureOne
+            isNotificationChecked={isNotificationChecked}
+            handleNotificationSwitch={handleNotificationSwitch}
+            handleTvSwitch={handleTvSwitch}
+            isTvChecked={isTvChecked}
+          />
         ) : (
           (page.name = "target-prices" ? (
-            <div className="space-y-6">
-              <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                <p>Second tab</p>
-              </div>
-            </div>
+            <UserProfileFeatureTwo
+              setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
+              isSecondFeatureModalOpen={isSecondFeatureModalOpen}
+              handlePricesSwitch={handlePricesSwitch}
+              isPricesChecked={isPricesChecked}
+            />
           ) : (
             (page.name = "weekly-stock" ? (
               <div className="space-y-6">

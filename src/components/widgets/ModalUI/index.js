@@ -1,16 +1,13 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import AddList from "../AddList";
 import PrimaryButton from "../PrimaryButton";
-import SearchInput from "../SearchInput";
 
-const ModalUI = ({ dataList, title, button, onClickHandle }) => {
-  const [open, setOpen] = useState(true);
+const ModalUI = ({ title, button, onClickHandle, content, onClose, isOpen }) => {
   return (
     <div>
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Transition.Root show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={()=>onClose()}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -34,12 +31,12 @@ const ModalUI = ({ dataList, title, button, onClickHandle }) => {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
                   <div className="absolute left-0 top-0 hidden pl-4 pt-4 sm:block">
                     <button
                       type="button"
                       className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      onClick={() => setOpen(false)}
+                      onClick={() => onClose()}
                     >
                       <span className="sr-only">Close</span>
                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -53,24 +50,11 @@ const ModalUI = ({ dataList, title, button, onClickHandle }) => {
                       >
                         {title}
                       </Dialog.Title>
-                      {/* <div onClick={()=>{setSelected(title)}}> */}
-                      <div className="mt-3 w-full">
-                        <div>
-                          <SearchInput />
-                        </div>
-                        <div>
-                          <div className="flex-1 mt-3 font-medium text-lg">
-                            <span>قائمة الشركات </span>
-                            <span className="text-accentColor">تم تحديد ( 2 )</span>
-                          </div>
-                        </div>
-                        <AddList dataList={dataList} />
-                      </div>
-                      {/* </div> */}
+                      {content}
                     </div>
                   </div>
                   <div className="mt-5 sm:mt-4 ">
-                    <div className="sm:flex sm:flex-row-reverse" onClick={onClickHandle}>
+                    <div className="sm:flex sm:flex-row-reverse" onClick={()=>{onClickHandle(); onClose()}}>
                     <PrimaryButton
                       button={button}
                       buttonStyle="py-4 rounded-md !font-normal w-full justify-center mt-6"
