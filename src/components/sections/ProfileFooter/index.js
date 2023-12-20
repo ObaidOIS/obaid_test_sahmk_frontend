@@ -40,7 +40,7 @@ const ProfileFooter = () => {
           <Link href="/" className="mt-8 mb-14">
             <Image
               src="/assets/logos/logo.svg"
-              width={150} height={100}
+              width={100} height={100}
               alt="img"
             />
           </Link>
@@ -51,7 +51,7 @@ const ProfileFooter = () => {
                   <Link
                     href="#_"
                     key={index}
-                    className=" font-medium text-lg hover:text-gray-500"
+                    className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                   >
                     {item.name}
                   </Link>
@@ -69,10 +69,10 @@ const ProfileFooter = () => {
             </div>
           </div>
           <div className="">
-            <p className="text-base font-medium text-center">
+            <p className="mt-1 text-center text-sm leading-6 text-slate-500">
               © جميع الحقوق محفوظة لمنصة سهمك{" "}
             </p>
-            <p className="text-base font-medium mt-3 text-center">
+            <p className="mt-2 text-center text-sm leading-6 text-slate-500">
               سجل تجاري رقم 11234567890{" "}
             </p>
           </div>

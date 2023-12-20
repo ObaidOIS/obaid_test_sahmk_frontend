@@ -4,12 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import React from 'react';
 
+
 const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
   
   return (
     <div>
       <div className="min-h-full">
-        <div className="bg-gray-800 pb-32">
+        <div className="bg-gray-800 pb-32 bg-custome">
           <header className="w-full relative">
             <div className="flex p-6">
               <div
@@ -54,11 +55,11 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
                 className={`text-center mb-8 flex justify-center mt-12 text-whiteColor`}
               >
                 <div className="max-w-2xl ">
-                  <div className="text-3xl mb-5 leading-none">
+                  <div className="text-2xl mb-5 leading-none">
                     مرحبا بك <span className="text-accentColor">عبدالرحمن،</span>{" "}
                     في نظام سهمك
                   </div>
-                  <p className=" font-medium text-gray-400/60 text-lg ">
+                  <p className=" font-small text-gray-400/60 text-lg ">
                     يمكنك إدارة حسابك والاطلاع على تفاصيل الاسهم وباقتك
                   </p>
                 </div>

@@ -35,7 +35,7 @@ const RegisterForm = () => {
 
   return (
     <div className="mb-20 relative">
-      <div className="bg-gray-100 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
+      <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
         <div>
           <h2 className={`font-medium text-2xl px-3 mt-2`}>
             <span className=" text-teal-500">01 . </span>

@@ -92,7 +92,7 @@ const Footer = () => {
                   <Link
                     href={item.href}
                     key={index}
-                    className="font-semibold hover:text-gray-500"
+                    className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                   >
                     {item.name}
                   </Link>
@@ -110,10 +110,10 @@ const Footer = () => {
             </div>
           </div>
           <div className="">
-            <p className="text-base font-semibold text-center">
+            <p className="mt-1 text-center text-sm leading-6 text-slate-500">
               © جميع الحقوق محفوظة لمنصة سهمك{" "}
             </p>
-            <p className="text-base font-semibold mt-3 text-center">
+            <p className="mt-1 text-center text-sm leading-6 text-slate-500">
               سجل تجاري رقم 11234567890{" "}
             </p>
           </div>
