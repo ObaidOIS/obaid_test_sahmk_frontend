@@ -25,9 +25,9 @@ const PricingAddPanel = ({
             <span>{title}</span>
             <span className="text-gray-400 truncate"> العدد ( {selectedItems?.length} ) </span>
           </div>
-          <div onClick={handleFeedClick} className="flex-1 text-accentColor flex items-center sm:justify-end text-base font-medium">
+          <div onClick={handleFeedClick} className="flex-1 text-primaryColor flex items-center sm:justify-end text-base font-medium">
             <PlusIcon
-              className="h-5 w-5 text-accentColor group-hover:text-accentColor"
+              className="h-5 w-5 text-primaryColor group-hover:text-primaryColor"
               aria-hidden="true"
             />
             إضافة /تعديل سهم

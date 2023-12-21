@@ -17,7 +17,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
         key={tier.id}
         className={classNames(
           tier.mostPopular
-            ? "bg-whiteColor dark:bg-white/5 ring-2 ring-accentColor"
+            ? "bg-whiteColor dark:bg-white/5 ring-2 ring-primaryColor"
             : "ring-1 bg-whiteColor dark:bg-white/5 ring-darkColor/10 dark:ring-white/10",
           "rounded-3xl p-8 xl:p-10"
         )}
@@ -25,12 +25,12 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
         <div className="flex items-center justify-between gap-x-4">
           <h3
             id={tier.id}
-            className="text-lg font-semibold leading-8 text-accentColor dark:text-white"
+            className="text-lg font-semibold leading-8 text-primaryColor dark:text-white"
           >
             {tier.name}
           </h3>
           {tier.mostPopular ? (
-            <p className="rounded-full bg-accentColor px-2.5 py-1 text-xs font-semibold leading-5 text-white">
+            <p className="rounded-full bg-primaryColor px-2.5 py-1 text-xs font-semibold leading-5 text-white">
               {tier.badge}
             </p>
           ) : null}
@@ -51,8 +51,8 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
           aria-describedby={tier.id}
           className={classNames(
             tier.mostPopular
-              ? "bg-accentColor text-white shadow-sm hover:bg-accentColor/90 dark:focus-visible:outline-accentColor"
-              : "bg-whiteColor border-2 border-accentColor dark:bg-white/10 text-accentColor hover:bg-darkColor/5 dark:hover:bg-white/20 focus-visible:outline-white",
+              ? "bg-primaryColor text-white shadow-sm hover:bg-primaryColor/90 dark:focus-visible:outline-primaryColor"
+              : "bg-whiteColor border-2 border-primaryColor dark:bg-white/10 text-primaryColor hover:bg-darkColor/5 dark:hover:bg-white/20 focus-visible:outline-white",
             "mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           )}
         >
@@ -65,7 +65,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
           {tier.features.map((feature) => (
             <li key={feature} className="flex gap-x-3">
               <CheckIcon
-                className="h-6 w-5 flex-none text-accentColor"
+                className="h-6 w-5 flex-none text-primaryColor"
                 aria-hidden="true"
               />
               {feature}

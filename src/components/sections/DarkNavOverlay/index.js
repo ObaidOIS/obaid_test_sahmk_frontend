@@ -56,7 +56,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
               >
                 <div className="max-w-2xl ">
                   <div className="text-2xl mb-5 leading-none">
-                    مرحبا بك <span className="text-accentColor">عبدالرحمن،</span>{" "}
+                    مرحبا بك <span className="text-primaryColor">عبدالرحمن،</span>{" "}
                     في نظام سهمك
                   </div>
                   <p className=" font-small text-gray-400/60 text-lg ">

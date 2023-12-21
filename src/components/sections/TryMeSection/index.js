@@ -14,7 +14,7 @@ const TryMeSection = () => {
             <div className="flex-shrink-0 w-full lg:w-1/3 px-1 mx-auto md:mx-0">
             <div className="mb-3 mt-10 flex w-4/5">
                 <div className="">
-                    <div className="text-xl text-accentColor font-medium mb-5 leading-none">
+                    <div className="text-xl text-primaryColor font-medium mb-5 leading-none">
                     جرب أسأل النظام
                     </div>
                     <div className="text-3xl text-black font-semibold mb-5 leading-none">

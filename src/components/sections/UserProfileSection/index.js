@@ -29,15 +29,21 @@ const UserProfileSection = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  let [page, setPage] = useState({
-      name: "userprofile",
-      value: "الخدمات الرئىيسية",
-    }
-  );
+  const storedPage = typeof window !== 'undefined' && JSON.parse(localStorage.getItem("page"));
 
-  useEffect(() => {
-    setPage(JSON.parse(localStorage.getItem("page")));
-  }, []);
+  let [page, setPage] = useState(storedPage || {
+    name: "userprofile",
+    value: "الخدمات الرئىيسية",
+  }
+);
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && storedPage && page !== storedPage) {
+  //     setPage(storedPage);
+  // }
+  // }, [storedPage]);
+
+  
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page); // Implement a function to remove circular references
@@ -59,6 +65,7 @@ const UserProfileSection = () => {
       })
     );
   }
+
 
   const handleNotificationSwitch = () => {
     setIsNotificationChecked((prevChecked) => !prevChecked);
@@ -154,6 +161,8 @@ const UserProfileSection = () => {
 
   return (
     <div>
+      {typeof window == 'undefined' ?  "" :
+      <>
       <DarkNavOverlay
         page={page}
         setPage={setPage}
@@ -165,6 +174,7 @@ const UserProfileSection = () => {
           toggleSidebar={toggleSidebar}
           list={list}
         />
+        
         {page.name == "userprofile" ? (
           <div className="space-y-6 translation duration-500 ease-in-out">
             <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
@@ -291,7 +301,8 @@ const UserProfileSection = () => {
       </DarkNavOverlay>
       <div>
         <ProfileFooter />
-      </div>
+      </div> 
+      </>}
     </div>
   );
 };
