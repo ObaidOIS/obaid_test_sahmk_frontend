@@ -1,19 +1,22 @@
-import React from "react";
-import { PlusIcon } from "@heroicons/react/20/solid";
+import React, { useState } from "react";
 import Image from "next/image";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
-const AddList = ({ dataList, selected }) => {
+const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon, isOpen, removeItem }) => {
+  
+  
   return (
     <div>
       <ul role="list" className="mt-4 grid grid-cols-1 gap-4">
-        {dataList.map((person, personIdx) => (
+        {filteredData?.length !== 0  &&
+        filteredData?.map((person, personIdx) => (
           <li key={personIdx}>
             <button
               type="button"
+              onClick={() => {toggleSelection !== undefined ? toggleSelection(personIdx, person.name) : null}}
               className={`group flex w-full items-center justify-between space-x-3 rounded-full border ${
-                person.selected
-                  ? "border-accentColor"
+                isOpen == true && selectedItems?.some(item => item.id === personIdx) ? 
+                  "border-accentColor"
                   : "border-gray-300"
               } p-1 text-left shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accentColor focus:ring-offset-2`}
             >
@@ -41,16 +44,15 @@ const AddList = ({ dataList, selected }) => {
                 </span>
               </span>
               <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center">
-                {person.selected ? (
-                  <CheckIcon
+                { selectedItems?.some(item => item.id === personIdx) ? (
+                  isOpen ? <CheckIcon
                     className="h-6 w-5 flex-none text-accentColor"
                     aria-hidden="true"
-                  />
+                  /> : <div>{icon}</div>
                 ) : (
-                  <PlusIcon
-                    className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
+                  <div 
+                  onClick={()=>removeItem(personIdx)}
+                  >{icon}</div>
                 )}
               </span>
             </button>
