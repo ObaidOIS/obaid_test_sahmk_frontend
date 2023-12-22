@@ -138,7 +138,7 @@ export function PrimaryFeatures() {
                         className={clsx(
                           'font-display text-lg ui-not-focus-visible:outline-none',
                           selectedIndex === featureIndex
-                            ? 'text-primaryColor lg:text-white'
+                            ? 'text-secondaryColor lg:text-white'
                             : 'text-blue-100 hover:text-white lg:text-white',
                         )}
                       >
@@ -216,7 +216,7 @@ export function PrimaryFeatures() {
                         className={clsx(
                           'font-display text-lg ui-not-focus-visible:outline-none',
                           selectedIndex === featureIndex
-                            ? 'text-primaryColor lg:text-white'
+                            ? 'text-secondaryColor lg:text-white'
                             : 'text-whiteColor/5 hover:text-white lg:text-white',
                         )}
                       >

@@ -10,7 +10,7 @@ const RadioButtonGroup = ({buttonTabs, selectedMemory, handleMemoryChange}) => {
               key={index}
               className={`flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1 cursor-pointer focus:outline-none ${
                 selectedMemory === tab.button
-                  ? "ring-2 ring-accentColor ring-offset-2 bg-accentColor text-white hover:bg-accentColor"
+                  ? "ring-2 ring-primaryColor ring-offset-2 bg-primaryColor text-white hover:bg-primaryColor"
                   : "ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50"
               }`}
             >

@@ -9,12 +9,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryColor: '#1F4B56',
-        accentColor: '#4F9C6A',
+        primaryColor: '#4F9C6A',
+        secondaryColor: '#1F4B56',
         whiteColor: '#fff',
         darkColor: '#000',
         bgColor: '#F9FAFB',
-        // gray
+        darkGreyColor: '#6B7280',
+        mediumGreyColor: '#D1D5DB',
+        lightGreyColor: '#E5E7EB',
+        redColor: "#C15959",
     },
   },
   },

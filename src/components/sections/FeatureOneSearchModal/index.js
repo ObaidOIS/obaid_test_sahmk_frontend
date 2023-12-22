@@ -23,7 +23,7 @@ const FeatureOneSearchModal = ({
         <div>
           <div className="flex-1 mt-3 font-medium text-lg">
             <span>قائمة الشركات </span>
-            <span className="text-accentColor">تم تحديد ( {selectedItems?.length} )</span>
+            <span className="text-primaryColor">تم تحديد ( {selectedItems?.length} )</span>
           </div>
         </div>
         <AddList

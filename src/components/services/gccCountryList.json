@@ -1,0 +1,26 @@
+[
+    {
+    "name": "Bahrain",
+    "dial_code": "+973"
+    },
+    {
+    "name": "Kuwait",
+    "dial_code": "+965"
+    },
+    {
+    "name": "Oman",
+    "dial_code": "+968"
+    },  
+    {
+    "name": "Qatar",
+    "dial_code": "+974"
+    },
+    {
+    "name": "Saudi Arabia",
+    "dial_code": "+966"
+    },
+    {
+    "name": "UAE",
+    "dial_code": "+971"
+    }
+]   

@@ -1,6 +1,9 @@
 import React from "react";
-import UserProfileSection from "@/components/sections/UserProfileSection";
-
+import dynamic from 'next/dynamic';
+// import UserProfileSection from "@/components/sections/UserProfileSection";
+const UserProfileSection = dynamic(() => import('@/components/sections/UserProfileSection'), {
+  ssr: false
+})
 const UserProfile = () => {
   
   return (

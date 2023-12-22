@@ -9,7 +9,7 @@ const InputField = ({ title, type, placeholder, name }) => {
       >
         {title}
       </label>
-      <input
+      <input 
         type={type}
         id="first_name"
         className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-3"

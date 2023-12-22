@@ -1,9 +1,9 @@
-import RegisterForm from "@/components/sections/RegisterForm";
 import React from "react";
 import Link from "next/link";
+import OrderSummaryForm from "@/components/sections/OrderSummaryForm";
 import Image from "next/image";
 
-const Register = () => {
+const OrderSummary = () => {
   return (
     <div>
     <header className="w-full sm:ms-0 relative">
@@ -26,19 +26,19 @@ const Register = () => {
             </Link>
           </div>
         </header>    
-      <div className="mt-20 sm:ms-0 ms-8 mb-14">
-        <div className="text-3xl font-semibold mb-5 leading-none">
-        إنشاء حساب في منصة سهمك 
-      </div>
-      <p className="text-lg leading-7 ">
-      ذا كنت تملك حساب <Link href="/auth/login" className=" text-teal-500">سجل الدخول</Link> إلى حساب 
-      </p>
-        </div>
-        <div className="">
-        <RegisterForm />
-        </div>
+    <div className="mt-20 sm:ms-0 ms-8 mb-14">
+      <div className="text-3xl font-semibold mb-5 leading-none">
+      إنشاء حساب في منصة سهمك 
     </div>
-  );
-};
+    <p className="text-lg leading-7 ">
+    ذا كنت تملك حساب <Link href="/auth/login" className=" text-teal-500">سجل الدخول</Link> إلى حساب 
+    </p>
+      </div>
+      <div className="">
+      <OrderSummaryForm />
+      </div>
+  </div>
+  )
+}
 
-export default Register;
+export default OrderSummary

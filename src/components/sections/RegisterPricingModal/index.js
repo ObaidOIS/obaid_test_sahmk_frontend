@@ -1,20 +1,16 @@
 "use client";
-import React, {useState} from "react";
-import BasicModal from "@/components/widgets/BasicModal";
+import React, { useState } from "react";
 import RadioTabs from "@/components/widgets/RadioTabs";
-import PrimaryButton from "@/components/widgets/PrimaryButton";
-import PricingRadioButton from "@/components/widgets/PricingRadioButton";
 import Image from "next/image";
+import RadioCardGroup from "@/components/widgets/RadioCardGroup";
 
 const RegisterPricingModal = () => {
+  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
 
-    const [isChecked, setChecked] = useState(false);
+  const handleOptionChange = (value) => {
+    setSelectedOption(value);
+  };
 
-    const handleCheckboxChange = () => {
-        setChecked(!isChecked);
-    };
-
-    
   const frequencies = [
     { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
@@ -22,8 +18,7 @@ const RegisterPricingModal = () => {
 
   const [frequency, setFrequency] = useState(frequencies[0]);
 
-
-  const footerLinks = [
+  const pricingRadio = [
     {
       title: "الباقة المجانية",
       icon: (
@@ -32,10 +27,11 @@ const RegisterPricingModal = () => {
           width={25}
           height={25}
           alt="img"
+          className="mt-1"
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: "مجاناً",
+      price: { monthly: "مجاناً", annually: "48 ريال" },
     },
     {
       title: "باقة بريميوم",
@@ -45,10 +41,11 @@ const RegisterPricingModal = () => {
           width={25}
           height={25}
           alt="img"
+          className="mt-1"
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: "49 ريال",
+      price: { monthly: "49 ريال", annually: "488 ريال" },
     },
     {
       title: "الباقة المتقدمة",
@@ -58,39 +55,39 @@ const RegisterPricingModal = () => {
           width={25}
           height={25}
           alt="img"
+          className="mt-1"
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: "99 ريال",
+      price: { monthly: "99 ريال", annually: "688 ريال" },
     },
   ];
 
   return (
     <div>
-      <BasicModal heading={`الباقات`}>
-        <div>
-          <RadioTabs frequencies={frequencies} setFrequency={setFrequency} frequency={frequency} />
-          <div>
-            {footerLinks.map((item, index) => {
-              return (
-                <div key={index} onClick={handleCheckboxChange}>
-                  <PricingRadioButton
-                   isChecked={isChecked}
-                    title={item.title}
-                    icon={item.icon}
-                    desc={item.desc}
-                    price={item.price}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <PrimaryButton
-            button="إضافة هدف جديد"
-            buttonStyle="w-full rounded-lg d-flex font-normal justify-center py-3"
-          />
+      <div>
+        <div className="mx-auto">
+        <div className="w-40 mb-4 mt-7 mx-auto">
+        <RadioTabs
+          frequencies={frequencies}
+          setFrequency={setFrequency}
+          frequency={frequency}
+        />
         </div>
-      </BasicModal>
+        </div>
+        <div>
+          <fieldset>
+            <div className="mt-4 grid grid-cols-1 gap-4">
+              <RadioCardGroup
+                dataList={pricingRadio}
+                frequency={frequency}
+                selectedOption={selectedOption}
+                handleOptionChange={handleOptionChange}
+              />
+            </div>
+          </fieldset>
+        </div>
+      </div>
     </div>
   );
 };
