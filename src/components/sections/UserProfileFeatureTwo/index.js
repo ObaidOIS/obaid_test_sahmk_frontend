@@ -48,12 +48,12 @@ const UserProfileFeatureTwo = ({
   const [tableData, setTableData] = useState([]);
 
   const handleChange = (e) => {
-    const { company, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [company]: value }));
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     setTableData((prevPeople) => [...prevPeople, formData]);
     setFormData({
         company: "",
@@ -61,6 +61,14 @@ const UserProfileFeatureTwo = ({
         goal: "",
     });
   };
+
+  const tableTitles = [
+    {title: "الشركة"},
+    {title: "السعر الحالي"},
+    {title: "الهدف"},
+    {title: ""},
+  ]
+
   return (
     <div>
       {openSucessModal ? (
@@ -89,21 +97,21 @@ const UserProfileFeatureTwo = ({
       )}
       {isSecondFeatureModalOpen ? (
         <ModalUI
-          onClickHandle={() => setOpenSucessModal(true)}
+          onClickHandle={() => {setOpenSucessModal(true); handleSubmit() }}
           onClose={() => setIsSecondFeatureModalOpen(false)}
           isOpen={isSecondFeatureModalOpen}
           title="إضافة هدف جديد"
           button="إضافة هدف جديد"
           content={
             <FeatureTwoGoalModal
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              formData={formData}
               options={options}
               buttonTabs={buttonTabs}
               activeButton={activeButton}
               handleMemoryChange={handleMemoryChange}
               isOpen={isSecondFeatureModalOpen}
-              formData={formData}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
             />
           }
         />
@@ -145,11 +153,13 @@ const UserProfileFeatureTwo = ({
                       className=""
                     />
                   }
+                  setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
+                  tableTitles={tableTitles}
                   feedText="لم تقم بإضافة هدف"
                   title="قائمة الأسعار المستهدفة"
                   setSelectedItems={setSelectedItems}
                   handleFeedClick={handleFeedClick}
-                  selectedItems={selectedItems}
+                  selectedItems={tableData}
                   tableData={tableData}
                 />
               }

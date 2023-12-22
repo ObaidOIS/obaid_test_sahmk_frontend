@@ -1,14 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 
-const LinkText = () => {
+const LinkText = ({message, link}) => {
   return (
     <div>
         <div className="text-xl font-medium group-hover:underline mb-5 leading-none">
-        عطني معلومات سهم الراجحي؟
+        {message}
         </div>
         <div className="text-xl group-hover:underline flex items-center text-primaryColor font-medium mb-5 leading-none">
-        <span>جرب الآن</span>
+        <span>{link}</span>
         <span>
         <Image src="/assets/icons/green-right-arrow.svg" width={16} height={16} className="mr-5" alt="img" />
         </span>

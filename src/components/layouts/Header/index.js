@@ -75,7 +75,7 @@ const Header = ({ toggleSidebar }) => {
                 />
               </Link>
             </div>
-            <Bars3Icon className="h-10 w-10" onClick={() => toggleSidebar()} />
+            <Bars3Icon className="h-6 w-6" onClick={() => toggleSidebar()} />
           </div>
           <div className="items-center h-full lg:flex hidden ">
             <a href="#_" className="hover:text-gray-900 font-normal">

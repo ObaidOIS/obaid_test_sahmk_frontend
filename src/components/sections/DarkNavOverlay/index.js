@@ -3,9 +3,10 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
 import React from 'react';
+import SuccessAlert from "@/components/widgets/SuccessAlert";
 
 
-const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
+const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, setSuccessAlert, deactivateAlert, setDeactivateAlert }) => {
   
   return (
     <div>
@@ -17,17 +18,17 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
                 className="lg:hidden flex flex-1 justify-start "
                 onClick={() => toggleSidebar()}
               >
-                <Bars3Icon className="h-10 w-10 text-whiteColor"  />
+                <Bars3Icon className="h-6 w-6 text-whiteColor"  />
               </div>
               <div className="lg:hidden flex flex-1 justify-end">
                 <div className="bg-whiteColor/10 rounded-lg ml-2">
-                <p className=" text-whiteColor py-2 px-3">EN</p>
+                <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p>
                 </div>
-                <div className="bg-whiteColor/10 flex justify-center py-2 px-3 items-center rounded-lg">
+                <div className="bg-whiteColor/10 flex justify-center py-1.5 px-2 items-center rounded-lg">
                 <Image
                   src="/assets/icons/white-logout.svg"
-                  width={24}
-                  height={24}
+                  width={16}
+                  height={16}
                   alt="Image"
                 />
                 </div>
@@ -40,7 +41,15 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
               className="w-full absolute top-0 -z-0"
               alt="Background Image"
             /> */}
+            {successAlert == true ? 
+            <SuccessAlert setOpenModal={setSuccessAlert}
+            message="تم التنشيط بنجاح!" alertStyle="absolute top-8 right-4" /> : "" }
+            
+            {deactivateAlert == true ? 
+            <SuccessAlert message="تم التعطيل بنجاح!" setOpenModal={setDeactivateAlert} alertStyle="absolute top-8 right-4" /> : "" }
+
             <div className="lg:container flex items-center pt-8 justify-center mx-auto">
+            
               <Link href="/" className="flex items-center">
                 <Image
                   src="/assets/logos/logo.svg"
@@ -71,7 +80,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar }) => {
           <div className="mx-auto lg:w-6/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
             <div className="rounded-lg text-sm px-3 py-6 sm:px-6">
               {page.name !== "userprofile" ? (
-                <div onClick={()=>{setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className="flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">
+                <div onClick={()=>{page.name == "payment" ? setPage({ name: "my-account", value: "باقتي وحسابي" }) : setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className="flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">
                  <Image src="/assets/icons/white-right-arrow.svg" width={16} height={16} className="" alt="img" /> عودة للقائمة 
                 </div>
               ) : (

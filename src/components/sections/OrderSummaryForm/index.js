@@ -8,6 +8,7 @@ import Link from "next/link";
 import AlertButtonsModal from "@/components/widgets/AlertButtonsModal";
 import SimpleCardHeader from "@/components/widgets/SimpleCardHeader";
 import StackedRadioCard from "@/components/widgets/StackedRadioCard";
+import AvatarWithText from "@/components/widgets/AvatarWithText";
 
 const OrderSummaryForm = () => {
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
@@ -113,16 +114,14 @@ const OrderSummaryForm = () => {
                 title="نوع الباقة"
                 content={
                   <div className="flex items-center gap-4">
-                    <Image
-                      src="/assets/icons/purple-check-icon.svg"
-                      height={30}
-                      width={30}
-                      alt="image"
-                    />
-                    <div>
-                      <p className="text-lg mb-1">باقة بريميوم</p>
-                      <p className="text-purple-500 text-sm">199 ريال/سنة</p>
-                    </div>
+                    <AvatarWithText title="باقة بريميوم" desc="199 ريال/سنة" descStyle="text-purpleColor" image={
+                        <Image
+                        src="/assets/icons/purple-check-icon.svg"
+                        height={30}
+                        width={30}
+                        alt="image"
+                      />
+                    } />
                   </div>
                 }
               />

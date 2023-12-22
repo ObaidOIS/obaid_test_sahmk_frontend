@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const BasicTableUI = () => {
+const BasicTableUI = ({ tableTitles, tableData, setIsSecondFeatureModalOpen }) => {
+  // const people = [
+  //   {
+  //     name: "Lindsay Walton",
+  //     title: "Front-end Developer",
+  //     email: "lindsay.walton@example.com",
+  //     role: "Member",
+  //   },
+  //   // More people...
+  // ];
 
-    const people = [
-        { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-        // More people...
-      ];
+  console.log(tableData);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -15,39 +21,38 @@ const BasicTableUI = () => {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th
-                    scope="col"
-                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"
-                  >
-                    Name
-                  </th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Title
-                  </th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Email
-                  </th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Role
-                  </th>
-                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
-                    <span className="sr-only">Edit</span>
-                  </th>
+                  {tableTitles.map((item, index) => {
+                    return (
+                      <th
+                        scope="col"
+                        key={index}
+                        className="py-3.5 pl-4 pr-4 whitespace-nowrap text-right text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"
+                      >
+                        {item.title}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {people.map((person) => (
-                  <tr key={person.email}>
+                {tableData.map((item, index) => (
+                  <tr key={index}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                      {person.name}
+                      {item.company}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.title}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.role}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {item.price}
+                    </td>
+                    <td className="text-blueColor whitespace-nowrap px-3 py-4 text-sm">
+                      {item.goal}
+                    </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Edit<span className="sr-only">, {person.name}</span>
-                      </a>
+                      <div
+                      onClick={()=>setIsSecondFeatureModalOpen(true)}
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
+                        تعديل<span className="sr-only">, {item.company}</span>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -57,7 +62,7 @@ const BasicTableUI = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BasicTableUI
+export default BasicTableUI;

@@ -18,6 +18,8 @@ module.exports = {
         mediumGreyColor: '#D1D5DB',
         lightGreyColor: '#E5E7EB',
         redColor: "#C15959",
+        purpleColor: '#621EF1',
+        blueColor: '#3C82F6',
     },
   },
   },
