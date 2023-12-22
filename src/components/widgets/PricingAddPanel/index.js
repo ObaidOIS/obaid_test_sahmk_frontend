@@ -4,6 +4,7 @@ import Feedback from "../Feedback";
 import Image from "next/image";
 import AddList from "../AddList";
 import BasicTableUI from "../BasicTableUI";
+import IconButtonUI from "../IconButtonUI";
 
 const PricingAddPanel = ({
   handleFeedClick,
@@ -16,6 +17,8 @@ const PricingAddPanel = ({
   isOpen,
   showItems,
   feature,
+  tableTitles,
+  setIsSecondFeatureModalOpen
 }) => {
   return (
     <div className="px-5">
@@ -23,35 +26,50 @@ const PricingAddPanel = ({
         <div className="sm:flex grid grid-cols-1 lg:grid lg:grid-cols-2 gap-3 items-start w-full justify-between">
           <div className="flex-1 gap-x-2 font-medium text-lg">
             <span>{title}</span>
-            <span className="text-gray-400 truncate"> العدد ( {selectedItems?.length} ) </span>
+            <span className="text-gray-400 truncate">
+              {" "}
+              العدد ( {selectedItems?.length} ){" "}
+            </span>
           </div>
-          <div onClick={handleFeedClick} className="flex-1 text-primaryColor flex items-center sm:justify-end text-base font-medium">
-            <PlusIcon
-              className="h-5 w-5 text-primaryColor group-hover:text-primaryColor"
-              aria-hidden="true"
+          <div
+            onClick={handleFeedClick}
+            className="flex-1 text-primaryColor flex items-center sm:justify-end text-base font-medium"
+          >
+            <IconButtonUI
+              button="إضافة /تعديل سهم"
+              icon={
+                <PlusIcon
+                  className="h-5 w-5 -mr-0.5 text-primaryColor group-hover:text-primaryColor/90"
+                  aria-hidden="true"
+                />
+              }
+              buttonStyle="text-primaryColor hover:bg-whiteColor bg-whiteColor shadow-none"
             />
-            إضافة /تعديل سهم
           </div>
         </div>
         <div className="pt-6">
-          {feature == "first" ?
-           <AddList
-           filteredData={selectedItems}
-           setSelectedItems={setSelectedItems}
-           selectedItems={selectedItems}
-           removeItem={removeItem}
-           isOpen={false}
-           // icon={
-           //   <MinusIcon
-           //     className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-           //     aria-hidden="true"
-           //   />
-           // }
-         /> : ""
-          }
-        {(feature == "second" && selectedItems?.length !== 0 ) ? 
-        <BasicTableUI /> : ""
-          }
+          {feature == "first" ? (
+            <AddList
+              filteredData={selectedItems}
+              setSelectedItems={setSelectedItems}
+              selectedItems={selectedItems}
+              removeItem={removeItem}
+              isOpen={false}
+              // icon={
+              //   <MinusIcon
+              //     className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
+              //     aria-hidden="true"
+              //   />
+              // }
+            />
+          ) : (
+            ""
+          )}
+          {feature == "second" && selectedItems?.length !== 0 ? (
+            <BasicTableUI setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen} tableTitles={tableTitles} tableData={selectedItems} />
+          ) : (
+            ""
+          )}
         </div>
         {selectedItems?.length == 0 ? (
           <div className="pb-10 px-5">

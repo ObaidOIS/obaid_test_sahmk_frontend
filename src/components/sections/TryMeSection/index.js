@@ -1,11 +1,12 @@
 import LinkText from '@/components/widgets/LinkText'
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 
 const TryMeSection = () => {
 
   const data = Array.from({ length: 5 }, (_, index) => index + 1);
-
+  
   return (
     <div id='try-us' className="flex items-end w-full mb-32 min-h-screen bg-white">
         <div className="w-full text-gray-700 mx-6 body-font">
@@ -29,7 +30,9 @@ const TryMeSection = () => {
                     <nav className="mb-10 list-none">
                     {data.map((index) => (
                         <li className="my-10 cursor-pointer group" key={index}>
-                            <LinkText />
+                            <Link href={`https://wa.me/`} >
+                            <LinkText message="عطني معلومات سهم الراجحي؟" link="جرب الآن" />
+                            </Link>
                         </li>
                         ))}
                     </nav>
@@ -38,7 +41,9 @@ const TryMeSection = () => {
                     <nav className="mb-10 list-none">
                     {data.map((index) => (
                         <li className="my-10 cursor-pointer group" key={index}>
-                            <LinkText />
+                            <Link href={`https://wa.me/`} >
+                            <LinkText message="عطني معلومات سهم الراجحي؟" link="جرب الآن" />
+                            </Link>
                         </li>
                         ))}
                     </nav>

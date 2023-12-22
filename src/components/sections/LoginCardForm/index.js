@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
-import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import DropdownUI from "@/components/widgets/DropdownUI";
 import OutlineButton from "@/components/widgets/OutlineButton";

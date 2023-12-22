@@ -1,12 +1,7 @@
-import { Fragment, useRef, useState, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 
 const PopupModal = ({image, title, desc, openModal, setOpenModal}) => {
-  // const [open, setOpen] = useState(true);
-
-  const cancelButtonRef = useRef(null);
-
   
   useEffect(() => {
     // Close the modal after 2000 milliseconds (2 seconds)

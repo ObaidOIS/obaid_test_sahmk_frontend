@@ -10,6 +10,9 @@ import DarkNavOverlay from "../DarkNavOverlay";
 import Stats from "@/components/widgets/Stats";
 import UserProfileFeatureOne from "../UserProfileFeatureOne";
 import UserProfileFeatureTwo from "../UserProfileFeatureTwo";
+import SuccessAlert from "@/components/widgets/SuccessAlert";
+import UserProfileFeatureFour from "../UserProfileFeatureFour";
+import OrderSummaryForm from "../OrderSummaryForm";
 
 const UserProfileSection = () => {
 
@@ -18,6 +21,8 @@ const UserProfileSection = () => {
   const [isTvChecked, setIsTvChecked] = useState(false);
   const [isPricesChecked, setIsPricesChecked] = useState(false);
   const [isSecondFeatureModalOpen, setIsSecondFeatureModalOpen] = useState(false);
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [deactivateAlert, setDeactivateAlert] = useState(false);
 
 
   // let [page, setPage] = useState({
@@ -46,15 +51,22 @@ const UserProfileSection = () => {
   
 
   useEffect(() => {
-    const cleanPage = cleanCircularReferences(page); // Implement a function to remove circular references
+    const cleanPage = cleanCircularReferences(page); 
+    console.log(cleanPage);// Implement a function to remove circular references
     const serializedPage = JSON.stringify(cleanPage);
-    localStorage.setItem("page", serializedPage);
+    // localStorage.setItem("page", serializedPage);
+        localStorage.setItem("page", serializedPage);
   }, [page]);
 
   function cleanCircularReferences(obj) {
     const seen = new WeakSet();
     return JSON.parse(
       JSON.stringify(obj, (key, value) => {
+        // Skip React components
+        if (React.isValidElement(value)) {
+          return undefined;
+        }
+  
         if (typeof value === "object" && value !== null) {
           if (seen.has(value)) {
             return undefined; // Exclude circular references
@@ -69,10 +81,16 @@ const UserProfileSection = () => {
 
   const handleNotificationSwitch = () => {
     setIsNotificationChecked((prevChecked) => !prevChecked);
+    isNotificationChecked == false ?
+    setSuccessAlert(true) : 
+    setDeactivateAlert(true)
   };
 
   const handleTvSwitch = () => {
     setIsTvChecked((prevChecked) => !prevChecked);
+    isTvChecked == false ?
+    setSuccessAlert(true) : 
+    setDeactivateAlert(true)
   };
 
   const list = [
@@ -154,16 +172,30 @@ const UserProfileSection = () => {
     { id: 3, name: "3 أشهر", active: false },
   ];
 
+  const handlePageChange = (newPage) => {
+    console.log(newPage);
+    const { name, value } = newPage;
+    setPage({ name, value });
+  };
 
   const handlePricesSwitch = () => {
     setIsPricesChecked((prevChecked) => !prevChecked);
+    isPricesChecked == false ?
+    setSuccessAlert(true) : 
+    setDeactivateAlert(true)
   };
 
   return (
     <div>
+      {/* {isTvChecked == true ? 
+      <SuccessAlert setOpenModal={setIsTvChecked} /> : "" } */}
       {typeof window == 'undefined' ?  "" :
       <>
       <DarkNavOverlay
+        successAlert={successAlert}
+        setSuccessAlert={setSuccessAlert}
+        deactivateAlert={deactivateAlert}
+        setDeactivateAlert={setDeactivateAlert}
         page={page}
         setPage={setPage}
         toggleSidebar={toggleSidebar}
@@ -174,13 +206,12 @@ const UserProfileSection = () => {
           toggleSidebar={toggleSidebar}
           list={list}
         />
-        
         {page.name == "userprofile" ? (
           <div className="space-y-6 translation duration-500 ease-in-out">
             <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
               {list.map((item, index) => {
                 return (
-                  <div key={index} onClick={() => setPage(item.page)}>
+                  <div key={index} onClick={() => handlePageChange(item.page)}>
                     <ArrowList
                       leftIcon={
                         <Image
@@ -271,7 +302,7 @@ const UserProfileSection = () => {
             isTvChecked={isTvChecked}
           />
         ) : (
-          (page.name = "target-prices" ? (
+          (page.name == "target-prices" ? (
             <UserProfileFeatureTwo
               setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
               isSecondFeatureModalOpen={isSecondFeatureModalOpen}
@@ -279,21 +310,27 @@ const UserProfileSection = () => {
               isPricesChecked={isPricesChecked}
             />
           ) : (
-            (page.name = "weekly-stock" ? (
+            (page.name == "weekly-stock" ? (
               <div className="space-y-6">
                 <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <p>Third tab</p>
                 </div>
               </div>
             ) : (
-              (page.name = "my-account" ? (
+              (page.name == "my-account" ? (
                 <div className="space-y-6">
                   <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                    <p>Fourth tab</p>
+                    <UserProfileFeatureFour handlePageChange={handlePageChange} />
                   </div>
                 </div>
               ) : (
-                ""
+                (page.name == "payment" ? (
+                  <div className="space-y-6">
+                      <OrderSummaryForm />
+                  </div>
+                ) : (
+                  ""
+                ))
               ))
             ))
           ))
