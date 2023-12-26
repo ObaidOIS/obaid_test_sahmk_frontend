@@ -1,4 +1,5 @@
 import React from 'react'
+import { SA } from 'country-flag-icons/react/3x2'
 
 const PhoneNumberUI = ({title, placeholder, dataList, activeItem}) => {
   return (
@@ -9,7 +10,9 @@ const PhoneNumberUI = ({title, placeholder, dataList, activeItem}) => {
     <div className="relative mt-2 rounded-md shadow-sm">
       <div className="absolute inset-y-0 left-0 flex items-center">
         <label htmlFor="country" className="sr-only">
-        {activeItem ? activeItem.dial_code : "+966"}
+        {activeItem ? <> {activeItem.dial_code}  
+        {/* {activeItem.icon} */}
+         </>:  "+966"  }
         </label>
         <select
           id="country"
@@ -18,7 +21,9 @@ const PhoneNumberUI = ({title, placeholder, dataList, activeItem}) => {
           className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 ml-2 text-gray-500 outline-none focus:ring-inset focus:ring-primaryColor sm:text-sm"
         >
           {dataList?.map((item, index) => (
-          <option key={index} >{item.dial_code}</option>
+          <option key={index} >{item.dial_code} 
+          {/* {item.icon} */}
+          </option>
         ))}
         </select>
       </div>

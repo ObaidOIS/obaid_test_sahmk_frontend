@@ -6,34 +6,43 @@ import PrimaryButton from "@/components/widgets/PrimaryButton";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import DropdownUI from "@/components/widgets/DropdownUI";
 import OutlineButton from "@/components/widgets/OutlineButton";
-
+import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
+import OtpModal from "../OtpModal";
+import ModalUI from "@/components/widgets/ModalUI";
+import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 
 const LoginCardForm = () => {
 
   const countryCodes = [
     {
     "name": "Bahrain",
-    "dial_code": "+973"
+    "dial_code": "+973",
+    "icon" : <BH title="Bahrain"/>,
     },
     {
     "name": "Kuwait",
-    "dial_code": "+965"
+    "dial_code": "+965",
+    "icon" : <KW title="Kuwait"/>,
     },
     {
     "name": "Oman",
-    "dial_code": "+968"
+    "dial_code": "+968",
+    "icon" : <OM title="Oman"/>,
     },  
     {
     "name": "Qatar",
-    "dial_code": "+974"
+    "dial_code": "+974",
+    "icon" : <QA title="Qatar"/>,
     },
     {
     "name": "Saudi Arabia",
-    "dial_code": "+966"
+    "dial_code": "+966",
+    "icon" : <SA title="Saudi Arabia"/>,
     },
     {
     "name": "UAE",
-    "dial_code": "+971"
+    "dial_code": "+971",
+    "icon" : <AE title="UAE"/>,
     }
 ];
 
@@ -49,8 +58,29 @@ const LoginCardForm = () => {
     setIsOpen(false);
   };
 
+  
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
+
+  const handleOpenOtpModal = () => {
+    setIsOtpModalOpen(true);
+  };
+
+  // const handleCloseOtpModal = () => {
+  //   setIsOtpModalOpen(false);
+  // };
+
   return (
     <>
+     {isOtpModalOpen && (
+        <div>
+          <SimpleAlertModalUI
+          onClose={() => setIsOtpModalOpen(false)}
+          isOpen={isOtpModalOpen}
+          content={
+            <OtpModal isOpen={isOtpModalOpen} />
+          } />
+        </div>
+      )}
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
           <div className="bg-white relative px-6 pt-0 pb-20 sm:py-12 border border-lightGreyColor rounded-2xl sm:px-12">
@@ -75,7 +105,7 @@ const LoginCardForm = () => {
               تسجيل الدخول لحسابك
               </div>
             </div>
-            <form className="space-y-4" action="#" method="POST">
+            <div className="space-y-4">
               <div>
                 <div className="flex items-end gap-4">
                   <div className="flex-grow ">
@@ -83,12 +113,15 @@ const LoginCardForm = () => {
                 </div>
                 <DropdownUI dataList={countryCodes} isOpen={isOpen} handleMenuItemClick={handleMenuItemClick} handleToggleDropdown={handleToggleDropdown} activeItem={activeItem} setActiveItem={setActiveItem} setIsOpen={setIsOpen} />
                 </div>
-                <PrimaryButton
-                  button="تسجيل الدخول"
-                  buttonStyle="py-3 rounded-md !font-normal w-full justify-center mt-6"
-                />
+                <div>
+                  <PrimaryButton
+                    onClick={handleOpenOtpModal}
+                    button="تسجيل الدخول"
+                    buttonStyle="py-3 rounded-md !font-normal w-full justify-center mt-6"
+                  />
+                </div>
               </div>
-            </form>
+            </div>
             <Image
             src="/assets/images/gradient-bottom.svg"
             width={170}
@@ -98,14 +131,14 @@ const LoginCardForm = () => {
           />
           </div>
 
-          <div className="mt-32 text-center flex items-center gap-6 justify-center text-sm text-gray-500">
+          <div className="mt-32 text-center sm:flex items-center gap-6 justify-center text-sm text-gray-500">
             <div
               className="font-semibold leading-6 text-secondaryColor hover:text-primaryColor"
             >
               إذا كنت لاتملك حساب يمكنك إنشاء حسابك
             </div>
-            <Link href="/auth/register">
-            <OutlineButton buttonStyle="!rounded-2xl !border-secondaryColor !px-3" button="أنشأ حسابك"  icon={<Image src="/assets/icons/green-right-arrow.svg" width={12} height={12} className="mr-5" alt="img" />}/>
+            <Link href="/auth/register" >
+            <OutlineButton buttonStyle="!rounded-2xl mt-5 sm:mt-0 !border-secondaryColor !px-3" button="أنشأ حسابك"  icon={<Image src="/assets/icons/green-right-arrow.svg" width={12} height={12} className="mr-5" alt="img" />}/>
             </Link>
           </div>
         </div>

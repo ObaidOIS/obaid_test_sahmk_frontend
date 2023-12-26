@@ -1,13 +1,17 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from 'next/navigation'
 
 const AsideWithLogo = () => {
   // const width= calc(~"100% - 3px");
+  const pathname = usePathname();
+
   return (
     <div className="relative flex-1">
       <Image
-        src="/assets/images/dark-rectangle.png"
+        src={pathname == "/auth/login" ? "/assets/images/login-dark.svg" : "/assets/images/dark-rectangle.png"}
         width={300}
         height={200}
         className={`z-20 h-full w-[calc(100%-0.75rem)] ms-3`}
@@ -15,7 +19,7 @@ const AsideWithLogo = () => {
         alt="image"
       />
       <Image
-        src="/assets/images/gradient-rectangle.png"
+        src={pathname == "/auth/login" ? "/assets/images/login-gradient.svg" : "/assets/images/gradient-rectangle.png"}
         layout="fill"
         className="z-[-9999]"
         objectFit="cover"
