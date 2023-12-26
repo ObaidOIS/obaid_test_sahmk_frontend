@@ -4,9 +4,10 @@ import ArrowList from "@/components/widgets/ArrowList";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline"; 
 
-const MainSidebar = ({ isSidebarOpen, toggleSidebar, list, setIsSidebarOpen }) => {
+const MainSidebar = ({ isSidebarOpen, toggleSidebar, list, setIsSidebarOpen, handlePageChange }) => {
+
   return (
     <Transition.Root show={isSidebarOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={toggleSidebar}>
@@ -70,8 +71,8 @@ const MainSidebar = ({ isSidebarOpen, toggleSidebar, list, setIsSidebarOpen }) =
                           {list.map((item, index) => (
                             <li
                               key={index}
+                              onClick={() => {handlePageChange(item.page); toggleSidebar()}}
                               className=""
-                              onClick={toggleSidebar}
                             >
                               <div key={index}>
                                 <ArrowList

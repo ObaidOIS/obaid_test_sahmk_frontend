@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import './globals.css';
 import localFont from 'next/font/local';
  
@@ -34,8 +35,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <>
+    <Head>
+    <meta property="og:image" content="/assets/images/share-thumbnail-image.jpeg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="400" />
+    </Head>
     <html lang="en" dir='rtl'>
       <body className={myFont.className}>{children}</body>
     </html>
+    </>
   )
 }

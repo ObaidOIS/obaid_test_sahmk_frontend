@@ -201,6 +201,7 @@ const UserProfileSection = () => {
         toggleSidebar={toggleSidebar}
       >
         <MainSidebar
+          handlePageChange={handlePageChange}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
           toggleSidebar={toggleSidebar}

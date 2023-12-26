@@ -1,8 +1,6 @@
 "use client";
 import React, {useState} from "react";
 import CheckboxInput from "@/components/widgets/CheckboxInput";
-import InputField from "@/components/widgets/InputField";
-import PhoneInput from "@/components/widgets/PhoneInput";
 import SelectInputBox from "@/components/widgets/SelectInputBox";
 import PrimaryPackageCard from "../PrimaryPackageCard";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
@@ -10,6 +8,9 @@ import Image from "next/image";
 import ModalUI from "@/components/widgets/ModalUI";
 import RegisterPricingModal from "../RegisterPricingModal";
 import Link from "next/link";
+import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
+import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
+import InputFieldUI from "@/components/widgets/InputFieldUI";
 
 const RegisterForm = () => {
   const selectboxList = [
@@ -36,7 +37,43 @@ const RegisterForm = () => {
     },
   ];
 
-const [isPricingModalOpen, setIsPricingModalOpen] = useState(false)
+const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+
+
+const countryCodes = [
+  {
+    name: "Bahrain",
+    dial_code: "+973",
+    icon : <BH title="Bahrain"/>,
+  },
+  {
+    name: "Kuwait",
+    dial_code: "+965",
+    icon : <KW title="Kuwait"/>,
+  },
+  {
+    name: "Oman",
+    dial_code: "+968",
+    icon : <OM title="Oman"/>,
+  },
+  {
+    name: "Qatar",
+    dial_code: "+974",
+    icon : <QA title="Qatar"/>,
+  },
+  {
+    name: "Saudi Arabia",
+    dial_code: "+966",
+    icon : <SA title="Saudi Arabia"/>,
+  },
+  {
+    name: "UAE",
+    dial_code: "+971",
+    icon : <AE title="UAE"/>,
+  },
+];
+
+const [activeItem, setActiveItem] = useState(null);
 
   return (
     <>
@@ -70,15 +107,15 @@ const [isPricingModalOpen, setIsPricingModalOpen] = useState(false)
             <span> معلومات الحساب </span>
           </h2>
           <div className="grid gap-6 mb-6 md:grid-cols-2 sm:shadow-md border border-gray-300 sm:border-0 bg-white px-6 sm:px-8 pt-10 pb-8 sm:pb-16 mt-8 rounded-2xl sm:rounded-md">
-            <InputField title="الاسم الأول" type="text" name="" />
-            <InputField title="الاسم الأخير" type="text" name="" />
-            <InputField title="البريد الإكلتروني" type="email" name="" />
+            <InputFieldUI label="الاسم الأول" type="text" name="first-name" />
+            <InputFieldUI label="الاسم الأخير" type="text" name="last-name" />
+            <InputFieldUI label="البريد الإكلتروني" type="email" name="email" />
             <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
-              <PhoneInput
+              <PhoneNumberUI
                 title="رقم الجوال"
-                type="text"
-                placeholder=""
-                name=""
+                dataList={countryCodes}
+                activeItem={activeItem}
+                setActiveItem={setActiveItem}
               />
               <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
                 رقم الجوال يجب أن يكون مشترك في الواتساب
