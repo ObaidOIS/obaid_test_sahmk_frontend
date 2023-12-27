@@ -4,10 +4,16 @@ import ArrowList from "@/components/widgets/ArrowList";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline"; 
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import IconButtonUI from "../IconButtonUI";
 
-const MainSidebar = ({ isSidebarOpen, toggleSidebar, list, setIsSidebarOpen, handlePageChange }) => {
-
+const MainSidebar = ({
+  isSidebarOpen,
+  toggleSidebar,
+  list,
+  setIsSidebarOpen,
+  handlePageChange,
+}) => {
   return (
     <Transition.Root show={isSidebarOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={toggleSidebar}>
@@ -71,7 +77,10 @@ const MainSidebar = ({ isSidebarOpen, toggleSidebar, list, setIsSidebarOpen, han
                           {list.map((item, index) => (
                             <li
                               key={index}
-                              onClick={() => {handlePageChange(item.page); toggleSidebar()}}
+                              onClick={() => {
+                                handlePageChange(item.page);
+                                toggleSidebar();
+                              }}
                               className=""
                             >
                               <div key={index}>
@@ -86,25 +95,33 @@ const MainSidebar = ({ isSidebarOpen, toggleSidebar, list, setIsSidebarOpen, han
                           ))}
                         </ul>
                         <div className="border-t space-y-4 py-5 ">
-                          <div className="flex justify-start items-center gap-6">
-                          <Image
-                          src="/assets/icons/globe.svg"
-                          width={20}
-                          height={20}
-                          alt="img"
-                          className="ms-4"
-                        />
-                            <p className=" text-lg font-medium">EN</p>
-                          </div>
-                          <div className="flex justify-start items-center gap-6">
-                          <Image
-                          src="/assets/icons/logout.svg"
-                          width={20}
-                          height={20}
-                          alt="img"
-                          className="ms-4"
-                        />
-                            <p className=" text-lg font-medium">تسجيل الخروج</p>
+                          <IconButtonUI
+                            button="EN"
+                            icon={
+                              <Image
+                                src="/assets/icons/globe.svg"
+                                width={20}
+                                height={20}
+                                alt="img"
+                                className="me-5"
+                              />
+                            }
+                            buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
+                          />
+                          <div>
+                            <IconButtonUI
+                              button="تسجيل الخروج"
+                              icon={
+                                <Image
+                                  src="/assets/icons/logout.svg"
+                                  width={20}
+                                  height={20}
+                                  alt="img"
+                                  className="me-5"
+                                />
+                              }
+                              buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
+                            />
                           </div>
                         </div>
                       </div>

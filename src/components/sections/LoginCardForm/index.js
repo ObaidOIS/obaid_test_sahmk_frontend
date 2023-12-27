@@ -65,13 +65,8 @@ const LoginCardForm = () => {
     setIsOtpModalOpen(true);
   };
 
-  // const handleCloseOtpModal = () => {
-  //   setIsOtpModalOpen(false);
-  // };
-
   return (
     <>
-     {isOtpModalOpen && (
         <div>
           <SimpleAlertModalUI
           onClose={() => setIsOtpModalOpen(false)}
@@ -80,7 +75,6 @@ const LoginCardForm = () => {
             <OtpModal isOpen={isOtpModalOpen} />
           } />
         </div>
-      )}
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
           <div className="bg-white relative px-6 pt-0 pb-20 sm:py-12 border border-lightGreyColor rounded-2xl sm:px-12">

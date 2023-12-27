@@ -4,8 +4,7 @@ import RadioTabs from "@/components/widgets/RadioTabs";
 import Image from "next/image";
 import RadioCardGroup from "@/components/widgets/RadioCardGroup";
 
-const RegisterPricingModal = () => {
-  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
+const RegisterPricingModal = ({ selectedOption, setSelectedOption}) => {
 
   const handleOptionChange = (value) => {
     setSelectedOption(value);

@@ -39,11 +39,12 @@ export default function RootLayout({ children }) {
     <Head>
     <meta property="og:image" content="/assets/images/share-thumbnail-image.jpeg" />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="400" />
-    <meta property="og:image:height" content="400" />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
     </Head>
     <html lang="en" dir='rtl'>
-      <body className={myFont.className}>{children}</body>
+      <body className={myFont.className}>
+        {children}</body>
     </html>
     </>
   )

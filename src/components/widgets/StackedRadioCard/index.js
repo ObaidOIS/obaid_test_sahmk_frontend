@@ -4,11 +4,11 @@ const StackedRadioCard = ({cards, selectedCard, handleSelectedCardChange}) => {
 
   return (
     <fieldset>
-    <div className="space-4 gap-4 mt-5 flex">
+    <div className="space-4 gap-4 mt-5 sm:flex">
       {cards.map((card, index) => (
         <label
           key={index}
-          className={`relative block cursor-pointer rounded-lg sm:flex-grow text-center justify-center border bg-white px-6 py-4 shadow-sm focus:outline-none ${
+          className={`relative list-none mt-3 sm:mt-0 cursor-pointer rounded-lg sm:flex-grow text-center justify-center items-center align-middle flex border bg-white px-6 py-4 shadow-sm focus:outline-none ${
             selectedCard === card.name ? 'border-primaryColor ring-2 ring-primaryColor' : 'border-gray-300'
           }`}
         >
@@ -25,12 +25,6 @@ const StackedRadioCard = ({cards, selectedCard, handleSelectedCardChange}) => {
           <div className="flex flex-col items-center"> {/* Center the image vertically and horizontally */}
             {card.card}
           </div>
-          <span
-            className={`pointer-events-none rounded-lg ${
-              selectedCard === card.name ? 'border-2 border-primaryColor' : 'border-transparent'
-            }`}
-            aria-hidden="true"
-          ></span>
         </label>
       ))}
     </div>
