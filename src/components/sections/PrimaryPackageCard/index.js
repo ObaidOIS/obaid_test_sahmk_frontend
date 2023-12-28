@@ -4,12 +4,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import AvatarWithText from "@/components/widgets/AvatarWithText";
 
-const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen}) => {
-  const features = [
-    { title: "وصول لأسهم أكثر من +300 شركة" },
-    { title: "معرفة تفاصيل الشركات المدرجة في الأسهم" },
-    { title: "السؤال عن أوقات التوزيعات لأي سهم" },
-  ];
+const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, features, selectedOption, pricingRadio, frequency}) => {
 
   return (
     <div>
@@ -17,7 +12,20 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen})
         <div className="border-b">
           <div className="px-6 pb-3 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <AvatarWithText
+            <AvatarWithText
+            title={selectedOption}
+                desc={` ${selectedOption == "الباقة المتقدمة" ? pricingRadio[2].price[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].price[frequency.value] : pricingRadio[0].price[frequency.value]} / ${frequency.label} `}
+                descStyle={selectedOption == "الباقة المتقدمة" ? "!text-yellowColor" : selectedOption == "باقة بريميوم" ? "!text-purpleColor" : "!text-blueColor"}
+                image={
+                  <Image
+                    src={selectedOption == "الباقة المتقدمة" ? "/assets/icons/yellow-check.svg" : selectedOption == "باقة بريميوم" ? "/assets/icons/purple-check-icon.svg" : "/assets/icons/blue-check.svg"}
+                    height={30}
+                    width={30}
+                    alt="image"
+                  />
+                }
+              />
+              {/* <AvatarWithText
                 title="باقة بريميوم"
                 desc="199 ريال/سنة"
                 descStyle="text-purpleColor"
@@ -29,7 +37,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen})
                     alt="image"
                   />
                 }
-              />
+              /> */}
             </div>
 
             <div
@@ -48,14 +56,14 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen})
             <li className="flex items-center gap-3 mt-5">
               باقة البريميوم تتميز هذه الباقة بمزايا متكاملة
             </li>
-            {features.map((item, index) => {
+            {features.slice(0, 3).map((item, index) => {
               return (
                 <li
                   className="flex items-center gap-3 mt-5 text-sm"
                   key={index}
                 >
-                  <FaRegCircleCheck className="text-indigo-600" size={20} />
-                  <span>{item.title}</span>
+                  <FaRegCircleCheck className={selectedOption == "الباقة المتقدمة" ? "text-yellowColor" : selectedOption == "باقة بريميوم" ? "text-purpleColor" : "text-blueColor"} size={20} />
+                  <span>{item}</span>
                 </li>
               );
             })}

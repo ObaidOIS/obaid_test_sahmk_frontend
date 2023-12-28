@@ -8,43 +8,42 @@ import DropdownUI from "@/components/widgets/DropdownUI";
 import OutlineButton from "@/components/widgets/OutlineButton";
 import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
 import OtpModal from "../OtpModal";
-import ModalUI from "@/components/widgets/ModalUI";
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 
 const LoginCardForm = () => {
 
   const countryCodes = [
     {
-    "name": "Bahrain",
-    "dial_code": "+973",
-    "icon" : <BH title="Bahrain"/>,
+      name: "Saudi Arabia",
+      dial_code: "+966",
+      icon : <SA title="Saudi Arabia"/>,
     },
     {
-    "name": "Kuwait",
-    "dial_code": "+965",
-    "icon" : <KW title="Kuwait"/>,
+      name: "Bahrain",
+      dial_code: "+973",
+      icon : <BH title="Bahrain"/>,
     },
     {
-    "name": "Oman",
-    "dial_code": "+968",
-    "icon" : <OM title="Oman"/>,
-    },  
-    {
-    "name": "Qatar",
-    "dial_code": "+974",
-    "icon" : <QA title="Qatar"/>,
+      name: "Kuwait",
+      dial_code: "+965",
+      icon : <KW title="Kuwait"/>,
     },
     {
-    "name": "Saudi Arabia",
-    "dial_code": "+966",
-    "icon" : <SA title="Saudi Arabia"/>,
+      name: "Oman",
+      dial_code: "+968",
+      icon : <OM title="Oman"/>,
     },
     {
-    "name": "UAE",
-    "dial_code": "+971",
-    "icon" : <AE title="UAE"/>,
-    }
-];
+      name: "Qatar",
+      dial_code: "+974",
+      icon : <QA title="Qatar"/>,
+    },
+    {
+      name: "UAE",
+      dial_code: "+971",
+      icon : <AE title="UAE"/>,
+    },
+  ];
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);

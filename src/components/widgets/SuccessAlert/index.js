@@ -15,7 +15,7 @@ const SuccessAlert = ({setOpenModal, alertStyle, message}) => {
     
     
   return (
-    <div className={`rounded-md bg-whiteColor w-96 py-4 px-4 ${alertStyle}`}>
+    <div className={`rounded-md shadow-2xl border bg-whiteColor w-96 py-4 px-4 ${alertStyle}`}>
       <div className="flex">
       <div className="flex-shrink-0">
           <CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />

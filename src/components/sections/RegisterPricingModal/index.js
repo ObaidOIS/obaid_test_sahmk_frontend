@@ -4,63 +4,11 @@ import RadioTabs from "@/components/widgets/RadioTabs";
 import Image from "next/image";
 import RadioCardGroup from "@/components/widgets/RadioCardGroup";
 
-const RegisterPricingModal = ({ selectedOption, setSelectedOption}) => {
+const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio }) => {
 
   const handleOptionChange = (value) => {
     setSelectedOption(value);
   };
-
-  const frequencies = [
-    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
-    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
-  ];
-
-  const [frequency, setFrequency] = useState(frequencies[0]);
-
-  const pricingRadio = [
-    {
-      title: "الباقة المجانية",
-      icon: (
-        <Image
-          src="/assets/icons/blue-check.svg"
-          width={25}
-          height={25}
-          alt="img"
-          className="mt-1"
-        />
-      ),
-      desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: { monthly: "مجاناً", annually: "48 ريال" },
-    },
-    {
-      title: "باقة بريميوم",
-      icon: (
-        <Image
-          src="/assets/icons/purple-check-icon.svg"
-          width={25}
-          height={25}
-          alt="img"
-          className="mt-1"
-        />
-      ),
-      desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: { monthly: "49 ريال", annually: "488 ريال" },
-    },
-    {
-      title: "الباقة المتقدمة",
-      icon: (
-        <Image
-          src="/assets/icons/yellow-check.svg"
-          width={25}
-          height={25}
-          alt="img"
-          className="mt-1"
-        />
-      ),
-      desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: { monthly: "99 ريال", annually: "688 ريال" },
-    },
-  ];
 
   return (
     <div>

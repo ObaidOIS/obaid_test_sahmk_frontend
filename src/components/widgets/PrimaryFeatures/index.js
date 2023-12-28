@@ -8,15 +8,16 @@ import clsx from 'clsx'
 import { Container } from '../Container'
 import backgroundImage from '/public/assets/images/features-background.svg'
 import gradientBackgroundImage from '/public/assets/images/gradiant-bg.svg'
-import screenshotPayroll from '/public/assets/images/desktop.svg';
-import screenshot from '/public/assets/images/dark-bottom.png';
+import featureOneImage from '/public/assets/images/desktop.svg';
+import featureTwoImage from '/public/assets/images/chat-desktop.svg';
+import featureThreeImage from '/public/assets/images/desktop.svg';
 
 const features = [
   {
     title: 'استلام تنبيهات بأسعار الافتتاح والاغلاق',
     description:
       "سيصلك من خلال أوقات الافتتاح والاغلاق  ، بيانات بأسعار الشركات المختارة في حسابك كما يمكنك التحكم بالبيانات ،إدارتها .",
-    image: screenshotPayroll,
+    image: featureOneImage,
     icon: (
         <Image
           src="/assets/icons/notification.svg"
@@ -32,7 +33,7 @@ const features = [
     title: 'إدارة الأسعار المستهدفة',
     description:
       "يمكنك من خلال إدارة حسابك إضافة الأسعار المستهدفة إلى حسابك ومعرفة التفاصيل .",
-      image: screenshot,
+      image: featureTwoImage,
       icon: (
         <Image
           src="/assets/icons/hotspot.svg"
@@ -47,7 +48,7 @@ const features = [
     title: 'إستلام تقرير اسبوعي لحالة أسهمك والشركات.',
     description:
       "سيصلك من خلال أوقات الافتتاح والاغلاق  ، بيانات بأسعار الشركات المختارة في حسابك كما يمكنك التحكم بالبيانات ،إدارتها .",
-      image: screenshotPayroll,
+      image: featureThreeImage,
       icon: (
         <Image
           src="/assets/icons/notification.svg"
