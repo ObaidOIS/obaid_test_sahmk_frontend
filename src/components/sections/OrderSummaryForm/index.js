@@ -175,7 +175,9 @@ const OrderSummaryForm = () => {
                 handleSelectedCardChange={handleSelectedCardChange}
               />
             </div>
-            <div className="grid gap-6 md:grid-cols-12 border rounded-2xl border-gray-300 bg-white sm:px-8 pt-3 pb-10 mt-8">
+            <div className=" mt-8">
+            {selectedCard == "apple pay" ?  "" : 
+             <div className="grid gap-6 md:grid-cols-12 border rounded-2xl border-gray-300 bg-white sm:px-8 pt-3 pb-10">
               <div className="col-span-12 px-6 sm:px-0">
                 <InputFieldUI label="رقم البطاقة" type="text" name="" />
               </div>
@@ -189,6 +191,7 @@ const OrderSummaryForm = () => {
                   placeholder="رمز التحقق CVC"
                 />
               </div>
+            </div>}
             </div>
           </div>
           <div>
@@ -199,17 +202,17 @@ const OrderSummaryForm = () => {
             >
               <PrimaryButton
                 button="إكمال الدفع"
-                buttonStyle="py-5 rounded-md !font-normal !bg-primaryColor w-full justify-center mt-6"
+                buttonStyle={` py-5 rounded-md !font-normal !bg-primaryColor w-full justify-center mt-6`}
               />
             </div>
-            <p className="text-xl font-medium text-center mt-3">أو</p>
+            {/* <p className="text-xl font-medium text-center mt-3">أو</p>
             <PrimaryButton
               onClick={() => {
                 setIsAlertSuccessOpen(true);
               }}
               button="Apple pay"
               buttonStyle="py-5 rounded-md !font-normal !bg-darkColor w-full justify-center mt-6"
-            />
+            /> */}
           </div>
           <Image
             src="/assets/images/gradient-bottom.svg"

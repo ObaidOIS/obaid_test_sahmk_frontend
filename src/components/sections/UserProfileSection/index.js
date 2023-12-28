@@ -187,8 +187,6 @@ const UserProfileSection = () => {
 
   return (
     <div>
-      {/* {isTvChecked == true ? 
-      <SuccessAlert setOpenModal={setIsTvChecked} /> : "" } */}
       {typeof window == 'undefined' ?  "" :
       <>
       <DarkNavOverlay
@@ -252,9 +250,9 @@ const UserProfileSection = () => {
                         index={index}
                         badgeStyle={`${
                           item.active == true
-                            ? "bg-darkColor text-whiteColor"
-                            : "bg-gray-200/80 text-darkColor"
-                        } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block`}
+                            ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                            : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                        } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
                       />
                     </span>
                   );
@@ -282,9 +280,9 @@ const UserProfileSection = () => {
                             index={index}
                             badgeStyle={`${
                               item.active == true
-                                ? "bg-darkColor text-whiteColor"
-                                : "bg-gray-200/80 text-darkColor"
-                            } truncate px-4 justify-center py-1.5 ml-3 block`}
+                                ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                                : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                            } truncate px-4 justify-center py-1.5 ml-3 block cursor-pointer`}
                           />
                         </span>
                       );

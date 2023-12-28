@@ -21,6 +21,11 @@ const ContactUsForm = () => {
 
   const countryCodes = [
     {
+      name: "Saudi Arabia",
+      dial_code: "+966",
+      icon : <SA title="Saudi Arabia"/>,
+    },
+    {
       name: "Bahrain",
       dial_code: "+973",
       icon : <BH title="Bahrain"/>,
@@ -39,11 +44,6 @@ const ContactUsForm = () => {
       name: "Qatar",
       dial_code: "+974",
       icon : <QA title="Qatar"/>,
-    },
-    {
-      name: "Saudi Arabia",
-      dial_code: "+966",
-      icon : <SA title="Saudi Arabia"/>,
     },
     {
       name: "UAE",

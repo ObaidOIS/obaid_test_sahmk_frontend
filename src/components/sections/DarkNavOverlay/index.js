@@ -12,6 +12,13 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
     <div>
       <div className="min-h-full">
         <div className="bg-gray-800 pb-32 bg-custome">
+        {/* <Image
+              src="/assets/images/layer-design.png"
+              width={500}
+              height={50}
+              className=" w-full absolute top-0"
+              alt="Background Image"
+            /> */}
           <header className="w-full relative">
             <div className="flex p-6">
               <div
@@ -34,19 +41,13 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
                 </div>
               </div>
             </div>
-            {/* <Image
-              src="/assets/images/layer-design.png"
-              width={300}
-              height={200}
-              className="w-full absolute top-0 -z-0"
-              alt="Background Image"
-            /> */}
+            
             {successAlert == true ? 
             <SuccessAlert setOpenModal={setSuccessAlert}
-            message="تم التنشيط بنجاح!" alertStyle="absolute top-8 right-4" /> : "" }
+            message="تم التنشيط بنجاح!" alertStyle="fixed top-8 right-4" /> : "" }
             
             {deactivateAlert == true ? 
-            <SuccessAlert message="تم التعطيل بنجاح!" setOpenModal={setDeactivateAlert} alertStyle="absolute top-8 right-4" /> : "" }
+            <SuccessAlert message="تم التعطيل بنجاح!" setOpenModal={setDeactivateAlert} alertStyle="fixed top-8 right-4" /> : "" }
 
             <div className="lg:container flex items-center pt-8 justify-center mx-auto">
             
@@ -76,11 +77,11 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
           </header>
         </div>
 
-        <main className="-mt-32">
+        <main className="-mt-32 !z-[2147483647]">
           <div className="mx-auto xl:w-6/12 lg:w-8/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
             <div className="rounded-lg text-sm px-3 py-6 sm:px-6">
               {page.name !== "userprofile" ? (
-                <div onClick={()=>{page.name == "payment" ? setPage({ name: "my-account", value: "باقتي وحسابي" }) : setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className="flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">
+                <div onClick={()=>{page.name == "payment" ? setPage({ name: "my-account", value: "باقتي وحسابي" }) : setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className=" !z-[2147483647] flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">
                  <Image src="/assets/icons/white-right-arrow.svg" width={16} height={16} className="" alt="img" /> عودة للقائمة 
                 </div>
               ) : (
@@ -94,6 +95,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
           </div>
         </main>
       </div>
+      
     </div>
   );
 };

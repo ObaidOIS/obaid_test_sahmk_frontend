@@ -4,7 +4,6 @@ import { PrimaryFeatures } from "@/components/widgets/PrimaryFeatures";
 import TabSection from "@/components/widgets/TabSection";
 import Image from "next/image";
 import React, { useState } from "react";
-import DesktopImage from "/public/assets/images/desktop.svg";
 
 const FeatureSection = () => {
   const Features = [
@@ -34,7 +33,7 @@ const FeatureSection = () => {
           alt="img"
         />
       ),
-      image: "/assets/images/desktop.svg",
+      image: "/assets/images/chat-desktop.svg",
     },
     {
       title: "إستلام تقرير اسبوعي لحالة أسهمك والشركات.",
@@ -74,6 +73,7 @@ const FeatureSection = () => {
           </p>
         </div>
         <div className="mt-16 relative grid grid-cols-1 mx-auto items-center gap-y-2 pt-10 sm:gap-y-6 lg:grid-cols-12 lg:pt-0">
+          <div className="">
           <div className="-mx-4 absolute lg:w-[500px] lg:top-8 lg:right-[700px] lg:overflow-x-auto pb-4 sm:mx-0 overflow-visible sm:pb-0 lg:col-span-5">
             <div className="relative z-10 flex space-y-0 px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block ">
               <div className="lg:hidden flex justify-center mx-auto w-screen sm:mt-20 mt-36">
@@ -168,6 +168,7 @@ const FeatureSection = () => {
               ""
             );
           })}
+          </div>
         </div>
       </div>
     </section>

@@ -46,6 +46,11 @@ const [isAllFeaturesModalOpen, setIsAllFeaturesModalOpen] = useState(false);
 
 const countryCodes = [
   {
+    name: "Saudi Arabia",
+    dial_code: "+966",
+    icon : <SA title="Saudi Arabia"/>,
+  },
+  {
     name: "Bahrain",
     dial_code: "+973",
     icon : <BH title="Bahrain"/>,
@@ -66,11 +71,6 @@ const countryCodes = [
     icon : <QA title="Qatar"/>,
   },
   {
-    name: "Saudi Arabia",
-    dial_code: "+966",
-    icon : <SA title="Saudi Arabia"/>,
-  },
-  {
     name: "UAE",
     dial_code: "+971",
     icon : <AE title="UAE"/>,
@@ -81,26 +81,107 @@ const [activeItem, setActiveItem] = useState(null);
 
 const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
 
-const basicPlanFeatures = [
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "معرفة تفاصيل الشركات المدرجة في الأسهم" },
-  { title: "السؤال عن أوقات التوزيعات لأي سهم" },
+const frequencies = [
+  { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+  { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
 ];
-const standardPlanFeatures = [
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "معرفة تفاصيل الشركات المدرجة في الأسهم" },
-  { title: "السؤال عن أوقات التوزيعات لأي سهم" },
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-];
-const premiumPlanFeatures = [
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "معرفة تفاصيل الشركات المدرجة في الأسهم" },
-  { title: "السؤال عن أوقات التوزيعات لأي سهم" },
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "وصول لأسهم أكثر من +300 شركة" },
-  { title: "وصول لأسهم أكثر من +300 شركة" },
+
+const [frequency, setFrequency] = useState(frequencies[0]);
+
+const pricingRadio = [
+  {
+    title: "الباقة المجانية",
+    icon: (
+      <Image
+        src="/assets/icons/blue-check.svg"
+        width={25}
+        height={25}
+        alt="img"
+        className="mt-1"
+      />
+    ),
+    desc: "باقة بريميوم مميزة وأسعار مباشرة",
+    price: { monthly: "مجاناً", annually: "48 ريال" },
+    features: { monthly: [
+      "monthly basic",
+      "وصول لأسهم أكثر من +300 شركة",
+      "معرفة تفاصيل الشركات المدرجة في الأسهم",
+      "السؤال عن أوقات التوزيعات لأي سهم",
+      "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+      "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+      "الحصول على تقرير اسبوعي لأداء السهم PDF",
+    ], annually: [
+      "annually basic",
+      // "وصول لأسهم أكثر من +300 شركة",
+      "معرفة تفاصيل الشركات المدرجة في الأسهم",
+      "السؤال عن أوقات التوزيعات لأي سهم",
+      "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+      "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+      "الحصول على تقرير اسبوعي لأداء السهم PDF",
+    ]},
+  },
+  {
+    title: "باقة بريميوم",
+    icon: (
+      <Image
+        src="/assets/icons/purple-check-icon.svg"
+        width={25}
+        height={25}
+        alt="img"
+        className="mt-1"
+      />
+    ),
+    desc: "باقة بريميوم مميزة وأسعار مباشرة",
+    price: { monthly: "49 ريال", annually: "488 ريال" },
+    features: { monthly: [
+      "monthly standard",
+      "وصول لأسهم أكثر من +300 شركة",
+      "معرفة تفاصيل الشركات المدرجة في الأسهم",
+      "السؤال عن أوقات التوزيعات لأي سهم",
+      "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+      "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+      "الحصول على تقرير اسبوعي لأداء السهم PDF",
+    ], annually: [
+      "annually standard",
+      // "وصول لأسهم أكثر من +300 شركة",
+      "معرفة تفاصيل الشركات المدرجة في الأسهم",
+      "السؤال عن أوقات التوزيعات لأي سهم",
+      "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+      "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+      "الحصول على تقرير اسبوعي لأداء السهم PDF",
+    ]},
+  },
+  {
+    title: "الباقة المتقدمة",
+    icon: (
+      <Image
+        src="/assets/icons/yellow-check.svg"
+        width={25}
+        height={25}
+        alt="img"
+        className="mt-1"
+      />
+    ),
+    desc: "باقة بريميوم مميزة وأسعار مباشرة",
+    price: { monthly: "99 ريال", annually: "688 ريال" },
+    features: { monthly: [
+      "monthly premium",
+      "وصول لأسهم أكثر من +300 شركة",
+      "معرفة تفاصيل الشركات المدرجة في الأسهم",
+      "السؤال عن أوقات التوزيعات لأي سهم",
+      "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+      "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+      "الحصول على تقرير اسبوعي لأداء السهم PDF",
+    ], annually: [
+      "annually premium",
+      // "وصول لأسهم أكثر من +300 شركة",
+      "معرفة تفاصيل الشركات المدرجة في الأسهم",
+      "السؤال عن أوقات التوزيعات لأي سهم",
+      "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+      "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+      "الحصول على تقرير اسبوعي لأداء السهم PDF",
+    ]},
+  },
 ];
 
 
@@ -114,7 +195,11 @@ const premiumPlanFeatures = [
           button="إضافة هدف جديد"
           onClickHandle={() => setIsPricingModalOpen(false)}
           content={
-            <RegisterPricingModal isOpen={isPricingModalOpen} setSelectedOption={setSelectedOption} selectedOption={selectedOption} />
+            <RegisterPricingModal isOpen={isPricingModalOpen} 
+            setSelectedOption={setSelectedOption} selectedOption={selectedOption}
+            frequencies={frequencies} frequency={frequency} setFrequency={setFrequency}
+            pricingRadio={pricingRadio}
+             />
           }
         />
       ) : (
@@ -129,7 +214,9 @@ const premiumPlanFeatures = [
           onClickHandle={() => setIsAllFeaturesModalOpen(false)}
           content={
             <AllFeaturesModal isOpen={isAllFeaturesModalOpen} 
-            features={selectedOption == "الباقة المتقدمة" ? premiumPlanFeatures : selectedOption == "باقة بريميوم" ? standardPlanFeatures : basicPlanFeatures } />
+            selectedOption={selectedOption}
+            features={selectedOption == "الباقة المتقدمة" ? pricingRadio[2].features[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].features[frequency.value] : pricingRadio[0].features[frequency.value] } 
+            />
           }
         />
       ) : (
@@ -143,7 +230,14 @@ const premiumPlanFeatures = [
             <span>الباقات </span>
           </h2>
           <div className="bg-white border border-gray-300 rounded-2xl pt-3 pb-8 my-5">
-            <PrimaryPackageCard setIsPricingModalOpen={setIsPricingModalOpen} setIsAllFeaturesModalOpen={setIsAllFeaturesModalOpen} />
+            <PrimaryPackageCard             
+            pricingRadio={pricingRadio}
+            frequency={frequency}
+            selectedOption={selectedOption}
+            setIsPricingModalOpen={setIsPricingModalOpen} 
+            setIsAllFeaturesModalOpen={setIsAllFeaturesModalOpen}
+            features={selectedOption == "الباقة المتقدمة" ? pricingRadio[2].features[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].features[frequency.value] : pricingRadio[0].features[frequency.value] }
+             />
           </div>
         </div>
         <div>
@@ -175,7 +269,7 @@ const premiumPlanFeatures = [
           </h2>
           <div className=" bg-white px-6 pb-14 pt-6 sm:px-8 mt-8 sm:border border-gray-300 rounded-2xl sm:rounded-md sm:shadow-md">
             <MultiSelectSearchInput />
-            <div className="flex text-teal-950 mt-4">يمكنك إعدادها لاحقا</div>
+            <div className="flex text-secondaryColor mt-4">يمكنك إعدادها لاحقا</div>
             <div className="flex font-medium mt-4  pt-8 border-t ">
               المزايا التي ترغب بتفعليها{" "}
             </div>

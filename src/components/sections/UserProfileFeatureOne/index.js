@@ -95,7 +95,7 @@ const UserProfileFeatureOne = ({
       {isPricingAddPanelOpen ? (
         <ModalUI
           onClickHandle={() => setOpenSucessModal(true)}
-          onClose={() => setIsPricingAddPanelOpen(false)}
+          onClose={() => {setIsPricingAddPanelOpen(false); setSearchQuery(""); setFilteredData(dataList); }}
           isOpen={isPricingAddPanelOpen}
           title="إضافة تعديل أسهمي"
           button="حفظ"

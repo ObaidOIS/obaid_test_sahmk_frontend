@@ -78,10 +78,10 @@ const Header = ({ toggleSidebar }) => {
             <Bars3Icon className="h-6 w-6" onClick={() => toggleSidebar()} />
           </div>
           <div className="items-center h-full lg:flex hidden ">
-            <a href="#_" className="hover:text-gray-900 font-normal">
+            <Link href="/auth/login" className="hover:text-gray-900 font-normal">
               {" "}
               تسجل الدخول{" "}
-            </a>
+            </Link>
             <div className="mr-4 inline">
             <Link href="/auth/register" >
               <PrimaryButton button="سجل معنا" buttonStyle={`font-normal`} />

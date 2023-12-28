@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/20/solid";
 
 const MultiSelectSearchInput = () => {
   const dataList = [
@@ -94,15 +94,8 @@ const MultiSelectSearchInput = () => {
                             </div>
                             {selectedItems.includes(item.id) && (
                               <div>
-                                {/* <Image
-                                  src="/assets/icons/close-icon.svg"
-                                  height={5}
-                                  width={5}
-                                  className="rotate-90 mt-1 ml-1 text-sm"
-                                  alt="image"
-                                /> */}
-                                <XMarkIcon
-                                  className="h-4 w-4"
+                                <CheckIcon
+                                  className="h-6 w-5 flex-none text-primaryColor"
                                   aria-hidden="true"
                                 />
                               </div>

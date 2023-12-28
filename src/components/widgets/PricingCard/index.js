@@ -62,7 +62,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
           role="list"
           className="mt-8 space-y-3 text-sm leading-6 text-darkColor dark:text-gray-300 xl:mt-10"
         >
-          {tier.features.map((feature) => (
+          {tier.features[frequency.value].map((feature) => (
             <li key={feature} className="flex gap-x-3">
               <CheckIcon
                 className="h-6 w-5 flex-none text-primaryColor"
