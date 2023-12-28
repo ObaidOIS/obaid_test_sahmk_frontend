@@ -21,7 +21,7 @@ const PricingAddPanel = ({
   setIsSecondFeatureModalOpen
 }) => {
   return (
-    <div className="px-5">
+    <div className="px-5 cursor-auto">
       <div className=" mx-auto py-6 border-t">
         <div className="sm:flex grid grid-cols-1 lg:grid lg:grid-cols-2 gap-3 items-start w-full justify-between">
           <div className="flex-1 gap-x-2 font-medium text-lg">
@@ -43,7 +43,7 @@ const PricingAddPanel = ({
                   aria-hidden="true"
                 />
               }
-              buttonStyle="text-primaryColor hover:bg-whiteColor bg-whiteColor shadow-none"
+              buttonStyle="text-primaryColor hover:bg-whiteColor bg-whiteColor !shadow-none"
             />
           </div>
         </div>

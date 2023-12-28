@@ -77,7 +77,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
         </div>
 
         <main className="-mt-32">
-          <div className="mx-auto lg:w-6/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
+          <div className="mx-auto xl:w-6/12 lg:w-8/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
             <div className="rounded-lg text-sm px-3 py-6 sm:px-6">
               {page.name !== "userprofile" ? (
                 <div onClick={()=>{page.name == "payment" ? setPage({ name: "my-account", value: "باقتي وحسابي" }) : setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className="flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">

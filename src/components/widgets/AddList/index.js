@@ -15,10 +15,10 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
               type="button"
               onClick={() => {toggleSelection !== undefined ? toggleSelection(personIdx, person.name) : null}}
               className={`group flex w-full items-center justify-between space-x-3 rounded-full border ${
-                isOpen == true && selectedItems?.some(item => item.id === personIdx) ? 
-                  "border-primaryColor"
-                  : "border-gray-300"
-              } p-1 text-left shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:ring-offset-2`}
+                (isOpen == true && selectedItems?.some(item => item.id === personIdx)) ? 
+                  "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"
+                  : `border-gray-300 ${isOpen == true ? "cursor-pointer" : " cursor-auto"} `
+              } p-1 text-left shadow-sm hover:bg-gray-50 focus:outline-none `}
             >
               <span className="flex min-w-0 flex-1 items-center space-x-3">
                 {person.imageUrl ? (

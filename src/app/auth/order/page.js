@@ -31,7 +31,7 @@ const OrderSummary = () => {
       إنشاء حساب في منصة سهمك 
     </div>
     <p className="text-lg leading-7 ">
-    ذا كنت تملك حساب <Link href="/auth/login" className=" text-teal-500">سجل الدخول</Link> إلى حساب 
+    ذا كنت تملك حساب <Link href="/auth/login" className=" text-primaryColor">سجل الدخول</Link> إلى حساب 
     </p>
       </div>
       <div className="">

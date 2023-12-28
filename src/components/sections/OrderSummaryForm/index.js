@@ -37,6 +37,20 @@ const OrderSummaryForm = () => {
       ),
       name: "visa-card",
     },
+    {
+      card: (
+        <div className="flex items-center px-1 justify-center">
+        <p className="font-medium text-xl whitespace-nowrap ml-2">apple pay</p>
+        <Image
+          src="/assets/icons/black-apple.svg"
+          height={35}
+          width={35}
+          alt="image"
+        />
+        </div>
+      ),
+      name: "apple pay",
+    },
   ];
 
   const [selectedCard, setSelectedCard] = useState("");

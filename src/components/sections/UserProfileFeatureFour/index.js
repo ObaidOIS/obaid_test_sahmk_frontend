@@ -40,6 +40,8 @@ const countryCodes = [
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
+  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
+
   return (
     <div>
         {isPricingModalOpen ? (
@@ -49,7 +51,7 @@ const countryCodes = [
           title="ترقية الباقة"
           button="حفظ"
           content={
-            <RegisterPricingModal isOpen={isPricingModalOpen} />
+            <RegisterPricingModal isOpen={isPricingModalOpen} setSelectedOption={setSelectedOption} selectedOption={selectedOption} />
           }
         />
       ) : (

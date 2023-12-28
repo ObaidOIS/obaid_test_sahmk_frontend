@@ -1,11 +1,10 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import AvatarWithText from "@/components/widgets/AvatarWithText";
 
-const PrimaryPackageCard = ({ setIsPricingModalOpen }) => {
+const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen}) => {
   const features = [
     { title: "وصول لأسهم أكثر من +300 شركة" },
     { title: "معرفة تفاصيل الشركات المدرجة في الأسهم" },
@@ -37,7 +36,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen }) => {
               onClick={() => {
                 setIsPricingModalOpen(true);
               }}
-              className="flex items-center gap-2 cursor-pointer align-middle text-teal-500 hover:text-teal-700"
+              className="flex items-center gap-2 cursor-pointer align-middle text-primaryColor hover:text-primaryColor/70"
             >
               <span>تغيير الباقة</span>
               <IoIosArrowRoundBack size={24} />
@@ -60,7 +59,9 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen }) => {
                 </li>
               );
             })}
-            <li className="flex items-center gap-3 mt-5 text-teal-500">
+            <li onClick={() => {
+                setIsAllFeaturesModalOpen(true);
+              }} className="flex items-center gap-3 mt-5 cursor-pointer text-primaryColor hover:text-primaryColor/70">
               شاهد كل المزايا
             </li>
           </ul>
