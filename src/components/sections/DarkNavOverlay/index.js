@@ -44,7 +44,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
             
             {successAlert == true ? 
             <SuccessAlert setOpenModal={setSuccessAlert}
-            message="تم التنشيط بنجاح!" alertStyle="fixed top-8 right-4" /> : "" }
+            message="تم التنشيط بنجاح!" alertStyle="fixed top-5 right-2" /> : "" }
             
             {deactivateAlert == true ? 
             <SuccessAlert message="تم التعطيل بنجاح!" setOpenModal={setDeactivateAlert} alertStyle="fixed top-8 right-4" /> : "" }
@@ -69,7 +69,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
                     مرحبا بك <span className="text-primaryColor">عبدالرحمن،</span>{" "}
                     في نظام سهمك
                   </div>
-                  <p className=" font-small text-gray-400/60 text-lg ">
+                  <p className=" font-small text-gray-400/60 text-sm ">
                     يمكنك إدارة حسابك والاطلاع على تفاصيل الاسهم وباقتك
                   </p>
                 </div>
@@ -87,7 +87,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
               ) : (
                 ""
               )}
-              <div className="text-2xl text-whiteColor font-medium mb-5 leading-none">
+              <div className="text-1xl text-whiteColor font-medium mb-5 leading-none">
               {page.value}
             </div>
               {children}

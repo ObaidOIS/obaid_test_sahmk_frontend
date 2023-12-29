@@ -21,7 +21,7 @@ const FeatureOneSearchModal = ({
               handleSearch={handleSearch} />
         </div>
         <div>
-          <div className="flex-1 mt-3 font-medium text-lg">
+          <div className="flex-1 mt-3 font-medium text-sm">
             <span>قائمة الشركات </span>
             <span className="text-primaryColor">تم تحديد ( {selectedItems?.length} )</span>
           </div>

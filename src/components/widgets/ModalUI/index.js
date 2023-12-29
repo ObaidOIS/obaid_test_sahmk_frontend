@@ -46,7 +46,7 @@ const ModalUI = ({ title, button, onClickHandle, content, onClose, isOpen }) => 
                     <div className="mt-3 sm:ml-4 sm:mt-0 text-start ">
                       <Dialog.Title
                         as="h3"
-                        className="text-base font-semibold leading-6 text-gray-900"
+                        className="text-base font-small leading-6 text-gray-900"
                       >
                         {title}
                       </Dialog.Title>
