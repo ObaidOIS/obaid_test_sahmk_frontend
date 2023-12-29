@@ -2,19 +2,8 @@
 import React, { Component } from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const SimpleLineChart = () => {
+const SimpleLineChart = ({data}) => {
  
-    const data = [
-      {name: 'الاحد', uv: 40, pv: 2400, amt: 2400},
-      {name: 'السبت', uv: 55, pv: 2400, amt: 2400},
-      {name: 'الجمعة', uv: 55, pv: 2400, amt: 2400},
-      {name: 'الخميس', uv: 35, pv: 2400, amt: 2400},
-      {name: 'الاربعاء', uv: 10, pv: 2400, amt: 2400},
-      {name: 'الثلاثاء', uv: 20, pv: 2400, amt: 2400},
-      {name: 'الاثنين', uv: 15, pv: 2400, amt: 2400},
-      {name: 'الاحد', uv: 25, pv: 2400, amt: 2400},
-    ];
-
   return (
     <div>
     <ResponsiveContainer width="100%" height={300} >

@@ -16,7 +16,7 @@ const MainSidebar = ({
 }) => {
   return (
     <Transition.Root show={isSidebarOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={toggleSidebar}>
+      <Dialog as="div" className="relative z-10" onClose={toggleSidebar} open={isSidebarOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"

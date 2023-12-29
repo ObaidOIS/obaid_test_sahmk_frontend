@@ -12,13 +12,13 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
     <div>
       <div className="min-h-full">
         <div className="bg-gray-800 pb-32 bg-custome">
-        {/* <Image
-              src="/assets/images/layer-design.png"
+            <Image
+              src="/assets/images/userprofile-layer-design.png"
               width={500}
               height={50}
-              className=" w-full absolute top-0"
+              className=" w-full absolute top-[-30px] h-[340px]"
               alt="Background Image"
-            /> */}
+            />
           <header className="w-full relative">
             <div className="flex p-6">
               <div
@@ -28,10 +28,10 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
                 <Bars3Icon className="h-6 w-6 text-whiteColor"  />
               </div>
               <div className="lg:hidden flex flex-1 justify-end">
-                <div className="bg-whiteColor/10 rounded-lg ml-2">
+                <div className="bg-whiteColor/10 rounded-lg ml-2 cursor-pointer">
                 <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p>
                 </div>
-                <div className="bg-whiteColor/10 flex justify-center py-1.5 px-2 items-center rounded-lg">
+                <div className="bg-whiteColor/10 cursor-pointer flex justify-center py-1.5 px-2 items-center rounded-lg">
                 <Image
                   src="/assets/icons/white-logout.svg"
                   width={16}
@@ -77,11 +77,11 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
           </header>
         </div>
 
-        <main className="-mt-32 !z-[2147483647]">
+        <main className="-mt-32">
           <div className="mx-auto xl:w-6/12 lg:w-8/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
             <div className="rounded-lg text-sm px-3 py-6 sm:px-6">
               {page.name !== "userprofile" ? (
-                <div onClick={()=>{page.name == "payment" ? setPage({ name: "my-account", value: "باقتي وحسابي" }) : setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className=" !z-[2147483647] flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">
+                <div onClick={()=>{page.name == "payment" ? setPage({ name: "my-account", value: "باقتي وحسابي" }) : setPage({name:"userprofile", value:"الخدمات الرئىيسية"})}} className=" flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none">
                  <Image src="/assets/icons/white-right-arrow.svg" width={16} height={16} className="" alt="img" /> عودة للقائمة 
                 </div>
               ) : (

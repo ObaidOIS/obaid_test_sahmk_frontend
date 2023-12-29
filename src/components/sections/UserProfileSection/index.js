@@ -13,17 +13,17 @@ import UserProfileFeatureTwo from "../UserProfileFeatureTwo";
 import SuccessAlert from "@/components/widgets/SuccessAlert";
 import UserProfileFeatureFour from "../UserProfileFeatureFour";
 import OrderSummaryForm from "../OrderSummaryForm";
+import UserProfileFeatureThree from "../UserProfileFeatureThree";
 
 const UserProfileSection = () => {
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNotificationChecked, setIsNotificationChecked] = useState(false);
   const [isTvChecked, setIsTvChecked] = useState(false);
   const [isPricesChecked, setIsPricesChecked] = useState(false);
-  const [isSecondFeatureModalOpen, setIsSecondFeatureModalOpen] = useState(false);
+  const [isSecondFeatureModalOpen, setIsSecondFeatureModalOpen] =
+    useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
-
 
   // let [page, setPage] = useState({
   //   name: "userprofile",
@@ -34,13 +34,15 @@ const UserProfileSection = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const storedPage = typeof window !== 'undefined' && JSON.parse(localStorage.getItem("page"));
+  const storedPage =
+    typeof window !== "undefined" && JSON.parse(localStorage.getItem("page"));
 
-  let [page, setPage] = useState(storedPage || {
-    name: "userprofile",
-    value: "الخدمات الرئىيسية",
-  }
-);
+  let [page, setPage] = useState(
+    storedPage || {
+      name: "userprofile",
+      value: "الخدمات الرئىيسية",
+    }
+  );
 
   // useEffect(() => {
   //   if (typeof window !== 'undefined' && storedPage && page !== storedPage) {
@@ -48,14 +50,12 @@ const UserProfileSection = () => {
   // }
   // }, [storedPage]);
 
-  
-
   useEffect(() => {
-    const cleanPage = cleanCircularReferences(page); 
-    console.log(cleanPage);// Implement a function to remove circular references
+    const cleanPage = cleanCircularReferences(page);
+    console.log(cleanPage); // Implement a function to remove circular references
     const serializedPage = JSON.stringify(cleanPage);
     // localStorage.setItem("page", serializedPage);
-        localStorage.setItem("page", serializedPage);
+    localStorage.setItem("page", serializedPage);
   }, [page]);
 
   function cleanCircularReferences(obj) {
@@ -66,7 +66,7 @@ const UserProfileSection = () => {
         if (React.isValidElement(value)) {
           return undefined;
         }
-  
+
         if (typeof value === "object" && value !== null) {
           if (seen.has(value)) {
             return undefined; // Exclude circular references
@@ -78,19 +78,16 @@ const UserProfileSection = () => {
     );
   }
 
-
   const handleNotificationSwitch = () => {
     setIsNotificationChecked((prevChecked) => !prevChecked);
-    isNotificationChecked == false ?
-    setSuccessAlert(true) : 
-    setDeactivateAlert(true)
+    isNotificationChecked == false
+      ? setSuccessAlert(true)
+      : setDeactivateAlert(true);
   };
 
   const handleTvSwitch = () => {
     setIsTvChecked((prevChecked) => !prevChecked);
-    isTvChecked == false ?
-    setSuccessAlert(true) : 
-    setDeactivateAlert(true)
+    isTvChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
   };
 
   const list = [
@@ -148,28 +145,130 @@ const UserProfileSection = () => {
     },
   ];
 
-  const stats = [
-    { id: 1, name: "السعر", value: "11,676.34" },
-    { id: 2, name: "نسبة التغيير", value: "0.65 ٪" },
-    { id: 3, name: "عدد الصفقات", value: "427,27" },
-    { id: 4, name: "الكمية المتداولة", value: "260,537,940" },
-    { id: 5, name: "القيمة المتداولة", value: "6,417,954,300" },
-  ];
+  // const stats = [
+  //   { id: 1, name: "السعر", value: "11,676.34" },
+  //   { id: 2, name: "نسبة التغيير", value: "0.65 ٪" },
+  //   { id: 3, name: "عدد الصفقات", value: "427,27" },
+  //   { id: 4, name: "الكمية المتداولة", value: "260,537,940" },
+  //   { id: 5, name: "القيمة المتداولة", value: "6,417,954,300" },
+  // ];
+
+  const [activeStat, setActiveStat] = useState("0");
 
   const tagsList = [
-    { id: 1, name: "مؤشر السوق", active: true },
-    { id: 2, name: "شركة علم", active: false },
-    { id: 3, name: "شركة علم", active: false },
-    { id: 4, name: "شركة علم", active: false },
-    { id: 5, name: "شركة علم", active: false },
-    { id: 4, name: "شركة علم", active: false },
-    { id: 5, name: "شركة علم", active: false },
+    {
+      id: 1,
+      name: "مؤشر السوق",
+      stats: [
+        { id: 1, name: "السعر", value: "11,676.34" },
+        { id: 2, name: "نسبة التغيير", value: "0.65 ٪" },
+        { id: 3, name: "عدد الصفقات", value: "427,27" },
+        { id: 4, name: "الكمية المتداولة", value: "260,537,940" },
+        { id: 5, name: "القيمة المتداولة", value: "6,417,954,300" },
+      ],
+    },
+    {
+      id: 2,
+      name: "شركة علم",
+      stats: [
+        { id: 1, name: "السعر", value: "676.30" },
+        { id: 2, name: "نسبة التغيير", value: "0.75 ٪" },
+        { id: 3, name: "عدد الصفقات", value: "292,76" },
+        { id: 4, name: "الكمية المتداولة", value: "960,940" },
+        { id: 5, name: "القيمة المتداولة", value: "7,954,300" },
+      ],
+    },
+    {
+      id: 3,
+      name: "شركة علم",
+      stats: [
+        { id: 1, name: "السعر", value: "1,676" },
+        { id: 2, name: "نسبة التغيير", value: "30 ٪" },
+        { id: 3, name: "عدد الصفقات", value: "8827,27" },
+        { id: 4, name: "الكمية المتداولة", value: "390,537,940" },
+        { id: 5, name: "القيمة المتداولة", value: "954,300" },
+      ],
+    },
+    {
+      id: 4,
+      name: "شركة علم",
+      stats: [
+        { id: 1, name: "السعر", value: "18,676.34" },
+        { id: 2, name: "نسبة التغيير", value: "2.64 ٪" },
+        { id: 3, name: "عدد الصفقات", value: "903277" },
+        { id: 4, name: "الكمية المتداولة", value: "232,360,940" },
+        { id: 5, name: "القيمة المتداولة", value: "417,954,300" },
+      ],
+    },
+    {
+      id: 5,
+      name: "شركة علم",
+      stats: [
+        { id: 1, name: "السعر", value: "11.34" },
+        { id: 2, name: "نسبة التغيير", value: "0.5 ٪" },
+        { id: 3, name: "عدد الصفقات", value: "327,27" },
+        { id: 4, name: "الكمية المتداولة", value: "260,940" },
+        { id: 5, name: "القيمة المتداولة", value: "6,417,300" },
+      ],
+    },
+    {
+      id: 6,
+      name: "شركة علم",
+      stats: [
+        { id: 1, name: "السعر", value: "123.34" },
+        { id: 2, name: "نسبة التغيير", value: "23 ٪" },
+        { id: 3, name: "عدد الصفقات", value: "9327,27" },
+        { id: 4, name: "الكمية المتداولة", value: "2,933,537,940" },
+        { id: 5, name: "القيمة المتداولة", value: "20,417,954,300" },
+      ],
+    },
   ];
 
+  const [activeChartTag, setActiveChartTag] = useState("أسبوع");
+
   const chartTagsList = [
-    { id: 1, name: "أسبوع", active: true },
-    { id: 2, name: "شهر", active: false },
-    { id: 3, name: "3 أشهر", active: false },
+    {
+      id: 1,
+      name: "أسبوع",
+      data: [
+        { name: "الاحد", uv: 40, pv: 2400, amt: 2400 },
+        { name: "السبت", uv: 55, pv: 2400, amt: 2400 },
+        { name: "الجمعة", uv: 55, pv: 2400, amt: 2400 },
+        { name: "الخميس", uv: 35, pv: 2400, amt: 2400 },
+        { name: "الاربعاء", uv: 10, pv: 2400, amt: 2400 },
+        { name: "الثلاثاء", uv: 20, pv: 2400, amt: 2400 },
+        { name: "الاثنين", uv: 15, pv: 2400, amt: 2400 },
+        { name: "الاحد", uv: 25, pv: 2400, amt: 2400 },
+      ],
+    },
+    {
+      id: 2,
+      name: "شهر",
+      data: [
+        { name: "الاحد", uv: 40, pv: 2400, amt: 2400 },
+        { name: "السبت", uv: 5, pv: 2400, amt: 2400 },
+        { name: "الجمعة", uv: 55, pv: 2400, amt: 2400 },
+        { name: "الخميس", uv: 25, pv: 2400, amt: 2400 },
+        { name: "الاربعاء", uv: 50, pv: 2400, amt: 2400 },
+        { name: "الثلاثاء", uv: 20, pv: 2400, amt: 2400 },
+        { name: "الاثنين", uv: 15, pv: 2400, amt: 2400 },
+        { name: "الاحد", uv: 25, pv: 2400, amt: 2400 },
+      ],
+    },
+    {
+      id: 3,
+      name: "3 أشهر",
+      data: [
+        { name: "الاحد", uv: 20, pv: 2400, amt: 2400 },
+        { name: "السبت", uv: 45, pv: 2400, amt: 2400 },
+        { name: "الجمعة", uv: 25, pv: 2400, amt: 2400 },
+        { name: "الخميس", uv: 35, pv: 2400, amt: 2400 },
+        { name: "الاربعاء", uv: 10, pv: 2400, amt: 2400 },
+        { name: "الثلاثاء", uv: 50, pv: 2400, amt: 2400 },
+        { name: "الاثنين", uv: 15, pv: 2400, amt: 2400 },
+        { name: "الاحد", uv: 25, pv: 2400, amt: 2400 },
+      ],
+    },
   ];
 
   const handlePageChange = (newPage) => {
@@ -180,165 +279,191 @@ const UserProfileSection = () => {
 
   const handlePricesSwitch = () => {
     setIsPricesChecked((prevChecked) => !prevChecked);
-    isPricesChecked == false ?
-    setSuccessAlert(true) : 
-    setDeactivateAlert(true)
+    isPricesChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
   };
 
   return (
     <div>
-      {typeof window == 'undefined' ?  "" :
-      <>
-      <DarkNavOverlay
-        successAlert={successAlert}
-        setSuccessAlert={setSuccessAlert}
-        deactivateAlert={deactivateAlert}
-        setDeactivateAlert={setDeactivateAlert}
-        page={page}
-        setPage={setPage}
-        toggleSidebar={toggleSidebar}
-      >
-        <MainSidebar
-          handlePageChange={handlePageChange}
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-          toggleSidebar={toggleSidebar}
-          list={list}
-        />
-        {page.name == "userprofile" ? (
-          <div className="space-y-6 translation duration-500 ease-in-out">
-            <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-              {list.map((item, index) => {
-                return (
-                  <div key={index} onClick={() => handlePageChange(item.page)}>
-                    <ArrowList
-                      leftIcon={
-                        <Image
-                          src="/assets/icons/arrow-right.svg"
-                          width={8}
-                          height={8}
-                          alt="img"
-                          className="group-hover:opacity-100 opacity-20 me-4"
+      {typeof window == "undefined" ? (
+        ""
+      ) : (
+        <>
+          <DarkNavOverlay
+            successAlert={successAlert}
+            setSuccessAlert={setSuccessAlert}
+            deactivateAlert={deactivateAlert}
+            setDeactivateAlert={setDeactivateAlert}
+            page={page}
+            setPage={setPage}
+            toggleSidebar={toggleSidebar}
+          >
+            <MainSidebar
+              handlePageChange={handlePageChange}
+              isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
+              toggleSidebar={toggleSidebar}
+              list={list}
+            />
+            {page.name == "userprofile" ? (
+              <div className="space-y-6 translation duration-500 ease-in-out">
+                <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                  {list.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handlePageChange(item.page)}
+                      >
+                        <ArrowList
+                          leftIcon={
+                            <Image
+                              src="/assets/icons/arrow-right.svg"
+                              width={8}
+                              height={8}
+                              alt="img"
+                              className="group-hover:opacity-100 opacity-20 me-4"
+                            />
+                          }
+                          title={item.title}
+                          desc={item.desc}
+                          icon={item.icon}
+                          bgColor={item.bgColor}
                         />
-                      }
-                      title={item.title}
-                      desc={item.desc}
-                      icon={item.icon}
-                      bgColor={item.bgColor}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                  <div className="flex items-end mb-5">
+                    <div className="text-2xl font-medium leading-none m-2">
+                      {" "}
+                      مؤشر السوق{" "}
+                    </div>
+                    <MainBadge
+                      title="الأسعار متأخرة"
+                      badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
                     />
                   </div>
-                );
-              })}
-            </div>
-            <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-              <div className="flex items-end mb-5">
-                <div className="text-2xl font-medium leading-none m-2">
-                  {" "}
-                  مؤشر السوق{" "}
-                </div>
-                <MainBadge
-                  title="الأسعار متأخرة"
-                  badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
-                />
-              </div>
-              <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
-                {tagsList.map((item, index) => {
-                  return (
-                    <span key={index}>
-                      <MainBadge
-                        title={item.name}
-                        index={index}
-                        badgeStyle={`${
-                          item.active == true
-                            ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                            : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                        } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
-                      />
-                    </span>
-                  );
-                })}
-              </div>
-              <div>
-                <Stats stats={stats} />
-              </div>
-              <div>
-                <div className="font-medium text-left leading-none m-2 mt-5">
-                  تحديث البيانات{" "}
-                  <span className="font-normal text-gray-500/80">
-                    اليوم الساعة 2:00
-                  </span>
-                </div>
-              </div>
-              <div className="mt-0 mb-16 pb-4 pt-2">
-                <div className="bg-whiteColor py-3 pe-2 shadow-lg border rounded-xl ">
-                  <div className="my-5 ps-5">
-                    {chartTagsList.map((item, index) => {
+                  <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
+                    {tagsList.map((item, index) => {
                       return (
-                        <span key={index}>
+                        <span
+                          key={index}
+                          onClick={() => {
+                            setActiveStat(index);
+                          }}
+                        >
                           <MainBadge
                             title={item.name}
                             index={index}
                             badgeStyle={`${
-                              item.active == true
+                              activeStat == index
                                 ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
                                 : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                            } truncate px-4 justify-center py-1.5 ml-3 block cursor-pointer`}
+                            } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
                           />
                         </span>
                       );
                     })}
                   </div>
-                  <SimpleLineChart />
+                  {tagsList.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        {activeStat == index ? (
+                          <Stats stats={item.stats} />
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    );
+                  })}
+                  <div>
+                    <div className="font-medium text-left leading-none m-2 mt-5">
+                      تحديث البيانات{" "}
+                      <span className="font-normal text-gray-500/80">
+                        اليوم الساعة 2:00
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-0 mb-16 pb-4 pt-2">
+                    <div className="bg-whiteColor py-3 pe-2 shadow-lg border rounded-xl ">
+                      <div className="my-5 ps-5">
+                        {chartTagsList.map((item, index) => {
+                          return (
+                            <span
+                              key={index}
+                              onClick={() => {
+                                setActiveChartTag(item.name);
+                              }}
+                            >
+                              <MainBadge
+                                title={item.name}
+                                index={index}
+                                badgeStyle={`${
+                                  activeChartTag == item.name
+                                    ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                                    : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                                } truncate px-4 justify-center py-1.5 ml-3 block cursor-pointer`}
+                              />
+                            </span>
+                          );
+                        })}
+                      </div>
+                      {chartTagsList.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            {activeChartTag == item.name ? (
+                            <SimpleLineChart data={item.data} />
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ) : page.name == "stock-notification" ? (
-          <UserProfileFeatureOne
-            isNotificationChecked={isNotificationChecked}
-            handleNotificationSwitch={handleNotificationSwitch}
-            handleTvSwitch={handleTvSwitch}
-            isTvChecked={isTvChecked}
-          />
-        ) : (
-          (page.name == "target-prices" ? (
-            <UserProfileFeatureTwo
-              setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
-              isSecondFeatureModalOpen={isSecondFeatureModalOpen}
-              handlePricesSwitch={handlePricesSwitch}
-              isPricesChecked={isPricesChecked}
-            />
-          ) : (
-            (page.name == "weekly-stock" ? (
+            ) : page.name == "stock-notification" ? (
+              <UserProfileFeatureOne
+                isNotificationChecked={isNotificationChecked}
+                handleNotificationSwitch={handleNotificationSwitch}
+                handleTvSwitch={handleTvSwitch}
+                isTvChecked={isTvChecked}
+              />
+            ) : page.name == "target-prices" ? (
+              <UserProfileFeatureTwo
+                setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
+                isSecondFeatureModalOpen={isSecondFeatureModalOpen}
+                handlePricesSwitch={handlePricesSwitch}
+                isPricesChecked={isPricesChecked}
+              />
+            ) : page.name == "weekly-stock" ? (
+              <div className="space-y-6">
+                <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                  <UserProfileFeatureThree 
+                  // chartTagsList={chartTagsList} activeStat={activeStat} tagsList={tagsList} setActiveStat={setActiveStat} activeChartTag={activeChartTag} setActiveChartTag={setActiveChartTag} 
+                  />
+                </div>
+              </div>
+            ) : page.name == "my-account" ? (
               <div className="space-y-6">
                 <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                  <p>Third tab</p>
+                  <UserProfileFeatureFour handlePageChange={handlePageChange} />
                 </div>
               </div>
+            ) : page.name == "payment" ? (
+              <div className="space-y-6">
+                <OrderSummaryForm />
+              </div>
             ) : (
-              (page.name == "my-account" ? (
-                <div className="space-y-6">
-                  <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                    <UserProfileFeatureFour handlePageChange={handlePageChange} />
-                  </div>
-                </div>
-              ) : (
-                (page.name == "payment" ? (
-                  <div className="space-y-6">
-                      <OrderSummaryForm />
-                  </div>
-                ) : (
-                  ""
-                ))
-              ))
-            ))
-          ))
-        )}
-      </DarkNavOverlay>
-      <div>
-        <ProfileFooter />
-      </div> 
-      </>}
+              ""
+            )}
+          </DarkNavOverlay>
+          <div>
+            <ProfileFooter />
+          </div>
+        </>
+      )}
     </div>
   );
 };
