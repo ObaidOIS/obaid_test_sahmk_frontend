@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: "20.2.0"
+          node-version: "20.3.0"
 
       # Caching Dependencies and Build Output
       - name: Cache Yarn Dependencies and Next.js Build Cache
