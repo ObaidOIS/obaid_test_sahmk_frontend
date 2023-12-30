@@ -51,8 +51,8 @@ const LoginCardForm = () => {
 
   const [activeItem, setActiveItem] = useState(null);
   const [userData, setUserData] = useState({
-    countryCode: activeItem || "+96",
-    mobileNumber: "",
+    countryCode: activeItem || "+966",
+    phoneNumber: "",
   });
   const [isOpen, setIsOpen] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
@@ -84,7 +84,7 @@ const LoginCardForm = () => {
         <SimpleAlertModalUI
           onClose={() => setIsOtpModalOpen(false)}
           isOpen={isOtpModalOpen}
-          content={<OtpModal isOpen={isOtpModalOpen} userData={userData} />}
+          content={<OtpModal isOpen={isOtpModalOpen} userData={userData} previousPage={"signin"} />}
         />
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">
@@ -118,12 +118,12 @@ const LoginCardForm = () => {
                     <InputFieldUI
                       label="رقم الجوال"
                       name="phone-tel"
-                      value={userData.mobileNumber}
+                      value={userData.phoneNumber}
                       handleChange={(e) => {
                         const value = e.target.value;
                         // Check if the value is a number
                         if (/^\d*$/.test(value)) {
-                          handleDataChange('mobileNumber', value);
+                          handleDataChange('phoneNumber', value);
                         }
                       }
                       }

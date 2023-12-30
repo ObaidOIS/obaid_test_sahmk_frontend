@@ -4,13 +4,19 @@ import PrimaryButton from "@/components/widgets/PrimaryButton";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import apiCall from "@/components/common/api";
+import { getFullPhoneNumber } from "@/components/common/utils";
 
-const OtpModal = ({ isOpen, userData }) => {
-  console.log(userData);
+const OtpModal = ({ isOpen, userData, previousPage }) => {
   const [timer, setTimer] = useState(
     moment.duration(0, "hours").add(1, "minute")
   );
   const [timerActive, setTimerActive] = useState(true);
+  // State for each OTP input
+  const [otp, setOtp] = useState(Array(4).fill(""));
+  const [otpId, setOtpId] = useState("");
+
+  const phoneNumber = getFullPhoneNumber(userData);
 
   useEffect(() => {
     let interval;
@@ -31,19 +37,101 @@ const OtpModal = ({ isOpen, userData }) => {
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, [timerActive]); // Run effect whenever timerActive changes
 
+  useEffect(() => {
+    // Effect for calling OTP API when the modal opens
+    const sendOtp = async () => {
+      if (isOpen && phoneNumber) {
+        try {
+          const data = {
+            action: "send",
+            number: phoneNumber, // assuming phoneNumber is the key in userData
+          };
+          const response = await apiCall(
+            "/auth/otp/",
+            "POST",
+            data,
+            previousPage
+          );
+          console.log("OTP sent:", response); // Handle success
+          setOtpId(response.result.id);
+        } catch (error) {
+          console.error("Error sending OTP:", error); // Handle errors
+        }
+      }
+    };
+
+    // Call the function when component mounts or isOpen/userData changes
+    sendOtp();
+  }, [phoneNumber, isOpen]);
+
   const handleResend = () => {
     setTimer(moment.duration(0, "hours").add(1, "minute")); // Reset the timer
     setTimerActive(true); // Start the timer
   };
 
+  const handleInputChange = (value, index) => {
+    // Update the corresponding OTP digit
+    let newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+  };
+
   const resendText = ` ${timer.minutes()}:${timer.seconds()}`;
 
-  const focusNextInput = (e, prevId, nextId) => {
-    const inputLength = e.target.value.length;
+  const focusNextInput = (e, prevId, nextId, index) => {
+    const value = e.target.value;
+    console.log(value);
+    // Ensure input is numeric
+    if (!value || isNaN(value)) {
+      return; // early return if not a number
+    }
+
+    // Update OTP
+    handleInputChange(value, index);
+
+    const inputLength = value.length;
     if (inputLength === 1) {
       document.getElementById(nextId)?.focus();
     } else if (inputLength === 0) {
       document.getElementById(prevId)?.focus();
+    }
+  };
+
+  const handleSubmit = async () => {
+    // Combine OTP digits into a single variable
+    const enteredOTP = otp.join("");
+
+    if (otpId && enteredOTP.length === 4) {
+      // Ensure otpId is set and OTP is complete
+      const otpPayload = {
+        action: "verify",
+        number: phoneNumber,
+        code: enteredOTP,
+        page: previousPage,
+        otp_id: otpId,
+      };
+
+      // Call the API to verify the OTP
+      const otpResponse = await apiCall(
+        "/auth/otp/",
+        "POST",
+        otpPayload,
+        previousPage
+      );
+
+      if (otpResponse.result.access_token && otpResponse.result.refresh_token) {
+        // Store tokens in localStorage
+        localStorage.setItem("accessToken", otpResponse.result.access_token);
+        localStorage.setItem("refreshToken", otpResponse.result.refresh_token);
+
+        // Handle additional success logic (navigation, user feedback, etc.)
+        console.log("OTP verified successfully");
+      } else {
+        // Handle case where OTP is wrong or verification fails
+        console.error("OTP Verification Failed:", otpResponse);
+      }
+    } else {
+      console.log("Complete OTP or valid OTP ID is required");
     }
   };
 
@@ -62,38 +150,22 @@ const OtpModal = ({ isOpen, userData }) => {
         يرجى إدخال الرمز المرسل إلى جوالك
       </p>
       <div className="flex gap-4 my-5">
-        <InputFieldUI
-          maxlength="1"
-          onKeyUp={focusNextInput}
-          paramOne="code-1"
-          paramTwo="code-2"
-          id="code-1"
-          buttonStyle="text-center"
-        />
-        <InputFieldUI
-          maxlength="1"
-          onKeyUp={focusNextInput}
-          paramOne="code-1"
-          paramTwo="code-3"
-          id="code-2"
-          buttonStyle="text-center"
-        />
-        <InputFieldUI
-          maxlength="1"
-          onKeyUp={focusNextInput}
-          paramOne="code-2"
-          paramTwo="code-4"
-          id="code-3"
-          buttonStyle="text-center"
-        />
-        <InputFieldUI
-          maxlength="1"
-          onKeyUp={focusNextInput}
-          paramOne="code-3"
-          paramTwo="code-5"
-          id="code-4"
-          buttonStyle="text-center"
-        />
+        {Array.from({ length: 4 }, (_, index) => (
+          <InputFieldUI
+            key={index}
+            maxlength="1"
+            onKeyUp={(e) =>
+              focusNextInput(
+                e,
+                `code-${index}`, // Previous ID
+                `code-${index + 2}`, // Next ID
+                index // Current index for OTP
+              )
+            }
+            id={`code-${index + 1}`}
+            buttonStyle="text-center"
+          />
+        ))}
       </div>
       <div>
         <p
@@ -115,6 +187,7 @@ const OtpModal = ({ isOpen, userData }) => {
         <PrimaryButton
           button="دخول"
           buttonStyle="py-3 rounded-md !font-normal w-full justify-center mt-6"
+          onClick={handleSubmit}
         />
       </div>
     </div>

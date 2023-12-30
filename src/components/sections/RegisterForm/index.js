@@ -8,7 +8,7 @@ import ModalUI from "@/components/widgets/ModalUI";
 import RegisterPricingModal from "../RegisterPricingModal";
 import Link from "next/link";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
-import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
+import { BH, KW, OM, QA, SA, AE } from "country-flag-icons/react/3x2";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import AllFeaturesModal from "../AllFeaturesModal";
 import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput";
