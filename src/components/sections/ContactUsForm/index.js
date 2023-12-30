@@ -6,7 +6,7 @@ import SwitchUI from "@/components/widgets/SwitchUI";
 import TextAreaUI from "@/components/widgets/TextAreaUI";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
-import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
+import { BH, KW, OM, QA, SA, AE, PK } from 'country-flag-icons/react/3x2'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

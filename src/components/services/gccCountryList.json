@@ -22,5 +22,9 @@
     {
     "name": "UAE",
     "dial_code": "+971"
+    },
+    {
+    "name": "PK",
+    "dial_code": "+92"
     }
 ]   

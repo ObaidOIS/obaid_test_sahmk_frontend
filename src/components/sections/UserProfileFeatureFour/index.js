@@ -7,7 +7,7 @@ import Image from "next/image";
 import React, {useState} from "react";
 import RegisterPricingModal from "../RegisterPricingModal";
 import ModalUI from "@/components/widgets/ModalUI";
-import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
+import { BH, KW, OM, QA, SA, AE, PK } from 'country-flag-icons/react/3x2'
 
 const UserProfileFeatureFour = ({handlePageChange}) => {
 
@@ -41,6 +41,11 @@ const UserProfileFeatureFour = ({handlePageChange}) => {
       name: "UAE",
       dial_code: "+971",
       icon : <AE title="UAE"/>,
+    },
+    {
+      name: "PK",
+      dial_code: "+971",
+      icon : <PK title="PK"/>,
     },
   ];
   
