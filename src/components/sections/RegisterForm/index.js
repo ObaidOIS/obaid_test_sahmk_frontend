@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CheckboxInput from "@/components/widgets/CheckboxInput";
 import PrimaryPackageCard from "../PrimaryPackageCard";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
@@ -8,18 +8,14 @@ import ModalUI from "@/components/widgets/ModalUI";
 import RegisterPricingModal from "../RegisterPricingModal";
 import Link from "next/link";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
-import { BH, KW, OM, QA, SA, AE } from "country-flag-icons/react/3x2";
+import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import AllFeaturesModal from "../AllFeaturesModal";
 import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput";
+import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
+import OtpModal from "../OtpModal";
 
 const RegisterForm = () => {
-  const selectboxList = [
-    { title: "کمپنی ایک" },
-    { title: "کمپنی دو" },
-    { title: "کمپنی تیسری" },
-  ];
-
   const checkboxes = [
     {
       title: "استقبال أسعار الافتتاح والاغلاق لأسهمي",
@@ -72,6 +68,11 @@ const RegisterForm = () => {
       dial_code: "+971",
       icon: <AE title="UAE" />,
     },
+    {
+      name: "PK",
+      dial_code: "+92",
+      icon: <PK title="PK" />,
+    },
   ];
 
   const frequencies = [
@@ -79,6 +80,8 @@ const RegisterForm = () => {
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
   ];
 
+  // State for OTP Modal visibility
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
   const [frequency, setFrequency] = useState(frequencies[0]);
@@ -88,6 +91,9 @@ const RegisterForm = () => {
     email: "",
     phoneNumber: "",
     countryCode: activeItem || "+966",
+    subscriptionType: "premium",
+    subscriptionPeriod: "yearly",
+    selectedCompanies: [],
   });
 
   const pricingRadio = [
@@ -203,14 +209,68 @@ const RegisterForm = () => {
   };
 
   const handleMenuItemClick = (item) => {
-    handleDataChange('countryCode', item.dial_code);
+    handleDataChange("countryCode", item);
     setActiveItem(item);
   };
 
-  console.log(userData);
+  // Effect to update subscriptionPeriod based on frequency
+  useEffect(() => {
+    if (frequency.value === "monthly") {
+      setUserData((prevData) => ({
+        ...prevData,
+        subscriptionPeriod: "monthly",
+      }));
+    } else if (frequency.value === "annually") {
+      setUserData((prevData) => ({
+        ...prevData,
+        subscriptionPeriod: "yearly",
+      }));
+    }
+  }, [frequency]);
+
+  // Effect to update subscriptionType based on selectedOption
+  useEffect(() => {
+    switch (selectedOption) {
+      case "باقة بريميوم":
+        setUserData((prevData) => ({
+          ...prevData,
+          subscriptionType: "premium",
+        }));
+        break;
+      case "الباقة المتقدمة":
+        setUserData((prevData) => ({
+          ...prevData,
+          subscriptionType: "companies",
+        }));
+        break;
+      case "الباقة المجانية":
+        setUserData((prevData) => ({ ...prevData, subscriptionType: "free" }));
+        break;
+      default:
+        // You can set a default case if needed
+        break;
+    }
+  }, [selectedOption]);
+
+  // Function to open the OTP Modal
+  const handleOpenOtpModal = () => {
+    setIsOtpModalOpen(true);
+  };
 
   return (
     <>
+      {/* OTP Modal Code */}
+      <SimpleAlertModalUI
+        onClose={() => setIsOtpModalOpen(false)}
+        isOpen={isOtpModalOpen}
+        content={
+          <OtpModal
+            isOpen={isOtpModalOpen}
+            userData={userData}
+            previousPage={"signup"}
+          />
+        } // Adjust according to your implementation
+      />
       {isPricingModalOpen ? (
         <ModalUI
           onClose={() => setIsPricingModalOpen(false)}
@@ -248,8 +308,8 @@ const RegisterForm = () => {
                 selectedOption == "الباقة المتقدمة"
                   ? pricingRadio[2].features[frequency.value]
                   : selectedOption == "باقة بريميوم"
-                    ? pricingRadio[1].features[frequency.value]
-                    : pricingRadio[0].features[frequency.value]
+                  ? pricingRadio[1].features[frequency.value]
+                  : pricingRadio[0].features[frequency.value]
               }
             />
           }
@@ -275,8 +335,8 @@ const RegisterForm = () => {
                   selectedOption == "الباقة المتقدمة"
                     ? pricingRadio[2].features[frequency.value]
                     : selectedOption == "باقة بريميوم"
-                      ? pricingRadio[1].features[frequency.value]
-                      : pricingRadio[0].features[frequency.value]
+                    ? pricingRadio[1].features[frequency.value]
+                    : pricingRadio[0].features[frequency.value]
                 }
               />
             </div>
@@ -292,21 +352,25 @@ const RegisterForm = () => {
                 type="text"
                 name="first-name"
                 value={userData.firstName}
-                handleChange={(e) => handleDataChange('firstName', e.target.value)}
+                handleChange={(e) =>
+                  handleDataChange("firstName", e.target.value)
+                }
               />
               <InputFieldUI
                 label="الاسم الأخير"
                 type="text"
                 name="last-name"
                 value={userData.lastName}
-                handleChange={(e) => handleDataChange('lastName', e.target.value)}
+                handleChange={(e) =>
+                  handleDataChange("lastName", e.target.value)
+                }
               />
               <InputFieldUI
                 label="البريد الإكلتروني"
                 type="email"
                 name="email"
                 value={userData.email}
-                handleChange={(e) => handleDataChange('email', e.target.value)}
+                handleChange={(e) => handleDataChange("email", e.target.value)}
               />
               <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
                 <PhoneNumberUI
@@ -314,7 +378,13 @@ const RegisterForm = () => {
                   dataList={countryCodes}
                   activeItem={activeItem}
                   setActiveItem={setActiveItem}
-                  handleChange={(e) => handleDataChange('phoneNumber', e.target.value)}
+                  handleChange={(e) => {
+                    const value = e.target.value;
+                    // Check if the value is a number
+                    if (/^\d*$/.test(value)) {
+                      handleDataChange("phoneNumber", value);
+                    }
+                  }}
                   value={userData.phoneNumber}
                   handleMenuItemClick={handleMenuItemClick}
                 />
@@ -353,6 +423,7 @@ const RegisterForm = () => {
           </div>
           <Link href="/auth/order">
             <PrimaryButton
+              onClick={handleOpenOtpModal}
               button="تسجيل"
               buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
             />

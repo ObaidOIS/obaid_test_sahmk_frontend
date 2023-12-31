@@ -5,7 +5,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import apiCall from "@/components/common/api";
-import { getFullPhoneNumber } from "@/components/common/utils";
+import {
+  getFullPhoneNumber,
+  mergeKeysIntoThird,
+} from "@/components/common/utils";
 
 const OtpModal = ({ isOpen, userData, previousPage }) => {
   const [timer, setTimer] = useState(
@@ -17,6 +20,7 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
   const [otpId, setOtpId] = useState("");
 
   const phoneNumber = getFullPhoneNumber(userData);
+  userData = mergeKeysIntoThird(userData, "firstName", "lastName", "name");
 
   useEffect(() => {
     let interval;
@@ -80,7 +84,6 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
 
   const focusNextInput = (e, prevId, nextId, index) => {
     const value = e.target.value;
-    console.log(value);
     // Ensure input is numeric
     if (!value || isNaN(value)) {
       return; // early return if not a number
@@ -109,6 +112,7 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
         code: enteredOTP,
         page: previousPage,
         otp_id: otpId,
+        ...userData,
       };
 
       // Call the API to verify the OTP
@@ -126,6 +130,13 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
 
         // Handle additional success logic (navigation, user feedback, etc.)
         console.log("OTP verified successfully");
+
+        // Redirect based on the previousPage
+        if (previousPage === "signup") {
+          window.location.href = "/auth/order";
+        } else if (previousPage === "signin") {
+          window.location.href = "/userprofile";
+        }
       } else {
         // Handle case where OTP is wrong or verification fails
         console.error("OTP Verification Failed:", otpResponse);
@@ -172,10 +183,11 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
           onClick={() => {
             timer.asSeconds() > 0 ? "" : handleResend();
           }}
-          className={` ${timer.asSeconds() > 0
+          className={` ${
+            timer.asSeconds() > 0
               ? ""
               : " hover:text-darkGreyColor underline cursor-pointer"
-            } text-sm font-medium text-right`}
+          } text-sm font-medium text-right`}
         >
           {timer.asSeconds() > 0
             ? ` إعادة ارسال الرمز بعد ${resendText} `
