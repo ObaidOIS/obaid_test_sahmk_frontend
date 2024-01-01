@@ -400,7 +400,7 @@ const RegisterForm = () => {
               <span>الخطوة الأخيرة </span>
             </h2>
             <div className=" bg-white px-6 pb-14 pt-6 sm:px-8 mt-8 sm:border border-gray-300 rounded-2xl sm:rounded-md sm:shadow-md">
-              <MultiSelectSearchInput />
+              <MultiSelectSearchInput setUserData={setUserData} />
               <div className="flex text-secondaryColor mt-4">
                 يمكنك إعدادها لاحقا
               </div>
