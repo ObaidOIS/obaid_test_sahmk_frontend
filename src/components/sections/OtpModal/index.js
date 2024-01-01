@@ -54,10 +54,10 @@ console.log(resendText);
         </div>
         <p className='text-sm font-medium text-center mt-8'>يرجى إدخال الرمز المرسل إلى جوالك</p>
         <div className='flex gap-4 my-5' dir="ltr">
-            <InputFieldUI maxlength="1" inputmode="numeric" onkeyup={focusNextInput} paramOne='code-1' paramTwo='code-2' id="code-1" buttonStyle="text-center" />
-            <InputFieldUI maxlength="1" inputmode="numeric" onkeyup={focusNextInput}  paramOne='code-1' paramTwo='code-3' id="code-2" buttonStyle="text-center" />
-            <InputFieldUI maxlength="1" inputmode="numeric" onkeyup={focusNextInput}  paramOne='code-2' paramTwo='code-4' id="code-3" buttonStyle="text-center" />
-            <InputFieldUI maxlength="1" inputmode="numeric" onkeyup={focusNextInput}  paramOne='code-3' paramTwo='code-4' id="code-4" buttonStyle="text-center" />
+            <InputFieldUI maxlength="1" inputmode="numeric" onKeyUpEvent={true} onkeyup={focusNextInput} paramOne='code-1' paramTwo='code-2' id="code-1" buttonStyle="text-center" />
+            <InputFieldUI maxlength="1" inputmode="numeric" onKeyUpEvent={true} onkeyup={focusNextInput}  paramOne='code-1' paramTwo='code-3' id="code-2" buttonStyle="text-center" />
+            <InputFieldUI maxlength="1" inputmode="numeric" onKeyUpEvent={true} onkeyup={focusNextInput}  paramOne='code-2' paramTwo='code-4' id="code-3" buttonStyle="text-center" />
+            <InputFieldUI maxlength="1" inputmode="numeric" onKeyUpEvent={true} onkeyup={focusNextInput}  paramOne='code-3' paramTwo='code-4' id="code-4" buttonStyle="text-center" />
             </div>
             <div>
             <p onClick={()=>{timer.asSeconds() > 0 ? "" : handleResend()}} className={` ${timer.asSeconds() > 0 ? "" : " hover:text-darkGreyColor underline cursor-pointer"} text-sm font-medium text-right`}>{timer.asSeconds() > 0 ? ` إعادة ارسال الرمز بعد ${resendText} `  : `إعادة إرسال OTP مرة أخرى`} </p>
