@@ -2,7 +2,7 @@ runtime: nodejs18
 service: sahmk
 
 handlers:
-  # Serve all static files from the Next.js build
+  # Serve all static files from the Next.js build 
   - url: /_next/static/
     static_dir: .next/static
     secure: always
