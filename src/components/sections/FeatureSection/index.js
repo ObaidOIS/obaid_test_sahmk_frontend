@@ -76,7 +76,7 @@ const FeatureSection = () => {
           <div className="">
           <div className="-mx-4 absolute lg:w-[500px] lg:top-8 lg:right-[700px] lg:overflow-x-auto pb-4 sm:mx-0 overflow-visible sm:pb-0 lg:col-span-5">
             <div className="relative z-10 flex space-y-0 px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block ">
-              <div className="lg:hidden flex justify-center mx-auto w-screen sm:mt-20 mt-36">
+              <div className="lg:hidden flex justify-center mx-auto w-screen lg:mt-20 ">
                 <div className="flex items-center md:!w-[750px] overflow-x-scroll justify-center bg-white/10 sm:rounded-t-xl border border-b-0">
                   <ul className="mx-auto flex w-full gap-6 relative px-4 py-4 overflow-x-scroll">
                     {Features.map((item, index) => {
@@ -98,7 +98,8 @@ const FeatureSection = () => {
                     return (
                       <div
                         key={index}
-                        className={`absolute sm:top-[8.7rem] top-[12.7rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
+                        className={`absolute lg:top-[8.7rem] top-[3.8rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
+                        // className={`absolute sm:top-[8.7rem] top-[12.7rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
                           index == activeTab
                             ? "visible opacity-100"
                             : "opacity-0 invisible"

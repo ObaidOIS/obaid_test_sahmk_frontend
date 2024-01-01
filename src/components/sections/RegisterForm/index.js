@@ -192,7 +192,7 @@ const pricingRadio = [
           onClose={() => setIsPricingModalOpen(false)}
           isOpen={isPricingModalOpen}
           title="الباقات"
-          button="إضافة هدف جديد"
+          button="حفظ"
           onClickHandle={() => setIsPricingModalOpen(false)}
           content={
             <RegisterPricingModal isOpen={isPricingModalOpen} 

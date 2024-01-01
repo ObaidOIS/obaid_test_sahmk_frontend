@@ -68,7 +68,7 @@ const Footer = () => {
       />
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
-          <div className="grid grid-cols-2 align-middle items-center gap-20 my-8">
+          <div className="sm:grid sm:grid-cols-2 flex align-middle items-center sm:gap-20 gap-8 px-3 my-8">
             <Link href="#">
             <Image
               src="/assets/logos/logo.svg"
@@ -78,7 +78,7 @@ const Footer = () => {
             />
             </Link>
           <div className="mx-auto">
-            <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
+            <p className="text-gray-500 sm:text-xl">مرخص و موثوق من</p>
             <Link href="#" className="flex justify-center mt-5">
             <Image src="/assets/images/tadawul.svg"
              width={170} height={170} className="cursor-pointer" alt="img" />
@@ -99,7 +99,7 @@ const Footer = () => {
                 );
               })}
             </div>
-            <div className="flex items-center gap-12 py-8 px-10">
+            <div className="flex items-center sm:gap-12 gap-6 py-8 sm:px-10 px-3">
               {socialIncons.map((item, index) => {
                 return (
                   <Link href={item.href} key={index}>

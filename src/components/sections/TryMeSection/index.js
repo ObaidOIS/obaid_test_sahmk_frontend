@@ -48,7 +48,7 @@ const TryMeSection = () => {
           </div>
           <div className=" justify-end mt-10 -mb-10 md:pl-20 md:mt-16 ">
             <div className="w-full">
-              <nav className="mb-10 list-none grid grid-cols-6 gap-x-20">
+              <nav className="mb-10 list-none grid grid-cols-6 md:gap-x-20">
                 {questions.map((item, index) => (
                   <li className="my-4 cursor-pointer col-span-6 sm:col-span-3 group" key={index}>
                       <span onClick={()=>handleLinkClick(item.question)}>
