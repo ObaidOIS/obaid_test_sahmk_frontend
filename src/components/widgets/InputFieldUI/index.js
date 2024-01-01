@@ -5,7 +5,7 @@ const InputFieldUI = ({label, placeholder, name, value, id, paramOne, paramTwo, 
     <div>
     {label ? <label for="text" className="block text-sm font-medium leading-6 text-gray-900">{label}</label> : "" }
     <div className="mt-2">
-      <input inputmode={inputmode} onKeyUp={(e) => onkeyup(e, paramOne, paramTwo)} id={id} onChange={handleChange} maxlength={maxlength} type="text" name={name} className={`block w-full px-4 rounded-md border-0 py-1.5 text-gray-900 outline-none shadow-sm ring-1  ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6 ${buttonStyle}`} placeholder={placeholder} />
+      <input inputmode={inputmode} onKeyUp={(e) => onkeyup(e, paramOne, paramTwo)} id={id} onChange={handleChange} maxlength={maxlength} type="text" name={name} className={`block appearance-none w-full px-4 rounded-md border-0 py-1.5 text-gray-900 outline-none shadow-sm ring-1  ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6 ${buttonStyle}`} placeholder={placeholder} />
     </div>
   </div>
   )
