@@ -1,1 +1,0 @@
-"use strict";exports.id=880,exports.ids=[880],exports.modules={880:(e,s,t)=>{t.r(s),t.d(s,{$$typeof:()=>d,__esModule:()=>r,default:()=>i});let o=(0,t(6843).createProxy)(String.raw`/home/anas/projects/sahmk-new/src/components/sections/UserProfileSection/index.js`),{__esModule:r,$$typeof:d}=o,i=o.default}};
