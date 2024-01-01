@@ -33,12 +33,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
 
-      - name: Install Dependencies with Yarn
-        run: yarn install --frozen-lockfile
+      # - name: Install Dependencies with Yarn
+      #   run: yarn install --frozen-lockfile
+      - name: Install Dependencies with npm
+        run: npm install
 
       - name: Building frontend
         run: |
-          yarn build # Building the app with Yarn
+          npm run build
+          #yarn build # Building the app with Yarn
 
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v0.2.0
