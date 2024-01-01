@@ -1,5 +1,4 @@
-const isProd = process.env.NODE_ENV === 'production';
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
 
-module.exports = {
-  assetPrefix: isProd ? '' : undefined,
-};
+module.exports = nextConfig
