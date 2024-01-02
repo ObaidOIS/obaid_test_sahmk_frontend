@@ -14,7 +14,7 @@ jobs:
     name: Deploying Next JS to Google Cloud
     runs-on: ubuntu-latest
     env:
-      NODE_ENV: 'production'
+      NODE_ENV: "production"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,21 +22,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: "18.17.0"
+          node-version: "20.3.0"
 
-
-      # Caching Dependencies and Build Output
-      - name: Cache Yarn Dependencies and Next.js Build Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.yarn
-            ~/.npm
-            node_modules
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+      # Debugging Step: Check Environment Variables
+      - name: Debug Environment Variables
+        run: |
+          echo "NODE_ENV: $NODE_ENV"
 
       - name: Install Dependencies with npm
         run: npm install
