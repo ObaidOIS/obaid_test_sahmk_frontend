@@ -14,7 +14,7 @@ jobs:
     name: Deploying Next JS to Google Cloud
     runs-on: ubuntu-latest
     env:
-      NODE_ENV: "production"
+      FRONTEND_URL_ENV: "production"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,9 +26,8 @@ jobs:
 
       - name: Install Dependencies with npm
         run: |
-          npm install tailwindcss --save-dev
-          npm install --frozen-lock
-
+          npm install tailwindcss
+          npm install
 
       - name: Building frontend
         run: |
