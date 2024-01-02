@@ -2,11 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  FaYoutube,
-  FaGithub,
   FaTwitter,
   FaInstagram,
-  FaFacebook,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -22,20 +19,6 @@ const Footer = () => {
 
   const socialIncons = [
     {
-      name: 'YouTube',
-      href: 'https://www.youtube.com/',
-      icon: (
-        <FaYoutube size={24} className="fill-gray-400 hover:fill-gray-900" />
-      ),
-    },
-    {
-      name: 'GitHub',
-      href: 'https://github.com/',
-      icon: (
-        <FaGithub size={24} className="fill-gray-400 hover:fill-gray-900" />
-      ),
-    },
-    {
       name: 'Twitter',
       href: 'https://twitter.com/sahmk_sa',
       icon: (
@@ -47,13 +30,6 @@ const Footer = () => {
       href: 'https://www.instagram.com/sahmk_sa/',
       icon: (
         <FaInstagram size={24} className="fill-gray-400 hover:fill-gray-900" />
-      ),
-    },
-    {
-      name: 'Facebook',
-      href: 'https://www.facebook.com/',
-      icon: (
-        <FaFacebook size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
   ];
