@@ -15,42 +15,43 @@ const Footer = () => {
     { name: "المميزات", href: '#' },
     { name: "خدماتنا", href: '#services' },
     { name: "تجربة النظام", href: '#' },
+    { name: "صفحة الخصوصية", href: '/privacypolicy' },
     { name: "حساب تعريفي", href: '/userprofile' },
-    { name: "اتصل بنا", href: '#' },
+    { name: "اتصل بنا", href: '/contactus' },
   ];
 
   const socialIncons = [
     {
       name: 'YouTube',
-      href: '#',
+      href: 'https://www.youtube.com/',
       icon: (
         <FaYoutube size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
       name: 'GitHub',
-      href: '#',
+      href: 'https://github.com/',
       icon: (
         <FaGithub size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
       name: 'Twitter',
-      href: '#',
+      href: 'https://twitter.com/sahmk_sa',
       icon: (
         <FaTwitter size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
       name: 'Instagram',
-      href: '#',
+      href: 'https://www.instagram.com/sahmk_sa/',
       icon: (
         <FaInstagram size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
       name: 'Facebook',
-      href: '#',
+      href: 'https://www.facebook.com/',
       icon: (
         <FaFacebook size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),

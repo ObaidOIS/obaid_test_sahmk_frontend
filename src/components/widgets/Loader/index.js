@@ -2,12 +2,12 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div>
+    <div className="h-screen w-full flex justify-center items-center bg-lightGreyColor">
       <svg
         class="animate-spin h-6 w-6 text-primaryColor"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
-        viewBox="0 0 24 24"
+        viewBox="0 0 24 24" 
       >
         <circle
           class="opacity-25"

@@ -4,6 +4,7 @@ import PrimaryButton from "../PrimaryButton";
 import OutlineButton from "../OutlineButton";
 import MainBadge from "../MainBadge";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
 
@@ -46,7 +47,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
             {frequency.priceSuffix}
           </span>
         </p>
-        <a
+        <Link 
           href={tier.href}
           aria-describedby={tier.id}
           className={classNames(
@@ -57,18 +58,20 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
           )}
         >
           {tier.button}
-        </a>
+        </Link>
         <ul
           role="list"
-          className="mt-8 space-y-3 text-sm leading-6 text-darkColor dark:text-gray-300 xl:mt-10"
+          className="mt-8 space-y-3 text-sm leading-6 dark:text-gray-300 xl:mt-10"
         >
-          {tier.features[frequency.value].map((feature) => (
-            <li key={feature} className="flex gap-x-3">
+          {tier.features[frequency.value].map((item, index) => (
+            <li key={index} className="flex gap-x-3">
               <CheckIcon
                 className="h-6 w-5 flex-none text-primaryColor"
                 aria-hidden="true"
               />
-              {feature}
+              <p className={`${item.isAvaiable == true ? "text-darkColor" : "text-mediumGreyColor"}`}>
+              {item.feature}
+              </p>
             </li>
           ))}
         </ul>
