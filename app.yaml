@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: sahmk-new
+service: sahmk
 
 handlers:
   # Serve all static files from the Next.js build
