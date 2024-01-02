@@ -7,7 +7,8 @@ import HeroSection from "@/components/sections/HeroSection";
 import PricingSection from "@/components/sections/PricingSection";
 import ServiceSection from "@/components/sections/ServiceSection";
 import TryMeSection from "@/components/sections/TryMeSection";
-import React, { useState }  from "react";
+import Loader from "@/components/widgets/Loader";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
 
@@ -17,9 +18,23 @@ export default function Home() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // useEffect(() => {
+  //   // Simulate fetching data and loading images
+  //   const fetchData = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 2000));
+  //     setIsLoaded(true);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+
+
   return (
     <>
-
       <Header toggleSidebar={toggleSidebar} />
       <div className={` ${isSidebarOpen ? "" : ""} w-96 z-[2147483647] flex lg:hidden`}>
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
