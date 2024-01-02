@@ -28,6 +28,8 @@ jobs:
         with:
           path: |
             ~/.yarn
+            ~/.npm
+            node_modules
             .next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
@@ -38,8 +40,6 @@ jobs:
       - name: Building frontend
         run: |
           npm run build
-      - name: Runing npm
-        run: npm run start
 
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v0.2.0
