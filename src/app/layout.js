@@ -38,7 +38,7 @@ export const metadata = {
     title: "sahmk",
     url: "https://sahmk.vercel.app/",
     images: [
-      {url: "/assets/images/share-thumbnail-image.jpeg",
+      {url: "/public/assets/images/share-thumbnail-image.jpeg",
       width: 800,
       height: 600,}
     ]
