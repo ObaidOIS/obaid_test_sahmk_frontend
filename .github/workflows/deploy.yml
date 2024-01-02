@@ -13,6 +13,8 @@ jobs:
   deploy:
     name: Deploying Next JS to Google Cloud
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: 'production'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
