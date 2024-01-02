@@ -1,5 +1,4 @@
 // next.config.js
 module.exports = {
-  basePath: '',
-  assetPrefix: '/',
+  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://sahmk.sa/' : '',
 };
