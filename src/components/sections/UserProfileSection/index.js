@@ -14,6 +14,8 @@ import SuccessAlert from "@/components/widgets/SuccessAlert";
 import UserProfileFeatureFour from "../UserProfileFeatureFour";
 import OrderSummaryForm from "../OrderSummaryForm";
 import UserProfileFeatureThree from "../UserProfileFeatureThree";
+import apiCall from "@/components/common/api";
+import { extractCountryCodeFromPhoneNumber } from "@/components/common/utils";
 
 const UserProfileSection = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,6 +26,43 @@ const UserProfileSection = () => {
     useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
+  const [userData, setUserData] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    countryCode: "+966",
+    expirationDate: null,
+  });
+  const [firstType, setFirstType] = useState(null);
+  const [originalSubscriptionDetails, setOriginalSubscriptionDetails] =
+    useState({ subscriptionType: "free", subscriptionPeriod: "monthly" });
+
+  useEffect(() => {
+    // This effect runs once on component mount to fetch the user data
+    const fetchUserData = async () => {
+      const response = await apiCall("/auth/api/user/");
+      const data = response.result;
+      if (data) {
+        const { countryCode, phoneNumber } = extractCountryCodeFromPhoneNumber(
+          data.phoneNumber
+        );
+        setUserData({
+          name: data.fullName || "",
+          phoneNumber: phoneNumber || "",
+          email: data.email || "",
+          countryCode: countryCode,
+          expirationDate: data.expirationDate || null,
+        });
+        setOriginalSubscriptionDetails({
+          subscriptionType: data.subscriptionType || "free",
+          subscriptionPeriod: data.subscriptionPeriod || "monthly",
+        });
+        setFirstType(data.subscriptionType);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   // let [page, setPage] = useState({
   //   name: "userprofile",
@@ -296,6 +335,7 @@ const UserProfileSection = () => {
             page={page}
             setPage={setPage}
             toggleSidebar={toggleSidebar}
+            name={userData.name}
           >
             <MainSidebar
               handlePageChange={handlePageChange}
@@ -412,7 +452,7 @@ const UserProfileSection = () => {
                         return (
                           <div key={index}>
                             {activeChartTag == item.name ? (
-                            <SimpleLineChart data={item.data} />
+                              <SimpleLineChart data={item.data} />
                             ) : (
                               ""
                             )}
@@ -440,15 +480,18 @@ const UserProfileSection = () => {
             ) : page.name == "weekly-stock" ? (
               <div className="space-y-6">
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                  <UserProfileFeatureThree 
-                  // chartTagsList={chartTagsList} activeStat={activeStat} tagsList={tagsList} setActiveStat={setActiveStat} activeChartTag={activeChartTag} setActiveChartTag={setActiveChartTag} 
+                  <UserProfileFeatureThree
+                  // chartTagsList={chartTagsList} activeStat={activeStat} tagsList={tagsList} setActiveStat={setActiveStat} activeChartTag={activeChartTag} setActiveChartTag={setActiveChartTag}
                   />
                 </div>
               </div>
             ) : page.name == "my-account" ? (
               <div className="space-y-6">
                 <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                  <UserProfileFeatureFour handlePageChange={handlePageChange} />
+                  <UserProfileFeatureFour
+                    handlePageChange={handlePageChange}
+                    userData={userData}
+                  />
                 </div>
               </div>
             ) : page.name == "payment" ? (

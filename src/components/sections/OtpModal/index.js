@@ -84,6 +84,7 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
 
   const focusNextInput = (e, prevId, nextId, index) => {
     const value = e.target.value;
+    console.log(value);
     // Ensure input is numeric
     if (!value || isNaN(value)) {
       return; // early return if not a number
@@ -104,6 +105,8 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
     // Combine OTP digits into a single variable
     const enteredOTP = otp.join("");
 
+    console.log(otp);
+
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
       const otpPayload = {
@@ -122,6 +125,8 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
         otpPayload,
         previousPage
       );
+
+      console.log(otpResponse);
 
       if (otpResponse.result.access_token && otpResponse.result.refresh_token) {
         // Store tokens in localStorage
@@ -165,7 +170,7 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
           <InputFieldUI
             key={index}
             maxlength="1"
-            onKeyUp={(e) =>
+            handleChange={(e) =>
               focusNextInput(
                 e,
                 `code-${index}`, // Previous ID
@@ -183,11 +188,10 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
           onClick={() => {
             timer.asSeconds() > 0 ? "" : handleResend();
           }}
-          className={` ${
-            timer.asSeconds() > 0
+          className={` ${timer.asSeconds() > 0
               ? ""
               : " hover:text-darkGreyColor underline cursor-pointer"
-          } text-sm font-medium text-right`}
+            } text-sm font-medium text-right`}
         >
           {timer.asSeconds() > 0
             ? ` إعادة ارسال الرمز بعد ${resendText} `

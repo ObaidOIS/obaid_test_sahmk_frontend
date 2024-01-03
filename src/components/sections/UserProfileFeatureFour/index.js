@@ -4,169 +4,224 @@ import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
 import SimpleCardHeader from "@/components/widgets/SimpleCardHeader";
 import Image from "next/image";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import RegisterPricingModal from "../RegisterPricingModal";
 import ModalUI from "@/components/widgets/ModalUI";
-import { BH, KW, OM, QA, SA, AE, PK } from 'country-flag-icons/react/3x2'
 
-const UserProfileFeatureFour = ({handlePageChange}) => {
-
-  const countryCodes = [
-    {
-      name: "Saudi Arabia",
-      dial_code: "+966",
-      icon : <SA title="Saudi Arabia"/>,
-    },
-    {
-      name: "Bahrain",
-      dial_code: "+973",
-      icon : <BH title="Bahrain"/>,
-    },
-    {
-      name: "Kuwait",
-      dial_code: "+965",
-      icon : <KW title="Kuwait"/>,
-    },
-    {
-      name: "Oman",
-      dial_code: "+968",
-      icon : <OM title="Oman"/>,
-    },
-    {
-      name: "Qatar",
-      dial_code: "+974",
-      icon : <QA title="Qatar"/>,
-    },
-    {
-      name: "UAE",
-      dial_code: "+971",
-      icon : <AE title="UAE"/>,
-    },
-    {
-      name: "PK",
-      dial_code: "+971",
-      icon : <PK title="PK"/>,
-    },
-  ];
-  
-
+const UserProfileFeatureFour = ({ handlePageChange, userData }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
-  
-const frequencies = [
-  { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
-  { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
-];
 
-const [frequency, setFrequency] = useState(frequencies[0]);
+  const frequencies = [
+    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
+  ];
 
-const pricingRadio = [
-  {
-    title: "الباقة المجانية",
-    icon: (
-      <Image
-        src="/assets/icons/blue-check.svg"
-        width={25}
-        height={25}
-        alt="img"
-        className="mt-1"
-      />
-    ),
-    desc: "باقة بريميوم مميزة وأسعار مباشرة",
-    price: { monthly: "مجاناً", annually: "48 ريال" },
-    features: {  monthly: [
-      {feature: "monthly basic", isAvaiable: true},
-      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ], annually: [
-      {feature: "annually basic", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ]},
-  },
-  {
-    title: "باقة بريميوم",
-    icon: (
-      <Image
-        src="/assets/icons/purple-check-icon.svg"
-        width={25}
-        height={25}
-        alt="img"
-        className="mt-1"
-      />
-    ),
-    desc: "باقة بريميوم مميزة وأسعار مباشرة",
-    price: { monthly: "49 ريال", annually: "488 ريال" },
-    features: { monthly: [
-      {feature: "monthly standard", isAvaiable: true},
-      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ], annually: [
-      {feature: "annually standard", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ]},
-  },
-  {
-    title: "الباقة المتقدمة",
-    icon: (
-      <Image
-        src="/assets/icons/yellow-check.svg"
-        width={25}
-        height={25}
-        alt="img"
-        className="mt-1"
-      />
-    ),
-    desc: "باقة بريميوم مميزة وأسعار مباشرة",
-    price: { monthly: "99 ريال", annually: "688 ريال" },
-    features: {  monthly: [
-      {feature: "monthly premium", isAvaiable: true},
-      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-    ], annually: [
-      {feature: "annually premium", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-    ]},
-  },
-];
+  const [frequency, setFrequency] = useState(frequencies[0]);
+
+  const pricingRadio = [
+    {
+      title: "الباقة المجانية",
+      icon: (
+        <Image
+          src="/assets/icons/blue-check.svg"
+          width={25}
+          height={25}
+          alt="img"
+          className="mt-1"
+        />
+      ),
+      desc: "باقة بريميوم مميزة وأسعار مباشرة",
+      price: { monthly: "مجاناً", annually: "48 ريال" },
+      features: {
+        monthly: [
+          { feature: "monthly basic", isAvaiable: true },
+          {
+            feature: "معرفة تفاصيل الشركات المدرجة في الأسهم",
+            isAvaiable: true,
+          },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+        annually: [
+          { feature: "annually basic", isAvaiable: true },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+      },
+    },
+    {
+      title: "باقة بريميوم",
+      icon: (
+        <Image
+          src="/assets/icons/purple-check-icon.svg"
+          width={25}
+          height={25}
+          alt="img"
+          className="mt-1"
+        />
+      ),
+      desc: "باقة بريميوم مميزة وأسعار مباشرة",
+      price: { monthly: "49 ريال", annually: "488 ريال" },
+      features: {
+        monthly: [
+          { feature: "monthly standard", isAvaiable: true },
+          {
+            feature: "معرفة تفاصيل الشركات المدرجة في الأسهم",
+            isAvaiable: true,
+          },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+        annually: [
+          { feature: "annually standard", isAvaiable: true },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+      },
+    },
+    {
+      title: "الباقة المتقدمة",
+      icon: (
+        <Image
+          src="/assets/icons/yellow-check.svg"
+          width={25}
+          height={25}
+          alt="img"
+          className="mt-1"
+        />
+      ),
+      desc: "باقة بريميوم مميزة وأسعار مباشرة",
+      price: { monthly: "99 ريال", annually: "688 ريال" },
+      features: {
+        monthly: [
+          { feature: "monthly premium", isAvaiable: true },
+          {
+            feature: "معرفة تفاصيل الشركات المدرجة في الأسهم",
+            isAvaiable: true,
+          },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+        ],
+        annually: [
+          { feature: "annually premium", isAvaiable: true },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+        ],
+      },
+    },
+  ];
 
   return (
     <div>
-        {isPricingModalOpen ? (
+      {isPricingModalOpen ? (
         <ModalUI
           onClose={() => setIsPricingModalOpen(false)}
           isOpen={isPricingModalOpen}
@@ -174,9 +229,14 @@ const pricingRadio = [
           title="ترقية الباقة"
           button="حفظ"
           content={
-            <RegisterPricingModal isOpen={isPricingModalOpen} setSelectedOption={setSelectedOption} selectedOption={selectedOption} 
-            frequencies={frequencies} frequency={frequency} setFrequency={setFrequency}
-            pricingRadio={pricingRadio}
+            <RegisterPricingModal
+              isOpen={isPricingModalOpen}
+              setSelectedOption={setSelectedOption}
+              selectedOption={selectedOption}
+              frequencies={frequencies}
+              frequency={frequency}
+              setFrequency={setFrequency}
+              pricingRadio={pricingRadio}
             />
           }
         />
@@ -203,34 +263,64 @@ const pricingRadio = [
             <div>
               <AvatarWithText
                 title={selectedOption}
-                desc={` ${selectedOption == "الباقة المتقدمة" ? pricingRadio[2].price[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].price[frequency.value] : pricingRadio[0].price[frequency.value]} / ${frequency.label} `}
-                descStyle={selectedOption == "الباقة المتقدمة" ? "!text-yellowColor" : selectedOption == "باقة بريميوم" ? "!text-purpleColor" : "!text-blueColor"}
+                desc={` ${
+                  selectedOption == "الباقة المتقدمة"
+                    ? pricingRadio[2].price[frequency.value]
+                    : selectedOption == "باقة بريميوم"
+                    ? pricingRadio[1].price[frequency.value]
+                    : pricingRadio[0].price[frequency.value]
+                } / ${frequency.label} `}
+                descStyle={
+                  selectedOption == "الباقة المتقدمة"
+                    ? "!text-yellowColor"
+                    : selectedOption == "باقة بريميوم"
+                    ? "!text-purpleColor"
+                    : "!text-blueColor"
+                }
                 image={
                   <Image
-                    src={selectedOption == "الباقة المتقدمة" ? "/assets/icons/yellow-check.svg" : selectedOption == "باقة بريميوم" ? "/assets/icons/purple-check-icon.svg" : "/assets/icons/blue-check.svg"}
+                    src={
+                      selectedOption == "الباقة المتقدمة"
+                        ? "/assets/icons/yellow-check.svg"
+                        : selectedOption == "باقة بريميوم"
+                        ? "/assets/icons/purple-check-icon.svg"
+                        : "/assets/icons/blue-check.svg"
+                    }
                     height={30}
                     width={30}
                     alt="image"
                   />
                 }
               />
-              <div className="mt-3" onClick={() => {
-                setIsPricingModalOpen(true);
-              }}>
+              <div
+                className="mt-3"
+                onClick={() => {
+                  setIsPricingModalOpen(true);
+                }}
+              >
                 <PrimaryButton
                   button="ترقية باقتي"
                   buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                 />
               </div>
-              {selectedOption == "الباقة المجانية" ? "" :
-              <div className="mt-3" onClick={() => {
-                handlePageChange({name: "payment", value: "باقتي وحسابي" })
-              }}>
-                <PrimaryButton
-                  button="متابعة للدفع"
-                  buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
-                />
-              </div>}
+              {selectedOption == "الباقة المجانية" ? (
+                ""
+              ) : (
+                <div
+                  className="mt-3"
+                  onClick={() => {
+                    handlePageChange({
+                      name: "payment",
+                      value: "باقتي وحسابي",
+                    });
+                  }}
+                >
+                  <PrimaryButton
+                    button="متابعة للدفع"
+                    buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                  />
+                </div>
+              )}
             </div>
           }
         />
@@ -252,7 +342,7 @@ const pricingRadio = [
             />
           </div>
           <div className="px-6 sm:px-0">
-            <InputFieldUI label="الاسم الأول" type="text" name="" />
+            <InputFieldUI label="الاسم الأول" type="text" name="" value={userData.name} />
           </div>
           <div className="px-6 sm:px-0">
             <InputFieldUI
@@ -260,16 +350,22 @@ const pricingRadio = [
               name=""
               label="الاسم الأخير"
               placeholder="الشهر / السنة"
+              value={userData.name}
             />
           </div>
           <div className="px-6 sm:px-0">
             {/* <InputFieldUI type="text" name="" label="" placeholder="رمز التحقق CVC" /> */}
-            <PhoneNumberUI title="رقم الجوال" dataList={countryCodes} activeItem={activeItem} setActiveItem={setActiveItem} />
+            <PhoneNumberUI
+              title="رقم الجوال"
+              dataList={[{ dial_code: userData.countryCode }]}
+              activeItem={activeItem}
+              setActiveItem={setActiveItem}
+              value={userData.phoneNumber}
+            />
           </div>
         </div>
       </div>
-      <div>
-      </div>
+      <div></div>
     </div>
   );
 };
