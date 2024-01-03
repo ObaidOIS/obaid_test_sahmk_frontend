@@ -37,15 +37,15 @@ const PhoneNumberUI = ({
             ))}
           </select>
         </div>
-        <input
-          type="text"
-          name="phone-number"
-          id="phone-number"
-          className="block w-full outline-none rounded-md border-0 py-1.5 pl-20 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primaryColor sm:text-sm sm:leading-6"
-          placeholder={placeholder}
-          onChange={handleChange}
-          value={value}
-        />
+      <input
+        type='text'
+        name="phone-number"
+        id="phone-number"
+        className="block w-full appearance-none outline-none rounded-md border-0 py-1.5 pl-20 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primaryColor sm:text-sm sm:leading-6"
+        placeholder={placeholder}
+        onChange={handleChange}
+        value={value}
+      />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import PricingSection from "@/components/sections/PricingSection";
 import ServiceSection from "@/components/sections/ServiceSection";
 import TryMeSection from "@/components/sections/TryMeSection";
-import React, { useState }  from "react";
+import React, { useState } from "react";
 
 export default function Home() {
 
@@ -16,12 +16,11 @@ export default function Home() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
+  
   return (
     <>
-
       <Header toggleSidebar={toggleSidebar} />
-      <div className={` ${isSidebarOpen ? "" : ""} w-96 z-[2147483647] flex lg:hidden`}>
+      <div className={`w-96 z-[2147483647] flex lg:hidden`}>
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
       <HeroSection />

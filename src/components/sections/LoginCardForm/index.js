@@ -93,6 +93,7 @@ const LoginCardForm = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
               <div className="lg:container w-full text-center ">
                 <div className="sm:visible invisible flex items-center justify-center">
+                <Link href="/" >
                   <Image
                     src="/assets/logos/logo.svg"
                     width={140}
@@ -100,6 +101,7 @@ const LoginCardForm = () => {
                     className="cursor-pointer"
                     alt="Logo"
                   />
+                  </Link>
                 </div>
                 <p className="text-lg leading-7 mt-2 ">
                   مرحبا بك في نظام سهمك الذكي

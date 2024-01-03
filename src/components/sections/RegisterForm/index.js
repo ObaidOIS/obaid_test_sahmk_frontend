@@ -96,111 +96,6 @@ const RegisterForm = () => {
     selectedCompanies: [],
   });
 
-  const pricingRadio = [
-    {
-      title: "الباقة المجانية",
-      icon: (
-        <Image
-          src="/assets/icons/blue-check.svg"
-          width={25}
-          height={25}
-          alt="img"
-          className="mt-1"
-        />
-      ),
-      desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: { monthly: "مجاناً", annually: "48 ريال" },
-      features: {
-        monthly: [
-          "monthly basic",
-          "وصول لأسهم أكثر من +300 شركة",
-          "معرفة تفاصيل الشركات المدرجة في الأسهم",
-          "السؤال عن أوقات التوزيعات لأي سهم",
-          "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
-          "تفعيل خاصية إضافة هدف لأسهمك الحالية",
-          "الحصول على تقرير اسبوعي لأداء السهم PDF",
-        ],
-        annually: [
-          "annually basic",
-          // "وصول لأسهم أكثر من +300 شركة",
-          "معرفة تفاصيل الشركات المدرجة في الأسهم",
-          "السؤال عن أوقات التوزيعات لأي سهم",
-          "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
-          "تفعيل خاصية إضافة هدف لأسهمك الحالية",
-          "الحصول على تقرير اسبوعي لأداء السهم PDF",
-        ],
-      },
-    },
-    {
-      title: "باقة بريميوم",
-      icon: (
-        <Image
-          src="/assets/icons/purple-check-icon.svg"
-          width={25}
-          height={25}
-          alt="img"
-          className="mt-1"
-        />
-      ),
-      desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: { monthly: "49 ريال", annually: "488 ريال" },
-      features: {
-        monthly: [
-          "monthly standard",
-          "وصول لأسهم أكثر من +300 شركة",
-          "معرفة تفاصيل الشركات المدرجة في الأسهم",
-          "السؤال عن أوقات التوزيعات لأي سهم",
-          "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
-          "تفعيل خاصية إضافة هدف لأسهمك الحالية",
-          "الحصول على تقرير اسبوعي لأداء السهم PDF",
-        ],
-        annually: [
-          "annually standard",
-          // "وصول لأسهم أكثر من +300 شركة",
-          "معرفة تفاصيل الشركات المدرجة في الأسهم",
-          "السؤال عن أوقات التوزيعات لأي سهم",
-          "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
-          "تفعيل خاصية إضافة هدف لأسهمك الحالية",
-          "الحصول على تقرير اسبوعي لأداء السهم PDF",
-        ],
-      },
-    },
-    {
-      title: "الباقة المتقدمة",
-      icon: (
-        <Image
-          src="/assets/icons/yellow-check.svg"
-          width={25}
-          height={25}
-          alt="img"
-          className="mt-1"
-        />
-      ),
-      desc: "باقة بريميوم مميزة وأسعار مباشرة",
-      price: { monthly: "99 ريال", annually: "688 ريال" },
-      features: {
-        monthly: [
-          "monthly premium",
-          "وصول لأسهم أكثر من +300 شركة",
-          "معرفة تفاصيل الشركات المدرجة في الأسهم",
-          "السؤال عن أوقات التوزيعات لأي سهم",
-          "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
-          "تفعيل خاصية إضافة هدف لأسهمك الحالية",
-          "الحصول على تقرير اسبوعي لأداء السهم PDF",
-        ],
-        annually: [
-          "annually premium",
-          // "وصول لأسهم أكثر من +300 شركة",
-          "معرفة تفاصيل الشركات المدرجة في الأسهم",
-          "السؤال عن أوقات التوزيعات لأي سهم",
-          "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
-          "تفعيل خاصية إضافة هدف لأسهمك الحالية",
-          "الحصول على تقرير اسبوعي لأداء السهم PDF",
-        ],
-      },
-    },
-  ];
-
   const handleDataChange = (fieldName, value) => {
     setUserData((prevData) => ({
       ...prevData,
@@ -212,21 +107,6 @@ const RegisterForm = () => {
     handleDataChange("countryCode", item);
     setActiveItem(item);
   };
-
-  // Effect to update subscriptionPeriod based on frequency
-  useEffect(() => {
-    if (frequency.value === "monthly") {
-      setUserData((prevData) => ({
-        ...prevData,
-        subscriptionPeriod: "monthly",
-      }));
-    } else if (frequency.value === "annually") {
-      setUserData((prevData) => ({
-        ...prevData,
-        subscriptionPeriod: "yearly",
-      }));
-    }
-  }, [frequency]);
 
   // Effect to update subscriptionType based on selectedOption
   useEffect(() => {
@@ -251,6 +131,108 @@ const RegisterForm = () => {
         break;
     }
   }, [selectedOption]);
+  
+const pricingRadio = [
+  {
+    title: "الباقة المجانية",
+    icon: (
+      <Image
+        src="/assets/icons/blue-check.svg"
+        width={25}
+        height={25}
+        alt="img"
+        className="mt-1"
+      />
+    ),
+    desc: "باقة بريميوم مميزة وأسعار مباشرة",
+    price: { monthly: "مجاناً", annually: "48 ريال" },
+    features: {  monthly: [
+      {feature: "monthly basic", isAvaiable: true},
+      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
+      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
+    ], annually: [
+      {feature: "annually basic", isAvaiable: true},
+      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
+    ]},
+  },
+  {
+    title: "باقة بريميوم",
+    icon: (
+      <Image
+        src="/assets/icons/purple-check-icon.svg"
+        width={25}
+        height={25}
+        alt="img"
+        className="mt-1"
+      />
+    ),
+    desc: "باقة بريميوم مميزة وأسعار مباشرة",
+    price: { monthly: "49 ريال", annually: "488 ريال" },
+    features: { monthly: [
+      {feature: "monthly standard", isAvaiable: true},
+      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
+      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
+    ], annually: [
+      {feature: "annually standard", isAvaiable: true},
+      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
+    ]},
+  },
+  {
+    title: "الباقة المتقدمة",
+    icon: (
+      <Image
+        src="/assets/icons/yellow-check.svg"
+        width={25}
+        height={25}
+        alt="img"
+        className="mt-1"
+      />
+    ),
+    desc: "باقة بريميوم مميزة وأسعار مباشرة",
+    price: { monthly: "99 ريال", annually: "688 ريال" },
+    features: {  monthly: [
+      {feature: "monthly premium", isAvaiable: true},
+      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
+      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+    ], annually: [
+      {feature: "annually premium", isAvaiable: true},
+      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
+      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
+    ]},
+  },
+];
 
   // Function to open the OTP Modal
   const handleOpenOtpModal = () => {
@@ -276,7 +258,7 @@ const RegisterForm = () => {
           onClose={() => setIsPricingModalOpen(false)}
           isOpen={isPricingModalOpen}
           title="الباقات"
-          button="إضافة هدف جديد"
+          button="حفظ"
           onClickHandle={() => setIsPricingModalOpen(false)}
           content={
             <RegisterPricingModal
