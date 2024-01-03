@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
-const MultiSelectSearchInput = () => {
+const MultiSelectSearchInput = ({ setUserData }) => {
   const dataList = [
     { id: 1, name: "کمپنی ایک" },
     { id: 2, name: "کمپنی دو" },
@@ -16,6 +16,21 @@ const MultiSelectSearchInput = () => {
   const [filteredData, setFilteredData] = useState(dataList);
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    // Update the selectedCompanies field in userData
+    setUserData((prevData) => ({
+      ...prevData, // Preserve other userData fields
+      // If selectedItems is empty, set selectedCompanies to an empty array
+      // Otherwise, map over selectedItems to get the corresponding objects from dataList
+      selectedCompanies:
+        selectedItems.length === 0
+          ? []
+          : selectedItems
+              .map((id) => dataList.find((item) => item.id === id))
+              .filter((item) => item !== undefined),
+    }));
+  }, [selectedItems]); // Only re-run the effect if selectedItems changes
 
   const toggleSelection = (itemId) => {
     setSelectedItems((prevSelected) =>
@@ -58,7 +73,12 @@ const MultiSelectSearchInput = () => {
       <div className="w-full">
         <div className="flex flex-col items-center relative">
           <div className="w-full svelte-1l8159u">
-                <label for="company" className="block mb-4 text-sm font-medium leading-6 text-gray-900">تفعيل الشركات </label>
+            <label
+              htmlFor="company"
+              className="block mb-4 text-sm font-medium leading-6 text-gray-900"
+            >
+              تفعيل الشركات{" "}
+            </label>
             <div className="my-2 p-1 flex border border-mediumGreyColor bg-white rounded-md shadow-sm svelte-1l8159u">
               <div className="flex flex-auto flex-wrap relative w-full">
                 <input
@@ -70,7 +90,6 @@ const MultiSelectSearchInput = () => {
                   onClick={() => setDropdownOpen(true)}
                   // onBlur={() => setDropdownOpen(false)}
                   onChange={(e) => handleSearch(e.target.value)}
-
                 />
                 {dropdownOpen && (
                   <div

@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react"; 
+import React, { useState, useEffect } from "react";
 import CheckboxInput from "@/components/widgets/CheckboxInput";
 import PrimaryPackageCard from "../PrimaryPackageCard";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
@@ -8,18 +8,14 @@ import ModalUI from "@/components/widgets/ModalUI";
 import RegisterPricingModal from "../RegisterPricingModal";
 import Link from "next/link";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
-import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
+import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import AllFeaturesModal from "../AllFeaturesModal";
 import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput";
+import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
+import OtpModal from "../OtpModal";
 
 const RegisterForm = () => {
-  const selectboxList = [
-    { title: "کمپنی ایک" },
-    { title: "کمپنی دو" },
-    { title: "کمپنی تیسری" },
-  ];
-
   const checkboxes = [
     {
       title: "استقبال أسعار الافتتاح والاغلاق لأسهمي",
@@ -38,56 +34,104 @@ const RegisterForm = () => {
     },
   ];
 
-const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-const [isAllFeaturesModalOpen, setIsAllFeaturesModalOpen] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [isAllFeaturesModalOpen, setIsAllFeaturesModalOpen] = useState(false);
 
+  const countryCodes = [
+    {
+      name: "Saudi Arabia",
+      dial_code: "+966",
+      icon: <SA title="Saudi Arabia" />,
+    },
+    {
+      name: "Bahrain",
+      dial_code: "+973",
+      icon: <BH title="Bahrain" />,
+    },
+    {
+      name: "Kuwait",
+      dial_code: "+965",
+      icon: <KW title="Kuwait" />,
+    },
+    {
+      name: "Oman",
+      dial_code: "+968",
+      icon: <OM title="Oman" />,
+    },
+    {
+      name: "Qatar",
+      dial_code: "+974",
+      icon: <QA title="Qatar" />,
+    },
+    {
+      name: "UAE",
+      dial_code: "+971",
+      icon: <AE title="UAE" />,
+    },
+    {
+      name: "PK",
+      dial_code: "+92",
+      icon: <PK title="PK" />,
+    },
+  ];
 
+  const frequencies = [
+    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
+  ];
 
+  // State for OTP Modal visibility
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
+  const [frequency, setFrequency] = useState(frequencies[0]);
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    countryCode: activeItem || "+966",
+    subscriptionType: "premium",
+    subscriptionPeriod: "yearly",
+    selectedCompanies: [],
+  });
 
-const countryCodes = [
-  {
-    name: "Saudi Arabia",
-    dial_code: "+966",
-    icon : <SA title="Saudi Arabia"/>,
-  },
-  {
-    name: "Bahrain",
-    dial_code: "+973",
-    icon : <BH title="Bahrain"/>,
-  },
-  {
-    name: "Kuwait",
-    dial_code: "+965",
-    icon : <KW title="Kuwait"/>,
-  },
-  {
-    name: "Oman",
-    dial_code: "+968",
-    icon : <OM title="Oman"/>,
-  },
-  {
-    name: "Qatar",
-    dial_code: "+974",
-    icon : <QA title="Qatar"/>,
-  },
-  {
-    name: "UAE",
-    dial_code: "+971",
-    icon : <AE title="UAE"/>,
-  },
-];
+  const handleDataChange = (fieldName, value) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+  };
 
-const [activeItem, setActiveItem] = useState(null);
+  const handleMenuItemClick = (item) => {
+    handleDataChange("countryCode", item);
+    setActiveItem(item);
+  };
 
-const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
-
-const frequencies = [
-  { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
-  { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
-];
-
-const [frequency, setFrequency] = useState(frequencies[0]);
-
+  // Effect to update subscriptionType based on selectedOption
+  useEffect(() => {
+    switch (selectedOption) {
+      case "باقة بريميوم":
+        setUserData((prevData) => ({
+          ...prevData,
+          subscriptionType: "premium",
+        }));
+        break;
+      case "الباقة المتقدمة":
+        setUserData((prevData) => ({
+          ...prevData,
+          subscriptionType: "companies",
+        }));
+        break;
+      case "الباقة المجانية":
+        setUserData((prevData) => ({ ...prevData, subscriptionType: "free" }));
+        break;
+      default:
+        // You can set a default case if needed
+        break;
+    }
+  }, [selectedOption]);
+  
 const pricingRadio = [
   {
     title: "الباقة المجانية",
@@ -190,10 +234,26 @@ const pricingRadio = [
   },
 ];
 
+  // Function to open the OTP Modal
+  const handleOpenOtpModal = () => {
+    setIsOtpModalOpen(true);
+  };
 
   return (
     <>
-     {isPricingModalOpen ? (
+      {/* OTP Modal Code */}
+      <SimpleAlertModalUI
+        onClose={() => setIsOtpModalOpen(false)}
+        isOpen={isOtpModalOpen}
+        content={
+          <OtpModal
+            isOpen={isOtpModalOpen}
+            userData={userData}
+            previousPage={"signup"}
+          />
+        } // Adjust according to your implementation
+      />
+      {isPricingModalOpen ? (
         <ModalUI
           onClose={() => setIsPricingModalOpen(false)}
           isOpen={isPricingModalOpen}
@@ -201,11 +261,15 @@ const pricingRadio = [
           button="حفظ"
           onClickHandle={() => setIsPricingModalOpen(false)}
           content={
-            <RegisterPricingModal isOpen={isPricingModalOpen} 
-            setSelectedOption={setSelectedOption} selectedOption={selectedOption}
-            frequencies={frequencies} frequency={frequency} setFrequency={setFrequency}
-            pricingRadio={pricingRadio}
-             />
+            <RegisterPricingModal
+              isOpen={isPricingModalOpen}
+              setSelectedOption={setSelectedOption}
+              selectedOption={selectedOption}
+              frequencies={frequencies}
+              frequency={frequency}
+              setFrequency={setFrequency}
+              pricingRadio={pricingRadio}
+            />
           }
         />
       ) : (
@@ -219,95 +283,142 @@ const pricingRadio = [
           button="يغلق"
           onClickHandle={() => setIsAllFeaturesModalOpen(false)}
           content={
-            <AllFeaturesModal isOpen={isAllFeaturesModalOpen} 
-            selectedOption={selectedOption}
-            features={selectedOption == "الباقة المتقدمة" ? pricingRadio[2].features[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].features[frequency.value] : pricingRadio[0].features[frequency.value] } 
+            <AllFeaturesModal
+              isOpen={isAllFeaturesModalOpen}
+              selectedOption={selectedOption}
+              features={
+                selectedOption == "الباقة المتقدمة"
+                  ? pricingRadio[2].features[frequency.value]
+                  : selectedOption == "باقة بريميوم"
+                  ? pricingRadio[1].features[frequency.value]
+                  : pricingRadio[0].features[frequency.value]
+              }
             />
           }
         />
       ) : (
         ""
       )}
-    <div className="mb-20 relative">
-      <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
-        <div>
-          <h2 className={`font-medium text-2xl px-3 mt-2`}>
-            <span className=" text-primaryColor">01 . </span>
-            <span>الباقات </span>
-          </h2>
-          <div className="bg-white border border-gray-300 rounded-2xl pt-3 pb-8 my-5">
-            <PrimaryPackageCard             
-            pricingRadio={pricingRadio}
-            frequency={frequency}
-            selectedOption={selectedOption}
-            setIsPricingModalOpen={setIsPricingModalOpen} 
-            setIsAllFeaturesModalOpen={setIsAllFeaturesModalOpen}
-            features={selectedOption == "الباقة المتقدمة" ? pricingRadio[2].features[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].features[frequency.value] : pricingRadio[0].features[frequency.value] }
-             />
-          </div>
-        </div>
-        <div>
-          <h2 className={`font-medium text-2xl px-3 my-8`}>
-            <span className=" text-primaryColor">02 . </span>
-            <span> معلومات الحساب </span>
-          </h2>
-          <div className="grid gap-6 mb-6 md:grid-cols-2 sm:shadow-md border border-gray-300 sm:border-0 bg-white px-6 sm:px-8 pt-10 pb-8 sm:pb-16 mt-8 rounded-2xl sm:rounded-md">
-            <InputFieldUI label="الاسم الأول" type="text" name="first-name" />
-            <InputFieldUI label="الاسم الأخير" type="text" name="last-name" />
-            <InputFieldUI label="البريد الإكلتروني" type="email" name="email" />
-            <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
-              <PhoneNumberUI
-                title="رقم الجوال"
-                dataList={countryCodes}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
+      <div className="mb-20 relative">
+        <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
+          <div>
+            <h2 className={`font-medium text-2xl px-3 mt-2`}>
+              <span className=" text-primaryColor">01 . </span>
+              <span>الباقات </span>
+            </h2>
+            <div className="bg-white border border-gray-300 rounded-2xl pt-3 pb-8 my-5">
+              <PrimaryPackageCard
+                pricingRadio={pricingRadio}
+                frequency={frequency}
+                selectedOption={selectedOption}
+                setIsPricingModalOpen={setIsPricingModalOpen}
+                setIsAllFeaturesModalOpen={setIsAllFeaturesModalOpen}
+                features={
+                  selectedOption == "الباقة المتقدمة"
+                    ? pricingRadio[2].features[frequency.value]
+                    : selectedOption == "باقة بريميوم"
+                    ? pricingRadio[1].features[frequency.value]
+                    : pricingRadio[0].features[frequency.value]
+                }
               />
-              <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
-                رقم الجوال يجب أن يكون مشترك في الواتساب
+            </div>
+          </div>
+          <div>
+            <h2 className={`font-medium text-2xl px-3 my-8`}>
+              <span className=" text-primaryColor">02 . </span>
+              <span> معلومات الحساب </span>
+            </h2>
+            <div className="grid gap-6 mb-6 md:grid-cols-2 sm:shadow-md border border-gray-300 sm:border-0 bg-white px-6 sm:px-8 pt-10 pb-8 sm:pb-16 mt-8 rounded-2xl sm:rounded-md">
+              <InputFieldUI
+                label="الاسم الأول"
+                type="text"
+                name="first-name"
+                value={userData.firstName}
+                handleChange={(e) =>
+                  handleDataChange("firstName", e.target.value)
+                }
+              />
+              <InputFieldUI
+                label="الاسم الأخير"
+                type="text"
+                name="last-name"
+                value={userData.lastName}
+                handleChange={(e) =>
+                  handleDataChange("lastName", e.target.value)
+                }
+              />
+              <InputFieldUI
+                label="البريد الإكلتروني"
+                type="email"
+                name="email"
+                value={userData.email}
+                handleChange={(e) => handleDataChange("email", e.target.value)}
+              />
+              <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
+                <PhoneNumberUI
+                  title="رقم الجوال"
+                  dataList={countryCodes}
+                  activeItem={activeItem}
+                  setActiveItem={setActiveItem}
+                  handleChange={(e) => {
+                    const value = e.target.value;
+                    // Check if the value is a number
+                    if (/^\d*$/.test(value)) {
+                      handleDataChange("phoneNumber", value);
+                    }
+                  }}
+                  value={userData.phoneNumber}
+                  handleMenuItemClick={handleMenuItemClick}
+                />
+                <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
+                  رقم الجوال يجب أن يكون مشترك في الواتساب
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h2 className={`font-medium text-2xl px-3 mt-6`}>
-            <span className=" text-primaryColor">03 . </span>
-            <span>الخطوة الأخيرة </span>
-          </h2>
-          <div className=" bg-white px-6 pb-14 pt-6 sm:px-8 mt-8 sm:border border-gray-300 rounded-2xl sm:rounded-md sm:shadow-md">
-            <MultiSelectSearchInput />
-            <div className="flex text-secondaryColor mt-4">يمكنك إعدادها لاحقا</div>
-            <div className="flex font-medium mt-4  pt-8 border-t ">
-              المزايا التي ترغب بتفعليها{" "}
-            </div>
+          <div>
+            <h2 className={`font-medium text-2xl px-3 mt-6`}>
+              <span className=" text-primaryColor">03 . </span>
+              <span>الخطوة الأخيرة </span>
+            </h2>
+            <div className=" bg-white px-6 pb-14 pt-6 sm:px-8 mt-8 sm:border border-gray-300 rounded-2xl sm:rounded-md sm:shadow-md">
+              <MultiSelectSearchInput setUserData={setUserData} />
+              <div className="flex text-secondaryColor mt-4">
+                يمكنك إعدادها لاحقا
+              </div>
+              <div className="flex font-medium mt-4  pt-8 border-t ">
+                المزايا التي ترغب بتفعليها{" "}
+              </div>
 
-            {checkboxes.map((item, index) => {
-              return (
-                <div key={index}>
-                  <CheckboxInput
-                    title={item.title}
-                    desc={item.desc}
-                    badge={item.badge}
-                  />
-                </div>
-              );
-            })}
+              {checkboxes.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <CheckboxInput
+                      title={item.title}
+                      desc={item.desc}
+                      badge={item.badge}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
+          <Link href="/auth/order">
+            <PrimaryButton
+              onClick={handleOpenOtpModal}
+              button="تسجيل"
+              buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
+            />
+          </Link>
+          <Image
+            src="/assets/images/gradient-bottom.svg"
+            width={170}
+            height={170}
+            className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
+            alt="img"
+          />
         </div>
-        <Link href="/auth/order" >
-        <PrimaryButton
-          button="تسجيل"
-          buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
-        />
-        </Link>
-        <Image
-          src="/assets/images/gradient-bottom.svg"
-          width={170}
-          height={170}
-          className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
-          alt="img"
-        />
       </div>
-    </div>
     </>
   );
 };
