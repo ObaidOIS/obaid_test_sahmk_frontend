@@ -31,6 +31,8 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
                 <div className="bg-whiteColor/10 rounded-lg ml-2 cursor-pointer">
                 <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p>
                 </div>
+                
+                <Link href="/auth/login" >
                 <div className="bg-whiteColor/10 cursor-pointer flex justify-center py-1.5 px-2 items-center rounded-lg">
                 <Image
                   src="/assets/icons/white-logout.svg"
@@ -39,6 +41,7 @@ const DarkNavOverlay = ({ children, page, setPage, toggleSidebar, successAlert, 
                   alt="Image"
                 />
                 </div>
+                </Link>
               </div>
             </div>
             
