@@ -9,6 +9,7 @@ const PhoneNumberUI = ({
   handleChange,
   value,
   handleMenuItemClick,
+  setActiveItem
 }) => {
   return (
     <div>
@@ -21,7 +22,7 @@ const PhoneNumberUI = ({
       <div className="relative mt-2 rounded-md shadow-sm">
         <div className="absolute inset-y-0 left-0 flex items-center">
           <label htmlFor="country" className="sr-only">
-            {activeItem ? <>{activeItem.dial_code}</> : "+966"}
+            {activeItem ?? "+966"}
           </label>
           <select
             id="country"

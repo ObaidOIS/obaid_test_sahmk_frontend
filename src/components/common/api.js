@@ -29,6 +29,7 @@ async function apiCall(endpoint, method = 'GET', data = null, page = null) {
 
         const response = await fetch(`${BASE_URL}${endpoint}`, config);
         const result = await response.json();
+        console.log(result);
         if (response.ok) {
             return { result: result, status: response.status };
         } else {
