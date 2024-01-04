@@ -14,6 +14,8 @@ import AllFeaturesModal from "../AllFeaturesModal";
 import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput";
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import OtpModal from "../OtpModal";
+import MessageAlert from "@/components/widgets/MessageAlert";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const RegisterForm = () => {
   const checkboxes = [
@@ -36,6 +38,11 @@ const RegisterForm = () => {
 
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [isAllFeaturesModalOpen, setIsAllFeaturesModalOpen] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("error");
+
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("success");
 
   const countryCodes = [
     {
@@ -131,108 +138,204 @@ const RegisterForm = () => {
         break;
     }
   }, [selectedOption]);
-  
-const pricingRadio = [
-  {
-    title: "الباقة المجانية",
-    icon: (
-      <Image
-        src="/assets/icons/blue-check.svg"
-        width={25}
-        height={25}
-        alt="img"
-        className="mt-1"
-      />
-    ),
-    desc: "باقة بريميوم مميزة وأسعار مباشرة",
-    price: { monthly: "مجاناً", annually: "48 ريال" },
-    features: {  monthly: [
-      {feature: "monthly basic", isAvaiable: true},
-      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ], annually: [
-      {feature: "annually basic", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ]},
-  },
-  {
-    title: "باقة بريميوم",
-    icon: (
-      <Image
-        src="/assets/icons/purple-check-icon.svg"
-        width={25}
-        height={25}
-        alt="img"
-        className="mt-1"
-      />
-    ),
-    desc: "باقة بريميوم مميزة وأسعار مباشرة",
-    price: { monthly: "49 ريال", annually: "488 ريال" },
-    features: { monthly: [
-      {feature: "monthly standard", isAvaiable: true},
-      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ], annually: [
-      {feature: "annually standard", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: false},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
-    ]},
-  },
-  {
-    title: "الباقة المتقدمة",
-    icon: (
-      <Image
-        src="/assets/icons/yellow-check.svg"
-        width={25}
-        height={25}
-        alt="img"
-        className="mt-1"
-      />
-    ),
-    desc: "باقة بريميوم مميزة وأسعار مباشرة",
-    price: { monthly: "99 ريال", annually: "688 ريال" },
-    features: {  monthly: [
-      {feature: "monthly premium", isAvaiable: true},
-      {feature: "معرفة تفاصيل الشركات المدرجة في الأسهم", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-    ], annually: [
-      {feature: "annually premium", isAvaiable: true},
-      {feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true},
-      {feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-      {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
-    ]},
-  },
-];
+
+  const pricingRadio = [
+    {
+      title: "الباقة المجانية",
+      icon: (
+        <Image
+          src="/assets/icons/blue-check.svg"
+          width={25}
+          height={25}
+          alt="img"
+          className="mt-1"
+        />
+      ),
+      desc: "باقة بريميوم مميزة وأسعار مباشرة",
+      price: { monthly: "مجاناً", annually: "48 ريال" },
+      features: {
+        monthly: [
+          { feature: "monthly basic", isAvaiable: true },
+          {
+            feature: "معرفة تفاصيل الشركات المدرجة في الأسهم",
+            isAvaiable: true,
+          },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+        annually: [
+          { feature: "annually basic", isAvaiable: true },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+      },
+    },
+    {
+      title: "باقة بريميوم",
+      icon: (
+        <Image
+          src="/assets/icons/purple-check-icon.svg"
+          width={25}
+          height={25}
+          alt="img"
+          className="mt-1"
+        />
+      ),
+      desc: "باقة بريميوم مميزة وأسعار مباشرة",
+      price: { monthly: "49 ريال", annually: "488 ريال" },
+      features: {
+        monthly: [
+          { feature: "monthly standard", isAvaiable: true },
+          {
+            feature: "معرفة تفاصيل الشركات المدرجة في الأسهم",
+            isAvaiable: true,
+          },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+        annually: [
+          { feature: "annually standard", isAvaiable: true },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          {
+            feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية",
+            isAvaiable: false,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: false,
+          },
+        ],
+      },
+    },
+    {
+      title: "الباقة المتقدمة",
+      icon: (
+        <Image
+          src="/assets/icons/yellow-check.svg"
+          width={25}
+          height={25}
+          alt="img"
+          className="mt-1"
+        />
+      ),
+      desc: "باقة بريميوم مميزة وأسعار مباشرة",
+      price: { monthly: "99 ريال", annually: "688 ريال" },
+      features: {
+        monthly: [
+          { feature: "monthly premium", isAvaiable: true },
+          {
+            feature: "معرفة تفاصيل الشركات المدرجة في الأسهم",
+            isAvaiable: true,
+          },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+        ],
+        annually: [
+          { feature: "annually premium", isAvaiable: true },
+          { feature: "السؤال عن أوقات التوزيعات لأي سهم", isAvaiable: true },
+          {
+            feature: "الحصول على تنبيه بأسعار الافتتاح والاغلاق",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          { feature: "تفعيل خاصية إضافة هدف لأسهمك الحالية", isAvaiable: true },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+          {
+            feature: "الحصول على تقرير اسبوعي لأداء السهم PDF",
+            isAvaiable: true,
+          },
+        ],
+      },
+    },
+  ];
 
   // Function to open the OTP Modal
   const handleOpenOtpModal = () => {
@@ -241,6 +344,36 @@ const pricingRadio = [
 
   return (
     <>
+      <div>
+        {successAlert == true && (
+          <MessageAlert
+            setOpenModal={setSuccessAlert}
+            title="نجاح"
+            message={successMessage}
+            alertStyle="fixed top-5 right-2 text-primaryColor bg-teal-50 "
+            icon={
+              <CheckCircleIcon
+                className="h-5 w-5 text-primaryColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+        {errorAlert == true && (
+          <MessageAlert
+            setOpenModal={setErrorAlert}
+            title="خطأ"
+            message={errorMessage}
+            alertStyle="fixed top-5 right-2 text-redColor bg-red-50 "
+            icon={
+              <XCircleIcon
+                className="h-5 w-5 text-redColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+      </div>
       {/* OTP Modal Code */}
       <SimpleAlertModalUI
         onClose={() => setIsOtpModalOpen(false)}

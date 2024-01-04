@@ -16,6 +16,8 @@ const OtpModal = ({
   previousPage,
   setErrorAlert,
   setErrorMessage,
+  setSuccessAlert,
+  setSuccessMessage,
 }) => {
   const [timer, setTimer] = useState(
     moment.duration(0, "hours").add(1, "minute")
@@ -63,6 +65,7 @@ const OtpModal = ({
         );
 
         setOtpId(response.result.id);
+        
         setSuccessAlert(true);
         setSuccessMessage("The OTP is send successfully");
       }
