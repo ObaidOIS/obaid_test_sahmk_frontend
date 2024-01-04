@@ -2,7 +2,7 @@
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
-import SuccessAlert from "@/components/widgets/SuccessAlert";
+import MessageAlert from "@/components/widgets/MessageAlert";
 
 const DarkNavOverlay = ({
   children,
@@ -53,20 +53,24 @@ const DarkNavOverlay = ({
             </div>
 
             {successAlert == true ? (
-              <SuccessAlert
+              <MessageAlert
                 setOpenModal={setSuccessAlert}
-                message="تم التنشيط بنجاح!"
-                alertStyle="fixed top-5 right-2"
+                title="تم التنشيط بنجاح!"
+                // message="تم التنشيط بنجاح!"
+                alertStyle="fixed top-5 right-2 text-primaryColor"
+                icon={<CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />}
               />
             ) : (
               ""
             )}
 
             {deactivateAlert == true ? (
-              <SuccessAlert
-                message="تم التعطيل بنجاح!"
+              <MessageAlert
+                title="تم التعطيل بنجاح!"
+                // message="تم التعطيل بنجاح!"
                 setOpenModal={setDeactivateAlert}
-                alertStyle="fixed top-8 right-4"
+                alertStyle="fixed top-8 right-4 text-primaryColor"
+                icon={<CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />}
               />
             ) : (
               ""

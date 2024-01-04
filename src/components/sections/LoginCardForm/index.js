@@ -9,8 +9,13 @@ import OutlineButton from "@/components/widgets/OutlineButton";
 import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
 import OtpModal from "../OtpModal";
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
+import MessageAlert from "@/components/widgets/MessageAlert";
+import { XCircleIcon } from '@heroicons/react/20/solid'
 
 const LoginCardForm = () => {
+
+  const [errorAlert, setErrorAlert] = useState(false);
+  
   const countryCodes = [
     {
       name: "Saudi Arabia",

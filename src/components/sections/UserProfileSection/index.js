@@ -10,7 +10,6 @@ import DarkNavOverlay from "../DarkNavOverlay";
 import Stats from "@/components/widgets/Stats";
 import UserProfileFeatureOne from "../UserProfileFeatureOne";
 import UserProfileFeatureTwo from "../UserProfileFeatureTwo";
-import SuccessAlert from "@/components/widgets/SuccessAlert";
 import UserProfileFeatureFour from "../UserProfileFeatureFour";
 import OrderSummaryForm from "../OrderSummaryForm";
 import UserProfileFeatureThree from "../UserProfileFeatureThree";

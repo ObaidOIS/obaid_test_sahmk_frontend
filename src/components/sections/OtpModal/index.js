@@ -165,7 +165,7 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
       <p className="text-sm font-medium text-center mt-8">
         يرجى إدخال الرمز المرسل إلى جوالك
       </p>
-      <div className="flex gap-4 my-5">
+      <div className="flex gap-4 my-5" dir="ltr">
         {Array.from({ length: 4 }, (_, index) => (
           <InputFieldUI
             key={index}
