@@ -110,7 +110,7 @@ const MainSidebar = ({
                             buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
                           />
                           <div>
-                            <Link href="/auth/login" >
+                            <Link href="/auth/logout" >
                             <IconButtonUI
                               button="تسجيل الخروج"
                               icon={

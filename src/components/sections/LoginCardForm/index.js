@@ -10,12 +10,17 @@ import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
 import OtpModal from "../OtpModal";
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import MessageAlert from "@/components/widgets/MessageAlert";
-import { XCircleIcon } from '@heroicons/react/20/solid'
+import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/20/solid'
 
 const LoginCardForm = () => {
 
   const [errorAlert, setErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+
   const countryCodes = [
     {
       name: "Saudi Arabia",
@@ -85,11 +90,31 @@ const LoginCardForm = () => {
 
   return (
     <>
+    <div>
+    {successAlert == true && (
+    <MessageAlert
+        setOpenModal={setSuccessAlert}
+        title="نجاح"
+        message={successMessage}
+        alertStyle="fixed top-5 right-2 text-primaryColor bg-teal-50 "
+        icon={<CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />}
+      />
+      )}
+    {errorAlert == true && (
+    <MessageAlert
+        setOpenModal={setErrorAlert}
+        title="خطأ"
+        message={errorMessage}
+        alertStyle="fixed top-5 right-2 text-redColor bg-red-50 "
+        icon={<XCircleIcon className="h-5 w-5 text-redColor" aria-hidden="true" />}
+      />
+      )}
+    </div>
       <div>
         <SimpleAlertModalUI
           onClose={() => setIsOtpModalOpen(false)}
           isOpen={isOtpModalOpen}
-          content={<OtpModal isOpen={isOtpModalOpen} userData={userData} previousPage={"signin"} />}
+          content={<OtpModal setErrorMessage={setErrorMessage} setErrorAlert={setErrorAlert} isOpen={isOtpModalOpen} userData={userData} previousPage={"signin"} />}
         />
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">

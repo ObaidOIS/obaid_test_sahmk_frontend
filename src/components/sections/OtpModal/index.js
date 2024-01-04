@@ -10,7 +10,7 @@ import {
   mergeKeysIntoThird,
 } from "@/components/common/utils";
 
-const OtpModal = ({ isOpen, userData, previousPage }) => {
+const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessage }) => {
   const [timer, setTimer] = useState(
     moment.duration(0, "hours").add(1, "minute")
   );
@@ -57,9 +57,14 @@ const OtpModal = ({ isOpen, userData, previousPage }) => {
             previousPage
           );
           console.log("OTP sent:", response); // Handle success
+          
+          setSuccessAlert(true);
+          setSuccessMessage("The OTP is send successfully");
           setOtpId(response.result.id);
         } catch (error) {
           console.error("Error sending OTP:", error); // Handle errors
+          setErrorAlert(true);
+          setErrorMessage("There is an error sending OTP");
         }
       }
     };

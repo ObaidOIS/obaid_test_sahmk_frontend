@@ -39,7 +39,7 @@ const DarkNavOverlay = ({
                   <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p>
                 </div>
 
-                <Link href="/auth/login">
+                <Link href="/auth/logout">
                   <div className="bg-whiteColor/10 cursor-pointer flex justify-center py-1.5 px-2 items-center rounded-lg">
                     <Image
                       src="/assets/icons/white-logout.svg"
@@ -56,7 +56,6 @@ const DarkNavOverlay = ({
               <MessageAlert
                 setOpenModal={setSuccessAlert}
                 title="تم التنشيط بنجاح!"
-                // message="تم التنشيط بنجاح!"
                 alertStyle="fixed top-5 right-2 text-primaryColor"
                 icon={<CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />}
               />
@@ -67,7 +66,6 @@ const DarkNavOverlay = ({
             {deactivateAlert == true ? (
               <MessageAlert
                 title="تم التعطيل بنجاح!"
-                // message="تم التعطيل بنجاح!"
                 setOpenModal={setDeactivateAlert}
                 alertStyle="fixed top-8 right-4 text-primaryColor"
                 icon={<CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />}

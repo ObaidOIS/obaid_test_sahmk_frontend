@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 
 const MessageAlert = ({setOpenModal, alertStyle, message, icon, title}) => {
 
@@ -15,7 +15,7 @@ const MessageAlert = ({setOpenModal, alertStyle, message, icon, title}) => {
     
     
   return (
-    <div className={`rounded-md shadow-2xl border bg-whiteColor w-96 py-4 px-4 ${alertStyle}`}>
+    <div className={`rounded-md shadow-2xl border z-50 bg-whiteColor w-96 py-4 px-4 ${alertStyle}`}>
       <div className="flex">
       <div className="flex-shrink-0">
           {icon}
