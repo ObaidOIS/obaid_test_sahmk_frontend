@@ -27,15 +27,16 @@ export const mergeKeysIntoThird = (userData, firstKey, secondKey, thirdKey) => {
     return userData; // Return the modified userData
 };
 
-export const checkAndRedirectIfNotAuthenticated = (router) => {
+export const isAuthenticated = (router) => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
     // Redirect to login if tokens are not present
     if (!accessToken || !refreshToken) {
-        router.push("/auth/login");
+        return false
     }
     // If tokens exist, nothing happens (the function simply ends)
+    return true;
 };
 
 export const extractCountryCodeFromPhoneNumber = (phoneNumber) => {
