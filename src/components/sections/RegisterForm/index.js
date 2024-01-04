@@ -383,6 +383,10 @@ const RegisterForm = () => {
             isOpen={isOtpModalOpen}
             userData={userData}
             previousPage={"signup"}
+            setErrorMessage={setErrorMessage}
+            setErrorAlert={setErrorAlert}
+            setSuccessAlert={setSuccessAlert}
+            setSuccessMessage={setSuccessMessage}
           />
         } // Adjust according to your implementation
       />

@@ -9,6 +9,7 @@ import {
   getFullPhoneNumber,
   mergeKeysIntoThird,
 } from "@/components/common/utils";
+import { useRouter } from "next/navigation";
 
 const OtpModal = ({
   isOpen,
@@ -19,6 +20,7 @@ const OtpModal = ({
   setSuccessAlert,
   setSuccessMessage,
 }) => {
+  const router = useRouter();
   const [timer, setTimer] = useState(
     moment.duration(0, "hours").add(1, "minute")
   );
@@ -65,11 +67,13 @@ const OtpModal = ({
         );
 
         setOtpId(response.result.id);
-        
+
         setSuccessAlert(true);
         setSuccessMessage("The OTP is send successfully");
       }
     };
+
+
 
     // Call the function when component mounts or isOpen/userData changes
     sendOtp();
@@ -140,9 +144,11 @@ const OtpModal = ({
 
         // Redirect based on the previousPage
         if (previousPage === "signup") {
-          window.location.href = "/auth/order";
+          // router.push("/auth/order");
+          console.error("AD")
+
         } else if (previousPage === "signin") {
-          window.location.href = "/userprofile";
+          router.push("/userprofile");
         }
       } else {
         // Handle case where OTP is wrong or verification fails

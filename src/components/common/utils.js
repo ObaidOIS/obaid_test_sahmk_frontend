@@ -22,7 +22,7 @@ export const mergeKeysIntoThird = (userData, firstKey, secondKey, thirdKey) => {
     }
 
     // Concatenate firstKey and secondKey values and assign to thirdKey
-    userData[thirdKey] = `${userData[firstKey]}${userData[secondKey]}`;
+    userData[thirdKey] = `${userData[firstKey]} ${userData[secondKey]}`;
 
     return userData; // Return the modified userData
 };
