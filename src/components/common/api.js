@@ -29,7 +29,6 @@ async function apiCall(endpoint, method = 'GET', data = null, page = null) {
 
         const response = await fetch(`${BASE_URL}${endpoint}`, config);
         const result = await response.json();
-        console.log(result);
         if (response.ok) {
             return { result: result, status: response.status };
         } else {
@@ -60,7 +59,7 @@ async function apiCall(endpoint, method = 'GET', data = null, page = null) {
                 } else {
                     // If token refresh fails, throw an error
                     // throw new Error(refreshResult.message || 'Unable to refresh the token.');
-                    // window.location.href = '/signout';
+                    window.location.href = '/auth/logout';
                     
                 }
             } else {

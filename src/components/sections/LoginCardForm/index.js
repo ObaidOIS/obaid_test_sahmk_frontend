@@ -90,31 +90,51 @@ const LoginCardForm = () => {
 
   return (
     <>
-    <div>
-    {successAlert == true && (
-    <MessageAlert
-        setOpenModal={setSuccessAlert}
-        title="نجاح"
-        message={successMessage}
-        alertStyle="fixed top-5 right-2 text-primaryColor bg-teal-50 "
-        icon={<CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />}
-      />
-      )}
-    {errorAlert == true && (
-    <MessageAlert
-        setOpenModal={setErrorAlert}
-        title="خطأ"
-        message={errorMessage}
-        alertStyle="fixed top-5 right-2 text-redColor bg-red-50 "
-        icon={<XCircleIcon className="h-5 w-5 text-redColor" aria-hidden="true" />}
-      />
-      )}
-    </div>
+      <div>
+        {successAlert == true && (
+          <MessageAlert
+            setOpenModal={setSuccessAlert}
+            title="نجاح"
+            message={successMessage}
+            alertStyle="fixed top-5 right-2 text-primaryColor bg-teal-50 "
+            icon={
+              <CheckCircleIcon
+                className="h-5 w-5 text-primaryColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+        {errorAlert == true && (
+          <MessageAlert
+            setOpenModal={setErrorAlert}
+            title="خطأ"
+            message={errorMessage}
+            alertStyle="fixed top-5 right-2 text-redColor bg-red-50 "
+            icon={
+              <XCircleIcon
+                className="h-5 w-5 text-redColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+      </div>
       <div>
         <SimpleAlertModalUI
           onClose={() => setIsOtpModalOpen(false)}
           isOpen={isOtpModalOpen}
-          content={<OtpModal setErrorMessage={setErrorMessage} setErrorAlert={setErrorAlert} isOpen={isOtpModalOpen} userData={userData} previousPage={"signin"} />}
+          content={
+            <OtpModal
+              setErrorMessage={setErrorMessage}
+              setErrorAlert={setErrorAlert}
+              isOpen={isOtpModalOpen}
+              userData={userData}
+              previousPage={"signin"}
+              setSuccessAlert={setSuccessAlert}
+              setSuccessMessage={setSuccessMessage}
+            />
+          }
         />
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">
@@ -123,14 +143,14 @@ const LoginCardForm = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
               <div className="lg:container w-full text-center ">
                 <div className="sm:visible invisible flex items-center justify-center">
-                <Link href="/" >
-                  <Image
-                    src="/assets/logos/logo.svg"
-                    width={140}
-                    height={60}
-                    className="cursor-pointer"
-                    alt="Logo"
-                  />
+                  <Link href="/">
+                    <Image
+                      src="/assets/logos/logo.svg"
+                      width={140}
+                      height={60}
+                      className="cursor-pointer"
+                      alt="Logo"
+                    />
                   </Link>
                 </div>
                 <p className="text-lg leading-7 mt-2 ">
@@ -155,10 +175,9 @@ const LoginCardForm = () => {
                         const value = e.target.value;
                         // Check if the value is a number
                         if (/^\d*$/.test(value)) {
-                          handleDataChange('phoneNumber', value);
+                          handleDataChange("phoneNumber", value);
                         }
-                      }
-                      }
+                      }}
                     />
                   </div>
                   <DropdownUI
