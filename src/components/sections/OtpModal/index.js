@@ -10,7 +10,13 @@ import {
   mergeKeysIntoThird,
 } from "@/components/common/utils";
 
-const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessage }) => {
+const OtpModal = ({
+  isOpen,
+  userData,
+  previousPage,
+  setErrorAlert,
+  setErrorMessage,
+}) => {
   const [timer, setTimer] = useState(
     moment.duration(0, "hours").add(1, "minute")
   );
@@ -45,27 +51,20 @@ const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessa
     // Effect for calling OTP API when the modal opens
     const sendOtp = async () => {
       if (isOpen && phoneNumber) {
-        try {
-          const data = {
-            action: "send",
-            number: phoneNumber, // assuming phoneNumber is the key in userData
-          };
-          const response = await apiCall(
-            "/auth/otp/",
-            "POST",
-            data,
-            previousPage
-          );
-          console.log("OTP sent:", response); // Handle success
-          
-          setSuccessAlert(true);
-          setSuccessMessage("The OTP is send successfully");
-          setOtpId(response.result.id);
-        } catch (error) {
-          console.error("Error sending OTP:", error); // Handle errors
-          setErrorAlert(true);
-          setErrorMessage("There is an error sending OTP");
-        }
+        const data = {
+          action: "send",
+          number: phoneNumber, // assuming phoneNumber is the key in userData
+        };
+        const response = await apiCall(
+          "/auth/otp/",
+          "POST",
+          data,
+          previousPage
+        );
+
+        setOtpId(response.result.id);
+        setSuccessAlert(true);
+        setSuccessMessage("The OTP is send successfully");
       }
     };
 
@@ -89,7 +88,6 @@ const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessa
 
   const focusNextInput = (e, prevId, nextId, index) => {
     const value = e.target.value;
-    console.log(value);
     // Ensure input is numeric
     if (!value || isNaN(value)) {
       return; // early return if not a number
@@ -110,8 +108,6 @@ const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessa
     // Combine OTP digits into a single variable
     const enteredOTP = otp.join("");
 
-    console.log(otp);
-
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
       const otpPayload = {
@@ -130,8 +126,6 @@ const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessa
         otpPayload,
         previousPage
       );
-
-      console.log(otpResponse);
 
       if (otpResponse.result.access_token && otpResponse.result.refresh_token) {
         // Store tokens in localStorage
@@ -193,10 +187,11 @@ const OtpModal = ({ isOpen, userData, previousPage, setErrorAlert, setErrorMessa
           onClick={() => {
             timer.asSeconds() > 0 ? "" : handleResend();
           }}
-          className={` ${timer.asSeconds() > 0
+          className={` ${
+            timer.asSeconds() > 0
               ? ""
               : " hover:text-darkGreyColor underline cursor-pointer"
-            } text-sm font-medium text-right`}
+          } text-sm font-medium text-right`}
         >
           {timer.asSeconds() > 0
             ? ` إعادة ارسال الرمز بعد ${resendText} `
