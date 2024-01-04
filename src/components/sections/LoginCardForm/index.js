@@ -15,10 +15,10 @@ import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/20/solid'
 const LoginCardForm = () => {
 
   const [errorAlert, setErrorAlert] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("error");
   
   const [successAlert, setSuccessAlert] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("success");
 
 
   const countryCodes = [

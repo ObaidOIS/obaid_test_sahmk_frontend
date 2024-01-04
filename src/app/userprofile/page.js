@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import { checkAndRedirectIfNotAuthenticated } from "@/components/common/utils";
+import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 // import UserProfileSection from "@/components/sections/UserProfileSection";
 const UserProfileSection = dynamic(
@@ -13,7 +13,8 @@ const UserProfileSection = dynamic(
 const UserProfile = () => {
   const router = useRouter();
   useEffect(() => {
-    checkAndRedirectIfNotAuthenticated(router);
+    const isAuth = isAuthenticated();
+    isAuth || router.push("/auth/login");
   }, []);
 
   return (

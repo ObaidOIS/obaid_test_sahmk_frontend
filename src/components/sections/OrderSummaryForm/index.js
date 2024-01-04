@@ -98,7 +98,7 @@ const OrderSummaryForm = () => {
       currency: "SAR",
       description: "Sahmk Purchase",
       publishable_api_key: "sk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      callback_url: `${origin}/payment`,
+      callback_url: `${origin}/auth/order`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
         country: "SA",
@@ -166,7 +166,7 @@ const OrderSummaryForm = () => {
             />
           }
           messageTitle="تم تفعيل باقتك بنجاح 🎉"
-          messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك"
+          messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
           buttonTwo="ابدأ بمراسلة النظام الذكي"
           buttonIcon={
             <Image
