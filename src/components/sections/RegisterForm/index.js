@@ -15,7 +15,7 @@ import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput"
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import OtpModal from "../OtpModal";
 import MessageAlert from "@/components/widgets/MessageAlert";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const RegisterForm = () => {
   const checkboxes = [
