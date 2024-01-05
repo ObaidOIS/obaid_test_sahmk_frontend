@@ -144,9 +144,7 @@ const OtpModal = ({
 
         // Redirect based on the previousPage
         if (previousPage === "signup") {
-          // router.push("/auth/order");
-          console.error("AD")
-
+          router.push("/auth/order");
         } else if (previousPage === "signin") {
           router.push("/userprofile");
         }
