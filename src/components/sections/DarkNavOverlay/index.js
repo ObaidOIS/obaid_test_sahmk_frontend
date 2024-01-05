@@ -3,7 +3,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
 import MessageAlert from "@/components/widgets/MessageAlert";
-import CheckCircleIcon from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 const DarkNavOverlay = ({
   children,

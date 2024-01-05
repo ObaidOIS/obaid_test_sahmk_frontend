@@ -363,6 +363,9 @@ const UserProfileFeatureFour = ({ handlePageChange, userData }) => {
               value={userData.phoneNumber}
             />
           </div>
+          <div className="px-6 sm:px-0">
+          <PrimaryButton button="تحديث" buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"/>
+          </div>
         </div>
       </div>
       <div></div>
