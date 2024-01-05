@@ -490,6 +490,7 @@ const UserProfileSection = () => {
                   <UserProfileFeatureFour
                     handlePageChange={handlePageChange}
                     userData={userData}
+                    setUserData={setUserData}
                   />
                 </div>
               </div>
