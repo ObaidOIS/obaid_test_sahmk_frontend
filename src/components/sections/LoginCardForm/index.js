@@ -78,7 +78,14 @@ const LoginCardForm = () => {
   };
 
   const handleOpenOtpModal = () => {
-    setIsOtpModalOpen(true);
+    if (userData.phoneNumber){
+
+      setIsOtpModalOpen(true);
+    }
+    else (
+      setErrorMessage("Please enter a phone number");
+      setErrorAlert(true);
+    )
   };
 
   const handleDataChange = (fieldName, value) => {
