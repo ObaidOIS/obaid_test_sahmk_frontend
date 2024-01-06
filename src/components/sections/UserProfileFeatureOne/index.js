@@ -7,6 +7,7 @@ import PopupModal from "@/components/widgets/PopupModal";
 import FeatureOneSearchModal from "../FeatureOneSearchModal";
 import ModalUI from "@/components/widgets/ModalUI";
 import apiCall from "@/components/common/api";
+import PrimaryButton from "@/components/widgets/PrimaryButton";
 
 const UserProfileFeatureOne = ({
   isNotificationChecked,
@@ -126,11 +127,11 @@ const UserProfileFeatureOne = ({
         />
       ) : (
         ""
-        
       )}
       <div className="space-y-6">
         <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
           <div className="space-y-4">
+            <div className="px-6 sm:px-0"></div>
             <ArrowList
               leftIcon={
                 <IconSwitch
@@ -171,6 +172,12 @@ const UserProfileFeatureOne = ({
                   handleFeedClick={handleFeedClick}
                   selectedItems={selectedItems}
                   //   showItems={showItems}
+                />
+              }
+              saveButton={
+                <PrimaryButton
+                  button="تحديث"
+                  buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
                 />
               }
             />
