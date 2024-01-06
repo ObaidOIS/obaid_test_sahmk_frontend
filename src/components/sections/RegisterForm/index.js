@@ -355,7 +355,6 @@ const RegisterForm = () => {
       setErrorAlert(true);
     }
   };
-
   return (
     <>
       <div>
