@@ -10,16 +10,14 @@ import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
 import OtpModal from "../OtpModal";
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import MessageAlert from "@/components/widgets/MessageAlert";
-import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/20/solid'
+import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 
 const LoginCardForm = () => {
-
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
-  
+
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("success");
-
 
   const countryCodes = [
     {
@@ -72,19 +70,24 @@ const LoginCardForm = () => {
   };
 
   const handleMenuItemClick = (item) => {
-    handleDataChange('countryCode', item.dial_code);
+    handleDataChange("countryCode", item.dial_code);
     setActiveItem(item);
     setIsOpen(false);
   };
 
   const handleOpenOtpModal = () => {
-    setIsOtpModalOpen(true);
+    if (userData.phoneNumber) {
+      setIsOtpModalOpen(true);
+    } else {
+      setErrorMessage("Please enter a phone number");
+      setErrorAlert(true);
+    }
   };
 
   const handleDataChange = (fieldName, value) => {
     setUserData({
       ...userData,
-      [fieldName]: value
+      [fieldName]: value,
     });
   };
 

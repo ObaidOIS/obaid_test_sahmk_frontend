@@ -2,35 +2,46 @@
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import apiCall from "@/components/common/api";
 
 const MultiSelectSearchInput = ({ setUserData }) => {
-  const dataList = [
-    { id: 1, name: "کمپنی ایک" },
-    { id: 2, name: "کمپنی دو" },
-    { id: 3, name: "کمپنی تیسری" },
-    { id: 4, name: "الشركة الرابعة" },
-  ];
-
   const dropdownRef = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [filteredData, setFilteredData] = useState(dataList);
+  const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [originalData, setOriginalData] = useState([]);
+  // const dataList = [
+  //   { id: 1, name: "کمپنی ایک" },
+  //   { id: 2, name: "کمپنی دو" },
+  //   { id: 3, name: "کمپنی تیسری" },
+  //   { id: 4, name: "الشركة الرابعة" },
+  // ];
 
+  // Fetch companies from API and set to both dataList and originalData
   useEffect(() => {
-    // Update the selectedCompanies field in userData
+    const fetchCompanies = async () => {
+      const response = await apiCall("/api/stocks/get-stocks-list/");
+      if (response.result) {
+        const formattedData = response.result.map(({ symbol, first_name }) => ({
+          id: symbol,
+          name: first_name,
+        }));
+        setFilteredData(formattedData);
+        setOriginalData(formattedData); // Set original data here
+      }
+    };
+
+    fetchCompanies();
+  }, []);
+
+  // Update to only fix the symbols list in the setUserData function
+  useEffect(() => {
     setUserData((prevData) => ({
-      ...prevData, // Preserve other userData fields
-      // If selectedItems is empty, set selectedCompanies to an empty array
-      // Otherwise, map over selectedItems to get the corresponding objects from dataList
-      selectedCompanies:
-        selectedItems.length === 0
-          ? []
-          : selectedItems
-              .map((id) => dataList.find((item) => item.id === id))
-              .filter((item) => item !== undefined),
+      ...prevData,
+      selectedCompanies: selectedItems,
     }));
-  }, [selectedItems]); // Only re-run the effect if selectedItems changes
+  }, [selectedItems]);
 
   const toggleSelection = (itemId) => {
     setSelectedItems((prevSelected) =>
@@ -40,10 +51,13 @@ const MultiSelectSearchInput = ({ setUserData }) => {
     );
   };
 
+  // Updated handleSearch function to filter by symbol and name using originalData
   const handleSearch = (query) => {
     setSearchQuery(query);
-    const filtered = dataList.filter((item) =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+    const filtered = originalData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.id.toString().toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
   };

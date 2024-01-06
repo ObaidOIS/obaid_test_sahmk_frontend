@@ -15,8 +15,9 @@ import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput"
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import OtpModal from "../OtpModal";
 import MessageAlert from "@/components/widgets/MessageAlert";
-import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
-
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+// import XCircleIcon from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/20/solid";
 const RegisterForm = () => {
   const checkboxes = [
     {
@@ -339,9 +340,21 @@ const RegisterForm = () => {
 
   // Function to open the OTP Modal
   const handleOpenOtpModal = () => {
-    setIsOtpModalOpen(true);
+    // Check if the necessary userData fields are not empty (add fields as necessary)
+    if (
+      userData.firstName &&
+      userData.lastName &&
+      userData.email &&
+      userData.phoneNumber
+    ) {
+      setIsOtpModalOpen(true);
+    } else {
+      // Handle the case when userData is incomplete
+      // For example, set an error message and display it
+      setErrorMessage("Please complete all required fields.");
+      setErrorAlert(true);
+    }
   };
-
   return (
     <>
       <div>
@@ -375,21 +388,23 @@ const RegisterForm = () => {
         )}
       </div>
       {/* OTP Modal Code */}
-      <SimpleAlertModalUI
-        onClose={() => setIsOtpModalOpen(false)}
-        isOpen={isOtpModalOpen}
-        content={
-          <OtpModal
-            isOpen={isOtpModalOpen}
-            userData={userData}
-            previousPage={"signup"}
-            setErrorMessage={setErrorMessage}
-            setErrorAlert={setErrorAlert}
-            setSuccessAlert={setSuccessAlert}
-            setSuccessMessage={setSuccessMessage}
-          />
-        } // Adjust according to your implementation
-      />
+      {isOtpModalOpen && (
+        <SimpleAlertModalUI
+          onClose={() => setIsOtpModalOpen(false)}
+          isOpen={isOtpModalOpen}
+          content={
+            <OtpModal
+              isOpen={isOtpModalOpen}
+              userData={userData}
+              previousPage={"signup"}
+              setErrorMessage={setErrorMessage}
+              setErrorAlert={setErrorAlert}
+              setSuccessAlert={setSuccessAlert}
+              setSuccessMessage={setSuccessMessage}
+            />
+          } // Adjust according to your implementation
+        />
+      )}
       {isPricingModalOpen ? (
         <ModalUI
           onClose={() => setIsPricingModalOpen(false)}
@@ -540,13 +555,11 @@ const RegisterForm = () => {
               })}
             </div>
           </div>
-          <Link href="/auth/order">
-            <PrimaryButton
-              onClick={handleOpenOtpModal}
-              button="تسجيل"
-              buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
-            />
-          </Link>
+          <PrimaryButton
+            onClick={handleOpenOtpModal}
+            button="تسجيل"
+            buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
+          />
           <Image
             src="/assets/images/gradient-bottom.svg"
             width={170}
