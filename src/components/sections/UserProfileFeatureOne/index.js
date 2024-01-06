@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import IconSwitch from "@/components/widgets/IconSwitch";
 import PricingAddPanel from "@/components/widgets/PricingAddPanel";
 import Image from "next/image";
@@ -6,6 +6,8 @@ import ArrowList from "@/components/widgets/ArrowList";
 import PopupModal from "@/components/widgets/PopupModal";
 import FeatureOneSearchModal from "../FeatureOneSearchModal";
 import ModalUI from "@/components/widgets/ModalUI";
+import apiCall from "@/components/common/api";
+import PrimaryButton from "@/components/widgets/PrimaryButton";
 
 const UserProfileFeatureOne = ({
   isNotificationChecked,
@@ -13,48 +15,54 @@ const UserProfileFeatureOne = ({
   handleTvSwitch,
   isTvChecked,
 }) => {
-    
   const [isPricingAddPanelOpen, setIsPricingAddPanelOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [openSucessModal, setOpenSucessModal] = useState(false);
   const [showItems, setShowItems] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [originalData, setOriginalData] = useState([]);
+  const [filteredData, setFilteredData] = useState();
 
-  const dataList = [
-    { name: "الاتصالات السعودية", id:"1" },
-    { name: "شركة علم", id:"2" },
-    { name: "مصرف الانماء", id:"3"},
-    { name: "الجزيرة", id:"4"},
-    { name: "الاتصالات المتكاملة", id:"5" },
-    { name: "الرياض", id:"6" },
-    { name: "سابك", id:"7" },
-  ];
+  // Fetch companies from API and set to both dataList and originalData
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      const response = await apiCall("/api/stocks/get-stocks-list/");
+      if (response.result) {
+        const formattedData = response.result.map(({ symbol, first_name }) => ({
+          id: symbol,
+          name: first_name,
+        }));
+        setFilteredData(formattedData);
+        setOriginalData(formattedData); // Set original data here
+      }
+    };
 
-  const [filteredData, setFilteredData] = useState(dataList);
+    fetchCompanies();
+  }, []);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    const filtered = dataList.filter((item) =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+    const filtered = originalData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.id.toString().toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
   };
-
 
   const toggleSelection = (itemId, itemName) => {
     setSelectedItems((prevSelectedItems) => {
       // Check if the item is already selected
       const isSelected = prevSelectedItems.some((item) => item.id === itemId);
 
-    // If selected, remove it; otherwise, add it
-    if (isSelected) {
-      return prevSelectedItems.filter((item) => item.id !== itemId);
-    } else {
-      return [...prevSelectedItems, { id: itemId, name: itemName }];
+      // If selected, remove it; otherwise, add it
+      if (isSelected) {
+        return prevSelectedItems.filter((item) => item.id !== itemId);
+      } else {
+        return [...prevSelectedItems, { id: itemId, name: itemName }];
       }
     });
   };
-
 
   const removeItem = (id) => {
     setSelectedItems((prevSelectedItems) =>
@@ -74,7 +82,9 @@ const UserProfileFeatureOne = ({
             setOpenSucessModal(true);
             setShowItems(selectedItems);
           }}
-          onClose={() => {setIsPricingAddPanelOpen(false)}}
+          onClose={() => {
+            setIsPricingAddPanelOpen(false);
+          }}
           image={
             <Image
               src="/assets/icons/success-new-icon.svg"
@@ -95,7 +105,10 @@ const UserProfileFeatureOne = ({
       {isPricingAddPanelOpen ? (
         <ModalUI
           onClickHandle={() => setOpenSucessModal(true)}
-          onClose={() => {setIsPricingAddPanelOpen(false); setSearchQuery(""); setFilteredData(dataList); }}
+          onClose={() => {
+            setIsPricingAddPanelOpen(false);
+            setSearchQuery("");
+          }}
           isOpen={isPricingAddPanelOpen}
           title="إضافة تعديل أسهمي"
           button="حفظ"
@@ -105,7 +118,7 @@ const UserProfileFeatureOne = ({
               handleSearch={handleSearch}
               filteredData={filteredData}
               isOpen={isPricingAddPanelOpen}
-              dataList={dataList}
+              dataList={filteredData}
               toggleSelection={toggleSelection}
               setSelectedItems={setSelectedItems}
               selectedItems={selectedItems}
@@ -118,6 +131,7 @@ const UserProfileFeatureOne = ({
       <div className="space-y-6">
         <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
           <div className="space-y-4">
+            <div className="px-6 sm:px-0"></div>
             <ArrowList
               leftIcon={
                 <IconSwitch
@@ -140,7 +154,7 @@ const UserProfileFeatureOne = ({
               isChecked={isNotificationChecked}
               addPanel={
                 <PricingAddPanel
-                 feature="first"
+                  feature="first"
                   image={
                     <Image
                       src="/assets/icons/apps-add.svg"
@@ -148,7 +162,8 @@ const UserProfileFeatureOne = ({
                       height={42}
                       alt="img"
                       className=""
-                    />}
+                    />
+                  }
                   removeItem={removeItem}
                   isOpen={isPricingAddPanelOpen}
                   feedText="لم تقم بإضافة أسهم"
@@ -156,7 +171,13 @@ const UserProfileFeatureOne = ({
                   setSelectedItems={setSelectedItems}
                   handleFeedClick={handleFeedClick}
                   selectedItems={selectedItems}
-                //   showItems={showItems}
+                  //   showItems={showItems}
+                />
+              }
+              saveButton={
+                <PrimaryButton
+                  button="تحديث"
+                  buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
                 />
               }
             />
