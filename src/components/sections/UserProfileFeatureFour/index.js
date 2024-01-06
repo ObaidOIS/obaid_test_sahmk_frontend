@@ -4,29 +4,55 @@ import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
 import SimpleCardHeader from "@/components/widgets/SimpleCardHeader";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RegisterPricingModal from "../RegisterPricingModal";
 import ModalUI from "@/components/widgets/ModalUI";
 import apiCall from "@/components/common/api";
-import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/20/solid";
+
 const UserProfileFeatureFour = ({
   handlePageChange,
   userData,
   setUserData,
+  originalSubscriptionDetails,
+  setOriginalSubscriptionDetails,
 }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-
-  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
 
   const frequencies = [
     { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
   ];
 
-  const [frequency, setFrequency] = useState(frequencies[0]);
+  console.log(originalSubscriptionDetails)
+
+  // Mapping from API values to frontend display values
+  const subscriptionTypeMap = {
+    free: "الباقة المجانية",
+    premium: "باقة بريميوم",
+    companies: "الباقة المتقدمة",
+  };
+
+  const subscriptionPeriodMap = {
+    monthly: frequencies[0], // Assuming this maps to the first frequency object
+    yearly: frequencies[1], // Assuming this maps to the second frequency object
+  };
+
+  // Initialize states with the original subscription details using mapping
+  const [selectedOption, setSelectedOption] = useState(
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+      subscriptionTypeMap.free
+  );
+  const [frequency, setFrequency] = useState(
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]
+  );
+
+  console.log(frequency);
+
+  // const [frequency, setFrequency] = useState(frequencies[0]);
   const [currentSubscription, setCurrentSubscription] = useState({});
   const [nextSubscription, setNextSubscription] = useState({});
   const [errorAlert, setErrorAlert] = useState(false);
@@ -291,6 +317,18 @@ const UserProfileFeatureFour = ({
       setIsUpgraded(null);
     }
   };
+
+  useEffect(() => {
+    // Update the states whenever the original subscription details change
+    setSelectedOption(
+      subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+        subscriptionTypeMap.free
+    );
+    setFrequency(
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+        frequencies[0]
+    );
+  }, [originalSubscriptionDetails]);
 
   return (
     <>

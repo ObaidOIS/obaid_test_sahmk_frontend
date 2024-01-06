@@ -491,6 +491,8 @@ const UserProfileSection = () => {
                     handlePageChange={handlePageChange}
                     userData={userData}
                     setUserData={setUserData}
+                    setOriginalSubscriptionDetails={setOriginalSubscriptionDetails}
+                    originalSubscriptionDetails={originalSubscriptionDetails}
                   />
                 </div>
               </div>
