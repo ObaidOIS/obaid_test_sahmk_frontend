@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:8000';
-// const BASE_URL = 'https://app.sahmk.sa';
+// const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'https://app.sahmk.sa';
 
 // Modify the apiCall function like so:
 async function apiCall(endpoint, method = 'GET', data = null, page = null) {
