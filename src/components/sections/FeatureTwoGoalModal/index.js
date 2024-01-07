@@ -28,8 +28,8 @@ const FeatureTwoGoalModal = ({
             alt="img"
           />} />
       </div>
-      <SelectBoxUI handleChange={handleChange} value={formData.company} name="company" options={options} title="اسم الشركة" defaultValue="" />
-      <InputFieldUI value={formData.price} label="السعر الحالي" placeholder="0.0" name="price" />
+      <SelectBoxUI handleChange={handleChange} value={formData.name} name="company" options={options} title="اسم الشركة" defaultValue="" />
+      <InputFieldUI value={formData.stock_price} label="السعر الحالي" placeholder="0.0" name="price" />
       <p className="block text-sm font-medium leading-6 text-gray-900">
         السعر المستهدف
       </p>
@@ -40,7 +40,7 @@ const FeatureTwoGoalModal = ({
           selectedMemory={activeButton} handleMemoryChange={handleMemoryChange}
         />
       </div>
-      <InputFieldUI handleChange={handleChange} label="سعر مخصص" value={formData.goal} placeholder="23 SAR" name="goal" />
+      <InputFieldUI handleChange={handleChange} label="سعر مخصص" value={formData.target_price} placeholder="23 SAR" name="goal" />
     </div>
   );
 };
