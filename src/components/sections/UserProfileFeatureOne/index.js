@@ -8,7 +8,9 @@ import FeatureOneSearchModal from "../FeatureOneSearchModal";
 import ModalUI from "@/components/widgets/ModalUI";
 import apiCall from "@/components/common/api";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
-
+import { getUniqueStocksBySymbol } from "@/components/common/utils";
+import MessageAlert from "@/components/widgets/MessageAlert";
+import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 const UserProfileFeatureOne = ({
   isNotificationChecked,
   handleNotificationSwitch,
@@ -22,23 +24,71 @@ const UserProfileFeatureOne = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [originalData, setOriginalData] = useState([]);
   const [filteredData, setFilteredData] = useState();
+  const [popupStocks, setPopupStocks] = useState([]);
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   // Fetch companies from API and set to both dataList and originalData
+  const fetchStocks = async () => {
+    const userStocksResponse = await apiCall("/api/stocks/");
+    if (userStocksResponse.status === 200 && userStocksResponse.result) {
+      const userStocks = userStocksResponse.result.stocks.map((stock) => ({
+        id: stock.id,
+        symbol: stock.symbol,
+        target_price: stock.target_price,
+        name: stock.stock_name,
+        stock_price: stock.stock_price,
+      }));
+      const uniqueUserStocks = getUniqueStocksBySymbol(userStocks);
+
+      setSelectedItems(uniqueUserStocks);
+    }
+
+    const response = await apiCall("/api/stocks/get-stocks-list/");
+    if (response.result) {
+      const formattedData = response.result.map(({ symbol, first_name }) => ({
+        id: symbol,
+        name: first_name,
+        symbol: symbol,
+        stock_name: first_name,
+      }));
+      setFilteredData(formattedData);
+      setOriginalData(formattedData); // Set original data here
+    }
+  };
+
   useEffect(() => {
-    const fetchCompanies = async () => {
-      const response = await apiCall("/api/stocks/get-stocks-list/");
-      if (response.result) {
-        const formattedData = response.result.map(({ symbol, first_name }) => ({
-          id: symbol,
-          name: first_name,
-        }));
-        setFilteredData(formattedData);
-        setOriginalData(formattedData); // Set original data here
-      }
+    // Fetch user's stocks and available stocks
+    fetchStocks();
+  }, []);
+
+  const handlePopupSave = async () => {
+    // Define the endpoint for updating stocks
+    const endpoint = "/api/stocks/bulk-update/";
+
+    // Create the data object to send in the request
+    const requestData = {
+      stocks: popupStocks,
     };
 
-    fetchCompanies();
-  }, []);
+    // Send a POST request using your custom apiCall function
+    const response = await apiCall(endpoint, "POST", requestData);
+
+    if (response.status === 200) {
+      // Handle successful response
+      setSuccessAlert(true);
+      setSuccessMessage(response.result.result);
+
+      // Update formPayload.stocks by merging with popupStocks
+      fetchStocks();
+    } else {
+      // Handle error response
+      setErrorAlert(true);
+      setErrorMessage(response.error);
+    }
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -50,24 +100,45 @@ const UserProfileFeatureOne = ({
     setFilteredData(filtered);
   };
 
-  const toggleSelection = (itemId, itemName) => {
+  const toggleSelection = (itemId, itemName, itemSymbol) => {
     setSelectedItems((prevSelectedItems) => {
-      // Check if the item is already selected
-      const isSelected = prevSelectedItems.some((item) => item.id === itemId);
+      const isAlreadySelected = prevSelectedItems.some(
+        (item) => item.id === itemId
+      );
 
-      // If selected, remove it; otherwise, add it
-      if (isSelected) {
-        return prevSelectedItems.filter((item) => item.id !== itemId);
+      let newSelectedItems;
+
+      if (isAlreadySelected) {
+        // Remove the item if it's already selected
+        newSelectedItems = prevSelectedItems.filter(
+          (item) => item.id !== itemId
+        );
       } else {
-        return [...prevSelectedItems, { id: itemId, name: itemName }];
+        // Add the new item
+        newSelectedItems = [
+          ...prevSelectedItems,
+          { id: itemId, name: itemName, symbol: itemSymbol },
+        ];
       }
+
+      // Update popupStocks similarly as selectedItems
+      setPopupStocks(newSelectedItems);
+
+      return newSelectedItems;
     });
   };
 
   const removeItem = (id) => {
-    setSelectedItems((prevSelectedItems) =>
-      prevSelectedItems.filter((item) => item.id !== id)
-    );
+    setSelectedItems((prevSelectedItems) => {
+      const newSelectedItems = prevSelectedItems.filter(
+        (item) => item.id !== id
+      );
+
+      // Update popupStocks similarly as selectedItems
+      setPopupStocks(newSelectedItems);
+
+      return newSelectedItems;
+    });
   };
 
   const handleFeedClick = () => {
@@ -75,137 +146,170 @@ const UserProfileFeatureOne = ({
   };
 
   return (
-    <div>
-      {openSucessModal ? (
-        <PopupModal
-          onClickHandle={() => {
-            setOpenSucessModal(true);
-            setShowItems(selectedItems);
-          }}
-          onClose={() => {
-            setIsPricingAddPanelOpen(false);
-          }}
-          image={
-            <Image
-              src="/assets/icons/success-new-icon.svg"
-              width={400}
-              height={400}
-              alt="img"
-              className=""
-            />
-          }
-          openModal={openSucessModal}
-          setOpenModal={setOpenSucessModal}
-          title="تم إضافة أسهمك بنجاح"
-          desc="ستصلك يوميا أسعار الافتتاج والاغلاق"
-        />
-      ) : (
-        ""
-      )}
-      {isPricingAddPanelOpen ? (
-        <ModalUI
-          onClickHandle={() => setOpenSucessModal(true)}
-          onClose={() => {
-            setIsPricingAddPanelOpen(false);
-            setSearchQuery("");
-          }}
-          isOpen={isPricingAddPanelOpen}
-          title="إضافة تعديل أسهمي"
-          button="حفظ"
-          content={
-            <FeatureOneSearchModal
-              searchQuery={searchQuery}
-              handleSearch={handleSearch}
-              filteredData={filteredData}
-              isOpen={isPricingAddPanelOpen}
-              dataList={filteredData}
-              toggleSelection={toggleSelection}
-              setSelectedItems={setSelectedItems}
-              selectedItems={selectedItems}
-            />
-          }
-        />
-      ) : (
-        ""
-      )}
-      <div className="space-y-6">
-        <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-          <div className="space-y-4">
-            <div className="px-6 sm:px-0"></div>
-            <ArrowList
-              leftIcon={
-                <IconSwitch
-                  handleSwitch={handleNotificationSwitch}
-                  isChecked={isNotificationChecked}
-                />
-              }
-              cardStyle="p-5"
-              title=" استقبال أسعار الافتتاح والإغلاق  للشركات"
-              desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
-              icon={
-                <Image
-                  src="/assets/icons/green-bell-icon.svg"
-                  width={25}
-                  height={25}
-                  alt="img"
-                  className="ml-5"
-                />
-              }
-              isChecked={isNotificationChecked}
-              addPanel={
-                <PricingAddPanel
-                  feature="first"
-                  image={
-                    <Image
-                      src="/assets/icons/apps-add.svg"
-                      width={42}
-                      height={42}
-                      alt="img"
-                      className=""
-                    />
-                  }
-                  removeItem={removeItem}
-                  isOpen={isPricingAddPanelOpen}
-                  feedText="لم تقم بإضافة أسهم"
-                  title="قائمة أسهمي "
-                  setSelectedItems={setSelectedItems}
-                  handleFeedClick={handleFeedClick}
-                  selectedItems={selectedItems}
-                  //   showItems={showItems}
-                />
-              }
-              saveButton={
-                <PrimaryButton
-                  button="تحديث"
-                  buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
-                />
-              }
-            />
-            <ArrowList
-              leftIcon={
-                <IconSwitch
-                  handleSwitch={handleTvSwitch}
-                  isChecked={isTvChecked}
-                />
-              }
-              cardStyle="p-5"
-              title=" استلام ملخص السوق"
-              desc="رسائل ملخص السوق العام"
-              icon={
-                <Image
-                  src="/assets/icons/tv-icon.svg"
-                  width={25}
-                  height={25}
-                  alt="img"
-                  className="ml-5"
-                  isChecked={isTvChecked}
-                />
-              }
-            />
+    <>
+      <div>
+        {successAlert == true && (
+          <MessageAlert
+            setOpenModal={setSuccessAlert}
+            title="نجاح"
+            message={successMessage}
+            alertStyle="fixed top-5 right-2 text-primaryColor bg-teal-50 "
+            icon={
+              <CheckCircleIcon
+                className="h-5 w-5 text-primaryColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+        {errorAlert == true && (
+          <MessageAlert
+            setOpenModal={setErrorAlert}
+            title="خطأ"
+            message={errorMessage}
+            alertStyle="fixed top-5 right-2 text-redColor bg-red-50 "
+            icon={
+              <XCircleIcon
+                className="h-5 w-5 text-redColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+      </div>
+      <div>
+        {openSucessModal ? (
+          <PopupModal
+            onClickHandle={() => {
+              setOpenSucessModal(true);
+              setShowItems(selectedItems);
+            }}
+            onClose={() => {
+              setIsPricingAddPanelOpen(false);
+            }}
+            image={
+              <Image
+                src="/assets/icons/success-new-icon.svg"
+                width={400}
+                height={400}
+                alt="img"
+                className=""
+              />
+            }
+            openModal={openSucessModal}
+            setOpenModal={setOpenSucessModal}
+            title="تم إضافة أسهمك بنجاح"
+            desc="ستصلك يوميا أسعار الافتتاج والاغلاق"
+          />
+        ) : (
+          ""
+        )}
+        {isPricingAddPanelOpen ? (
+          <ModalUI
+            onClickHandle={() => setOpenSucessModal(true)}
+            onClose={() => {
+              setIsPricingAddPanelOpen(false);
+              setSearchQuery("");
+            }}
+            isOpen={isPricingAddPanelOpen}
+            title="إضافة تعديل أسهمي"
+            button="حفظ"
+            content={
+              <FeatureOneSearchModal
+                searchQuery={searchQuery}
+                handleSearch={handleSearch}
+                filteredData={filteredData}
+                isOpen={isPricingAddPanelOpen}
+                dataList={filteredData}
+                toggleSelection={toggleSelection}
+                setSelectedItems={setSelectedItems}
+                selectedItems={selectedItems}
+              />
+            }
+          />
+        ) : (
+          ""
+        )}
+        <div className="space-y-6">
+          <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+            <div className="space-y-4">
+              <div className="px-6 sm:px-0"></div>
+              <ArrowList
+                leftIcon={
+                  <IconSwitch
+                    handleSwitch={handleNotificationSwitch}
+                    isChecked={isNotificationChecked}
+                  />
+                }
+                cardStyle="p-5"
+                title=" استقبال أسعار الافتتاح والإغلاق  للشركات"
+                desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
+                icon={
+                  <Image
+                    src="/assets/icons/green-bell-icon.svg"
+                    width={25}
+                    height={25}
+                    alt="img"
+                    className="ml-5"
+                  />
+                }
+                isChecked={isNotificationChecked}
+                addPanel={
+                  <PricingAddPanel
+                    feature="first"
+                    image={
+                      <Image
+                        src="/assets/icons/apps-add.svg"
+                        width={42}
+                        height={42}
+                        alt="img"
+                        className=""
+                      />
+                    }
+                    removeItem={removeItem}
+                    isOpen={isPricingAddPanelOpen}
+                    feedText="لم تقم بإضافة أسهم"
+                    title="قائمة أسهمي "
+                    setSelectedItems={setSelectedItems}
+                    handleFeedClick={handleFeedClick}
+                    selectedItems={selectedItems}
+                    //   showItems={showItems}
+                  />
+                }
+                saveButton={
+                  <PrimaryButton
+                    button="تحديث"
+                    buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                    onClick={handlePopupSave}
+                  />
+                }
+              />
+              <ArrowList
+                leftIcon={
+                  <IconSwitch
+                    handleSwitch={handleTvSwitch}
+                    isChecked={isTvChecked}
+                  />
+                }
+                cardStyle="p-5"
+                title=" استلام ملخص السوق"
+                desc="رسائل ملخص السوق العام"
+                icon={
+                  <Image
+                    src="/assets/icons/tv-icon.svg"
+                    width={25}
+                    height={25}
+                    alt="img"
+                    className="ml-5"
+                    isChecked={isTvChecked}
+                  />
+                }
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

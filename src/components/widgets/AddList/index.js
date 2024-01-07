@@ -13,7 +13,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
           <li key={personIdx}>
             <button
               type="button"
-              onClick={() => {toggleSelection !== undefined ? toggleSelection(personIdx, person.name) : null}}
+              onClick={() => {toggleSelection !== undefined ? toggleSelection(personIdx, person.name, person.symbol) : null}}
               className={`group flex w-full items-center justify-between space-x-3 rounded-full border ${
                 (isOpen == true && selectedItems?.some(item => item.id === personIdx)) ? 
                   "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"
