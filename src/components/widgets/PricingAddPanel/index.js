@@ -18,7 +18,8 @@ const PricingAddPanel = ({
   showItems,
   feature,
   tableTitles,
-  setIsSecondFeatureModalOpen
+  setIsSecondFeatureModalOpen,
+  setFormData,
 }) => {
   return (
     <div className="px-5 cursor-auto">
@@ -66,7 +67,7 @@ const PricingAddPanel = ({
             ""
           )}
           {feature == "second" && selectedItems?.length !== 0 ? (
-            <BasicTableUI setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen} tableTitles={tableTitles} tableData={selectedItems} />
+            <BasicTableUI setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen} tableTitles={tableTitles} tableData={selectedItems} setFormData={setFormData} />
           ) : (
             ""
           )}

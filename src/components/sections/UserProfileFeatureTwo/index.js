@@ -61,8 +61,9 @@ const UserProfileFeatureTwo = ({
         const formattedData = response.result.map(
           ({ symbol, first_name, current_price }) => ({
             id: symbol,
+            symbol: symbol,
             name: first_name,
-            current_price: current_price,
+            stock_price: current_price,
           })
         );
         setOptions(formattedData); // Set original data here
@@ -81,7 +82,7 @@ const UserProfileFeatureTwo = ({
     setActiveButton(value); // Set which button is active
 
     // Retrieve current price as a number
-    const currentPrice = parseFloat(formData.price);
+    const currentPrice = parseFloat(formData.stock_price);
 
     if (!isNaN(currentPrice)) {
       // Check if the button clicked is a percentage button
@@ -104,26 +105,6 @@ const UserProfileFeatureTwo = ({
 
   const handleFeedClick = () => {
     setIsSecondFeatureModalOpen(true);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-
-    // Update price when company is selected
-    if (name === "company") {
-      // Assuming you're using the SelectBoxUI in a controlled manner with React
-      const selectedOption = e.target.options[e.target.selectedIndex];
-      const price = selectedOption.getAttribute("data-price");
-      if (price) {
-        setFormData((prevData) => ({ ...prevData, current_price: price }));
-      }
-    }
-  };
-
-  const handleSubmit = () => {
-    // e.preventDefault();
-    setTableData((prevPeople) => [...prevPeople, formData]);
     setFormData({
       id: "",
       symbol: "",
@@ -131,6 +112,54 @@ const UserProfileFeatureTwo = ({
       stock_price: "",
       target_price: "",
     });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+
+    // Update price when company is selected
+    if (name === "name") {
+      // Assuming you're using the SelectBoxUI in a controlled manner with React
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      const price = selectedOption.getAttribute("data-price");
+      if (price) {
+        setFormData((prevData) => ({ ...prevData, stock_price: price }));
+      }
+      const symbol = selectedOption.getAttribute("data-symbol");
+      console.log(symbol);
+      if (symbol) {
+        setFormData((prevData) => ({ ...prevData, symbol: symbol }));
+      }
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (
+      formData.target_price !== "" ||
+      formData.target_price !== "custom" ||
+      formData.target_price !== null
+    ) {
+      const endpoint = formData.id
+        ? "/api/stocks/update/"
+        : "/api/stocks/create/";
+      const method = formData.id ? "PUT" : "POST";
+      console.log(method, endpoint, formData);
+      const response = await apiCall(endpoint, method, formData);
+      if (response.error) {
+        setErrorAlert(true);
+        setErrorMessage(response.error);
+      } else {
+        setSuccessAlert(true);
+        setSuccessMessage(response.result.message);
+
+        // Update formPayload after successful operation
+        if (formData.id) {
+          setTableData((prevPeople) => [...prevPeople, formData]);
+          // Update existing stock
+        }
+      }
+    }
   };
 
   const tableTitles = [
@@ -265,6 +294,7 @@ const UserProfileFeatureTwo = ({
                     setSelectedItems={setSelectedItems}
                     handleFeedClick={handleFeedClick}
                     selectedItems={tableData}
+                    setFormData={setFormData}
                   />
                 }
               />
