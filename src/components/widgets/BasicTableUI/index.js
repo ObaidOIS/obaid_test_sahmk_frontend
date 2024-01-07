@@ -4,6 +4,7 @@ const BasicTableUI = ({
   tableTitles,
   tableData,
   setIsSecondFeatureModalOpen,
+  setFormData,
 }) => {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -40,7 +41,10 @@ const BasicTableUI = ({
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                       <div
-                        onClick={() => setIsSecondFeatureModalOpen(true)}
+                        onClick={() => {
+                          setIsSecondFeatureModalOpen(true);
+                          setFormData(item);
+                        }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         تعديل<span className="sr-only">, {item.name}</span>
