@@ -10,7 +10,7 @@ import { pricing } from "@/components/common/pricing";
 const OrderSummaryForm = () => {
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
-  const [origin, setOrigin] = useState("");
+  const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
   const [price, setPrice] = useState("");
   const [userData, setUserData] = useState({
     name: "",
@@ -97,8 +97,8 @@ const OrderSummaryForm = () => {
       amount: (price || 1) * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      publishable_api_key: "sk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      callback_url: `${origin}/auth/order`,
+      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
         country: "SA",
