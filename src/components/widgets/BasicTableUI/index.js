@@ -1,18 +1,11 @@
 import React from "react";
 
-const BasicTableUI = ({ tableTitles, tableData, setIsSecondFeatureModalOpen }) => {
-  // const people = [
-  //   {
-  //     name: "Lindsay Walton",
-  //     title: "Front-end Developer",
-  //     email: "lindsay.walton@example.com",
-  //     role: "Member",
-  //   },
-  //   // More people...
-  // ];
-
-  console.log(tableData);
-
+const BasicTableUI = ({
+  tableTitles,
+  tableData,
+  setIsSecondFeatureModalOpen,
+  setFormData,
+}) => {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="mt-8 flow-root">
@@ -38,20 +31,23 @@ const BasicTableUI = ({ tableTitles, tableData, setIsSecondFeatureModalOpen }) =
                 {tableData.map((item, index) => (
                   <tr key={index}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                      {item.company}
+                      {item.name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {item.price}
+                      {item.stock_price}
                     </td>
                     <td className="text-blueColor whitespace-nowrap px-3 py-4 text-sm">
-                      {item.goal}
+                      {item.target_price || "-"}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                       <div
-                      onClick={()=>setIsSecondFeatureModalOpen(true)}
+                        onClick={() => {
+                          setIsSecondFeatureModalOpen(true);
+                          setFormData(item);
+                        }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
-                        تعديل<span className="sr-only">, {item.company}</span>
+                        تعديل<span className="sr-only">, {item.name}</span>
                       </div>
                     </td>
                   </tr>

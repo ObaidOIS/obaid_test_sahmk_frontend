@@ -1,63 +1,152 @@
 "use client";
-import React, { useState } from "react";
-import InputFieldUI from "@/components/widgets/InputFieldUI";
-import PrimaryPackageCard from "../PrimaryPackageCard";
-import PrimaryButton from "@/components/widgets/PrimaryButton";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import AlertButtonsModal from "@/components/widgets/AlertButtonsModal";
 import SimpleCardHeader from "@/components/widgets/SimpleCardHeader";
-import StackedRadioCard from "@/components/widgets/StackedRadioCard";
 import AvatarWithText from "@/components/widgets/AvatarWithText";
+import apiCall from "@/components/common/api";
+import { pricing } from "@/components/common/pricing";
 
 const OrderSummaryForm = () => {
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
+  const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
+  const [price, setPrice] = useState("");
+  const [userData, setUserData] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    countryCode: "",
+    subscriptionType: "",
+    subscriptionPeriod: "",
+    expirationDate: null,
+  });
 
-  const cards = [
-    {
-      card: (
-        <Image
-          src="/assets/icons/madi-mada-card.svg"
-          height={150}
-          width={150}
-          alt="image"
-        />
-      ),
-      name: "madi-card",
-    },
-    {
-      card: (
-        <Image
-          src="/assets/icons/visa-card.svg"
-          height={150}
-          width={150}
-          alt="image"
-        />
-      ),
-      name: "visa-card",
-    },
-    {
-      card: (
-        <div className="flex items-center px-1 justify-center">
-        <p className="font-medium text-xl whitespace-nowrap ml-2">apple pay</p>
-        <Image
-          src="/assets/icons/black-apple.svg"
-          height={35}
-          width={35}
-          alt="image"
-        />
-        </div>
-      ),
-      name: "apple pay",
-    },
-  ];
+  useEffect(() => {
+    // Set the origin state to the current window location's origin
+    // This includes the protocol and host
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
-  const [selectedCard, setSelectedCard] = useState("");
+  useEffect(() => {
+    // This effect runs once on component mount to fetch the user data
+    const fetchUserData = async () => {
+      const response = await apiCall("/auth/api/user/");
+      const userData = response.result;
+      if (userData) {
+        setUserData({
+          name: userData.fullName,
+          phoneNumber: userData.phoneNumber,
+          email: userData.email,
+          countryCode: userData.countryCode,
+          subscriptionType: userData.subscriptionType,
+          subscriptionPeriod: userData.subscriptionPeriod,
+          expirationDate: userData.expirationDate,
+        });
 
-  const handleSelectedCardChange = (value) => {
-    setSelectedCard(value);
+        const calculatedPrice =
+          pricing["pricing"][userData.subscriptionType][
+            userData.subscriptionPeriod
+          ];
+        if (calculatedPrice) {
+          setPrice(calculatedPrice);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    // Verify payment when redirected back to this page
+    const verifyPayment = async (paymentId) => {
+      const result = await apiCall("/api/checkout/verify-payment/", "POST", {
+        id: paymentId,
+        ...userData,
+      });
+
+      if (result && result.result && result.result.check) {
+        console.log("Verified payment");
+        setIsAlertSuccessOpen(true);
+      } else {
+        setIsAlertErrorOpen(true);
+        console.log("Verified payment failed");
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      // Parse the current URL and its search parameters
+      const url = new URL(window.location.href);
+      const params = new URLSearchParams(url.search);
+
+      const paymentId = params.get("id");
+      const paymentStatus = params.get("status");
+      const paymentMessage = params.get("message");
+
+      if (paymentId && paymentStatus && paymentMessage) {
+        verifyPayment(paymentId);
+      }
+    }
+  }, []);
+
+  const initMoyasar = () => {
+    window.Moyasar.init({
+      element: ".mysr-form",
+      amount: (price || 1) * 100,
+      currency: "SAR",
+      description: "Sahmk Purchase",
+      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      callback_url: `${origin}/auth/order/`,
+      methods: ["creditcard", "stcpay", "applepay"],
+      apple_pay: {
+        country: "SA",
+        label: "Sahmk",
+        validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+      },
+      credit_card: {
+        save_card: true,
+      },
+      on_completed: function (payment) {
+        return new Promise(async function (resolve, reject) {
+          const result = await apiCall("/api/checkout/save-payment/", "POST", {
+            ...payment,
+            token: payment.source.token,
+          });
+
+          if (result && result.result && result.result.check) {
+            resolve({});
+          } else {
+            reject();
+          }
+        });
+      },
+    });
   };
+
+  useEffect(() => {
+    // Include Moyasar CSS and JS
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://cdn.moyasar.com/mpf/1.12.0/moyasar.css";
+    document.head.appendChild(link);
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.moyasar.com/mpf/1.12.0/moyasar.js";
+    script.async = true;
+    script.onload = () => {
+      // Initialize Moyasar once script is loaded
+      initMoyasar();
+    };
+    document.head.appendChild(script);
+
+    // Cleanup function to remove script and style
+    return () => {
+      document.head.removeChild(script);
+      document.head.removeChild(link);
+    };
+  }, []); // Empty dependency array means this runs once on mount
 
   return (
     <>
@@ -68,21 +157,25 @@ const OrderSummaryForm = () => {
           setIsOpen={setIsAlertSuccessOpen}
           title="تم الاشتراك بنجاح"
           buttonOne="إدارة حسابي"
-          image={<Image
-            src="/assets/icons/alert-payment-success.svg"
-            height={220}
-            width={220}
-            alt="image"
-          />}
-          messageTitle="تم تفعيل باقتك بنجاح 🎉" 
-          messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك" 
-          buttonTwo="ابدأ بمراسلة النظام الذكي" 
-          buttonIcon={<Image
-            src="/assets/icons/green-right-arrow.svg"
-            height={15}
-            width={15}
-            alt="image"
-          />} 
+          image={
+            <Image
+              src="/assets/icons/alert-payment-success.svg"
+              height={220}
+              width={220}
+              alt="image"
+            />
+          }
+          messageTitle="تم تفعيل باقتك بنجاح 🎉"
+          messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
+          buttonTwo="ابدأ بمراسلة النظام الذكي"
+          buttonIcon={
+            <Image
+              src="/assets/icons/green-right-arrow.svg"
+              height={15}
+              width={15}
+              alt="image"
+            />
+          }
           actionButton={true}
           messageType="success"
           // content={
@@ -99,14 +192,16 @@ const OrderSummaryForm = () => {
           setIsOpen={setIsAlertErrorOpen}
           title="فشلت عملية الدفع!"
           buttonOne="حاولة مرة أخرى"
-          image={<Image
-            src="/assets/icons/alert-payment-error.svg"
-            height={220}
-            width={220}
-            alt="image"
-          />}
-          messageTitle="فشلت عملية الدفع " 
-          messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك" 
+          image={
+            <Image
+              src="/assets/icons/alert-payment-error.svg"
+              height={220}
+              width={220}
+              alt="image"
+            />
+          }
+          messageTitle="فشلت عملية الدفع "
+          messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك"
           actionButton={false}
           messageType="error"
           // content={
@@ -128,14 +223,19 @@ const OrderSummaryForm = () => {
                 title="نوع الباقة"
                 content={
                   <div className="flex items-center gap-4">
-                    <AvatarWithText title="باقة بريميوم" desc="199 ريال/سنة" descStyle="text-purpleColor" image={
+                    <AvatarWithText
+                      title="باقة بريميوم"
+                      desc="199 ريال/سنة"
+                      descStyle="text-purpleColor"
+                      image={
                         <Image
-                        src="/assets/icons/purple-check-icon.svg"
-                        height={30}
-                        width={30}
-                        alt="image"
-                      />
-                    } />
+                          src="/assets/icons/purple-check-icon.svg"
+                          height={30}
+                          width={30}
+                          alt="image"
+                        />
+                      }
+                    />
                   </div>
                 }
               />
@@ -149,7 +249,7 @@ const OrderSummaryForm = () => {
                       تكلفة الباقة
                     </h3>
                     <h3 className="text-base font-semibold leading-6 text-gray-900">
-                      94 ريال
+                      {price} ريال
                     </h3>
                   </div>
                 }
@@ -158,7 +258,7 @@ const OrderSummaryForm = () => {
             <div>
               <div className="flex items-center font-medium text-2xl mx-5 my-6 justify-between">
                 <h3 className="leading-6 text-gray-900">الإجمالي</h3>
-                <h3 className="leading-6 text-gray-900">94 ريال</h3>
+                <h3 className="leading-6 text-gray-900">{price} ريال</h3>
               </div>
             </div>
           </div>
@@ -168,51 +268,11 @@ const OrderSummaryForm = () => {
             <h2 className={`font-medium text-2xl px-3 mt-6`}>
               <span>الدفع</span>
             </h2>
-            <div>
-              <StackedRadioCard
-                cards={cards}
-                selectedCard={selectedCard}
-                handleSelectedCardChange={handleSelectedCardChange}
-              />
-            </div>
             <div className=" mt-8">
-            {selectedCard == "apple pay" ?  "" : 
-             <div className="grid gap-6 md:grid-cols-12 border rounded-2xl border-gray-300 bg-white sm:px-8 pt-3 pb-10">
-              <div className="col-span-12 px-6 sm:px-0">
-                <InputFieldUI label="رقم البطاقة" type="text" name="" />
+              <div className="grid gap-6 md:grid-cols-12 border rounded-2xl border-gray-300 bg-white sm:px-8 pt-3 pb-10">
+                <div className="mysr-form"></div>
               </div>
-              <div className=" col-span-12 sm:col-span-6 px-6 sm:px-0">
-                <InputFieldUI type="text" name="" placeholder="الشهر / السنة" />
-              </div>
-              <div className=" col-span-12 sm:col-span-6 px-6 sm:px-0">
-                <InputFieldUI
-                  type="text"
-                  name=""
-                  placeholder="رمز التحقق CVC"
-                />
-              </div>
-            </div>}
             </div>
-          </div>
-          <div>
-            <div
-              onClick={() => {
-                setIsAlertErrorOpen(true);
-              }}
-            >
-              <PrimaryButton
-                button="إكمال الدفع"
-                buttonStyle={` py-5 rounded-md !font-normal !bg-primaryColor w-full justify-center mt-6`}
-              />
-            </div>
-            {/* <p className="text-xl font-medium text-center mt-3">أو</p>
-            <PrimaryButton
-              onClick={() => {
-                setIsAlertSuccessOpen(true);
-              }}
-              button="Apple pay"
-              buttonStyle="py-5 rounded-md !font-normal !bg-darkColor w-full justify-center mt-6"
-            /> */}
           </div>
           <Image
             src="/assets/images/gradient-bottom.svg"

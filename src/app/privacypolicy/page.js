@@ -18,9 +18,7 @@ const PrivacyPolicy = () => {
     <div>
       <Header toggleSidebar={toggleSidebar} />
       <div
-        className={` ${
-          isSidebarOpen ? "" : ""
-        } w-96 z-[2147483647] flex lg:hidden`}
+        className={` w-96 z-[2147483647] flex lg:hidden`}
       >
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </div>

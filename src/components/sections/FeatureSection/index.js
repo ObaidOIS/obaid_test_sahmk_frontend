@@ -62,7 +62,7 @@ const FeatureSection = () => {
       id="features"
       className="relative h-full bg-gradient-to-tr from-teal-700 to-teal-500 via-teal-950 from-10% to-100% pt-20 pb-20"
     >
-      <div className="mx-auto h-[1000px] sm:h-[1200px] md:h-[1200px] lg:h-[880px] xl:h-[900px] overflow-hidden relative">
+      <div className="mx-auto h-[820px] sm:h-[1000px] md:h-[1100px] lg:h-[810px] xl:h-[785px] overflow-hidden relative">
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
           <div className="text-2xl font-semibold text-white mb-5 leading-none">
             كل بيانات الأسهم أصبحت أسرع وأقرب إليك
@@ -76,8 +76,8 @@ const FeatureSection = () => {
           <div className="">
           <div className="-mx-4 absolute lg:w-[500px] lg:top-8 lg:right-[700px] lg:overflow-x-auto pb-4 sm:mx-0 overflow-visible sm:pb-0 lg:col-span-5">
             <div className="relative z-10 flex space-y-0 px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block ">
-              <div className="lg:hidden flex justify-center mx-auto w-screen sm:mt-20 mt-36">
-                <div className="flex items-center md:!w-[750px] overflow-x-scroll justify-center bg-white/10 sm:rounded-t-xl border border-b-0">
+              <div className="lg:hidden flex justify-center mx-auto w-screen lg:mt-20 ">
+                <div className="flex items-center md:!w-[750px] overflow-x-scroll justify-center bg-white/10 sm:rounded-t-xl">
                   <ul className="mx-auto flex w-full gap-6 relative px-4 py-4 overflow-x-scroll">
                     {Features.map((item, index) => {
                       return (
@@ -98,13 +98,14 @@ const FeatureSection = () => {
                     return (
                       <div
                         key={index}
-                        className={`absolute sm:top-[8.7rem] top-[12.7rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
+                        className={`absolute lg:top-[8.7rem] top-[3.8rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
+                        // className={`absolute sm:top-[8.7rem] top-[12.7rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
                           index == activeTab
                             ? "visible opacity-100"
                             : "opacity-0 invisible"
                         }`}
                       >
-                        <div className="bg-white/10 rounded-b-xl border border-t-0 p-5 h-36 my-3 text-right ">
+                        <div className="bg-white/10 rounded-b-xl p-5 h-36 my-3 text-right ">
                           {item.desc}
                         </div>
                       </div>

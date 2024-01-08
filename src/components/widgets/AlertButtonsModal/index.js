@@ -19,7 +19,7 @@ const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTit
           </Transition.Child>
   
           <div className="fixed inset-0 z-10 w-screen  overflow-y-auto">
-            <div className="flex min-h-full  justify-center text-center items-center p-0">
+            <div className="flex min-h-full justify-center text-center items-center p-0">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"

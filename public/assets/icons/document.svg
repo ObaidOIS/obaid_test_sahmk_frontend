@@ -1,7 +1,7 @@
 <svg width="73" height="73" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_548_2501)">
-<rect x="14" y="10" width="45" height="45" rx="10" fill="#10499E" fill-opacity="0.3" shape-rendering="crispEdges"/>
-<rect x="14.5" y="10.5" width="44" height="44" rx="9.5" stroke="#10499E" shape-rendering="crispEdges"/>
+<rect x="14" y="10" width="45" height="44" rx="10" fill="#10499E" fill-opacity="0.3" />
+<rect x="14.5" y="9.5" width="44" height="44" rx="9.5" stroke="#10499E" shape-rendering="auto"/>
 </g>
 <path opacity="0.4" d="M27 25C27 22.7909 28.7909 21 31 21H38L45 28V37C45 39.2091 43.2091 41 41 41H31C28.7909 41 27 39.2091 27 37V25Z" fill="#10499E"/>
 <path d="M45 28L38 21V24C38 26.2091 39.7909 28 42 28H45Z" fill="#10499E"/>

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
-import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 
-const SuccessAlert = ({setOpenModal, alertStyle, message}) => {
+const MessageAlert = ({setOpenModal, alertStyle, message, icon, title}) => {
 
     useEffect(() => {
         // Close the modal after 2000 milliseconds (2 seconds)
@@ -15,19 +15,20 @@ const SuccessAlert = ({setOpenModal, alertStyle, message}) => {
     
     
   return (
-    <div className={`rounded-md shadow-2xl border bg-whiteColor w-96 py-4 px-4 ${alertStyle}`}>
+    <div className={`rounded-md shadow-2xl border z-50 bg-whiteColor w-96 py-4 px-4 ${alertStyle}`}>
       <div className="flex">
       <div className="flex-shrink-0">
-          <CheckCircleIcon className="h-5 w-5 text-primaryColor" aria-hidden="true" />
+          {icon}
         </div>
         <div className="mr-3">
-          <p className="text-sm font-medium text-primaryColor">{message}</p>
+          <p className="text-sm font-medium">{title}</p>
+          <p className={` ${message ? "mt-2" : ""} text-sm opacity-80`} >{message}</p>
         </div>
         <div className="mr-auto pl-3">
           <div className="-mx-1.5 -my-1.5">
             <button
               type="button"
-              className="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+              className="inline-flex rounded-md p-1.5  focus:outline-none focus:ring-2  focus:ring-offset-2 "
             >
               <span className="sr-only">Dismiss</span>
               <XMarkIcon className="h-5 w-5" aria-hidden="true" onClick={()=>setOpenModal(false)} />
@@ -39,4 +40,4 @@ const SuccessAlert = ({setOpenModal, alertStyle, message}) => {
   )
 }
 
-export default SuccessAlert
+export default MessageAlert

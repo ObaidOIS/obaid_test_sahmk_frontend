@@ -2,11 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  FaYoutube,
-  FaGithub,
   FaTwitter,
   FaInstagram,
-  FaFacebook,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -15,44 +12,24 @@ const Footer = () => {
     { name: "المميزات", href: '#' },
     { name: "خدماتنا", href: '#services' },
     { name: "تجربة النظام", href: '#' },
+    { name: "صفحة الخصوصية", href: '/privacypolicy' },
     { name: "حساب تعريفي", href: '/userprofile' },
-    { name: "اتصل بنا", href: '#' },
+    { name: "اتصل بنا", href: '/contactus' },
   ];
 
   const socialIncons = [
     {
-      name: 'YouTube',
-      href: '#',
-      icon: (
-        <FaYoutube size={24} className="fill-gray-400 hover:fill-gray-900" />
-      ),
-    },
-    {
-      name: 'GitHub',
-      href: '#',
-      icon: (
-        <FaGithub size={24} className="fill-gray-400 hover:fill-gray-900" />
-      ),
-    },
-    {
       name: 'Twitter',
-      href: '#',
+      href: 'https://twitter.com/sahmk_sa',
       icon: (
         <FaTwitter size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
       name: 'Instagram',
-      href: '#',
+      href: 'https://www.instagram.com/sahmk_sa/',
       icon: (
         <FaInstagram size={24} className="fill-gray-400 hover:fill-gray-900" />
-      ),
-    },
-    {
-      name: 'Facebook',
-      href: '#',
-      icon: (
-        <FaFacebook size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
   ];
@@ -62,26 +39,29 @@ const Footer = () => {
       <Image
         src="/assets/images/beam-bg-top.png"
         width={92}
-        height={33}
+        height={33} 
         className="w-full absolute rotate-180 -z-10 bottom-0"
         alt="img"
       />
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
-          <div className="grid grid-cols-2 align-middle items-center gap-20 my-8">
+          <div className="sm:grid sm:grid-cols-2 flex align-middle items-center sm:gap-20 gap-8 px-3 my-8">
             <Link href="#">
             <Image
               src="/assets/logos/logo.svg"
-              width={200} height={200}
+              width={100}
+              height={100} 
               className=" cursor-pointer"
               alt="img"
             />
             </Link>
           <div className="mx-auto">
-            <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
+            <p className="text-gray-500 sm:text-xl">مرخص و موثوق من</p>
             <Link href="#" className="flex justify-center mt-5">
             <Image src="/assets/images/tadawul.svg"
-             width={170} height={170} className="cursor-pointer" alt="img" />
+             width={100}
+             height={100}  
+             className="cursor-pointer" alt="img" />
             </Link>
           </div>
           </div>
@@ -99,7 +79,7 @@ const Footer = () => {
                 );
               })}
             </div>
-            <div className="flex items-center gap-12 py-8 px-10">
+            <div className="flex items-center sm:gap-12 gap-8 py-8 sm:px-10 px-3">
               {socialIncons.map((item, index) => {
                 return (
                   <Link href={item.href} key={index}>

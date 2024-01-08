@@ -26,6 +26,7 @@ const FeatureOneSearchModal = ({
             <span className="text-primaryColor">تم تحديد ( {selectedItems?.length} )</span>
           </div>
         </div>
+        <div className=" max-h-52 overflow-scroll">
         <AddList
           filteredData={filteredData}
           dataList={dataList}
@@ -39,6 +40,7 @@ const FeatureOneSearchModal = ({
             />
           }
         />
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import IconButtonUI from "../IconButtonUI";
+import Link from "next/link";
 
 const MainSidebar = ({
   isSidebarOpen,
@@ -16,7 +17,7 @@ const MainSidebar = ({
 }) => {
   return (
     <Transition.Root show={isSidebarOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={toggleSidebar}>
+      <Dialog as="div" className="relative z-10" onClose={toggleSidebar} open={isSidebarOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -109,6 +110,7 @@ const MainSidebar = ({
                             buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
                           />
                           <div>
+                            <Link href="/auth/logout" >
                             <IconButtonUI
                               button="تسجيل الخروج"
                               icon={
@@ -122,6 +124,7 @@ const MainSidebar = ({
                               }
                               buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
                             />
+                            </Link>
                           </div>
                         </div>
                       </div>

@@ -6,7 +6,8 @@ import SwitchUI from "@/components/widgets/SwitchUI";
 import TextAreaUI from "@/components/widgets/TextAreaUI";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
-import { BH, KW, OM, QA, SA, AE } from 'country-flag-icons/react/3x2'
+import { BH, KW, OM, QA, SA, AE, PK } from 'country-flag-icons/react/3x2'
+import Image from "next/image";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -23,7 +24,7 @@ const ContactUsForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon : <SA title="Saudi Arabia"/>,
+      icon : <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia" className="w-6 h-6" />,
     },
     {
       name: "Bahrain",
@@ -89,21 +90,6 @@ const ContactUsForm = () => {
             </div>
             <div className="sm:col-span-2">
               <TextAreaUI label="رسالة" name="message" />
-            </div>
-            <div className="sm:col-span-2">
-              <SwitchUI
-                handleSwitch={handleSwitchPolicy}
-                isChecked={agreed}
-                label={
-                  <span className="text-sm leading-6 mr-3 text-gray-600">
-                    من خلال تحديد هذا، فإنك توافق على لدينا{" "}
-                    <a href="/privacypolicy" target="_blank" className="font-semibold text-primaryColor">
-                      سياسة الخصوصية
-                    </a>
-                    .
-                  </span>
-                }
-              />
             </div>
           </div>
           <div className="mt-10">

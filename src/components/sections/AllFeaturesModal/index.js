@@ -16,7 +16,7 @@ const AllFeaturesModal = ({features, selectedOption}) => {
                   key={index}
                 >
                   <FaRegCircleCheck className={selectedOption == "الباقة المتقدمة" ? "text-yellowColor" : selectedOption == "باقة بريميوم" ? "text-purpleColor" : "text-blueColor"} size={20} />
-                  <span>{item}</span>
+                  <span>{item.feature}</span>
                 </li>
               );
             })}

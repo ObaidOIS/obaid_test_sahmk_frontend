@@ -1,6 +1,7 @@
 import LoginCardForm from '@/components/sections/LoginCardForm';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Login = () => {
   return (
@@ -15,6 +16,7 @@ const Login = () => {
           />
           <div className="lg:container visible sm:invisible flex items-center justify-center pt-20 mx-auto">
             <div className="flex items-center">
+              <Link href="/" >
               <Image
                 src="/assets/logos/logo.svg"
                 width={140}
@@ -22,6 +24,7 @@ const Login = () => {
                 className="cursor-pointer"
                 alt="Logo"
               />
+              </Link>
             </div>
           </div>
         </header>   

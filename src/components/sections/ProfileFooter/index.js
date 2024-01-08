@@ -1,36 +1,36 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {FaTwitter} from "react-icons/fa";
+import { FaTwitter, FaInstagram } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { FaEnvelope } from "react-icons/fa6";
 
-
 const ProfileFooter = () => {
-    
   const footerLinks = [
-    { name: "الرئيسية" },
-    { name: "المميزات" },
-    { name: "خدماتنا" },
-    { name: "تجربة النظام" },
+    { name: "الرئيسية", href: '#features' },
+    { name: "المميزات", href: '#' },
+    { name: "خدماتنا", href: '#services' },
+    { name: "تجربة النظام", href: '#' },
+    { name: "صفحة الخصوصية", href: '/privacypolicy' },
+    { name: "حساب تعريفي", href: '/userprofile' },
+    { name: "اتصل بنا", href: '/contactus' },
   ];
 
   const socialIncons = [
     {
+      name: "Twitter",
+      href: "https://twitter.com/sahmk_sa",
       icon: (
-        <IoLogoWhatsapp size={24} className="fill-gray-300 hover:fill-gray-900" />
+        <FaTwitter size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
     {
+      name: "Instagram",
+      href: "https://www.instagram.com/sahmk_sa/",
       icon: (
-        <FaTwitter size={24} className="fill-gray-300 hover:fill-gray-900" />
+        <FaInstagram size={24} className="fill-gray-400 hover:fill-gray-900" />
       ),
     },
-    {
-      icon: (
-        <FaEnvelope size={24} className="fill-gray-300 hover:fill-gray-900" />
-      ),
-    }
   ];
 
   return (
@@ -40,7 +40,8 @@ const ProfileFooter = () => {
           <Link href="/" className="mt-8 mb-14">
             <Image
               src="/assets/logos/logo.svg"
-              width={100} height={100}
+              width={100}
+              height={100}           
               alt="img"
             />
           </Link>
@@ -79,7 +80,7 @@ const ProfileFooter = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default ProfileFooter
+export default ProfileFooter;

@@ -2,20 +2,46 @@
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import apiCall from "@/components/common/api";
 
-const MultiSelectSearchInput = () => {
-  const dataList = [
-    { id: 1, name: "کمپنی ایک" },
-    { id: 2, name: "کمپنی دو" },
-    { id: 3, name: "کمپنی تیسری" },
-    { id: 4, name: "الشركة الرابعة" },
-  ];
-
+const MultiSelectSearchInput = ({ setUserData }) => {
   const dropdownRef = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [filteredData, setFilteredData] = useState(dataList);
+  const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [originalData, setOriginalData] = useState([]);
+  // const dataList = [
+  //   { id: 1, name: "کمپنی ایک" },
+  //   { id: 2, name: "کمپنی دو" },
+  //   { id: 3, name: "کمپنی تیسری" },
+  //   { id: 4, name: "الشركة الرابعة" },
+  // ];
+
+  // Fetch companies from API and set to both dataList and originalData
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      const response = await apiCall("/api/stocks/get-stocks-list/");
+      if (response.result) {
+        const formattedData = response.result.map(({ symbol, first_name }) => ({
+          id: symbol,
+          name: first_name,
+        }));
+        setFilteredData(formattedData);
+        setOriginalData(formattedData); // Set original data here
+      }
+    };
+
+    fetchCompanies();
+  }, []);
+
+  // Update to only fix the symbols list in the setUserData function
+  useEffect(() => {
+    setUserData((prevData) => ({
+      ...prevData,
+      selectedCompanies: selectedItems,
+    }));
+  }, [selectedItems]);
 
   const toggleSelection = (itemId) => {
     setSelectedItems((prevSelected) =>
@@ -25,10 +51,13 @@ const MultiSelectSearchInput = () => {
     );
   };
 
+  // Updated handleSearch function to filter by symbol and name using originalData
   const handleSearch = (query) => {
     setSearchQuery(query);
-    const filtered = dataList.filter((item) =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+    const filtered = originalData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.id.toString().toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
   };
@@ -58,7 +87,12 @@ const MultiSelectSearchInput = () => {
       <div className="w-full">
         <div className="flex flex-col items-center relative">
           <div className="w-full svelte-1l8159u">
-                <label for="company" className="block mb-4 text-sm font-medium leading-6 text-gray-900">تفعيل الشركات </label>
+            <label
+              // htmlFor="company"
+              className="block mb-4 text-sm font-medium leading-6 text-gray-900"
+            >
+              تفعيل الشركات{" "}
+            </label>
             <div className="my-2 p-1 flex border border-mediumGreyColor bg-white rounded-md shadow-sm svelte-1l8159u">
               <div className="flex flex-auto flex-wrap relative w-full">
                 <input
@@ -70,14 +104,13 @@ const MultiSelectSearchInput = () => {
                   onClick={() => setDropdownOpen(true)}
                   // onBlur={() => setDropdownOpen(false)}
                   onChange={(e) => handleSearch(e.target.value)}
-
                 />
                 {dropdownOpen && (
                   <div
                     ref={dropdownRef}
                     className="absolute shadow top-[65px] bg-white z-40 w-full left-0 rounded max-h-select overflow-y-auto svelte-5uyqqj"
                   >
-                    <div className="flex flex-col w-full">
+                    <div className=" max-h-52 overflow-y-auto flex flex-col w-full">
                       {filteredData.map((item) => (
                         <div
                           key={item.id}
@@ -86,7 +119,7 @@ const MultiSelectSearchInput = () => {
                               ? "bg-lightGreyColor/20 border-lightGreyColor"
                               : ""
                           } border-b hover:bg-lightGreyColor/40`}
-                          onClick={() => toggleSelection(item.id)}
+                          onClick={() => {toggleSelection(item.id); setDropdownOpen(false);}}
                         >
                           <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
                             <div className="w-full items-center flex">

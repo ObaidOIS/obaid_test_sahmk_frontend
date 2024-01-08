@@ -2,8 +2,14 @@ import PrimaryButton from "@/components/widgets/PrimaryButton";
 import OutlineButton from "@/components/widgets/OutlineButton";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 const HeroSection = () => {
+  
+  const handleOpenWhatsapp = () => {
+    window.open('https://wa.me/+966591254924', '_blank');
+  }
+
   return (
     <>
       <div className="mt-20 lg:mt-36 lg:ml-16 w-full flex justify-center">
@@ -18,7 +24,15 @@ const HeroSection = () => {
         </div>
           <div className="sm:text-6xl text-5xl font-semibold text-gray-900 leading-tight md:leading-none">
             <span>اتخذ قرارات مالية <br />أفضل مع</span>
-            <span className=" relative whitespace-nowrap text-teal-900/90"> نظام سهمك الذكي
+            <span className=" relative sm:whitespace-nowrap text-teal-900/90 sm:inline hidden"> نظام سهمك الذكي
+            <Image 
+                src="/assets/icons/zline.svg"
+                width={500}
+                height={33}
+                className="absolute flex top-14 left-0"
+                alt="img" /></span>
+                <span className="sm:hidden text-teal-900/90"> نظام </span>
+                <span className=" relative whitespace-nowrap text-teal-900/90 sm:hidden inline"> سهمك الذكي 
             <Image 
                 src="/assets/icons/zline.svg"
                 width={500}
@@ -34,8 +48,12 @@ const HeroSection = () => {
             بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة
           </div>
           <div className="flex gap-y-2 justify-center mt-4 gap-x-4">
-            <OutlineButton button="جرب الخدمة"  icon={<Image src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5" alt="img" />}/>
-            <PrimaryButton button="شهر مجانا" buttonStyle="py-2.5 shadow-lg" icon={<Image src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5" alt="img" />}/>
+            <div onClick={handleOpenWhatsapp}>
+            <OutlineButton button="جرب الخدمة"  icon={<Image src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5 whitespace-nowrap" alt="img" />}/>
+            </div>
+            <Link href="/auth/register">
+            <PrimaryButton button="شهر مجانا" buttonStyle="py-2.5 shadow-lg" icon={<Image src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5  whitespace-nowrap" alt="img" />}/>
+            </Link>
           </div>
           <div className="mx-auto my-20">
             <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
