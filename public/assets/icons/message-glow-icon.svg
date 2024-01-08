@@ -1,7 +1,7 @@
 <svg width="77" height="77" viewBox="0 0 77 77" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_784_5787)">
-<rect x="14" y="10" width="48.8889" height="48.8889" rx="10" fill="#6466F1" fill-opacity="0.3" shape-rendering="crispEdges"/>
-<rect x="14.5" y="10.5" width="47.8889" height="47.8889" rx="9.5" stroke="#6466F1" shape-rendering="crispEdges"/>
+<rect x="14" y="10" width="48.8889" height="47.8889" rx="10" fill="#6466F1" fill-opacity="0.3" />
+<rect x="14.5" y="9.5" width="47.8889" height="47.8889" rx="9.5" stroke="#6466F1" shape-rendering="auto"/>
 </g>
 <path opacity="0.4" d="M44 25H32C29.7909 25 28 26.7909 28 29V39C28 41.2091 29.7909 43 32 43H44C46.2091 43 48 41.2091 48 39V29C48 26.7909 46.2091 25 44 25Z" fill="#6466F1"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M31.376 29.5841C31.6058 29.2394 32.0715 29.1463 32.4161 29.376L36.1973 31.8968C37.289 32.6246 38.7112 32.6246 39.8029 31.8968L43.5841 29.376C43.9287 29.1463 44.3944 29.2394 44.6241 29.5841C44.8539 29.9287 44.7608 30.3944 44.4161 30.6241L40.6349 33.1449C39.0394 34.2086 36.9608 34.2086 35.3653 33.1449L31.5841 30.6241C31.2394 30.3944 31.1463 29.9287 31.376 29.5841Z" fill="#6466F1"/>
