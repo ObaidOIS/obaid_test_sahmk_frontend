@@ -23,37 +23,37 @@ const LoginCardForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon: <SA title="Saudi Arabia" className="md:w-6 md:h-6 w-4 h-4" />,
+      icon: <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia"  className="w-6 h-6" />,
     },
     {
       name: "Bahrain",
       dial_code: "+973",
-      icon: <BH title="Bahrain" className="md:w-6 md:h-6 w-4 h-4" />,
+      icon: <BH title="Bahrain" className="w-6 h-6" />,
     },
     {
       name: "Kuwait",
       dial_code: "+965",
-      icon: <KW title="Kuwait" className="md:w-6 md:h-6 w-4 h-4" />,
+      icon: <KW title="Kuwait" className="w-6 h-6" />,
     },
     {
       name: "Oman",
       dial_code: "+968",
-      icon: <OM title="Oman" className="md:w-6 md:h-6 w-4 h-4" />,
+      icon: <OM title="Oman" className="w-6 h-6" />,
     },
     {
       name: "Qatar",
       dial_code: "+974",
-      icon: <QA title="Qatar" className="md:w-6 md:h-6 w-4 h-4" />,
+      icon: <QA title="Qatar" className="w-6 h-6" />,
     },
     {
       name: "UAE",
       dial_code: "+971",
-      icon: <AE title="UAE" className="md:w-6 md:h-6 w-4 h-4" />,
+      icon: <AE title="UAE" className="w-6 h-6" />,
     },
     {
       name: "PK",
       dial_code: "+92",
-      icon: <PK title="PK" className="md:w-6 md:h-6 w-4 h-4"/>,
+      icon: <PK title="PK" className="w-6 h-6"/>,
     },
   ];
 
@@ -79,7 +79,7 @@ const LoginCardForm = () => {
     if (userData.phoneNumber) {
       setIsOtpModalOpen(true);
     } else {
-      setErrorMessage("Please enter a phone number");
+      setErrorMessage("الرجاء إدخال رقم هاتف");
       setErrorAlert(true);
     }
   };

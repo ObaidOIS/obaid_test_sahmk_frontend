@@ -18,7 +18,19 @@ import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 // import XCircleIcon from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
+
+
+const isValidFirstName = (value) => value.trim() !== '';
+const isValidLastName = (value) => value.trim() !== '';
+const isValidEmail = (value) => value.trim() !== '';
+const isValidPhoneNumber = (value) => value.trim() !== '';
+
+
 const RegisterForm = () => {
+  
+  const [isFormValid, setIsFormValid] = useState(false);
+  // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+
   const checkboxes = [
     {
       title: "استقبال أسعار الافتتاح والاغلاق لأسهمي",
@@ -49,7 +61,7 @@ const RegisterForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon: <SA title="Saudi Arabia" />,
+      icon: <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia" className="w-6 h-6" />,
     },
     {
       name: "Bahrain",
@@ -338,6 +350,28 @@ const RegisterForm = () => {
     },
   ];
 
+  // const handleCheckboxChange = (value, isChecked) => {
+  //   setSelectedCheckboxes((prevCheckboxes) => {
+  //     if (isChecked) {
+  //       return prevCheckboxes.filter((checkbox) => checkbox !== value);
+  //     } else {
+  //       return [...prevCheckboxes, value];
+  //     }
+  //   });
+  // };
+
+  const validateForm = () => {
+    // Validate each field and update the overall form validity
+    setIsFormValid(
+      isValidFirstName(userData.firstName) &&
+      isValidLastName(userData.lastName) &&
+      isValidEmail(userData.email) &&
+      isValidPhoneNumber(userData.phoneNumber) 
+      // &&
+      // selectedCheckboxes.length > 0
+    );
+  };
+
   // Function to open the OTP Modal
   const handleOpenOtpModal = () => {
     // Check if the necessary userData fields are not empty (add fields as necessary)
@@ -345,7 +379,9 @@ const RegisterForm = () => {
       userData.firstName &&
       userData.lastName &&
       userData.email &&
-      userData.phoneNumber
+      userData.phoneNumber 
+      // &&
+      // selectedCheckboxes.length > 0
     ) {
       setIsOtpModalOpen(true);
     } else {
@@ -451,6 +487,7 @@ const RegisterForm = () => {
       ) : (
         ""
       )}
+      <form>
       <div className="mb-20 relative">
         <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
           <div>
@@ -489,6 +526,8 @@ const RegisterForm = () => {
                 handleChange={(e) =>
                   handleDataChange("firstName", e.target.value)
                 }
+                required={true}
+                isValid={isValidFirstName(userData.firstName)}
               />
               <InputFieldUI
                 label="الاسم الأخير"
@@ -498,6 +537,8 @@ const RegisterForm = () => {
                 handleChange={(e) =>
                   handleDataChange("lastName", e.target.value)
                 }
+                required={true}
+                isValid={isValidLastName(userData.lastName)}
               />
               <InputFieldUI
                 label="البريد الإكلتروني"
@@ -505,6 +546,8 @@ const RegisterForm = () => {
                 name="email"
                 value={userData.email}
                 handleChange={(e) => handleDataChange("email", e.target.value)}
+                required={true}
+                isValid={isValidEmail(userData.email)}
               />
               <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
                 <PhoneNumberUI
@@ -521,6 +564,8 @@ const RegisterForm = () => {
                   }}
                   value={userData.phoneNumber}
                   handleMenuItemClick={handleMenuItemClick}
+                  required={true}
+                  isValid={isValidPhoneNumber(userData.phoneNumber)}
                 />
                 <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
                   رقم الجوال يجب أن يكون مشترك في الواتساب
@@ -546,9 +591,13 @@ const RegisterForm = () => {
                 return (
                   <div key={index}>
                     <CheckboxInput
+                      // required={true}
                       title={item.title}
                       desc={item.desc}
                       badge={item.badge}
+                      // handleChange={(isChecked) =>
+                      //   handleCheckboxChange(item.title, isChecked)
+                      // }
                     />
                   </div>
                 );
@@ -556,7 +605,7 @@ const RegisterForm = () => {
             </div>
           </div>
           <PrimaryButton
-            onClick={handleOpenOtpModal}
+            onClick={()=>{validateForm(); handleOpenOtpModal();}}
             button="تسجيل"
             buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
           />
@@ -569,6 +618,7 @@ const RegisterForm = () => {
           />
         </div>
       </div>
+      </form>
     </>
   );
 };

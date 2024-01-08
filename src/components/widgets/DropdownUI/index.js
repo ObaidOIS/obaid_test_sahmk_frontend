@@ -21,7 +21,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
             className="-rotate-90 mt-1 ml-1 text-sm"
             alt="image"
           />
-          {activeItem ? <> {activeItem.dial_code}  {activeItem.icon} </>: <> +966  <SA title="Saudi Arabia"  className="md:w-6 md:h-6 w-4 h-4"/> </>}
+          {activeItem ? <> {activeItem.dial_code}  {activeItem.icon} </>: <> +966  <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-6 h-6" alt="Saudi Arabia" /> </>}
         </button>
       </div>
 

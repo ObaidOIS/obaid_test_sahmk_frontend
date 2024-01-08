@@ -24,7 +24,7 @@ const PricingAddPanel = ({
   return (
     <div className="px-5 cursor-auto">
       <div className=" mx-auto py-6 border-t">
-        <div className="sm:flex grid grid-cols-1 lg:grid lg:grid-cols-2 gap-3 items-start w-full justify-between">
+        <div className="flex lg:grid lg:grid-cols-2 gap-3 items-start w-full justify-between">
           <div className="flex-1 gap-x-2 font-medium text-lg">
             <span>{title}</span>
             <span className="text-gray-400 truncate">
@@ -34,7 +34,7 @@ const PricingAddPanel = ({
           </div>
           <div
             onClick={handleFeedClick}
-            className="flex-1 text-primaryColor flex items-center sm:justify-end text-base font-medium"
+            className="flex-1 text-primaryColor whitespace-nowrap flex items-center justify-end text-base font-medium"
           >
             <IconButtonUI
               button="إضافة /تعديل سهم"
@@ -50,6 +50,7 @@ const PricingAddPanel = ({
         </div>
         <div className="pt-6">
           {feature == "first" ? (
+            <div className=" max-h-52 overflow-scroll">
             <AddList
               filteredData={selectedItems}
               setSelectedItems={setSelectedItems}
@@ -63,6 +64,7 @@ const PricingAddPanel = ({
               //   />
               // }
             />
+            </div>
           ) : (
             ""
           )}

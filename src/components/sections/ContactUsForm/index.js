@@ -7,6 +7,7 @@ import TextAreaUI from "@/components/widgets/TextAreaUI";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import { BH, KW, OM, QA, SA, AE, PK } from 'country-flag-icons/react/3x2'
+import Image from "next/image";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -23,7 +24,7 @@ const ContactUsForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon : <SA title="Saudi Arabia"/>,
+      icon : <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia" className="w-6 h-6" />,
     },
     {
       name: "Bahrain",

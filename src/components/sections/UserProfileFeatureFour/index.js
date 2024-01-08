@@ -61,6 +61,7 @@ const UserProfileFeatureFour = ({
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("success");
   const [isUpgraded, setIsUpgraded] = useState(null);
+  const [upgradButton, setUpgradButton] = useState(false);
 
   const pricingRadio = [
     {
@@ -271,6 +272,7 @@ const UserProfileFeatureFour = ({
     } else {
       setSuccessAlert(true);
       setSuccessMessage(result.result.message);
+      setUpgradButton(true);
     }
   };
 
@@ -445,7 +447,8 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {selectedOption == "الباقة المجانية" ? (
+                {/* {selectedOption == "الباقة المجانية" ? ( */}
+                { upgradButton == false ? (
                   ""
                 ) : (
                   <div

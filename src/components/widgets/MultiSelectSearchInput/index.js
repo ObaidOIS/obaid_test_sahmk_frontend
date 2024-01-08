@@ -88,7 +88,7 @@ const MultiSelectSearchInput = ({ setUserData }) => {
         <div className="flex flex-col items-center relative">
           <div className="w-full svelte-1l8159u">
             <label
-              htmlFor="company"
+              // htmlFor="company"
               className="block mb-4 text-sm font-medium leading-6 text-gray-900"
             >
               تفعيل الشركات{" "}
@@ -110,7 +110,7 @@ const MultiSelectSearchInput = ({ setUserData }) => {
                     ref={dropdownRef}
                     className="absolute shadow top-[65px] bg-white z-40 w-full left-0 rounded max-h-select overflow-y-auto svelte-5uyqqj"
                   >
-                    <div className="flex flex-col w-full">
+                    <div className=" max-h-52 overflow-y-auto flex flex-col w-full">
                       {filteredData.map((item) => (
                         <div
                           key={item.id}
@@ -119,7 +119,7 @@ const MultiSelectSearchInput = ({ setUserData }) => {
                               ? "bg-lightGreyColor/20 border-lightGreyColor"
                               : ""
                           } border-b hover:bg-lightGreyColor/40`}
-                          onClick={() => toggleSelection(item.id)}
+                          onClick={() => {toggleSelection(item.id); setDropdownOpen(false);}}
                         >
                           <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
                             <div className="w-full items-center flex">
