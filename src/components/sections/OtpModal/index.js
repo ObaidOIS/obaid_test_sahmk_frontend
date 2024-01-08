@@ -69,7 +69,7 @@ const OtpModal = ({
         setOtpId(response.result.id);
 
         setSuccessAlert(true);
-        setSuccessMessage("The OTP is send successfully");
+        setSuccessMessage("تم ارسال الرمز إلى جوالك بنجاح");
       }
     };
 
@@ -186,6 +186,7 @@ const OtpModal = ({
             }
             id={`code-${index + 1}`}
             buttonStyle="text-center"
+            inputmode="numeric"
           />
         ))}
       </div>

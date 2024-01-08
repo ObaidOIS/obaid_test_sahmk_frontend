@@ -77,7 +77,7 @@ const FeatureSection = () => {
           <div className="-mx-4 absolute lg:w-[500px] lg:top-8 lg:right-[700px] lg:overflow-x-auto pb-4 sm:mx-0 overflow-visible sm:pb-0 lg:col-span-5">
             <div className="relative z-10 flex space-y-0 px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block ">
               <div className="lg:hidden flex justify-center mx-auto w-screen lg:mt-20 ">
-                <div className="flex items-center md:!w-[750px] overflow-x-scroll justify-center bg-white/10 sm:rounded-t-xl border border-b-0">
+                <div className="flex items-center md:!w-[750px] overflow-x-scroll justify-center bg-white/10 sm:rounded-t-xl">
                   <ul className="mx-auto flex w-full gap-6 relative px-4 py-4 overflow-x-scroll">
                     {Features.map((item, index) => {
                       return (
@@ -105,7 +105,7 @@ const FeatureSection = () => {
                             : "opacity-0 invisible"
                         }`}
                       >
-                        <div className="bg-white/10 rounded-b-xl border border-t-0 p-5 h-36 my-3 text-right ">
+                        <div className="bg-white/10 rounded-b-xl p-5 h-36 my-3 text-right ">
                           {item.desc}
                         </div>
                       </div>

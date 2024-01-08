@@ -66,7 +66,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
           {tier.features[frequency.value].map((item, index) => (
             <li key={index} className="flex gap-x-3">
               <CheckIcon
-                className="h-6 w-5 flex-none text-primaryColor"
+                className={`${item.isAvaiable == true ? "text-primaryColor" : "text-mediumGreyColor" } h-6 w-5 flex-none`}
                 aria-hidden="true"
               />
               <p className={`${item.isAvaiable == true ? "text-darkColor" : "text-mediumGreyColor"}`}>

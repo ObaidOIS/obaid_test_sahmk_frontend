@@ -351,7 +351,7 @@ const RegisterForm = () => {
     } else {
       // Handle the case when userData is incomplete
       // For example, set an error message and display it
-      setErrorMessage("Please complete all required fields.");
+      setErrorMessage("يرجى تعبئة كامل البيانات");
       setErrorAlert(true);
     }
   };

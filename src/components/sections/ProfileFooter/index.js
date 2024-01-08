@@ -41,7 +41,7 @@ const ProfileFooter = () => {
             <Image
               src="/assets/logos/logo.svg"
               width={100}
-              height={100}
+              height={100}           
               alt="img"
             />
           </Link>

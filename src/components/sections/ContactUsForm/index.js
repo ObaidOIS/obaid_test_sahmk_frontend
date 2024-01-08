@@ -90,21 +90,6 @@ const ContactUsForm = () => {
             <div className="sm:col-span-2">
               <TextAreaUI label="رسالة" name="message" />
             </div>
-            <div className="sm:col-span-2">
-              <SwitchUI
-                handleSwitch={handleSwitchPolicy}
-                isChecked={agreed}
-                label={
-                  <span className="text-sm leading-6 mr-3 text-gray-600">
-                    من خلال تحديد هذا، فإنك توافق على لدينا{" "}
-                    <a href="/privacypolicy" target="_blank" className="font-semibold text-primaryColor">
-                      سياسة الخصوصية
-                    </a>
-                    .
-                  </span>
-                }
-              />
-            </div>
           </div>
           <div className="mt-10">
             <PrimaryButton

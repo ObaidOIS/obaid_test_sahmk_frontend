@@ -39,7 +39,7 @@ const Footer = () => {
       <Image
         src="/assets/images/beam-bg-top.png"
         width={92}
-        height={33}
+        height={33} 
         className="w-full absolute rotate-180 -z-10 bottom-0"
         alt="img"
       />
@@ -49,7 +49,8 @@ const Footer = () => {
             <Link href="#">
             <Image
               src="/assets/logos/logo.svg"
-              width={200} height={200}
+              width={100}
+              height={100} 
               className=" cursor-pointer"
               alt="img"
             />
@@ -58,7 +59,9 @@ const Footer = () => {
             <p className="text-gray-500 sm:text-xl">مرخص و موثوق من</p>
             <Link href="#" className="flex justify-center mt-5">
             <Image src="/assets/images/tadawul.svg"
-             width={170} height={170} className="cursor-pointer" alt="img" />
+             width={100}
+             height={100}  
+             className="cursor-pointer" alt="img" />
             </Link>
           </div>
           </div>
