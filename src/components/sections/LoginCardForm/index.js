@@ -23,37 +23,37 @@ const LoginCardForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon: <SA title="Saudi Arabia" />,
+      icon: <SA title="Saudi Arabia" className="md:w-6 md:h-6 w-4 h-4" />,
     },
     {
       name: "Bahrain",
       dial_code: "+973",
-      icon: <BH title="Bahrain" />,
+      icon: <BH title="Bahrain" className="md:w-6 md:h-6 w-4 h-4" />,
     },
     {
       name: "Kuwait",
       dial_code: "+965",
-      icon: <KW title="Kuwait" />,
+      icon: <KW title="Kuwait" className="md:w-6 md:h-6 w-4 h-4" />,
     },
     {
       name: "Oman",
       dial_code: "+968",
-      icon: <OM title="Oman" />,
+      icon: <OM title="Oman" className="md:w-6 md:h-6 w-4 h-4" />,
     },
     {
       name: "Qatar",
       dial_code: "+974",
-      icon: <QA title="Qatar" />,
+      icon: <QA title="Qatar" className="md:w-6 md:h-6 w-4 h-4" />,
     },
     {
       name: "UAE",
       dial_code: "+971",
-      icon: <AE title="UAE" />,
+      icon: <AE title="UAE" className="md:w-6 md:h-6 w-4 h-4" />,
     },
     {
       name: "PK",
       dial_code: "+92",
-      icon: <PK title="PK" />,
+      icon: <PK title="PK" className="md:w-6 md:h-6 w-4 h-4"/>,
     },
   ];
 

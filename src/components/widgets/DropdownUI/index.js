@@ -9,7 +9,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
         <button
           type="button"
           onClick={handleToggleDropdown}
-          className={`inline-flex w-full items-center justify-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1  ring-gray-300 hover:bg-gray-50`}
+          className={`inline-flex w-full items-center justify-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50`}
           id="menu-button"
           aria-expanded={isOpen}
           aria-haspopup="true"
@@ -21,7 +21,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
             className="-rotate-90 mt-1 ml-1 text-sm"
             alt="image"
           />
-          {activeItem ? <> {activeItem.dial_code}  {activeItem.icon} </>: <> +966  <SA title="Saudi Arabia" className="w-6 h-6"/> </>}
+          {activeItem ? <> {activeItem.dial_code}  {activeItem.icon} </>: <> +966  <SA title="Saudi Arabia"  className="md:w-6 md:h-6 w-4 h-4"/> </>}
         </button>
       </div>
 
