@@ -534,7 +534,8 @@ const RegisterForm = () => {
                     handleDataChange("firstName", e.target.value)
                   }
                   required={true}
-                  isValid={isValidFirstName(userData.firstName)}
+                  // isValid={isValidFirstName(userData.firstName)}
+                  isValid={false}
                 />
                 <InputFieldUI
                   label="الاسم الأخير"
@@ -545,7 +546,8 @@ const RegisterForm = () => {
                     handleDataChange("lastName", e.target.value)
                   }
                   required={true}
-                  isValid={isValidLastName(userData.lastName)}
+                  // isValid={isValidLastName(userData.lastName)}
+                  isValid={false}
                 />
                 <InputFieldUI
                   label="البريد الإكلتروني"
@@ -556,7 +558,8 @@ const RegisterForm = () => {
                     handleDataChange("email", e.target.value)
                   }
                   required={true}
-                  isValid={isValidEmail(userData.email)}
+                  // isValid={isValidEmail(userData.email)}
+                  isValid={false}
                 />
                 <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
                   <PhoneNumberUI
@@ -574,7 +577,8 @@ const RegisterForm = () => {
                     value={userData.phoneNumber}
                     handleMenuItemClick={handleMenuItemClick}
                     required={true}
-                    isValid={isValidPhoneNumber(userData.phoneNumber)}
+                    // isValid={isValidPhoneNumber(userData.phoneNumber)}
+                    isValid={false}
                   />
                   <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
                     رقم الجوال يجب أن يكون مشترك في الواتساب
