@@ -68,9 +68,9 @@ const OtpModal = ({
         );
 
         setOtpId(response.result.id);
-        setErrorAlert(true);
-        setErrorMessage("phone no correct karo");
-        onClose();
+        // setErrorAlert(true);
+        // setErrorMessage("phone no correct karo");
+        // onClose();
         setSuccessAlert(true);
         setSuccessMessage("تم ارسال الرمز إلى جوالك بنجاح");
       }
