@@ -6,7 +6,6 @@ import PrimaryButton from "@/components/widgets/PrimaryButton";
 import Image from "next/image";
 import ModalUI from "@/components/widgets/ModalUI";
 import RegisterPricingModal from "../RegisterPricingModal";
-import Link from "next/link";
 import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import { BH, KW, OM, QA, SA, AE, PK } from "country-flag-icons/react/3x2";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
@@ -19,15 +18,12 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 // import XCircleIcon from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 
-
-const isValidFirstName = (value) => value.trim() !== '';
-const isValidLastName = (value) => value.trim() !== '';
-const isValidEmail = (value) => value.trim() !== '';
-const isValidPhoneNumber = (value) => value.trim() !== '';
-
+const isValidFirstName = (value) => value.trim() !== "";
+const isValidLastName = (value) => value.trim() !== "";
+const isValidEmail = (value) => value.trim() !== "";
+const isValidPhoneNumber = (value) => value.trim() !== "";
 
 const RegisterForm = () => {
-  
   const [isFormValid, setIsFormValid] = useState(false);
   // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
@@ -61,7 +57,15 @@ const RegisterForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon: <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia" className="w-6 h-6" />,
+      icon: (
+        <Image
+          src="/assets/icons/saudi-arabia-flag.png"
+          width="24"
+          height="24"
+          alt="Saudi Arabia"
+          className="w-6 h-6"
+        />
+      ),
     },
     {
       name: "Bahrain",
@@ -166,6 +170,7 @@ const RegisterForm = () => {
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
       price: { monthly: "مجاناً", annually: "48 ريال" },
+      card: "free",
       features: {
         monthly: [
           { feature: "monthly basic", isAvaiable: true },
@@ -235,6 +240,7 @@ const RegisterForm = () => {
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
       price: { monthly: "49 ريال", annually: "488 ريال" },
+      card: "premium",
       features: {
         monthly: [
           { feature: "monthly standard", isAvaiable: true },
@@ -301,6 +307,7 @@ const RegisterForm = () => {
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
       price: { monthly: "99 ريال", annually: "688 ريال" },
+      card: "advance",
       features: {
         monthly: [
           { feature: "monthly premium", isAvaiable: true },
@@ -364,9 +371,9 @@ const RegisterForm = () => {
     // Validate each field and update the overall form validity
     setIsFormValid(
       isValidFirstName(userData.firstName) &&
-      isValidLastName(userData.lastName) &&
-      isValidEmail(userData.email) &&
-      isValidPhoneNumber(userData.phoneNumber) 
+        isValidLastName(userData.lastName) &&
+        isValidEmail(userData.email) &&
+        isValidPhoneNumber(userData.phoneNumber)
       // &&
       // selectedCheckboxes.length > 0
     );
@@ -379,7 +386,7 @@ const RegisterForm = () => {
       userData.firstName &&
       userData.lastName &&
       userData.email &&
-      userData.phoneNumber 
+      userData.phoneNumber
       // &&
       // selectedCheckboxes.length > 0
     ) {
@@ -488,136 +495,144 @@ const RegisterForm = () => {
         ""
       )}
       <form>
-      <div className="mb-20 relative">
-        <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
-          <div>
-            <h2 className={`font-medium text-2xl px-3 mt-2`}>
-              <span className=" text-primaryColor">01 . </span>
-              <span>الباقات </span>
-            </h2>
-            <div className="bg-white border border-gray-300 rounded-2xl pt-3 pb-8 my-5">
-              <PrimaryPackageCard
-                pricingRadio={pricingRadio}
-                frequency={frequency}
-                selectedOption={selectedOption}
-                setIsPricingModalOpen={setIsPricingModalOpen}
-                setIsAllFeaturesModalOpen={setIsAllFeaturesModalOpen}
-                features={
-                  selectedOption == "الباقة المتقدمة"
-                    ? pricingRadio[2].features[frequency.value]
-                    : selectedOption == "باقة بريميوم"
-                    ? pricingRadio[1].features[frequency.value]
-                    : pricingRadio[0].features[frequency.value]
-                }
-              />
-            </div>
-          </div>
-          <div>
-            <h2 className={`font-medium text-2xl px-3 my-8`}>
-              <span className=" text-primaryColor">02 . </span>
-              <span> معلومات الحساب </span>
-            </h2>
-            <div className="grid gap-6 mb-6 md:grid-cols-2 sm:shadow-md border border-gray-300 sm:border-0 bg-white px-6 sm:px-8 pt-10 pb-8 sm:pb-16 mt-8 rounded-2xl sm:rounded-md">
-              <InputFieldUI
-                label="الاسم الأول"
-                type="text"
-                name="first-name"
-                value={userData.firstName}
-                handleChange={(e) =>
-                  handleDataChange("firstName", e.target.value)
-                }
-                required={true}
-                isValid={isValidFirstName(userData.firstName)}
-              />
-              <InputFieldUI
-                label="الاسم الأخير"
-                type="text"
-                name="last-name"
-                value={userData.lastName}
-                handleChange={(e) =>
-                  handleDataChange("lastName", e.target.value)
-                }
-                required={true}
-                isValid={isValidLastName(userData.lastName)}
-              />
-              <InputFieldUI
-                label="البريد الإكلتروني"
-                type="email"
-                name="email"
-                value={userData.email}
-                handleChange={(e) => handleDataChange("email", e.target.value)}
-                required={true}
-                isValid={isValidEmail(userData.email)}
-              />
-              <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
-                <PhoneNumberUI
-                  title="رقم الجوال"
-                  dataList={countryCodes}
-                  activeItem={activeItem}
-                  setActiveItem={setActiveItem}
-                  handleChange={(e) => {
-                    const value = e.target.value;
-                    // Check if the value is a number
-                    if (/^\d*$/.test(value)) {
-                      handleDataChange("phoneNumber", value);
-                    }
-                  }}
-                  value={userData.phoneNumber}
-                  handleMenuItemClick={handleMenuItemClick}
-                  required={true}
-                  isValid={isValidPhoneNumber(userData.phoneNumber)}
+        <div className="mb-20 relative">
+          <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 pt-5">
+            <div>
+              <h2 className={`font-medium text-2xl px-3 mt-2`}>
+                <span className=" text-primaryColor">01 . </span>
+                <span>الباقات </span>
+              </h2>
+              <div className="bg-white border border-gray-300 rounded-2xl pt-3 pb-8 my-5">
+                <PrimaryPackageCard
+                  pricingRadio={pricingRadio}
+                  frequency={frequency}
+                  selectedOption={selectedOption}
+                  setIsPricingModalOpen={setIsPricingModalOpen}
+                  setIsAllFeaturesModalOpen={setIsAllFeaturesModalOpen}
+                  features={
+                    selectedOption == "الباقة المتقدمة"
+                      ? pricingRadio[2].features[frequency.value]
+                      : selectedOption == "باقة بريميوم"
+                      ? pricingRadio[1].features[frequency.value]
+                      : pricingRadio[0].features[frequency.value]
+                  }
                 />
-                <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
-                  رقم الجوال يجب أن يكون مشترك في الواتساب
+              </div>
+            </div>
+            <div>
+              <h2 className={`font-medium text-2xl px-3 my-8`}>
+                <span className=" text-primaryColor">02 . </span>
+                <span> معلومات الحساب </span>
+              </h2>
+              <div className="grid gap-6 mb-6 md:grid-cols-2 sm:shadow-md border border-gray-300 sm:border-0 bg-white px-6 sm:px-8 pt-10 pb-8 sm:pb-16 mt-8 rounded-2xl sm:rounded-md">
+                <InputFieldUI
+                  label="الاسم الأول"
+                  type="text"
+                  name="first-name"
+                  value={userData.firstName}
+                  handleChange={(e) =>
+                    handleDataChange("firstName", e.target.value)
+                  }
+                  required={true}
+                  isValid={isValidFirstName(userData.firstName)}
+                />
+                <InputFieldUI
+                  label="الاسم الأخير"
+                  type="text"
+                  name="last-name"
+                  value={userData.lastName}
+                  handleChange={(e) =>
+                    handleDataChange("lastName", e.target.value)
+                  }
+                  required={true}
+                  isValid={isValidLastName(userData.lastName)}
+                />
+                <InputFieldUI
+                  label="البريد الإكلتروني"
+                  type="email"
+                  name="email"
+                  value={userData.email}
+                  handleChange={(e) =>
+                    handleDataChange("email", e.target.value)
+                  }
+                  required={true}
+                  isValid={isValidEmail(userData.email)}
+                />
+                <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
+                  <PhoneNumberUI
+                    title="رقم الجوال"
+                    dataList={countryCodes}
+                    activeItem={activeItem}
+                    setActiveItem={setActiveItem}
+                    handleChange={(e) => {
+                      const value = e.target.value;
+                      // Check if the value is a number
+                      if (/^\d*$/.test(value)) {
+                        handleDataChange("phoneNumber", value);
+                      }
+                    }}
+                    value={userData.phoneNumber}
+                    handleMenuItemClick={handleMenuItemClick}
+                    required={true}
+                    isValid={isValidPhoneNumber(userData.phoneNumber)}
+                  />
+                  <div className="flex sm:hidden items-center text-sm text-gray-400 gap-3 mt-6">
+                    رقم الجوال يجب أن يكون مشترك في الواتساب
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div>
-            <h2 className={`font-medium text-2xl px-3 mt-6`}>
-              <span className=" text-primaryColor">03 . </span>
-              <span>الخطوة الأخيرة </span>
-            </h2>
-            <div className=" bg-white px-6 pb-14 pt-6 sm:px-8 mt-8 sm:border border-gray-300 rounded-2xl sm:rounded-md sm:shadow-md">
-              <MultiSelectSearchInput setUserData={setUserData} />
-              <div className="flex text-secondaryColor mt-4">
-                يمكنك إعدادها لاحقا
-              </div>
-              <div className="flex font-medium mt-4  pt-8 border-t ">
-                المزايا التي ترغب بتفعليها{" "}
-              </div>
+            <div>
+              <h2 className={`font-medium text-2xl px-3 mt-6`}>
+                <span className=" text-primaryColor">03 . </span>
+                <span>الخطوة الأخيرة </span>
+              </h2>
+              <div className=" bg-white px-6 pb-14 pt-6 sm:px-8 mt-8 sm:border border-gray-300 rounded-2xl sm:rounded-md sm:shadow-md">
+                <MultiSelectSearchInput
+                  setUserData={setUserData}
+                  selectedOption={selectedOption}
+                />
+                <div className="flex text-secondaryColor mt-4">
+                  يمكنك إعدادها لاحقا
+                </div>
+                <div className="flex font-medium mt-4  pt-8 border-t ">
+                  المزايا التي ترغب بتفعليها{" "}
+                </div>
 
-              {checkboxes.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <CheckboxInput
-                      // required={true}
-                      title={item.title}
-                      desc={item.desc}
-                      badge={item.badge}
-                      // handleChange={(isChecked) =>
-                      //   handleCheckboxChange(item.title, isChecked)
-                      // }
-                    />
-                  </div>
-                );
-              })}
+                {checkboxes.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <CheckboxInput
+                        // required={true}
+                        title={item.title}
+                        desc={item.desc}
+                        badge={item.badge}
+                        // handleChange={(isChecked) =>
+                        //   handleCheckboxChange(item.title, isChecked)
+                        // }
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
+            <PrimaryButton
+              onClick={() => {
+                validateForm();
+                handleOpenOtpModal();
+              }}
+              button="تسجيل"
+              buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
+            />
+            <Image
+              src="/assets/images/gradient-bottom.svg"
+              width={170}
+              height={170}
+              className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
+              alt="img"
+            />
           </div>
-          <PrimaryButton
-            onClick={()=>{validateForm(); handleOpenOtpModal();}}
-            button="تسجيل"
-            buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
-          />
-          <Image
-            src="/assets/images/gradient-bottom.svg"
-            width={170}
-            height={170}
-            className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
-            alt="img"
-          />
         </div>
-      </div>
       </form>
     </>
   );

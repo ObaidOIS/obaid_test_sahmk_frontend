@@ -11,6 +11,7 @@ const PricingSection = () => {
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
   ];
 
+  // console.log(pricing, "pricing");
   const [frequency, setFrequency] = useState(frequencies[0]);
 
   const tiers = [
@@ -41,6 +42,7 @@ const PricingSection = () => {
         {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
       ]},
       mostPopular: false,
+      card: "free",
     },
     {
       name: "باقة البريميوم",
@@ -69,6 +71,7 @@ const PricingSection = () => {
         {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
       ]},
       mostPopular: true,
+      card: "premium",
       badge: "موصى به"
     },
     {
@@ -98,6 +101,7 @@ const PricingSection = () => {
         {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
       ]},
       mostPopular: false,
+      card: "advance",
     },
   ];
   function classNames(...classes) {

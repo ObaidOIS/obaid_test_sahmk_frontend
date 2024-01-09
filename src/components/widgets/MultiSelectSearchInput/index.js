@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import apiCall from "@/components/common/api";
 
-const MultiSelectSearchInput = ({ setUserData }) => {
+const MultiSelectSearchInput = ({ setUserData, selectedOption }) => {
   const dropdownRef = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -44,11 +44,29 @@ const MultiSelectSearchInput = ({ setUserData }) => {
   }, [selectedItems]);
 
   const toggleSelection = (itemId) => {
+    if(selectedOption === "الباقة المتقدمة")
+    {
     setSelectedItems((prevSelected) =>
       prevSelected.includes(itemId)
         ? prevSelected.filter((id) => id !== itemId)
-        : [...prevSelected, itemId]
+        : selectedItems.length < 50 ? [...prevSelected, itemId] : [...prevSelected]
     );
+    }
+      if(selectedOption === "باقة بريميوم")
+      {
+      setSelectedItems((prevSelected) =>
+      prevSelected.includes(itemId)
+        ? prevSelected.filter((id) => id !== itemId)
+        : selectedItems.length < 10 ? [...prevSelected, itemId] : [...prevSelected]
+    );}
+      if(selectedOption === "الباقة المجانية")
+      {
+      setSelectedItems((prevSelected) =>
+      prevSelected.includes(itemId)
+        ? prevSelected.filter((id) => id !== itemId)
+        : selectedItems.length < 0 ? [...prevSelected, itemId] : [...prevSelected]
+    );
+    }
   };
 
   // Updated handleSearch function to filter by symbol and name using originalData

@@ -10,6 +10,7 @@ import ModalUI from "@/components/widgets/ModalUI";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/20/solid";
+import {pricing} from "@/components/common/pricing";  
 
 const UserProfileFeatureFour = ({
   handlePageChange,
@@ -409,10 +410,10 @@ const UserProfileFeatureFour = ({
                   title={selectedOption}
                   desc={` ${
                     selectedOption == "الباقة المتقدمة"
-                      ? pricingRadio[2].price[frequency.value]
+                      ? pricing.pricing.companies[frequency?.value]
                       : selectedOption == "باقة بريميوم"
-                      ? pricingRadio[1].price[frequency.value]
-                      : pricingRadio[0].price[frequency.value]
+                      ? pricing.pricing.premium[frequency?.value]
+                      : pricing.pricing.free[frequency.value]
                   } / ${frequency.label} `}
                   descStyle={
                     selectedOption == "الباقة المتقدمة"

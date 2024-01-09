@@ -8,7 +8,7 @@ import apiCall from "@/components/common/api";
 import {
   getFullPhoneNumber,
   mergeKeysIntoThird,
-} from "@/components/common/utils";
+} from "@/components/common/utils";  
 import { useRouter } from "next/navigation";
 
 const OtpModal = ({

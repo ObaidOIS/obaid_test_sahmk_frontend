@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import AvatarWithText from "@/components/widgets/AvatarWithText";
+import {pricing} from "@/components/common/pricing";  
 
 const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, features, selectedOption, pricingRadio, frequency}) => {
 
@@ -14,7 +15,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, 
             <div className="flex items-center gap-4">
             <AvatarWithText
             title={selectedOption}
-                desc={` ${selectedOption == "الباقة المتقدمة" ? pricingRadio[2].price[frequency.value] : selectedOption == "باقة بريميوم" ? pricingRadio[1].price[frequency.value] : pricingRadio[0].price[frequency.value]} / ${frequency.label} `}
+                desc={` ${selectedOption == "الباقة المتقدمة" ? pricing.pricing.companies[frequency?.value] : selectedOption == "باقة بريميوم" ? pricing.pricing.premium[frequency?.value] : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
                 descStyle={selectedOption == "الباقة المتقدمة" ? "!text-yellowColor" : selectedOption == "باقة بريميوم" ? "!text-purpleColor" : "!text-blueColor"}
                 image={
                   <Image

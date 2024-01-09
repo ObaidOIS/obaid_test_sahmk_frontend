@@ -5,6 +5,7 @@ import OutlineButton from "../OutlineButton";
 import MainBadge from "../MainBadge";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import {pricing} from "@/components/common/pricing";  
 
 const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
 
@@ -41,7 +42,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
         </p>
         <p className="mt-6 flex items-baseline gap-x-1">
           <span className="text-4xl font-bold tracking-tight text-darkColor dark:text-white">
-            {tier.price[frequency.value]}
+          {tier.card == "free" ? pricing.pricing.free[frequency.value] : tier.card == "premium" ? pricing.pricing.premium[frequency?.value] : tier.card == "advance" ? pricing.pricing.companies[frequency?.value] : "" }
           </span>
           <span className="text-sm font-semibold leading-6 text-darkColor/50 dark:text-gray-300">
             {frequency.priceSuffix}
