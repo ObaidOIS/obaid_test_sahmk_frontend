@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 const OtpModal = ({
   isOpen,
+  onClose,
   userData,
   previousPage,
   setErrorAlert,
@@ -67,7 +68,9 @@ const OtpModal = ({
         );
 
         setOtpId(response.result.id);
-
+        setErrorAlert(true);
+        setErrorMessage("phone no correct karo");
+        onClose();
         setSuccessAlert(true);
         setSuccessMessage("تم ارسال الرمز إلى جوالك بنجاح");
       }
@@ -85,10 +88,18 @@ const OtpModal = ({
   };
 
   const handleInputChange = (value, index) => {
+    if (index == 3 && value !== "") {
+      const code = (otp+value).replace(/,/g, '');;
+      handleSubmit(code);
+    }
     // Update the corresponding OTP digit
     let newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
+
+    console.log(value, "hello")
+    
+
   };
 
   const resendText = ` ${timer.minutes()}:${timer.seconds()}`;
@@ -111,9 +122,12 @@ const OtpModal = ({
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (value) => {
     // Combine OTP digits into a single variable
-    const enteredOTP = otp.join("");
+    console.log(value);
+    // const enteredOTP = otp.join("");
+    const enteredOTP = value == "undefined" ? otp.join("") : value;
+    console.log(value, "hello me")
 
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
@@ -176,14 +190,14 @@ const OtpModal = ({
           <InputFieldUI
             key={index}
             maxlength="1"
-            handleChange={(e) =>
+            handleChange={(e) =>{
               focusNextInput(
                 e,
                 `code-${index}`, // Previous ID
                 `code-${index + 2}`, // Next ID
                 index // Current index for OTP
-              )
-            }
+              );
+            }}
             id={`code-${index + 1}`}
             buttonStyle="text-center"
             inputmode="numeric"
