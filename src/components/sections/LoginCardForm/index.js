@@ -62,6 +62,10 @@ const LoginCardForm = () => {
     countryCode: activeItem || "+966",
     phoneNumber: "",
   });
+  
+  const [validate, setValidate] = useState({
+    phone: false,
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
 
@@ -75,8 +79,16 @@ const LoginCardForm = () => {
     setIsOpen(false);
   };
 
-  const handleOpenOtpModal = () => {
-    if (userData.phoneNumber) {
+  const handleOpenOtpModal = (e) => {
+    e.preventDefault();
+    const cleanedPhoneNumber = cleanPhoneNumber(userData.phoneNumber);
+    console.log("hello", cleanedPhoneNumber);
+    setUserData({
+      ...userData,
+      phoneNumber: cleanedPhoneNumber,
+    });
+    // if (userData.phoneNumber) {
+    if (cleanedPhoneNumber) {
       setIsOtpModalOpen(true);
     } else {
       setErrorMessage("الرجاء إدخال رقم هاتف");
@@ -90,6 +102,26 @@ const LoginCardForm = () => {
       [fieldName]: value,
     });
   };
+
+  
+const cleanPhoneNumber = (phoneNumber) => {
+  // Define the prefixes to check
+  const prefixesToRemove = ['0', '966', '973', '965', '968', '974', '971', '92'];
+
+  // Check if the entered phone number starts with any of the prefixes
+  const hasPrefix = prefixesToRemove.some(prefix => {
+    console.log('Checking prefix:', prefix);
+    return phoneNumber.startsWith(prefix);
+  });
+  console.log('hasPrefix:', hasPrefix);  console.log("hello", hasPrefix);
+
+  // Remove the prefix if found
+  const cleanedPhoneNumber = hasPrefix
+    ? prefixesToRemove.reduce((number, prefix) => number.replace(new RegExp(`^${prefix}`), ''), phoneNumber)
+    : phoneNumber;
+
+  return cleanedPhoneNumber;
+};
 
   return (
     <>
@@ -131,6 +163,7 @@ const LoginCardForm = () => {
             <OtpModal
               setErrorMessage={setErrorMessage}
               setErrorAlert={setErrorAlert}
+              onClose={() => setIsOtpModalOpen(false)}
               isOpen={isOtpModalOpen}
               userData={userData}
               previousPage={"signin"}
@@ -167,7 +200,7 @@ const LoginCardForm = () => {
               </div>
             </div>
             <div className="space-y-4">
-              <div>
+              <form>
                 <div className="flex items-end gap-4">
                   <div className="flex-grow ">
                     <InputFieldUI
@@ -180,8 +213,14 @@ const LoginCardForm = () => {
                         if (/^\d*$/.test(value)) {
                           handleDataChange("phoneNumber", value);
                         }
+                        
+                        setValidate({...validate, phone: value === null || value === ""});
                       }}
+                      maxlength="12"
+                      isValid={validate.phone}
+                      required={true}
                     />
+                    <p></p>
                   </div>
                   <DropdownUI
                     dataList={countryCodes}
@@ -195,12 +234,13 @@ const LoginCardForm = () => {
                 </div>
                 <div>
                   <PrimaryButton
-                    onClick={handleOpenOtpModal}
+                    type="submit"
+                    onClick={(e)=>{handleOpenOtpModal(e)}}
                     button="تسجيل الدخول"
                     buttonStyle="py-3 rounded-md !font-normal w-full justify-center mt-6"
                   />
                 </div>
-              </div>
+              </form>
             </div>
             <Image
               src="/assets/images/gradient-bottom.svg"

@@ -64,7 +64,7 @@ const FeatureSection = () => {
     >
       <div className="mx-auto h-[820px] sm:h-[1000px] md:h-[1100px] lg:h-[810px] xl:h-[785px] overflow-hidden relative">
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
-          <div className="text-2xl font-semibold text-white mb-5 leading-none">
+          <div className="text-2xl font-semibold text-white mb-5 px-8 leading-none">
             كل بيانات الأسهم أصبحت أسرع وأقرب إليك
           </div>
           <p className=" font-small text-gray-300 ">
@@ -105,7 +105,7 @@ const FeatureSection = () => {
                             : "opacity-0 invisible"
                         }`}
                       >
-                        <div className="bg-white/10 rounded-b-xl p-5 h-36 my-3 text-right ">
+                        <div className="bg-white/10 px-8 rounded-b-xl p-5 h-36 my-3 text-right ">
                           {item.desc}
                         </div>
                       </div>
