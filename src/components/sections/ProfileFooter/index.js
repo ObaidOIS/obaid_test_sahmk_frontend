@@ -50,9 +50,10 @@ const ProfileFooter = () => {
               {footerLinks.map((item, index) => {
                 return (
                   <Link
-                    href="#_"
+                    href={item.href}
                     key={index}
                     className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                    // onClick={(e)=>{if(item.href == "/userprofile" && localStorage.getItem('page')){localStorage.removeItem('page')}}}
                   >
                     {item.name}
                   </Link>

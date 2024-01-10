@@ -95,10 +95,7 @@ const OtpModal = ({
     // Update the corresponding OTP digit
     let newOtp = [...otp];
     newOtp[index] = value;
-    setOtp(newOtp);
-
-    console.log(value, "hello")
-    
+    setOtp(newOtp);    
 
   };
 
@@ -127,7 +124,6 @@ const OtpModal = ({
     console.log(value);
     // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
-    console.log(value, "hello me")
 
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
@@ -161,6 +157,7 @@ const OtpModal = ({
           router.push("/auth/order");
         } else if (previousPage === "signin") {
           router.push("/userprofile");
+          if(localStorage.getItem('page')){localStorage.removeItem('page')}
         }
       } else {
         // Handle case where OTP is wrong or verification fails

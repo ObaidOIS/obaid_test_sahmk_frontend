@@ -9,6 +9,7 @@ import FeatureTwoGoalModal from "../FeatureTwoGoalModal";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
+
 const UserProfileFeatureTwo = ({
   isPricesChecked,
   handlePricesSwitch,
@@ -135,6 +136,7 @@ const UserProfileFeatureTwo = ({
   };
 
   const handleSubmit = async () => {
+    
     if (
       formData.target_price !== "" ||
       formData.target_price !== "custom" ||
@@ -144,7 +146,7 @@ const UserProfileFeatureTwo = ({
         ? "/api/stocks/update/"
         : "/api/stocks/create/";
       const method = formData.id ? "PUT" : "POST";
-      console.log(method, endpoint, formData);
+      console.log(method, endpoint, formData, "hello");
       const response = await apiCall(endpoint, method, formData);
       if (response.error) {
         setErrorAlert(true);

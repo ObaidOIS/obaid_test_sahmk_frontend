@@ -72,6 +72,7 @@ const Footer = () => {
                   <Link
                     href={item.href}
                     key={index}
+                    onClick={(e)=>{if(item.href == "/userprofile" && localStorage.getItem('page')){localStorage.removeItem('page')}}}
                     className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                   >
                     {item.name}

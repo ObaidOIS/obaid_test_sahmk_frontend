@@ -6,13 +6,19 @@ import MainBadge from "../MainBadge";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import {pricing} from "@/components/common/pricing";  
+import { useRouter } from "next/navigation";
 
 const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
+
+  const router = useRouter();
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
-
+  const handlePlanSelection = (subscriptionType) => {
+    router.push(`${tier.href}?subscription=${subscriptionType}&duration=${JSON.stringify(frequency)}`);
+  };
+  
   return (
     <div>
       <div
@@ -48,18 +54,18 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
             {frequency.priceSuffix}
           </span>
         </p>
-        <Link 
-          href={tier.href}
+        <div 
           aria-describedby={tier.id}
+          onClick={() => handlePlanSelection(tier.name)}
           className={classNames(
             tier.mostPopular
               ? "bg-primaryColor text-white shadow-sm hover:bg-primaryColor/90 dark:focus-visible:outline-primaryColor"
               : "bg-whiteColor border-2 border-primaryColor dark:bg-white/10 text-primaryColor hover:bg-darkColor/5 dark:hover:bg-white/20 focus-visible:outline-white",
-            "mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            "mt-6 cursor-pointer block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           )}
         >
           {tier.button}
-        </Link>
+        </div>
         <ul
           role="list"
           className="mt-8 space-y-3 text-sm leading-6 dark:text-gray-300 xl:mt-10"

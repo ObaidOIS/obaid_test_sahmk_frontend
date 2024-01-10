@@ -82,7 +82,6 @@ const LoginCardForm = () => {
   const handleOpenOtpModal = (e) => {
     e.preventDefault();
     const cleanedPhoneNumber = cleanPhoneNumber(userData.phoneNumber);
-    console.log("hello", cleanedPhoneNumber);
     setUserData({
       ...userData,
       phoneNumber: cleanedPhoneNumber,
@@ -113,7 +112,7 @@ const cleanPhoneNumber = (phoneNumber) => {
     console.log('Checking prefix:', prefix);
     return phoneNumber.startsWith(prefix);
   });
-  console.log('hasPrefix:', hasPrefix);  console.log("hello", hasPrefix);
+  console.log('hasPrefix:', hasPrefix); 
 
   // Remove the prefix if found
   const cleanedPhoneNumber = hasPrefix

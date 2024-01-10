@@ -85,7 +85,8 @@ const Header = ({ toggleSidebar }) => {
             <Bars3Icon className="h-6 w-6" onClick={() => toggleSidebar()} />
           </div>
           <div className="items-center h-full lg:flex hidden ">
-            <Link href={isAuthenticate == true ? "/userprofile" : "/auth/login"} className="hover:text-gray-900 font-normal">
+            <Link href={isAuthenticate == true ? "/userprofile" : "/auth/login"} 
+              onClick={(e)=>{if(isAuthenticate == true && localStorage.getItem('page')){localStorage.removeItem('page')}}} className="hover:text-gray-900 font-normal">
               {" "}
               تسجل الدخول{" "}
             </Link>

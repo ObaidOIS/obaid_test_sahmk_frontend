@@ -44,7 +44,7 @@ const UserProfileFeatureFour = ({
   // Initialize states with the original subscription details using mapping
   const [selectedOption, setSelectedOption] = useState(
     subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-      subscriptionTypeMap.free
+    subscriptionTypeMap.free
   );
   const [frequency, setFrequency] = useState(
     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
@@ -448,10 +448,8 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {/* {selectedOption == "الباقة المجانية" ? ( */}
-                { upgradButton == false ? (
-                  ""
-                ) : (
+                {selectedOption != (subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]) ?
+                  (
                   <div
                     className="mt-3"
                     onClick={() => {
@@ -466,7 +464,7 @@ const UserProfileFeatureFour = ({
                       buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
                     />
                   </div>
-                )}
+                ) : ""}
               </div>
             }
           />
@@ -518,13 +516,13 @@ const UserProfileFeatureFour = ({
                 value={userData.phoneNumber}
               />
             </div>
-            <div className="px-6 sm:px-0">
+            {/* <div className="px-6 sm:px-0">
               <PrimaryButton
                 button="تحديث"
                 buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
                 onClick={updateUserData}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div></div>

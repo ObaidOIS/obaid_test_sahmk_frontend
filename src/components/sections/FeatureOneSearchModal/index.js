@@ -11,10 +11,11 @@ const FeatureOneSearchModal = ({
   searchQuery,
   handleSearch,
   filteredData,
+  originalData,
 }) => {
   return (
     <div>
-      <div className="mt-3 w-full">
+      <div className="mt-3 w-full h-screen">
         <div>
           <SearchInput 
               searchQuery={searchQuery}
@@ -26,8 +27,9 @@ const FeatureOneSearchModal = ({
             <span className="text-primaryColor">تم تحديد ( {selectedItems?.length} )</span>
           </div>
         </div>
-        <div className=" max-h-52 overflow-scroll">
+        <div className="h-screen overflow-scroll">
         <AddList
+          originalData={originalData}
           filteredData={filteredData}
           dataList={dataList}
           toggleSelection={toggleSelection}

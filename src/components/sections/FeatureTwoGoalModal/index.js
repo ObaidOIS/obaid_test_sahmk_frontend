@@ -1,9 +1,9 @@
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import RadioButtonGroup from "@/components/widgets/RadioButtonGroup";
 import RememberNoteUI from "@/components/widgets/RemeberNoteUI";
-import SelectBoxUI from "@/components/widgets/SelectBoxUI";
 import React from "react";
 import Image from "next/image";
+import SelectSearchInput from "@/components/widgets/SelectSearchInput";
 
 const FeatureTwoGoalModal = ({
   options,
@@ -31,14 +31,14 @@ const FeatureTwoGoalModal = ({
           }
         />
       </div>
-      <SelectBoxUI
+      <SelectSearchInput 
         handleChange={handleChange}
         value={formData.name}
         name="name"
         options={options}
         title="اسم الشركة"
-        defaultValue=""
-      />
+        defaultValue=""/>
+        
       <InputFieldUI
         value={formData.stock_price}
         label="السعر الحالي"

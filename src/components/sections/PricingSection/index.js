@@ -45,7 +45,7 @@ const PricingSection = () => {
       card: "free",
     },
     {
-      name: "باقة البريميوم",
+      name: "باقة بريميوم",
       id: "tier-startup",
       href: "/auth/register",
       price: { monthly: "49 ريال", annually: "488 ريال" },

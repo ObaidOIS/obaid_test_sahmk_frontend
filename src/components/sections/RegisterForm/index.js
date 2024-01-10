@@ -17,6 +17,7 @@ import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 // import XCircleIcon from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
+import { useSearchParams } from 'next/navigation'
 
 const isValidFirstName = (value) => value.trim() !== "";
 const isValidLastName = (value) => value.trim() !== "";
@@ -24,6 +25,11 @@ const isValidEmail = (value) => value.trim() !== "";
 const isValidPhoneNumber = (value) => value.trim() !== "";
 
 const RegisterForm = () => {
+
+  const searchParams = useSearchParams();
+  const subscription = searchParams.get('subscription');
+  const duration = searchParams.get('duration');
+
   const [isFormValid, setIsFormValid] = useState(false);
   // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
@@ -107,8 +113,12 @@ const RegisterForm = () => {
   // State for OTP Modal visibility
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
+  // const [selectedOption, setSelectedOption] = useState(subscription != undefined ? subscription : "الباقة المجانية" );
+  // const [frequency, setFrequency] = useState(duration != undefined ? duration : frequencies[0]);
+  
+  const [selectedOption, setSelectedOption] = useState("الباقة المجانية" );
   const [frequency, setFrequency] = useState(frequencies[0]);
+  
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -119,13 +129,6 @@ const RegisterForm = () => {
     subscriptionPeriod: "yearly",
     selectedCompanies: [],
   });
-
-  const handleDataChange = (fieldName, value) => {
-    setUserData((prevData) => ({
-      ...prevData,
-      [fieldName]: value,
-    }));
-  };
 
   const handleMenuItemClick = (item) => {
     handleDataChange("countryCode", item);

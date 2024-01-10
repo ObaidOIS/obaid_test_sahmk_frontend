@@ -43,6 +43,7 @@ const UserProfileFeatureOne = ({
       }));
       const uniqueUserStocks = getUniqueStocksBySymbol(userStocks);
 
+      // console.log(uniqueUserStocks, "hello");
       setSelectedItems(uniqueUserStocks);
     }
 
@@ -64,14 +65,17 @@ const UserProfileFeatureOne = ({
     fetchStocks();
   }, []);
 
-  const handlePopupSave = async () => {
+  const handlePopupSave = async (stocksArray) => {
     // Define the endpoint for updating stocks
     const endpoint = "/api/stocks/bulk-update/";
 
     // Create the data object to send in the request
+    // const requestData = {
+    //   stocks: popupStocks,
+    // };
     const requestData = {
-      stocks: popupStocks,
-    };
+        stocks: stocksArray,
+      };
 
     // Send a POST request using your custom apiCall function
     const response = await apiCall(endpoint, "POST", requestData);
@@ -104,7 +108,7 @@ const UserProfileFeatureOne = ({
     setSelectedItems((prevSelectedItems) => {
       const isAlreadySelected = prevSelectedItems.some(
         (item) => item.id === itemId
-      );
+    );
 
       let newSelectedItems;
 
@@ -123,6 +127,7 @@ const UserProfileFeatureOne = ({
 
       // Update popupStocks similarly as selectedItems
       setPopupStocks(newSelectedItems);
+      handlePopupSave(newSelectedItems);
 
       return newSelectedItems;
     });
@@ -136,6 +141,7 @@ const UserProfileFeatureOne = ({
 
       // Update popupStocks similarly as selectedItems
       setPopupStocks(newSelectedItems);
+      handlePopupSave(newSelectedItems);
 
       return newSelectedItems;
     });
@@ -216,6 +222,7 @@ const UserProfileFeatureOne = ({
             button="حفظ"
             content={
               <FeatureOneSearchModal
+                originalData={originalData}
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
                 filteredData={filteredData}
@@ -276,13 +283,13 @@ const UserProfileFeatureOne = ({
                     //   showItems={showItems}
                   />
                 }
-                saveButton={
-                  <PrimaryButton
-                    button="تحديث"
-                    buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
-                    onClick={handlePopupSave}
-                  />
-                }
+                // saveButton={
+                //   <PrimaryButton
+                //     button="تحديث"
+                //     buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                //     onClick={handlePopupSave}
+                //   />
+                // }
               />
               <ArrowList
                 leftIcon={

@@ -183,14 +183,6 @@ const UserProfileSection = () => {
     },
   ];
 
-  // const stats = [
-  //   { id: 1, name: "السعر", value: "11,676.34" },
-  //   { id: 2, name: "نسبة التغيير", value: "0.65 ٪" },
-  //   { id: 3, name: "عدد الصفقات", value: "427,27" },
-  //   { id: 4, name: "الكمية المتداولة", value: "260,537,940" },
-  //   { id: 5, name: "القيمة المتداولة", value: "6,417,954,300" },
-  // ];
-
   const [activeStat, setActiveStat] = useState("0");
 
   const tagsList = [

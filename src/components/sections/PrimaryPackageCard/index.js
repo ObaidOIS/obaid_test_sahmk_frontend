@@ -7,6 +7,8 @@ import {pricing} from "@/components/common/pricing";
 
 const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, features, selectedOption, pricingRadio, frequency}) => {
 
+  console.log(selectedOption, "hi");
+
   return (
     <div>
       <div className=" rounded-lg">
@@ -55,7 +57,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, 
         <div>
           <ul className="list-disc pr-6">
             <li className="flex items-center gap-3 mt-5">
-              باقة البريميوم تتميز هذه الباقة بمزايا متكاملة
+            باقة بريميوم تتميز هذه الباقة بمزايا متكاملة
             </li>
             {features.slice(0, 3).map((item, index) => {
               return (

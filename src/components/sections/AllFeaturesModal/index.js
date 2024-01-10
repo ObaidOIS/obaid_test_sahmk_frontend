@@ -7,7 +7,7 @@ const AllFeaturesModal = ({features, selectedOption}) => {
     <div>
       <ul className="list-disc">
             {/* <li className="flex items-center gap-3 mt-5">
-              باقة البريميوم تتميز هذه الباقة بمزايا متكاملة
+              باقة بريميوم تتميز هذه الباقة بمزايا متكاملة
             </li> */}
             {features.map((item, index) => {
               return (
@@ -15,8 +15,8 @@ const AllFeaturesModal = ({features, selectedOption}) => {
                   className="flex items-center gap-3 mt-5 text-sm"
                   key={index}
                 >
-                  <FaRegCircleCheck className={selectedOption == "الباقة المتقدمة" ? "text-yellowColor" : selectedOption == "باقة بريميوم" ? "text-purpleColor" : "text-blueColor"} size={20} />
-                  <span>{item.feature}</span>
+                  <FaRegCircleCheck className={item.isAvaiable == true ? (selectedOption == "الباقة المتقدمة" ? "text-yellowColor" : selectedOption == "باقة بريميوم" ? "text-purpleColor" : "text-blueColor") : "text-mediumGreyColor"} size={20} />
+                  <span  className={item.isAvaiable == true ? "text-darkColor" : "text-mediumGreyColor"}>{item.feature}</span>
                 </li>
               );
             })}

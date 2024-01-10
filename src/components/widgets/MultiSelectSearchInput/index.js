@@ -11,13 +11,7 @@ const MultiSelectSearchInput = ({ setUserData, selectedOption }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [originalData, setOriginalData] = useState([]);
-  // const dataList = [
-  //   { id: 1, name: "کمپنی ایک" },
-  //   { id: 2, name: "کمپنی دو" },
-  //   { id: 3, name: "کمپنی تیسری" },
-  //   { id: 4, name: "الشركة الرابعة" },
-  // ];
-
+  
   // Fetch companies from API and set to both dataList and originalData
   useEffect(() => {
     const fetchCompanies = async () => {
