@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CheckboxInput from "@/components/widgets/CheckboxInput";
 import PrimaryPackageCard from "../PrimaryPackageCard";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
@@ -17,7 +17,9 @@ import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 // import XCircleIcon from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from "next/navigation";
+import apiCall from "@/components/common/api";
+import { debounce, getFullPhoneNumber } from "@/components/common/utils";
 
 const isValidFirstName = (value) => value.trim() !== "";
 const isValidLastName = (value) => value.trim() !== "";
@@ -25,10 +27,9 @@ const isValidEmail = (value) => value.trim() !== "";
 const isValidPhoneNumber = (value) => value.trim() !== "";
 
 const RegisterForm = () => {
-
   const searchParams = useSearchParams();
-  const subscription = searchParams.get('subscription');
-  const duration = searchParams.get('duration');
+  const subscription = searchParams.get("subscription");
+  const duration = searchParams.get("duration");
 
   const [isFormValid, setIsFormValid] = useState(false);
   // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
@@ -115,10 +116,10 @@ const RegisterForm = () => {
   const [activeItem, setActiveItem] = useState(null);
   // const [selectedOption, setSelectedOption] = useState(subscription != undefined ? subscription : "الباقة المجانية" );
   // const [frequency, setFrequency] = useState(duration != undefined ? duration : frequencies[0]);
-  
-  const [selectedOption, setSelectedOption] = useState("الباقة المجانية" );
+
+  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
   const [frequency, setFrequency] = useState(frequencies[0]);
-  
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -374,9 +375,9 @@ const RegisterForm = () => {
     // Validate each field and update the overall form validity
     setIsFormValid(
       isValidFirstName(userData.firstName) &&
-        isValidLastName(userData.lastName) &&
-        isValidEmail(userData.email) &&
-        isValidPhoneNumber(userData.phoneNumber)
+      isValidLastName(userData.lastName) &&
+      isValidEmail(userData.email) &&
+      isValidPhoneNumber(userData.phoneNumber)
       // &&
       // selectedCheckboxes.length > 0
     );
@@ -412,6 +413,43 @@ const RegisterForm = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
+  const [phoneNumberExists, setPhoneNumberExists] = useState(false);
+  // State to track if phone number exists
+
+  // Function to check if the phone number exists
+  const checkPhoneNumber = async () => {
+    if (userData.phoneNumber.length >= 9) {
+      const fullPhoneNumber = getFullPhoneNumber(userData);
+      const response = await apiCall(
+        `/auth/api/check_phone_number/?phone_number=${fullPhoneNumber}`,
+        "GET"
+      );
+      if (response && response.result && response.result.exists) {
+        setPhoneNumberExists(true);
+      } else {
+        setPhoneNumberExists(false);
+      }
+    }
+  };
+
+  // Use useCallback to memoize the debounced version of checkPhoneNumber
+  const debouncedCheckPhoneNumber = useCallback(
+    debounce(checkPhoneNumber, 500),
+    [userData] // Dependencies
+  );
+
+  // Use effect to trigger the debounced function when phone number changes
+  useEffect(() => {
+    if (userData.phoneNumber) {
+      debouncedCheckPhoneNumber();
+    }
+  }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
+
+  useEffect(() => {
+    if (phoneNumberExists) {
+      alert("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول." + " " + userData.countryCode + " " + userData.phoneNumber);
+    }
+  }, [phoneNumberExists]);
 
   return (
     <>
@@ -501,8 +539,8 @@ const RegisterForm = () => {
                 selectedOption == "الباقة المتقدمة"
                   ? pricingRadio[2].features[frequency.value]
                   : selectedOption == "باقة بريميوم"
-                  ? pricingRadio[1].features[frequency.value]
-                  : pricingRadio[0].features[frequency.value]
+                    ? pricingRadio[1].features[frequency.value]
+                    : pricingRadio[0].features[frequency.value]
               }
             />
           }
@@ -529,8 +567,8 @@ const RegisterForm = () => {
                     selectedOption == "الباقة المتقدمة"
                       ? pricingRadio[2].features[frequency.value]
                       : selectedOption == "باقة بريميوم"
-                      ? pricingRadio[1].features[frequency.value]
-                      : pricingRadio[0].features[frequency.value]
+                        ? pricingRadio[1].features[frequency.value]
+                        : pricingRadio[0].features[frequency.value]
                   }
                 />
               </div>
@@ -613,14 +651,18 @@ const RegisterForm = () => {
                   selectedOption={selectedOption}
                   setSelectedItems={setSelectedItems}
                   selectedItems={selectedItems}
-                  filteredData={filteredData} 
+                  filteredData={filteredData}
                   setFilteredData={setFilteredData}
-                  originalData={originalData} 
+                  originalData={originalData}
                   setOriginalData={setOriginalData}
                   setErrorAlert={setErrorAlert}
                   setErrorMessage={setErrorMessage}
                 />
-                <p className="text-sm text-darkGreyColor">{selectedOption === "الباقة المجانية" ? "الترقية إلى الإصدار المميز أو التقدم لاختيار الشركات." : ""}</p>
+                <p className="text-sm text-darkGreyColor">
+                  {selectedOption === "الباقة المجانية"
+                    ? "الترقية إلى الإصدار المميز أو التقدم لاختيار الشركات."
+                    : ""}
+                </p>
                 <div className="flex text-secondaryColor mt-4">
                   يمكنك إعدادها لاحقا
                 </div>
@@ -636,9 +678,9 @@ const RegisterForm = () => {
                         title={item.title}
                         desc={item.desc}
                         badge={item.badge}
-                        // handleChange={(isChecked) =>
-                        //   handleCheckboxChange(item.title, isChecked)
-                        // }
+                      // handleChange={(isChecked) =>
+                      //   handleCheckboxChange(item.title, isChecked)
+                      // }
                       />
                     </div>
                   );
