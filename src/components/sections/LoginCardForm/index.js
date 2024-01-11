@@ -204,6 +204,7 @@ const cleanPhoneNumber = (phoneNumber) => {
                   <div className="flex-grow ">
                     <InputFieldUI
                       label="رقم الجوال"
+                      inputmode="numeric"
                       name="phone-tel"
                       value={userData.phoneNumber}
                       handleChange={(e) => {
