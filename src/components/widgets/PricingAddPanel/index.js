@@ -50,7 +50,7 @@ const PricingAddPanel = ({
         </div>
         <div className="pt-6">
           {feature == "first" ? (
-            <div className=" max-h-[660px] overflow-y-scroll">
+            <div className="max-h-[660px] overflow-y-scroll">
             <AddList
               filteredData={selectedItems}
               setSelectedItems={setSelectedItems}

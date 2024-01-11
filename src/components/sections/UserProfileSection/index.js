@@ -17,6 +17,7 @@ import apiCall from "@/components/common/api";
 import { extractCountryCodeFromPhoneNumber } from "@/components/common/utils";
 
 const UserProfileSection = () => {
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNotificationChecked, setIsNotificationChecked] = useState(false);
   const [isTvChecked, setIsTvChecked] = useState(false);
@@ -33,6 +34,7 @@ const UserProfileSection = () => {
     expirationDate: null,
   });
   const [firstType, setFirstType] = useState(null);
+  const [plan, setPlan] = useState("")
   const [originalSubscriptionDetails, setOriginalSubscriptionDetails] =
     useState({ subscriptionType: "free", subscriptionPeriod: "monthly" });
 
@@ -307,6 +309,11 @@ const UserProfileSection = () => {
     setPage({ name, value });
   };
 
+  const handlePlanChange = (newPlan) => {
+    console.log(newPlan);
+    setPlan(newPlan);
+  };
+
   const handlePricesSwitch = () => {
     setIsPricesChecked((prevChecked) => !prevChecked);
     isPricesChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
@@ -481,6 +488,8 @@ const UserProfileSection = () => {
                 <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <UserProfileFeatureFour
                     handlePageChange={handlePageChange}
+                    handlePlanChange={handlePlanChange}
+                    plan={plan}
                     userData={userData}
                     setUserData={setUserData}
                     setOriginalSubscriptionDetails={setOriginalSubscriptionDetails}
@@ -490,7 +499,7 @@ const UserProfileSection = () => {
               </div>
             ) : page.name == "payment" ? (
               <div className="space-y-6">
-                <OrderSummaryForm />
+                <OrderSummaryForm plan={plan} />
               </div>
             ) : (
               ""

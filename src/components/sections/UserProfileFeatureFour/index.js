@@ -14,10 +14,12 @@ import {pricing} from "@/components/common/pricing";
 
 const UserProfileFeatureFour = ({
   handlePageChange,
+  plan,
   userData,
   setUserData,
   originalSubscriptionDetails,
   setOriginalSubscriptionDetails,
+  handlePlanChange,
 }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
@@ -407,29 +409,50 @@ const UserProfileFeatureFour = ({
             content={
               <div>
                 <AvatarWithText
-                  title={selectedOption}
+                  title={plan == "" ? selectedOption : plan}
                   desc={` ${
-                    selectedOption == "الباقة المتقدمة"
+                  plan == "" ? 
+                      selectedOption == "الباقة المتقدمة"
                       ? pricing.pricing.companies[frequency?.value]
                       : selectedOption == "باقة بريميوم"
                       ? pricing.pricing.premium[frequency?.value]
                       : pricing.pricing.free[frequency.value]
-                  } / ${frequency.label} `}
+                    : 
+                      plan == "الباقة المتقدمة"
+                      ? pricing.pricing.companies[frequency?.value]
+                      : plan == "باقة بريميوم"
+                      ? pricing.pricing.premium[frequency?.value]
+                      : pricing.pricing.free[frequency.value]
+                    } / ${frequency.label} `}
                   descStyle={
-                    selectedOption == "الباقة المتقدمة"
+                    plan == "" ? 
+                      selectedOption == "الباقة المتقدمة"
                       ? "!text-yellowColor"
                       : selectedOption == "باقة بريميوم"
+                      ? "!text-purpleColor"
+                      : "!text-blueColor"
+                    : 
+                      plan == "الباقة المتقدمة"
+                      ? "!text-yellowColor"
+                      : plan == "باقة بريميوم"
                       ? "!text-purpleColor"
                       : "!text-blueColor"
                   }
                   image={
                     <Image
                       src={
+                        plan == "" ? 
                         selectedOption == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
                           : selectedOption == "باقة بريميوم"
                           ? "/assets/icons/purple-check-icon.svg"
                           : "/assets/icons/blue-check.svg"
+                        :
+                            plan == "الباقة المتقدمة"
+                            ? "/assets/icons/yellow-check.svg"
+                            : plan == "باقة بريميوم"
+                            ? "/assets/icons/purple-check-icon.svg"
+                            : "/assets/icons/blue-check.svg"
                       }
                       height={30}
                       width={30}
@@ -457,6 +480,7 @@ const UserProfileFeatureFour = ({
                         name: "payment",
                         value: "باقتي وحسابي",
                       });
+                      handlePlanChange(selectedOption, frequency);
                     }}
                   >
                     <PrimaryButton

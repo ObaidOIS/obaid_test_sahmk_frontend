@@ -401,6 +401,14 @@ const RegisterForm = () => {
       setErrorAlert(true);
     }
   };
+
+  const handleDataChange = (fieldName, value) => {
+    setUserData({
+      ...userData,
+      [fieldName]: value,
+    });
+  };
+  
   return (
     <>
       <div>
