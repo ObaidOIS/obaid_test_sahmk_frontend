@@ -408,7 +408,11 @@ const RegisterForm = () => {
       [fieldName]: value,
     });
   };
-  
+
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+
   return (
     <>
       <div>
@@ -475,6 +479,7 @@ const RegisterForm = () => {
               frequency={frequency}
               setFrequency={setFrequency}
               pricingRadio={pricingRadio}
+              setSelectedItems={setSelectedItems}
             />
           }
         />
@@ -606,7 +611,16 @@ const RegisterForm = () => {
                 <MultiSelectSearchInput
                   setUserData={setUserData}
                   selectedOption={selectedOption}
+                  setSelectedItems={setSelectedItems}
+                  selectedItems={selectedItems}
+                  filteredData={filteredData} 
+                  setFilteredData={setFilteredData}
+                  originalData={originalData} 
+                  setOriginalData={setOriginalData}
+                  setErrorAlert={setErrorAlert}
+                  setErrorMessage={setErrorMessage}
                 />
+                <p className="text-sm text-darkGreyColor">{selectedOption === "الباقة المجانية" ? "الترقية إلى الإصدار المميز أو التقدم لاختيار الشركات." : ""}</p>
                 <div className="flex text-secondaryColor mt-4">
                   يمكنك إعدادها لاحقا
                 </div>

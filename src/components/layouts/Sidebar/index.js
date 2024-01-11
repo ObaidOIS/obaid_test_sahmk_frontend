@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
+import { isAuthenticated } from "@/components/common/utils";  
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const navigation = [
@@ -15,8 +16,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { name: "تواصل معنا", href: "#", current: false },
   ];
 
+  
+  const [isAuthenticate, setIsAuthenticate] = useState(false)
+  useEffect(() => {
+    setIsAuthenticate(isAuthenticated());
+  }, []);
+
+
   return (
-    <Transition.Root show={isSidebarOpen} as={Fragment} >
+    <Transition.Root show={isSidebarOpen} as={Fragment}>
       <Dialog
         as="div"
         className="lg:hidden"
@@ -36,15 +44,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         </Transition.Child>
         <div className="fixed inset-0 z-50" />
         <Transition.Child
-                as={Fragment}
-                enter="transform transition ease-in-out duration-500 sm:duration-700"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transform transition ease-in-out duration-500 sm:duration-700"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-        <Dialog.Panel className="fixed inset-y-0 pointer-events-auto right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          as={Fragment}
+          enter="transform transition ease-in-out duration-500 sm:duration-700"
+          enterFrom="translate-x-full"
+          enterTo="translate-x-0"
+          leave="transform transition ease-in-out duration-500 sm:duration-700"
+          leaveFrom="translate-x-0"
+          leaveTo="translate-x-full"
+        >
+          <Dialog.Panel className="fixed inset-y-0 pointer-events-auto right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Sahmak_sa</span>
@@ -81,17 +89,26 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 <div className="py-6">
                   <div className="items-center h-full mt-6 flex">
                     <Link
-                      href="/auth/login"
-                      className="font-semibold hover:text-gray-900"
+                      href={
+                        isAuthenticate == true ? "/userprofile" : "/auth/login"
+                      }
+                      onClick={(e) => {
+                        if (
+                          isAuthenticate == true &&
+                          localStorage.getItem("page")
+                        ) {
+                          localStorage.removeItem("page");
+                        }
+                      }}
+                      className="hover:text-gray-900 font-normal"
                     >
-                      {" "}
                       تسجل الدخول{" "}
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
-        </Dialog.Panel>
+          </Dialog.Panel>
         </Transition.Child>
       </Dialog>
     </Transition.Root>

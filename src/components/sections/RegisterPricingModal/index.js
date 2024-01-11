@@ -4,10 +4,11 @@ import RadioTabs from "@/components/widgets/RadioTabs";
 import Image from "next/image";
 import RadioCardGroup from "@/components/widgets/RadioCardGroup";
 
-const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio }) => {
+const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio, setSelectedItems }) => {
 
   const handleOptionChange = (value) => {
     setSelectedOption(value);
+    setSelectedItems([]);
   };
 
   return (
