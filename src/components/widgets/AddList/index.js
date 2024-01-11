@@ -18,7 +18,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
               type="button"
               onClick={() => {setPersonIdx(person); toggleSelection !== undefined ? toggleSelection(person.id, person.name, person.symbol) : null}}
               className={`group flex w-full items-center justify-between space-x-3 rounded-full border ${
-                (isOpen == true && selectedItems?.some(item => item.id === person.id)) ? 
+                (isOpen == true && selectedItems?.some(item => item.symbol === person.symbol)) ? 
                   "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"
                   : `border-gray-300 ${isOpen == true ? "cursor-pointer" : " cursor-auto"} `
               } p-1 text-left shadow-sm hover:bg-gray-50 focus:outline-none `}
@@ -47,7 +47,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
                 </span>
               </span>
               <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center">
-                { selectedItems?.some(item => item.id === person.id) ? (
+                { selectedItems?.some(item => item.symbol === person.symbol) ? (
                   isOpen ? <CheckIcon
                     className="h-6 w-5 flex-none text-primaryColor"
                     aria-hidden="true"

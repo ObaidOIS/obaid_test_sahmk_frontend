@@ -69,7 +69,7 @@ const RegisterForm = () => {
           width="24"
           height="24"
           alt="Saudi Arabia"
-          className="w-6 h-6"
+          className="w-5 h-5"
         />
       ),
     },

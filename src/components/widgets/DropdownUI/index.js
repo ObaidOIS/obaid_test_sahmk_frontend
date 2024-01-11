@@ -9,7 +9,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
         <button
           type="button"
           onClick={handleToggleDropdown}
-          className={`inline-flex w-full items-center justify-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50`}
+          className={`inline-flex w-full items-center justify-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 ${activeItem ? (activeItem.dial_code == "+966" ? "px-6" : "") :"px-6" }`}
           id="menu-button"
           aria-expanded={isOpen}
           aria-haspopup="true"
@@ -21,7 +21,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
             className="-rotate-90 mt-1 ml-1 text-sm"
             alt="image"
           />
-          {activeItem ? <> {activeItem.dial_code}  {activeItem.icon} </>: <> +966  <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-6 h-6" alt="Saudi Arabia" /> </>}
+          {activeItem ? <> {activeItem.dial_code}  {activeItem.icon} </>: <> +966  <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-5 h-5" alt="Saudi Arabia" /> </>}
         </button>
       </div>
 

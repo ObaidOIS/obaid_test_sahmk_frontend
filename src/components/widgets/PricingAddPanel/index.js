@@ -34,7 +34,7 @@ const PricingAddPanel = ({
           </div>
           <div
             onClick={handleFeedClick}
-            className="flex-1 text-primaryColor whitespace-nowrap flex items-center justify-end text-base font-medium"
+            className="flex-1 text-primaryColor flex items-center justify-end text-base font-medium"
           >
             <IconButtonUI
               button="إضافة /تعديل سهم"

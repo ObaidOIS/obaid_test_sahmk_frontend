@@ -41,6 +41,7 @@ const UserProfileFeatureOne = ({
         name: stock.stock_name,
         stock_price: stock.stock_price,
       }));
+      // const userStocks = userStocksResponse.result.stocks.map((stock) => ({id: stock.id}));
       const uniqueUserStocks = getUniqueStocksBySymbol(userStocks);
 
       // console.log(uniqueUserStocks, "hello");
@@ -107,15 +108,18 @@ const UserProfileFeatureOne = ({
   const toggleSelection = (itemId, itemName, itemSymbol) => {
     setSelectedItems((prevSelectedItems) => {
       const isAlreadySelected = prevSelectedItems.some(
-        (item) => item.id === itemId
+        (item) => item.symbol === itemSymbol
     );
+  //   const isAlreadySelected = prevSelectedItems.some(
+  //     (item) => item === itemObject
+  // );
 
       let newSelectedItems;
 
       if (isAlreadySelected) {
         // Remove the item if it's already selected
         newSelectedItems = prevSelectedItems.filter(
-          (item) => item.id !== itemId
+          (item) => item.symbol !== itemSymbol
         );
       } else {
         // Add the new item
