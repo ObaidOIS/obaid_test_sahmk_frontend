@@ -458,7 +458,6 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateForm();
     checkPhoneNumber();
     if(isFormValid == true && phoneNumberExists == true){
     handleOpenOtpModal();
@@ -704,6 +703,7 @@ const RegisterForm = () => {
             </div>
             <PrimaryButton
               onClick={(e) => {
+                validateForm();
                 handleSubmit(e)
               }}
               button="تسجيل"

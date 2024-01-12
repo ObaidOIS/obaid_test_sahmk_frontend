@@ -466,7 +466,7 @@ const UserProfileFeatureFour = ({
                         name: "payment",
                         value: "باقتي وحسابي",
                       });
-                      setSelectedOption();
+                      // setSelectedOption();
                       // handlePlanChange(selectedOption, frequency);
 
                     }}
