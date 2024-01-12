@@ -35,8 +35,6 @@ const UserProfileFeatureFour = ({
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
   ];
 
-  console.log(originalSubscriptionDetails, "hello");
-
   // Mapping from API values to frontend display values
   // const subscriptionTypeMap = {
   //   free: "الباقة المجانية",
@@ -58,8 +56,6 @@ const UserProfileFeatureFour = ({
   //   subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
   //     frequencies[0]
   // );
-
-  console.log(frequency);
 
   // const [frequency, setFrequency] = useState(frequencies[0]);
   const [currentSubscription, setCurrentSubscription] = useState({});

@@ -77,11 +77,9 @@ const OrderSummaryForm = (
       });
 
       if (result && result.result && result.result.check) {
-        console.log("Verified payment");
         setIsAlertSuccessOpen(true);
       } else {
         setIsAlertErrorOpen(true);
-        console.log("Verified payment failed");
       }
     };
 

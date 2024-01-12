@@ -8,7 +8,7 @@ import apiCall from "@/components/common/api";
 import {
   getFullPhoneNumber,
   mergeKeysIntoThird,
-} from "@/components/common/utils";  
+} from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 
 const OtpModal = ({
@@ -89,13 +89,13 @@ const OtpModal = ({
 
   const handleInputChange = (value, index) => {
     if (index == 3 && value !== "") {
-      const code = (otp+value).replace(/,/g, '');;
+      const code = (otp + value).replace(/,/g, '');;
       handleSubmit(code);
     }
     // Update the corresponding OTP digit
     let newOtp = [...otp];
     newOtp[index] = value;
-    setOtp(newOtp);    
+    setOtp(newOtp);
 
   };
 
@@ -121,7 +121,6 @@ const OtpModal = ({
 
   const handleSubmit = async (value) => {
     // Combine OTP digits into a single variable
-    console.log(value);
     // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
 
@@ -149,22 +148,14 @@ const OtpModal = ({
         localStorage.setItem("accessToken", otpResponse.result.access_token);
         localStorage.setItem("refreshToken", otpResponse.result.refresh_token);
 
-        // Handle additional success logic (navigation, user feedback, etc.)
-        console.log("OTP verified successfully");
-
         // Redirect based on the previousPage
         if (previousPage === "signup") {
           router.push("/auth/order");
         } else if (previousPage === "signin") {
           router.push("/userprofile");
-          if(localStorage.getItem('page')){localStorage.removeItem('page')}
+          if (localStorage.getItem('page')) { localStorage.removeItem('page') }
         }
-      } else {
-        // Handle case where OTP is wrong or verification fails
-        console.error("OTP Verification Failed:", otpResponse);
       }
-    } else {
-      console.log("Complete OTP or valid OTP ID is required");
     }
   };
 
@@ -187,7 +178,7 @@ const OtpModal = ({
           <InputFieldUI
             key={index}
             maxlength="1"
-            handleChange={(e) =>{
+            handleChange={(e) => {
               focusNextInput(
                 e,
                 `code-${index}`, // Previous ID
@@ -206,11 +197,10 @@ const OtpModal = ({
           onClick={() => {
             timer.asSeconds() > 0 ? "" : handleResend();
           }}
-          className={` ${
-            timer.asSeconds() > 0
+          className={` ${timer.asSeconds() > 0
               ? ""
               : " hover:text-darkGreyColor underline cursor-pointer"
-          } text-sm font-medium text-right`}
+            } text-sm font-medium text-right`}
         >
           {timer.asSeconds() > 0
             ? ` إعادة ارسال الرمز بعد ${resendText} `

@@ -11,7 +11,6 @@ const PricingSection = () => {
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
   ];
 
-  // console.log(pricing, "pricing");
   const [frequency, setFrequency] = useState(frequencies[0]);
 
   const tiers = [
