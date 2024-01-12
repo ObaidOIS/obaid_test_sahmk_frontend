@@ -44,7 +44,6 @@ const UserProfileFeatureOne = ({
       // const userStocks = userStocksResponse.result.stocks.map((stock) => ({id: stock.id}));
       const uniqueUserStocks = getUniqueStocksBySymbol(userStocks);
 
-      // console.log(uniqueUserStocks, "hello");
       setSelectedItems(uniqueUserStocks);
     }
 

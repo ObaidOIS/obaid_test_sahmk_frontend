@@ -80,7 +80,7 @@ export function PrimaryFeatures() {
   }, [])
   
   const toggle = () => {
-    console.log('hello')
+    console.log(' Toggle')
   }
 
   return (

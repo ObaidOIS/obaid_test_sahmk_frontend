@@ -7,7 +7,6 @@ import {pricing} from "@/components/common/pricing";
 
 const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, features, selectedOption, pricingRadio, frequency}) => {
 
-  console.log(selectedOption, "hi");
 
   return (
     <div>

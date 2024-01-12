@@ -6,8 +6,6 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
 
   const [personIdx, setPersonIdx] = useState("")
 
-  console.log("hello", personIdx)
-  console.log(selectedItems, "hello");
   return (
     <div>
       <ul role="list" className="mt-4 grid grid-cols-1 gap-4">

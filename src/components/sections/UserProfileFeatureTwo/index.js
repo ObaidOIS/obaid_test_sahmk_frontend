@@ -121,14 +121,13 @@ const UserProfileFeatureTwo = ({
 
     // Update price when company is selected
     if (name === "name") {
-      // Assuming you're using the SelectBoxUI in a controlled manner with React
-      const selectedOption = e.target.options[e.target.selectedIndex];
-      const price = selectedOption.getAttribute("data-price");
+      // Extracting additional data from the event
+      const symbol = e.target.getAttribute("data-symbol");
+      const price = e.target.getAttribute("data-price");
+
       if (price) {
         setFormData((prevData) => ({ ...prevData, stock_price: price }));
       }
-      const symbol = selectedOption.getAttribute("data-symbol");
-      console.log(symbol);
       if (symbol) {
         setFormData((prevData) => ({ ...prevData, symbol: symbol }));
       }
@@ -136,7 +135,6 @@ const UserProfileFeatureTwo = ({
   };
 
   const handleSubmit = async () => {
-    
     if (
       formData.target_price !== "" ||
       formData.target_price !== "custom" ||
@@ -146,7 +144,6 @@ const UserProfileFeatureTwo = ({
         ? "/api/stocks/update/"
         : "/api/stocks/create/";
       const method = formData.id ? "PUT" : "POST";
-      console.log(method, endpoint, formData, "hello");
       const response = await apiCall(endpoint, method, formData);
       if (response.error) {
         setErrorAlert(true);

@@ -78,8 +78,6 @@ const UserProfileFeatureThree = () => {
     }
   };
 
-  console.log(chartData);
-
   return (
     <>
       <div className="flex justify-between mb-5 items-center">

@@ -92,7 +92,6 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
-    console.log(cleanPage); // Implement a function to remove circular references
     const serializedPage = JSON.stringify(cleanPage);
     // localStorage.setItem("page", serializedPage);
     localStorage.setItem("page", serializedPage);
@@ -304,13 +303,11 @@ const UserProfileSection = () => {
   ];
 
   const handlePageChange = (newPage) => {
-    console.log(newPage);
     const { name, value } = newPage;
     setPage({ name, value });
   };
 
   const handlePlanChange = (newPlan) => {
-    console.log(newPlan);
     setPlan(newPlan);
   };
 
