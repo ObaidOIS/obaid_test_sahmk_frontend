@@ -372,6 +372,7 @@ const RegisterForm = () => {
   // };
 
   const validateForm = () => {
+    
     // Validate each field and update the overall form validity
     setIsFormValid(
       isValidFirstName(userData.firstName) &&
@@ -426,6 +427,8 @@ const RegisterForm = () => {
       );
       if (response && response.result && response.result.exists) {
         setPhoneNumberExists(true);
+        setErrorAlert(true);
+        setErrorMessage("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول للمتابعة.");
       } else {
         setPhoneNumberExists(false);
       }
@@ -433,23 +436,34 @@ const RegisterForm = () => {
   };
 
   // Use useCallback to memoize the debounced version of checkPhoneNumber
-  const debouncedCheckPhoneNumber = useCallback(
-    debounce(checkPhoneNumber, 500),
-    [userData] // Dependencies
-  );
+  // const debouncedCheckPhoneNumber = useCallback(
+  //   debounce(checkPhoneNumber, 500),
+  //   [userData] // Dependencies
+  // );
 
   // Use effect to trigger the debounced function when phone number changes
-  useEffect(() => {
-    if (userData.phoneNumber) {
-      debouncedCheckPhoneNumber();
-    }
-  }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
+  // useEffect(() => {
+  //   if (userData.phoneNumber) {
+  //     debouncedCheckPhoneNumber();
+  //   }
+  // }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
 
-  useEffect(() => {
-    if (phoneNumberExists) {
-      alert("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول." + " " + userData.countryCode + " " + userData.phoneNumber);
+  // useEffect(() => {
+  //   if (phoneNumberExists) {
+  //     alert("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول." + " " + userData.countryCode + " " + userData.phoneNumber);
+  //   }
+  // }, [phoneNumberExists]);
+
+  console.log(phoneNumberExists, "hello");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateForm();
+    checkPhoneNumber();
+    if(isFormValid == true && phoneNumberExists == true){
+    handleOpenOtpModal();
     }
-  }, [phoneNumberExists]);
+  }
 
   return (
     <>
@@ -631,6 +645,7 @@ const RegisterForm = () => {
                     value={userData.phoneNumber}
                     handleMenuItemClick={handleMenuItemClick}
                     required={true}
+                    inputmode="numeric"
                     // isValid={isValidPhoneNumber(userData.phoneNumber)}
                     isValid={false}
                   />
@@ -688,9 +703,8 @@ const RegisterForm = () => {
               </div>
             </div>
             <PrimaryButton
-              onClick={() => {
-                validateForm();
-                handleOpenOtpModal();
+              onClick={(e) => {
+                handleSubmit(e)
               }}
               button="تسجيل"
               buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"

@@ -43,8 +43,11 @@ const SelectSearchInput = ({options, title, defaultValue, name, handleChange, va
   }, [dropdownRef]);
 
   const selectedItem = options.filter((item) => item.id === selected)[0];
-  const selectedName = (selectedItem != undefined && value == "") ? selectedItem.name : value;
-  const placeholderText = dropdownOpen ? '' : selectedName;
+  console.log(selectedItem, value, "hello")
+  // const selectedName = (selectedItem != undefined && value == "") ? selectedItem.name : value;
+  const selectedName = (selectedItem != undefined) ? selectedItem.name : value;
+
+  const placeholderText = dropdownOpen ? searchQuery : selectedName;
 
   const inputText = dropdownOpen ? searchQuery : "";
   
@@ -59,13 +62,15 @@ const SelectSearchInput = ({options, title, defaultValue, name, handleChange, va
         </span>
         <input
           type="text"
-          value={searchQuery}
+          // value={ dropdownOpen == true ? searchQuery : placeholderText }
+          value={placeholderText}
+          // value={searchQuery}
           name={name}
-          onChange={(e) => {handleSearch(e.target.value); handleChange();}}
+          onChange={(e) => {handleSearch(e.target.value); handleChange(e);}}
           onFocus={() => setDropdownOpen(!dropdownOpen)}
-          onClick={() => setDropdownOpen(true)}
+          onClick={() => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); }}
           placeholder={placeholderText}
-          className="relative w-full cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
+          className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         />
     {dropdownOpen && (
         <ul
@@ -79,7 +84,7 @@ const SelectSearchInput = ({options, title, defaultValue, name, handleChange, va
           {filteredData.map((item) => (
             <li
               key={item.id}
-              className={` ${selected == item.id ? " bg-lightGreyColor/40" : "" } hover:bg-lightGreyColor/50 border-y border-lightGreyColor/40 text-gray-900 relative cursor-pointer py-2 pl-3 pr-9`}
+              className={` ${selected == item.id ? " bg-lightGreyColor/40 text-primaryColor" : "" } hover:bg-lightGreyColor/50 border-y border-lightGreyColor/40 text-gray-900 relative cursor-pointer py-2 pl-3 pr-9`}
               id={`listbox-option-${item.id}`}
               role="option"
               onClick={() => {handleItemClick(item.id); setDropdownOpen(false);}}

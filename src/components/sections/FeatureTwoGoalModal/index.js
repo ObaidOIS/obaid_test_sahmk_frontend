@@ -41,6 +41,7 @@ const FeatureTwoGoalModal = ({
         
       <InputFieldUI
         value={formData.stock_price}
+        handleChange={handleChange}
         label="السعر الحالي"
         placeholder="0.0"
         name="stock_price"

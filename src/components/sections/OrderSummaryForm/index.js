@@ -7,7 +7,16 @@ import AvatarWithText from "@/components/widgets/AvatarWithText";
 import apiCall from "@/components/common/api";
 import { pricing } from "@/components/common/pricing";
 
-const OrderSummaryForm = () => {
+const OrderSummaryForm = (
+  originalSubscriptionDetails,
+  selectedOption,
+  setSelectedOption,
+  frequency,
+  setFrequency,
+  subscriptionTypeMap,
+  subscriptionPeriodMap,
+  frequencies,
+) => {
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
@@ -15,7 +24,7 @@ const OrderSummaryForm = () => {
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
-    email: "",
+    email: "", 
     countryCode: "",
     subscriptionType: "",
     subscriptionPeriod: "",
@@ -97,8 +106,8 @@ const OrderSummaryForm = () => {
       amount: (price || 1) * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+      // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
@@ -148,6 +157,9 @@ const OrderSummaryForm = () => {
       document.head.removeChild(link);
     };
   }, []); // Empty dependency array means this runs once on mount
+
+  console.log(selectedOption,"hello");
+
 
   return (
     <>
@@ -231,6 +243,36 @@ const OrderSummaryForm = () => {
                         />
                       }
                     />
+                    {/* <AvatarWithText
+                  // title={selectedOption}
+                  // desc={` ${ 
+                  //     selectedOption == "الباقة المتقدمة"
+                  //       ? pricing.pricing.companies[frequency?.value]
+                  //       : selectedOption == "باقة بريميوم"
+                  //       ? pricing.pricing.premium[frequency?.value]
+                  //       : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
+                  descStyle={
+                      selectedOption == "الباقة المتقدمة"
+                        ? "!text-yellowColor"
+                        : selectedOption == "باقة بريميوم"
+                        ? "!text-purpleColor"
+                        : "!text-blueColor"
+                  }
+                  image={
+                    <Image
+                      src={
+                        selectedOption == "الباقة المتقدمة"
+                          ? "/assets/icons/yellow-check.svg"
+                          : selectedOption == "باقة بريميوم"
+                          ? "/assets/icons/purple-check-icon.svg"
+                          : "/assets/icons/blue-check.svg"
+                      }
+                      height={30}
+                      width={30}
+                      alt="image"
+                    />
+                  }
+                /> */}
                   </div>
                 }
               />

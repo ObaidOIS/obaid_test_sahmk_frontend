@@ -86,6 +86,7 @@ const ContactUsForm = () => {
                 dataList={countryCodes}
                 activeItem={activeItem}
                 setActiveItem={setActiveItem}
+                inputmode="numeric"
               />
             </div>
             <div className="sm:col-span-2">
