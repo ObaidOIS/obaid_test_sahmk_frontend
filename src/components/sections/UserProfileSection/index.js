@@ -316,6 +316,35 @@ const UserProfileSection = () => {
     isPricesChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
   };
 
+
+  
+  const frequencies = [
+    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
+  ];
+
+  const subscriptionTypeMap = {
+    free: "الباقة المجانية",
+    premium: "باقة بريميوم",
+    companies: "الباقة المتقدمة",
+  };
+
+  const subscriptionPeriodMap = {
+    monthly: frequencies[0], // Assuming this maps to the first frequency object
+    yearly: frequencies[1], // Assuming this maps to the second frequency object
+  };
+
+  // Initialize states with the original subscription details using mapping
+  const [selectedOption, setSelectedOption] = useState(
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+      subscriptionTypeMap.free
+  );
+  const [frequency, setFrequency] = useState(
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]
+  );
+
+
   return (
     <div>
       {typeof window == "undefined" ? (
@@ -491,12 +520,32 @@ const UserProfileSection = () => {
                     setUserData={setUserData}
                     setOriginalSubscriptionDetails={setOriginalSubscriptionDetails}
                     originalSubscriptionDetails={originalSubscriptionDetails}
+                    selectedOption={selectedOption}
+                    setSelectedOption={setSelectedOption}
+                    frequency={frequency}
+                    setFrequency={setFrequency}
+                    subscriptionTypeMap={subscriptionTypeMap}
+                    subscriptionPeriodMap={subscriptionPeriodMap}
                   />
                 </div>
               </div>
             ) : page.name == "payment" ? (
               <div className="space-y-6">
-                <OrderSummaryForm plan={plan} />
+                <OrderSummaryForm 
+                handlePageChange={handlePageChange}
+                handlePlanChange={handlePlanChange}
+                plan={plan}
+                userData={userData}
+                setUserData={setUserData}
+                setOriginalSubscriptionDetails={setOriginalSubscriptionDetails}
+                originalSubscriptionDetails={originalSubscriptionDetails}
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
+                frequency={frequency}
+                setFrequency={setFrequency}
+                subscriptionTypeMap={subscriptionTypeMap}
+                subscriptionPeriodMap={subscriptionPeriodMap} 
+                />
               </div>
             ) : (
               ""

@@ -86,15 +86,17 @@ const SelectSearchInput = ({
         </span>
         <input
           type="text"
-          value={searchQuery}
+          // value={ dropdownOpen == true ? searchQuery : placeholderText }
+          value={placeholderText}
+          // value={searchQuery}
           name={name}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}
           onFocus={() => setDropdownOpen(!dropdownOpen)}
-          onClick={() => setDropdownOpen(true)}
+          onClick={() => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); }}
           placeholder={placeholderText}
-          className="relative w-full cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
+          className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         />
         {dropdownOpen && (
           <ul

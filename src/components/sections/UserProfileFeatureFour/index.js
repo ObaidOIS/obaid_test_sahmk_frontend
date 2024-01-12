@@ -10,7 +10,7 @@ import ModalUI from "@/components/widgets/ModalUI";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/20/solid";
-import {pricing} from "@/components/common/pricing";  
+import { pricing } from "@/components/common/pricing";
 
 const UserProfileFeatureFour = ({
   handlePageChange,
@@ -20,6 +20,12 @@ const UserProfileFeatureFour = ({
   originalSubscriptionDetails,
   setOriginalSubscriptionDetails,
   handlePlanChange,
+  selectedOption,
+  setSelectedOption,
+  frequency,
+  setFrequency,
+  subscriptionTypeMap,
+  subscriptionPeriodMap,
 }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
@@ -29,28 +35,27 @@ const UserProfileFeatureFour = ({
     { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
   ];
 
-
   // Mapping from API values to frontend display values
-  const subscriptionTypeMap = {
-    free: "الباقة المجانية",
-    premium: "باقة بريميوم",
-    companies: "الباقة المتقدمة",
-  };
+  // const subscriptionTypeMap = {
+  //   free: "الباقة المجانية",
+  //   premium: "باقة بريميوم",
+  //   companies: "الباقة المتقدمة",
+  // };
 
-  const subscriptionPeriodMap = {
-    monthly: frequencies[0], // Assuming this maps to the first frequency object
-    yearly: frequencies[1], // Assuming this maps to the second frequency object
-  };
+  // const subscriptionPeriodMap = {
+  //   monthly: frequencies[0], // Assuming this maps to the first frequency object
+  //   yearly: frequencies[1], // Assuming this maps to the second frequency object
+  // };
 
-  // Initialize states with the original subscription details using mapping
-  const [selectedOption, setSelectedOption] = useState(
-    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-    subscriptionTypeMap.free
-  );
-  const [frequency, setFrequency] = useState(
-    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]
-  );
+  // // Initialize states with the original subscription details using mapping
+  // const [selectedOption, setSelectedOption] = useState(
+  //   subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+  //     subscriptionTypeMap.free
+  // );
+  // const [frequency, setFrequency] = useState(
+  //   subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+  //     frequencies[0]
+  // );
 
   // const [frequency, setFrequency] = useState(frequencies[0]);
   const [currentSubscription, setCurrentSubscription] = useState({});
@@ -406,50 +411,28 @@ const UserProfileFeatureFour = ({
             content={
               <div>
                 <AvatarWithText
-                  title={plan == "" ? selectedOption : plan}
-                  desc={` ${
-                  plan == "" ? 
+                  title={selectedOption}
+                  desc={` ${ 
                       selectedOption == "الباقة المتقدمة"
-                      ? pricing.pricing.companies[frequency?.value]
-                      : selectedOption == "باقة بريميوم"
-                      ? pricing.pricing.premium[frequency?.value]
-                      : pricing.pricing.free[frequency.value]
-                    : 
-                      plan == "الباقة المتقدمة"
-                      ? pricing.pricing.companies[frequency?.value]
-                      : plan == "باقة بريميوم"
-                      ? pricing.pricing.premium[frequency?.value]
-                      : pricing.pricing.free[frequency.value]
-                    } / ${frequency.label} `}
+                        ? pricing.pricing.companies[frequency?.value]
+                        : selectedOption == "باقة بريميوم"
+                        ? pricing.pricing.premium[frequency?.value]
+                        : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
                   descStyle={
-                    plan == "" ? 
                       selectedOption == "الباقة المتقدمة"
-                      ? "!text-yellowColor"
-                      : selectedOption == "باقة بريميوم"
-                      ? "!text-purpleColor"
-                      : "!text-blueColor"
-                    : 
-                      plan == "الباقة المتقدمة"
-                      ? "!text-yellowColor"
-                      : plan == "باقة بريميوم"
-                      ? "!text-purpleColor"
-                      : "!text-blueColor"
+                        ? "!text-yellowColor"
+                        : selectedOption == "باقة بريميوم"
+                        ? "!text-purpleColor"
+                        : "!text-blueColor"
                   }
                   image={
                     <Image
                       src={
-                        plan == "" ? 
                         selectedOption == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
                           : selectedOption == "باقة بريميوم"
                           ? "/assets/icons/purple-check-icon.svg"
                           : "/assets/icons/blue-check.svg"
-                        :
-                            plan == "الباقة المتقدمة"
-                            ? "/assets/icons/yellow-check.svg"
-                            : plan == "باقة بريميوم"
-                            ? "/assets/icons/purple-check-icon.svg"
-                            : "/assets/icons/blue-check.svg"
                       }
                       height={30}
                       width={30}
@@ -468,8 +451,10 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {selectedOption != (subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]) ?
-                  (
+                {selectedOption !=
+                    subscriptionTypeMap[
+                      originalSubscriptionDetails?.subscriptionType
+                    ] && (
                   <div
                     className="mt-3"
                     onClick={() => {
@@ -477,7 +462,9 @@ const UserProfileFeatureFour = ({
                         name: "payment",
                         value: "باقتي وحسابي",
                       });
-                      handlePlanChange(selectedOption, frequency);
+                      // setSelectedOption();
+                      // handlePlanChange(selectedOption, frequency);
+
                     }}
                   >
                     <PrimaryButton
@@ -485,7 +472,7 @@ const UserProfileFeatureFour = ({
                       buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
                     />
                   </div>
-                ) : ""}
+                )}
               </div>
             }
           />
@@ -522,7 +509,7 @@ const UserProfileFeatureFour = ({
                 type="text"
                 name=""
                 label="الاسم الأخير"
-                placeholder="الشهر / السنة"
+                // placeholder="الشهر / السنة"
                 value={userData.email}
                 handleChange={(e) => handleDataChange("email", e.target.value)}
               />
@@ -530,6 +517,7 @@ const UserProfileFeatureFour = ({
             <div className="px-6 sm:px-0">
               {/* <InputFieldUI type="text" name="" label="" placeholder="رمز التحقق CVC" /> */}
               <PhoneNumberUI
+                inputmode="numeric"
                 title="رقم الجوال"
                 dataList={[{ dial_code: userData.countryCode }]}
                 activeItem={activeItem}
