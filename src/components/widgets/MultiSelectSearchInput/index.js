@@ -4,19 +4,25 @@ import React, { useState, useEffect, useRef } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import apiCall from "@/components/common/api";
 
-const MultiSelectSearchInput = ({ setUserData }) => {
+const MultiSelectSearchInput = ({
+  setUserData,
+  selectedOption,
+  setSelectedItems,
+  selectedItems,
+  filteredData,
+  setFilteredData,
+  originalData,
+  setOriginalData,
+  setErrorAlert,
+  setErrorMessage,
+}) => {
+
   const dropdownRef = useRef(null);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  // const [selectedItems, setSelectedItems] = useState([]);
+  // const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [originalData, setOriginalData] = useState([]);
-  // const dataList = [
-  //   { id: 1, name: "کمپنی ایک" },
-  //   { id: 2, name: "کمپنی دو" },
-  //   { id: 3, name: "کمپنی تیسری" },
-  //   { id: 4, name: "الشركة الرابعة" },
-  // ];
+  // const [originalData, setOriginalData] = useState([]);
 
   // Fetch companies from API and set to both dataList and originalData
   useEffect(() => {
@@ -44,11 +50,33 @@ const MultiSelectSearchInput = ({ setUserData }) => {
   }, [selectedItems]);
 
   const toggleSelection = (itemId) => {
-    setSelectedItems((prevSelected) =>
-      prevSelected.includes(itemId)
-        ? prevSelected.filter((id) => id !== itemId)
-        : [...prevSelected, itemId]
-    );
+    if (selectedOption === "الباقة المتقدمة") {
+      setSelectedItems((prevSelected) =>
+        prevSelected.includes(itemId)
+          ? prevSelected.filter((id) => id !== itemId)
+          : selectedItems.length < 50
+          ? [...prevSelected, itemId]
+          : [...prevSelected]
+      );
+    }
+    if (selectedOption === "باقة بريميوم") {
+      setSelectedItems((prevSelected) =>
+        prevSelected.includes(itemId)
+          ? prevSelected.filter((id) => id !== itemId)
+          : selectedItems.length < 10
+          ? [...prevSelected, itemId]
+          : [...prevSelected]
+      );
+    }
+    if (selectedOption === "الباقة المجانية") {
+      setSelectedItems((prevSelected) =>
+        prevSelected.includes(itemId)
+          ? prevSelected.filter((id) => id !== itemId)
+          : selectedItems.length < 0
+          ? [...prevSelected, itemId]
+          : [...prevSelected]
+      );
+    }
   };
 
   // Updated handleSearch function to filter by symbol and name using originalData
@@ -99,6 +127,7 @@ const MultiSelectSearchInput = ({ setUserData }) => {
                   placeholder={placeholderText}
                   id="company"
                   value={inputText}
+                  // disabled={selectedOption === "الباقة المجانية" ? true : false}
                   className="bg-transparent placeholder-primaryColor py-4 px-2 appearance-none outline-none h-full w-full text-gray-800"
                   onFocus={() => setDropdownOpen(!dropdownOpen)}
                   onClick={() => setDropdownOpen(true)}
@@ -119,7 +148,11 @@ const MultiSelectSearchInput = ({ setUserData }) => {
                               ? "bg-lightGreyColor/20 border-lightGreyColor"
                               : ""
                           } border-b hover:bg-lightGreyColor/40`}
-                          onClick={() => {toggleSelection(item.id); setDropdownOpen(false);}}
+                          onClick={() => {
+                            toggleSelection(item.id);
+                            selectedOption === "الباقة المجانية" ? (setErrorAlert(true), setErrorMessage("الخطة المجانية لا يمكنها إضافة أي شركات.")) : "";
+                            // setDropdownOpen(false);
+                          }}
                         >
                           <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
                             <div className="w-full items-center flex">
@@ -142,8 +175,14 @@ const MultiSelectSearchInput = ({ setUserData }) => {
               </div>
               <div className="text-gray-300 w-8 py-1 pl-2 pr-1 flex items-center border-gray-200 svelte-1l8159u">
                 <button
+                  type="button"
                   className="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none"
-                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  onClick={() =>
+                    // selectedOption === "الباقة المجانية"
+                    //   ? ""
+                    //   : 
+                      setDropdownOpen((prev) => !prev)
+                  }
                 >
                   {dropdownOpen == true ? (
                     <Image

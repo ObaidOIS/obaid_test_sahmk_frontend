@@ -15,7 +15,7 @@ const RadioTabs = ({ frequencies, setFrequency, frequency }) => {
             value={option.value}
             className="sr-only"
             checked={frequency.value === option.value}
-            onChange={() => setFrequency(option)} />
+            onChange={() => {setFrequency(option)}} />
            <span>{option.label}</span>
         </label>
       ))}

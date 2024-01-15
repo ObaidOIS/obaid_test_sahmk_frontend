@@ -41,9 +41,10 @@ const PricingSection = () => {
         {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
       ]},
       mostPopular: false,
+      card: "free",
     },
     {
-      name: "باقة البريميوم",
+      name: "باقة بريميوم",
       id: "tier-startup",
       href: "/auth/register",
       price: { monthly: "49 ريال", annually: "488 ريال" },
@@ -69,6 +70,7 @@ const PricingSection = () => {
         {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: false},
       ]},
       mostPopular: true,
+      card: "premium",
       badge: "موصى به"
     },
     {
@@ -98,6 +100,7 @@ const PricingSection = () => {
         {feature: "الحصول على تقرير اسبوعي لأداء السهم PDF", isAvaiable: true},
       ]},
       mostPopular: false,
+      card: "advance",
     },
   ];
   function classNames(...classes) {

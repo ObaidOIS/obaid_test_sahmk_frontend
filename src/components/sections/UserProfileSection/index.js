@@ -15,8 +15,13 @@ import OrderSummaryForm from "../OrderSummaryForm";
 import UserProfileFeatureThree from "../UserProfileFeatureThree";
 import apiCall from "@/components/common/api";
 import { extractCountryCodeFromPhoneNumber } from "@/components/common/utils";
+import { isAuthenticated } from "@/components/common/utils";
+import { useRouter } from "next/navigation";
+import UserProfileStatistics from "../UserProfileStatistics";
 
 const UserProfileSection = () => {
+  const router = useRouter();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNotificationChecked, setIsNotificationChecked] = useState(false);
   const [isTvChecked, setIsTvChecked] = useState(false);
@@ -33,8 +38,14 @@ const UserProfileSection = () => {
     expirationDate: null,
   });
   const [firstType, setFirstType] = useState(null);
+  const [plan, setPlan] = useState("");
   const [originalSubscriptionDetails, setOriginalSubscriptionDetails] =
     useState({ subscriptionType: "free", subscriptionPeriod: "monthly" });
+
+  const [isAuthenticate, setIsAuthenticate] = useState(false);
+  useEffect(() => {
+    setIsAuthenticate(isAuthenticated());
+  }, []);
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -90,10 +101,16 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
-    console.log(cleanPage); // Implement a function to remove circular references
     const serializedPage = JSON.stringify(cleanPage);
-    // localStorage.setItem("page", serializedPage);
-    localStorage.setItem("page", serializedPage);
+
+    if (serializedPage.name == "userprofile") {
+      isAuthenticate == true
+        ? router.push("/userprofile")
+        : router.push("/auth/login");
+      localStorage.setItem("page", serializedPage);
+    } else {
+      localStorage.setItem("page", serializedPage);
+    }
   }, [page]);
 
   function cleanCircularReferences(obj) {
@@ -183,142 +200,148 @@ const UserProfileSection = () => {
     },
   ];
 
-  // const stats = [
-  //   { id: 1, name: "السعر", value: "11,676.34" },
-  //   { id: 2, name: "نسبة التغيير", value: "0.65 ٪" },
-  //   { id: 3, name: "عدد الصفقات", value: "427,27" },
-  //   { id: 4, name: "الكمية المتداولة", value: "260,537,940" },
-  //   { id: 5, name: "القيمة المتداولة", value: "6,417,954,300" },
-  // ];
-
-  const [activeStat, setActiveStat] = useState("0");
-
-  const tagsList = [
-    {
-      id: 1,
-      name: "مؤشر السوق",
-      stats: [
-        { id: 1, name: "السعر", value: "11,676.34" },
-        { id: 2, name: "نسبة التغيير", value: "0.65 ٪" },
-        { id: 3, name: "عدد الصفقات", value: "427,27" },
-        { id: 4, name: "الكمية المتداولة", value: "260,537,940" },
-        { id: 5, name: "القيمة المتداولة", value: "6,417,954,300" },
-      ],
-    },
-    {
-      id: 2,
-      name: "شركة علم",
-      stats: [
-        { id: 1, name: "السعر", value: "676.30" },
-        { id: 2, name: "نسبة التغيير", value: "0.75 ٪" },
-        { id: 3, name: "عدد الصفقات", value: "292,76" },
-        { id: 4, name: "الكمية المتداولة", value: "960,940" },
-        { id: 5, name: "القيمة المتداولة", value: "7,954,300" },
-      ],
-    },
-    {
-      id: 3,
-      name: "شركة علم",
-      stats: [
-        { id: 1, name: "السعر", value: "1,676" },
-        { id: 2, name: "نسبة التغيير", value: "30 ٪" },
-        { id: 3, name: "عدد الصفقات", value: "8827,27" },
-        { id: 4, name: "الكمية المتداولة", value: "390,537,940" },
-        { id: 5, name: "القيمة المتداولة", value: "954,300" },
-      ],
-    },
-    {
-      id: 4,
-      name: "شركة علم",
-      stats: [
-        { id: 1, name: "السعر", value: "18,676.34" },
-        { id: 2, name: "نسبة التغيير", value: "2.64 ٪" },
-        { id: 3, name: "عدد الصفقات", value: "903277" },
-        { id: 4, name: "الكمية المتداولة", value: "232,360,940" },
-        { id: 5, name: "القيمة المتداولة", value: "417,954,300" },
-      ],
-    },
-    {
-      id: 5,
-      name: "شركة علم",
-      stats: [
-        { id: 1, name: "السعر", value: "11.34" },
-        { id: 2, name: "نسبة التغيير", value: "0.5 ٪" },
-        { id: 3, name: "عدد الصفقات", value: "327,27" },
-        { id: 4, name: "الكمية المتداولة", value: "260,940" },
-        { id: 5, name: "القيمة المتداولة", value: "6,417,300" },
-      ],
-    },
-    {
-      id: 6,
-      name: "شركة علم",
-      stats: [
-        { id: 1, name: "السعر", value: "123.34" },
-        { id: 2, name: "نسبة التغيير", value: "23 ٪" },
-        { id: 3, name: "عدد الصفقات", value: "9327,27" },
-        { id: 4, name: "الكمية المتداولة", value: "2,933,537,940" },
-        { id: 5, name: "القيمة المتداولة", value: "20,417,954,300" },
-      ],
-    },
-  ];
-
-  const [activeChartTag, setActiveChartTag] = useState("أسبوع");
-
-  const chartTagsList = [
-    {
-      id: 1,
-      name: "أسبوع",
-      data: [
-        { name: "الاحد", uv: 40, pv: 2400, amt: 2400 },
-        { name: "السبت", uv: 55, pv: 2400, amt: 2400 },
-        { name: "الجمعة", uv: 55, pv: 2400, amt: 2400 },
-        { name: "الخميس", uv: 35, pv: 2400, amt: 2400 },
-        { name: "الاربعاء", uv: 10, pv: 2400, amt: 2400 },
-        { name: "الثلاثاء", uv: 20, pv: 2400, amt: 2400 },
-        { name: "الاثنين", uv: 15, pv: 2400, amt: 2400 },
-        { name: "الاحد", uv: 25, pv: 2400, amt: 2400 },
-      ],
-    },
-    {
-      id: 2,
-      name: "شهر",
-      data: [
-        { name: "الاحد", uv: 40, pv: 2400, amt: 2400 },
-        { name: "السبت", uv: 5, pv: 2400, amt: 2400 },
-        { name: "الجمعة", uv: 55, pv: 2400, amt: 2400 },
-        { name: "الخميس", uv: 25, pv: 2400, amt: 2400 },
-        { name: "الاربعاء", uv: 50, pv: 2400, amt: 2400 },
-        { name: "الثلاثاء", uv: 20, pv: 2400, amt: 2400 },
-        { name: "الاثنين", uv: 15, pv: 2400, amt: 2400 },
-        { name: "الاحد", uv: 25, pv: 2400, amt: 2400 },
-      ],
-    },
-    {
-      id: 3,
-      name: "3 أشهر",
-      data: [
-        { name: "الاحد", uv: 20, pv: 2400, amt: 2400 },
-        { name: "السبت", uv: 45, pv: 2400, amt: 2400 },
-        { name: "الجمعة", uv: 25, pv: 2400, amt: 2400 },
-        { name: "الخميس", uv: 35, pv: 2400, amt: 2400 },
-        { name: "الاربعاء", uv: 10, pv: 2400, amt: 2400 },
-        { name: "الثلاثاء", uv: 50, pv: 2400, amt: 2400 },
-        { name: "الاثنين", uv: 15, pv: 2400, amt: 2400 },
-        { name: "الاحد", uv: 25, pv: 2400, amt: 2400 },
-      ],
-    },
-  ];
-
   const handlePageChange = (newPage) => {
-    console.log(newPage);
     const { name, value } = newPage;
     setPage({ name, value });
+  };
+
+  const handlePlanChange = (newPlan) => {
+    setPlan(newPlan);
   };
 
   const handlePricesSwitch = () => {
     setIsPricesChecked((prevChecked) => !prevChecked);
     isPricesChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
   };
+
+  const frequencies = [
+    { value: "monthly", label: "شهري", priceSuffix: "/شهري" },
+    { value: "annually", label: "سنوي", priceSuffix: "/سنوي" },
+  ];
+
+  const subscriptionTypeMap = {
+    free: "الباقة المجانية",
+    premium: "باقة بريميوم",
+    companies: "الباقة المتقدمة",
+  };
+
+  const subscriptionPeriodMap = {
+    monthly: frequencies[0], // Assuming this maps to the first frequency object
+    yearly: frequencies[1], // Assuming this maps to the second frequency object
+  };
+
+  // Initialize states with the original subscription details using mapping
+  const [selectedOption, setSelectedOption] = useState(
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+      subscriptionTypeMap.free
+  );
+  const [frequency, setFrequency] = useState(
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]
+  );
+
+  const handleUpgradPlan = (data) => {
+    // Create a replacer function for handling circular references
+    const circularReferenceReplacer = () => {
+      // Create a WeakSet to keep track of seen objects
+      const seen = new WeakSet();
+
+      // Return a replacer function
+      return (key, value) => {
+        // If the value is an object and not null
+        if (typeof value === "object" && value !== null) {
+          // If the object has been seen before (circular reference), return undefined
+          if (seen.has(value)) {
+            return;
+          }
+          // Add the object to the set to mark it as seen
+          seen.add(value);
+        }
+        // Return the value
+        return value;
+      };
+    };
+
+    // Use JSON.stringify with the circularReferenceReplacer
+    const serializedData = JSON.stringify(data, circularReferenceReplacer());
+
+    // Save the serialized data to localStorage
+    localStorage.setItem("currentPlan", serializedData);
+  };
+
+  const [activeStat, setActiveStat] = useState("0");
+  const [activeChartTag, setActiveChartTag] = useState("شهر");
+  const [tagsList, setTagsList] = useState([]);
+  const [selectedSymbol, setSelectedSymbol] = useState("");
+  const [chartData, setChartData] = useState([]);
+
+  const chartTagsList = [
+    {
+      id: 1,
+      name: "يوم",
+      apiRange: "1d",
+    },
+    {
+      id: 2,
+      name: "5 أيام",
+      apiRange: "5d",
+    },
+    {
+      id: 3,
+      name: "شهر",
+      apiRange: "1mo",
+    },
+    {
+      id: 4,
+      name: "6 أشهر",
+      apiRange: "6mo",
+    },
+    {
+      id: 5,
+      name: "سنة",
+      apiRange: "1y",
+    },
+    {
+      id: 6,
+      name: "العام حتى الآن",
+      apiRange: "ytd",
+    },
+    {
+      id: 7,
+      name: "الحد الأقصى",
+      apiRange: "max",
+    },
+  ];
+
+  useEffect(() => {
+    // Function to fetch user stocks data
+    const fetchUserStocks = async () => {
+      try {
+        const response = await apiCall("/api/stocks/user-stocks/");
+        if (response && response.result) {
+          setTagsList(response.result); // Update state with the fetched data
+        }
+      } catch (error) {
+        console.error("Error fetching user stocks:", error.message);
+      }
+    };
+
+    fetchUserStocks();
+  }, []);
+
+  const handleTagClick = async (range, symbol) => {
+    if (symbol) {
+      const response = await apiCall(
+        `/api/stocks/historical_data/?symbol=${symbol}.SR&range=${range}`
+      );
+      if (response && response.result) {
+        // Update your state with the new data
+        setChartData(response.result);
+      }
+    }
+  };
+
+  console.log(chartData);
 
   return (
     <div>
@@ -382,84 +405,19 @@ const UserProfileSection = () => {
                       badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
                     />
                   </div>
-                  <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
-                    {tagsList.map((item, index) => {
-                      return (
-                        <span
-                          key={index}
-                          onClick={() => {
-                            setActiveStat(index);
-                          }}
-                        >
-                          <MainBadge
-                            title={item.name}
-                            index={index}
-                            badgeStyle={`${
-                              activeStat == index
-                                ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                                : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                            } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
-                          />
-                        </span>
-                      );
-                    })}
-                  </div>
-                  {tagsList.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        {activeStat == index ? (
-                          <Stats stats={item.stats} />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    );
-                  })}
-                  <div>
-                    <div className="font-medium text-left leading-none m-2 mt-5">
-                      تحديث البيانات{" "}
-                      <span className="font-normal text-gray-500/80">
-                        اليوم الساعة 2:00
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-0 mb-16 pb-4 pt-2">
-                    <div className="bg-whiteColor py-3 pe-2 shadow-lg border rounded-xl ">
-                      <div className="my-5 ps-5">
-                        {chartTagsList.map((item, index) => {
-                          return (
-                            <span
-                              key={index}
-                              onClick={() => {
-                                setActiveChartTag(item.name);
-                              }}
-                            >
-                              <MainBadge
-                                title={item.name}
-                                index={index}
-                                badgeStyle={`${
-                                  activeChartTag == item.name
-                                    ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                                    : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                                } truncate px-4 justify-center py-1.5 ml-3 block cursor-pointer`}
-                              />
-                            </span>
-                          );
-                        })}
-                      </div>
-                      {chartTagsList.map((item, index) => {
-                        return (
-                          <div key={index}>
-                            {activeChartTag == item.name ? (
-                              <SimpleLineChart data={item.data} />
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+
+                  <UserProfileStatistics
+                    tagsList={tagsList}
+                    chartTagsList={chartTagsList}
+                    chartData={chartData}
+                    setSelectedSymbol={setSelectedSymbol}
+                    setActiveStat={setActiveStat}
+                    activeStat={activeStat}
+                    selectedSymbol={selectedSymbol}
+                    activeChartTag={activeChartTag}
+                    setActiveChartTag={setActiveChartTag}
+                    handleTagClick={handleTagClick}
+                  />
                 </div>
               </div>
             ) : page.name == "stock-notification" ? (
@@ -489,16 +447,44 @@ const UserProfileSection = () => {
                 <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <UserProfileFeatureFour
                     handlePageChange={handlePageChange}
+                    handlePlanChange={handlePlanChange}
+                    plan={plan}
                     userData={userData}
                     setUserData={setUserData}
-                    setOriginalSubscriptionDetails={setOriginalSubscriptionDetails}
+                    setOriginalSubscriptionDetails={
+                      setOriginalSubscriptionDetails
+                    }
                     originalSubscriptionDetails={originalSubscriptionDetails}
+                    selectedOption={selectedOption}
+                    setSelectedOption={setSelectedOption}
+                    frequency={frequency}
+                    setFrequency={setFrequency}
+                    subscriptionTypeMap={subscriptionTypeMap}
+                    subscriptionPeriodMap={subscriptionPeriodMap}
+                    handleUpgradPlan={handleUpgradPlan}
                   />
                 </div>
               </div>
             ) : page.name == "payment" ? (
               <div className="space-y-6">
-                <OrderSummaryForm />
+                <OrderSummaryForm
+                  handlePageChange={handlePageChange}
+                  handlePlanChange={handlePlanChange}
+                  plan={plan}
+                  userData={userData}
+                  setUserData={setUserData}
+                  setOriginalSubscriptionDetails={
+                    setOriginalSubscriptionDetails
+                  }
+                  originalSubscriptionDetails={originalSubscriptionDetails}
+                  selectedOption={selectedOption}
+                  setSelectedOption={setSelectedOption}
+                  frequency={frequency}
+                  setFrequency={setFrequency}
+                  subscriptionTypeMap={subscriptionTypeMap}
+                  subscriptionPeriodMap={subscriptionPeriodMap}
+                  handleUpgradPlan={handleUpgradPlan}
+                />
               </div>
             ) : (
               ""

@@ -5,3 +5,21 @@
 .bg-custome {
     background-color: #081F2C !important;
 }
+#payment > .mysr-form-fixedWidth{
+    min-width: 100% !important;
+}
+#payment #mysr-form-form-el div .mysr-form-method form .mysr-form-inputGroup .mysr-form-cardInfo .mysr-form-ccInputGroup .mysr-form-ccIcon{
+    position: relative !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#payment #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] .mysr-form-ccInputGroup .mysr-form-ccIconsGroup{
+    position: relative !important;
+    align-items: normal !important;
+}
+#payment #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] input.mysr-form-bottomRightRadius0, #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] input.mysr-form-bottomRightRadius0[type=text]{
+    border-radius: 7px;
+}
+#payment #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] input.mysr-form-bottomLeftRadius0, #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] input.mysr-form-bottomLeftRadius0[type=text]{
+    border-radius: 7px;
+}

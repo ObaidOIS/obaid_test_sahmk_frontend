@@ -11,7 +11,8 @@ const PhoneNumberUI = ({
   handleMenuItemClick,
   setActiveItem,
   isValid,
-  required
+  required,
+  inputmode,
 }) => {
   return (
     <div>
@@ -49,6 +50,7 @@ const PhoneNumberUI = ({
         onChange={handleChange}
         value={value}
         required={required}
+        inputmode={inputmode}
       />
       </div>
     </div>

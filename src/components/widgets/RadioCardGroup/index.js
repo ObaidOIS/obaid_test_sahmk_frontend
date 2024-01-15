@@ -1,5 +1,6 @@
 import React from 'react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
+import {pricing} from "@/components/common/pricing";  
 
 const RadioCardGroup = ({dataList, selectedOption, handleOptionChange, frequency}) => {
     
@@ -22,14 +23,17 @@ function classNames(...classes) {
               value={link.title}
               className="sr-only"
               checked={selectedOption === link.title}
-              onChange={() => handleOptionChange(link.title)}
+              onChange={() => handleOptionChange(link.title, link, frequency.value)}
             />
             <span className="flex flex-1 items-start gap-4">
             {link.icon}
               <span className="flex flex-col">
                 <span className="block text-sm font-medium text-gray-900">{link.title}</span>
                 <span className="mt-1 flex items-center text-sm text-gray-500">{link.desc}</span>
-                <span className="mt-6 text-sm font-medium text-gray-900">{link.price[frequency.value]}</span>
+                <span className="mt-6 text-sm font-medium text-gray-900">
+                  {/* {link.price[frequency.value]} */}
+                  {link.card == "free" ? pricing.pricing.free[frequency.value] : link.card == "premium" ? pricing.pricing.premium[frequency?.value] : link.card == "advance" ? pricing.pricing.companies[frequency?.value] : "" }
+                  </span>
               </span>
             </span>
             <CheckCircleIcon

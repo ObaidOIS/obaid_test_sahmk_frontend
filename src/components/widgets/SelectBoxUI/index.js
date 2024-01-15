@@ -11,7 +11,7 @@ const SelectBoxUI = ({ options, title, defaultValue, name, handleChange, value }
       </label>
       <select
         id="location"
-        onChange={handleChange}
+        onChange={(e)=>handleChange(e)}
         name={name}
         className="mt-2 block w-full outline-none rounded-md border-0 py-1.5 pr-3 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         defaultValue={defaultValue}

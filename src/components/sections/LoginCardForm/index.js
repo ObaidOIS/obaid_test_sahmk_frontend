@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
@@ -11,6 +11,8 @@ import OtpModal from "../OtpModal";
 import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
+import apiCall from "@/components/common/api";
+import { getFullPhoneNumber, debounce } from "@/components/common/utils";
 
 const LoginCardForm = () => {
   const [errorAlert, setErrorAlert] = useState(false);
@@ -19,11 +21,21 @@ const LoginCardForm = () => {
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("success");
 
+  const [phoneNumberNotExists, setPhoneNumberNotExists] = useState(false);
+
   const countryCodes = [
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon: <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia"  className="w-6 h-6" />,
+      icon: (
+        <Image
+          src="/assets/icons/saudi-arabia-flag.png"
+          width="24"
+          height="24"
+          alt="Saudi Arabia"
+          className="w-5 h-5"
+        />
+      ),
     },
     {
       name: "Bahrain",
@@ -53,7 +65,7 @@ const LoginCardForm = () => {
     {
       name: "PK",
       dial_code: "+92",
-      icon: <PK title="PK" className="w-6 h-6"/>,
+      icon: <PK title="PK" className="w-6 h-6" />,
     },
   ];
 
@@ -62,7 +74,7 @@ const LoginCardForm = () => {
     countryCode: activeItem || "+966",
     phoneNumber: "",
   });
-  
+
   const [validate, setValidate] = useState({
     phone: false,
   });
@@ -82,7 +94,6 @@ const LoginCardForm = () => {
   const handleOpenOtpModal = (e) => {
     e.preventDefault();
     const cleanedPhoneNumber = cleanPhoneNumber(userData.phoneNumber);
-    console.log("hello", cleanedPhoneNumber);
     setUserData({
       ...userData,
       phoneNumber: cleanedPhoneNumber,
@@ -103,25 +114,69 @@ const LoginCardForm = () => {
     });
   };
 
-  
-const cleanPhoneNumber = (phoneNumber) => {
-  // Define the prefixes to check
-  const prefixesToRemove = ['0', '966', '973', '965', '968', '974', '971', '92'];
+  const cleanPhoneNumber = (phoneNumber) => {
+    // Define the prefixes to check
+    const prefixesToRemove = [
+      "0",
+      "966",
+      "973",
+      "965",
+      "968",
+      "974",
+      "971",
+      "92",
+    ];
 
-  // Check if the entered phone number starts with any of the prefixes
-  const hasPrefix = prefixesToRemove.some(prefix => {
-    console.log('Checking prefix:', prefix);
-    return phoneNumber.startsWith(prefix);
-  });
-  console.log('hasPrefix:', hasPrefix);  console.log("hello", hasPrefix);
+    // Check if the entered phone number starts with any of the prefixes
+    const hasPrefix = prefixesToRemove.some((prefix) => {
+      return phoneNumber.startsWith(prefix);
+    });
 
-  // Remove the prefix if found
-  const cleanedPhoneNumber = hasPrefix
-    ? prefixesToRemove.reduce((number, prefix) => number.replace(new RegExp(`^${prefix}`), ''), phoneNumber)
-    : phoneNumber;
+    // Remove the prefix if found
+    const cleanedPhoneNumber = hasPrefix
+      ? prefixesToRemove.reduce(
+        (number, prefix) => number.replace(new RegExp(`^${prefix}`), ""),
+        phoneNumber
+      )
+      : phoneNumber;
 
-  return cleanedPhoneNumber;
-};
+    return cleanedPhoneNumber;
+  };
+
+  // Function to check if the phone number exists
+  const checkPhoneNumber = async () => {
+    if (userData.phoneNumber.length >= 9) {
+      const fullPhoneNumber = getFullPhoneNumber(userData);
+      const response = await apiCall(
+        `/auth/api/check_phone_number/?phone_number=${fullPhoneNumber}`,
+        "GET"
+      );
+      if (response && response.result && response.result.exists) {
+        setPhoneNumberNotExists(false);
+      } else {
+        setPhoneNumberNotExists(true);
+      }
+    }
+  };
+
+  // Use useCallback to memoize the debounced version of checkPhoneNumber
+  const debouncedCheckPhoneNumber = useCallback(
+    debounce(checkPhoneNumber, 500),
+    [userData] // Dependencies
+  );
+
+  // Use effect to trigger the debounced function when phone number changes
+  useEffect(() => {
+    if (userData.phoneNumber) {
+      debouncedCheckPhoneNumber();
+    }
+  }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
+
+  useEffect(() => {
+    if (phoneNumberNotExists) {
+      alert("الرجاء التسجيل، هذا الرقم غير موجود." + " " + userData.countryCode + " " + userData.phoneNumber);
+    }
+  }, [phoneNumberNotExists]);
 
   return (
     <>
@@ -205,6 +260,7 @@ const cleanPhoneNumber = (phoneNumber) => {
                   <div className="flex-grow ">
                     <InputFieldUI
                       label="رقم الجوال"
+                      inputmode="numeric"
                       name="phone-tel"
                       value={userData.phoneNumber}
                       handleChange={(e) => {
@@ -213,8 +269,11 @@ const cleanPhoneNumber = (phoneNumber) => {
                         if (/^\d*$/.test(value)) {
                           handleDataChange("phoneNumber", value);
                         }
-                        
-                        setValidate({...validate, phone: value === null || value === ""});
+
+                        setValidate({
+                          ...validate,
+                          phone: value === null || value === "",
+                        });
                       }}
                       maxlength="12"
                       isValid={validate.phone}
@@ -235,7 +294,9 @@ const cleanPhoneNumber = (phoneNumber) => {
                 <div>
                   <PrimaryButton
                     type="submit"
-                    onClick={(e)=>{handleOpenOtpModal(e)}}
+                    onClick={(e) => {
+                      handleOpenOtpModal(e);
+                    }}
                     button="تسجيل الدخول"
                     buttonStyle="py-3 rounded-md !font-normal w-full justify-center mt-6"
                   />

@@ -2,8 +2,9 @@
 import PrimaryButton from "@/components/widgets/PrimaryButton";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { isAuthenticated } from "@/components/common/utils";  
 
 const Header = ({ toggleSidebar }) => {
   const navLinks = [
@@ -19,6 +20,12 @@ const Header = ({ toggleSidebar }) => {
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
+
+  // let isAuthenticate = false 
+  const [isAuthenticate, setIsAuthenticate] = useState(false)
+  useEffect(() => {
+    setIsAuthenticate(isAuthenticated());
+  }, []);
 
   return (
     <>
@@ -78,7 +85,8 @@ const Header = ({ toggleSidebar }) => {
             <Bars3Icon className="h-6 w-6" onClick={() => toggleSidebar()} />
           </div>
           <div className="items-center h-full lg:flex hidden ">
-            <Link href="/auth/login" className="hover:text-gray-900 font-normal">
+            <Link href={isAuthenticate == true ? "/userprofile" : "/auth/login"} 
+              onClick={(e)=>{if(isAuthenticate == true && localStorage.getItem('page')){localStorage.removeItem('page')}}} className="hover:text-gray-900 font-normal">
               {" "}
               تسجل الدخول{" "}
             </Link>

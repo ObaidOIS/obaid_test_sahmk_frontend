@@ -7,7 +7,16 @@ import AvatarWithText from "@/components/widgets/AvatarWithText";
 import apiCall from "@/components/common/api";
 import { pricing } from "@/components/common/pricing";
 
-const OrderSummaryForm = () => {
+const OrderSummaryForm = (
+  originalSubscriptionDetails,
+  selectedOption,
+  setSelectedOption,
+  frequency,
+  setFrequency,
+  subscriptionTypeMap,
+  subscriptionPeriodMap,
+  frequencies,
+) => {
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
@@ -15,7 +24,7 @@ const OrderSummaryForm = () => {
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
-    email: "",
+    email: "", 
     countryCode: "",
     subscriptionType: "",
     subscriptionPeriod: "",
@@ -68,11 +77,9 @@ const OrderSummaryForm = () => {
       });
 
       if (result && result.result && result.result.check) {
-        console.log("Verified payment");
         setIsAlertSuccessOpen(true);
       } else {
         setIsAlertErrorOpen(true);
-        console.log("Verified payment failed");
       }
     };
 
@@ -98,6 +105,7 @@ const OrderSummaryForm = () => {
       currency: "SAR",
       description: "Sahmk Purchase",
       publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
@@ -148,6 +156,8 @@ const OrderSummaryForm = () => {
     };
   }, []); // Empty dependency array means this runs once on mount
 
+  const currentPlan = JSON.parse(localStorage.getItem('currentPlan'));
+
   return (
     <>
       {isAlertSuccessOpen ? (
@@ -178,9 +188,6 @@ const OrderSummaryForm = () => {
           }
           actionButton={true}
           messageType="success"
-          // content={
-          //   <RegisterPricingModal isOpen={isPricingModalOpen} />
-          // }
         />
       ) : (
         ""
@@ -204,9 +211,6 @@ const OrderSummaryForm = () => {
           messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك"
           actionButton={false}
           messageType="error"
-          // content={
-          //   <RegisterPricingModal isOpen={isPricingModalOpen} />
-          // }
         />
       ) : (
         ""
@@ -223,7 +227,7 @@ const OrderSummaryForm = () => {
                 title="نوع الباقة"
                 content={
                   <div className="flex items-center gap-4">
-                    <AvatarWithText
+                    {/* <AvatarWithText
                       title="باقة بريميوم"
                       desc="199 ريال/سنة"
                       descStyle="text-purpleColor"
@@ -235,7 +239,37 @@ const OrderSummaryForm = () => {
                           alt="image"
                         />
                       }
+                    /> */}
+                    <AvatarWithText
+                  title={currentPlan.title}
+                  // desc={` ${ 
+                  //     currentPlan.title == "الباقة المتقدمة"
+                  //       ? pricing.pricing.companies[frequency?.value]
+                  //       : currentPlan.title == "باقة بريميوم"
+                  //       ? pricing.pricing.premium[frequency?.value]
+                  //       : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
+                  descStyle={
+                    currentPlan.title == "الباقة المتقدمة"
+                        ? "!text-yellowColor"
+                        : currentPlan.title == "باقة بريميوم"
+                        ? "!text-purpleColor"
+                        : "!text-blueColor"
+                  }
+                  image={
+                    <Image
+                      src={
+                        currentPlan.title == "الباقة المتقدمة"
+                          ? "/assets/icons/yellow-check.svg"
+                          : currentPlan.title == "باقة بريميوم"
+                          ? "/assets/icons/purple-check-icon.svg"
+                          : "/assets/icons/blue-check.svg"
+                      }
+                      height={30}
+                      width={30}
+                      alt="image"
                     />
+                  }
+                />
                   </div>
                 }
               />
@@ -268,10 +302,10 @@ const OrderSummaryForm = () => {
             <h2 className={`font-medium text-2xl px-3 mt-6`}>
               <span>الدفع</span>
             </h2>
-            <div className=" mt-8">
-              <div className="grid gap-6 md:grid-cols-12 border rounded-2xl border-gray-300 bg-white sm:px-8 pt-3 pb-10">
-                <div className="mysr-form"></div>
-              </div>
+            <div className="mt-8">
+              <div id="payment" className="grid w-full border rounded-2xl border-gray-300 bg-white sm:px-8 pt-8 pb-10">
+                <div className="mysr-form" id="mysr-form"></div>
+              </div> 
             </div>
           </div>
           <Image

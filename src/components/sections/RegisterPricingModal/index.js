@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import RadioTabs from "@/components/widgets/RadioTabs";
 import Image from "next/image";
 import RadioCardGroup from "@/components/widgets/RadioCardGroup";
+import { useRouter } from "next/navigation";
 
-const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio }) => {
-
-  const handleOptionChange = (value) => {
+const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio, setSelectedItems, handleUpgradPlan }) => {
+  const router = useRouter();
+  const handleOptionChange = (value, allData) => {
     setSelectedOption(value);
+    setSelectedItems != undefined ? setSelectedItems([]) : "";
+    handleUpgradPlan != undefined ? handleUpgradPlan({title: allData.title, desc: allData.desc, price:allData.price}) : "";
   };
 
   return (

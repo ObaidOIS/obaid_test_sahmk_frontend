@@ -34,7 +34,7 @@ const PricingAddPanel = ({
           </div>
           <div
             onClick={handleFeedClick}
-            className="flex-1 text-primaryColor whitespace-nowrap flex items-center justify-end text-base font-medium"
+            className="flex-1 text-primaryColor flex items-center justify-end text-base font-medium"
           >
             <IconButtonUI
               button="إضافة /تعديل سهم"
@@ -50,7 +50,7 @@ const PricingAddPanel = ({
         </div>
         <div className="pt-6">
           {feature == "first" ? (
-            <div className=" max-h-52 overflow-scroll">
+            <div className="max-h-[660px] overflow-y-scroll">
             <AddList
               filteredData={selectedItems}
               setSelectedItems={setSelectedItems}

@@ -5,13 +5,20 @@ import OutlineButton from "../OutlineButton";
 import MainBadge from "../MainBadge";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import {pricing} from "@/components/common/pricing";  
+import { useRouter } from "next/navigation";
 
 const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
+
+  const router = useRouter();
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
-
+  const handlePlanSelection = (subscriptionType) => {
+    router.push(`${tier.href}?subscription=${subscriptionType}&duration=${JSON.stringify(frequency)}`);
+  };
+  
   return (
     <div>
       <div
@@ -41,24 +48,24 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
         </p>
         <p className="mt-6 flex items-baseline gap-x-1">
           <span className="text-4xl font-bold tracking-tight text-darkColor dark:text-white">
-            {tier.price[frequency.value]}
+          {tier.card == "free" ? pricing.pricing.free[frequency.value] : tier.card == "premium" ? pricing.pricing.premium[frequency?.value] : tier.card == "advance" ? pricing.pricing.companies[frequency?.value] : "" }
           </span>
           <span className="text-sm font-semibold leading-6 text-darkColor/50 dark:text-gray-300">
             {frequency.priceSuffix}
           </span>
         </p>
-        <Link 
-          href={tier.href}
+        <div 
           aria-describedby={tier.id}
+          onClick={() => handlePlanSelection(tier.name)}
           className={classNames(
             tier.mostPopular
               ? "bg-primaryColor text-white shadow-sm hover:bg-primaryColor/90 dark:focus-visible:outline-primaryColor"
               : "bg-whiteColor border-2 border-primaryColor dark:bg-white/10 text-primaryColor hover:bg-darkColor/5 dark:hover:bg-white/20 focus-visible:outline-white",
-            "mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            "mt-6 cursor-pointer block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           )}
         >
           {tier.button}
-        </Link>
+        </div>
         <ul
           role="list"
           className="mt-8 space-y-3 text-sm leading-6 dark:text-gray-300 xl:mt-10"
