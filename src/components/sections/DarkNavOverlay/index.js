@@ -4,6 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import React, { useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import { usePathname } from 'next/navigation'
 
 const DarkNavOverlay = ({
   children,
@@ -16,6 +19,8 @@ const DarkNavOverlay = ({
   setDeactivateAlert,
   name
 }) => {
+
+  
   return (
     <div>
       <div className="min-h-full">

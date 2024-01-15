@@ -88,7 +88,9 @@ const OtpModal = ({
   };
 
   const handleInputChange = (value, index) => {
-    if (index == 3 && value !== "") {
+    console.log(index, value, "hello");
+    if (index == 3 && value != "") {
+      console.log("Im here, hello");
       const code = (otp + value).replace(/,/g, '');;
       handleSubmit(code);
     }
@@ -120,6 +122,7 @@ const OtpModal = ({
   };
 
   const handleSubmit = async (value) => {
+    console.log("im here too", "hello")
     // Combine OTP digits into a single variable
     // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
@@ -142,7 +145,14 @@ const OtpModal = ({
         otpPayload,
         previousPage
       );
+      
+      console.log(otpResponse, "hello");
 
+      if(otpResponse.error){
+        setErrorAlert(true);
+        setErrorMessage("رمز OTP الذي أدخلته غير صحيح");
+      }
+        else{
       if (otpResponse.result.access_token && otpResponse.result.refresh_token) {
         // Store tokens in localStorage
         localStorage.setItem("accessToken", otpResponse.result.access_token);
@@ -156,6 +166,7 @@ const OtpModal = ({
           if (localStorage.getItem('page')) { localStorage.removeItem('page') }
         }
       }
+    }
     }
   };
 
@@ -181,7 +192,7 @@ const OtpModal = ({
             handleChange={(e) => {
               focusNextInput(
                 e,
-                `code-${index}`, // Previous ID
+                `code-${index - 1}`, // Previous ID
                 `code-${index + 2}`, // Next ID
                 index // Current index for OTP
               );

@@ -18,6 +18,7 @@ import { extractCountryCodeFromPhoneNumber } from "@/components/common/utils";
 import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
+import { usePathname } from 'next/navigation';
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -46,6 +47,8 @@ const UserProfileSection = () => {
   useEffect(() => {
     setIsAuthenticate(isAuthenticated());
   }, []);
+
+  const pathname = usePathname()
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -98,6 +101,31 @@ const UserProfileSection = () => {
   //     setPage(storedPage);
   // }
   // }, [storedPage]);
+
+
+
+  useEffect(() => {
+    handlePageChange(page.name == "payment" ? { name: "my-account", value: "باقتي وحسابي" } : {
+      name: "userprofile",
+      value: "الخدمات الرئىيسية",
+    });
+    addEventListener("popstate", () => {
+    const userprofilePage = page.name == "payment" ? { name: "my-account", value: "باقتي وحسابي" } : {
+      name: "userprofile",
+      value: "الخدمات الرئىيسية",
+    }
+  const cleanPage = cleanCircularReferences(userprofilePage);
+  const serializedPage = JSON.stringify(cleanPage);
+
+  
+  if(pathname === "/userprofile"){
+    router.push("/userprofile");
+     localStorage.setItem("page", serializedPage);
+  }
+  });
+    
+  }, [pathname]);
+
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
