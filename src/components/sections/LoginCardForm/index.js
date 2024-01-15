@@ -15,6 +15,7 @@ import apiCall from "@/components/common/api";
 import { getFullPhoneNumber, debounce } from "@/components/common/utils";
 
 const LoginCardForm = () => {
+  
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
 
@@ -22,6 +23,8 @@ const LoginCardForm = () => {
   const [successMessage, setSuccessMessage] = useState("success");
 
   const [phoneNumberNotExists, setPhoneNumberNotExists] = useState(false);
+  // const [isAuthenticate, setIsAuthenticate] = useState(false)
+
 
   const countryCodes = [
     {
@@ -269,7 +272,6 @@ const LoginCardForm = () => {
                         if (/^\d*$/.test(value)) {
                           handleDataChange("phoneNumber", value);
                         }
-
                         setValidate({
                           ...validate,
                           phone: value === null || value === "",

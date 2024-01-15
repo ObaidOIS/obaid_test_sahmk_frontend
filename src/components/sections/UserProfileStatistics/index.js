@@ -50,7 +50,7 @@ const UserProfileStatistics = ({tagsList, chartTagsList, chartData, setSelectedS
           </span>
         </div>
       </div>
-      <div className="mt-0 mb-16 pb-4 pt-2">
+      <div className="mt-0 mb-2 pb-4 pt-2">
         <div className="bg-whiteColor py-3 pe-2 shadow-lg border rounded-xl ">
           <div className="space-x-3 flex overflow-x-auto my-5 ps-5">
             {chartTagsList &&
