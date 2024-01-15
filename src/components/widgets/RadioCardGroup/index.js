@@ -23,7 +23,7 @@ function classNames(...classes) {
               value={link.title}
               className="sr-only"
               checked={selectedOption === link.title}
-              onChange={() => handleOptionChange(link.title)}
+              onChange={() => handleOptionChange(link.title, link, frequency.value)}
             />
             <span className="flex flex-1 items-start gap-4">
             {link.icon}

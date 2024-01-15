@@ -26,6 +26,7 @@ const UserProfileFeatureFour = ({
   setFrequency,
   subscriptionTypeMap,
   subscriptionPeriodMap,
+  handleUpgradPlan,
 }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
@@ -67,6 +68,8 @@ const UserProfileFeatureFour = ({
   const [successMessage, setSuccessMessage] = useState("success");
   const [isUpgraded, setIsUpgraded] = useState(null);
   const [upgradButton, setUpgradButton] = useState(false);
+
+  const currentPlan = JSON.parse(localStorage.getItem('currentPlan'));
 
   const pricingRadio = [
     {
@@ -386,6 +389,7 @@ const UserProfileFeatureFour = ({
                 frequency={frequency}
                 setFrequency={setFrequency}
                 pricingRadio={pricingRadio}
+                handleUpgradPlan={handleUpgradPlan}
               />
             }
           />
@@ -411,6 +415,36 @@ const UserProfileFeatureFour = ({
             content={
               <div>
                 <AvatarWithText
+                  title={currentPlan.title}
+                  desc={` ${ 
+                    currentPlan.title == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[frequency?.value]
+                        : currentPlan.title == "باقة بريميوم"
+                        ? pricing.pricing.premium[frequency?.value]
+                        : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
+                  descStyle={
+                    currentPlan.title == "الباقة المتقدمة"
+                        ? "!text-yellowColor"
+                        : currentPlan.title == "باقة بريميوم"
+                        ? "!text-purpleColor"
+                        : "!text-blueColor"
+                  }
+                  image={
+                    <Image
+                      src={
+                        currentPlan.title == "الباقة المتقدمة"
+                          ? "/assets/icons/yellow-check.svg"
+                          : currentPlan.title == "باقة بريميوم"
+                          ? "/assets/icons/purple-check-icon.svg"
+                          : "/assets/icons/blue-check.svg"
+                      }
+                      height={30}
+                      width={30}
+                      alt="image"
+                    />
+                  }
+                />
+                {/* <AvatarWithText
                   title={selectedOption}
                   desc={` ${ 
                       selectedOption == "الباقة المتقدمة"
@@ -439,7 +473,7 @@ const UserProfileFeatureFour = ({
                       alt="image"
                     />
                   }
-                />
+                /> */}
                 <div
                   className="mt-3"
                   onClick={() => {
@@ -451,7 +485,7 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {selectedOption !=
+                {currentPlan.title !=
                     subscriptionTypeMap[
                       originalSubscriptionDetails?.subscriptionType
                     ] && (

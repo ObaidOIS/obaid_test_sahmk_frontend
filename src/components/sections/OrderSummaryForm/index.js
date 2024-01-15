@@ -156,8 +156,7 @@ const OrderSummaryForm = (
     };
   }, []); // Empty dependency array means this runs once on mount
 
-  console.log(selectedOption,"hello");
-
+  const currentPlan = JSON.parse(localStorage.getItem('currentPlan'));
 
   return (
     <>
@@ -228,7 +227,7 @@ const OrderSummaryForm = (
                 title="نوع الباقة"
                 content={
                   <div className="flex items-center gap-4">
-                    <AvatarWithText
+                    {/* <AvatarWithText
                       title="باقة بريميوم"
                       desc="199 ريال/سنة"
                       descStyle="text-purpleColor"
@@ -240,28 +239,28 @@ const OrderSummaryForm = (
                           alt="image"
                         />
                       }
-                    />
-                    {/* <AvatarWithText
-                  // title={selectedOption}
+                    /> */}
+                    <AvatarWithText
+                  title={currentPlan.title}
                   // desc={` ${ 
-                  //     selectedOption == "الباقة المتقدمة"
+                  //     currentPlan.title == "الباقة المتقدمة"
                   //       ? pricing.pricing.companies[frequency?.value]
-                  //       : selectedOption == "باقة بريميوم"
+                  //       : currentPlan.title == "باقة بريميوم"
                   //       ? pricing.pricing.premium[frequency?.value]
                   //       : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
                   descStyle={
-                      selectedOption == "الباقة المتقدمة"
+                    currentPlan.title == "الباقة المتقدمة"
                         ? "!text-yellowColor"
-                        : selectedOption == "باقة بريميوم"
+                        : currentPlan.title == "باقة بريميوم"
                         ? "!text-purpleColor"
                         : "!text-blueColor"
                   }
                   image={
                     <Image
                       src={
-                        selectedOption == "الباقة المتقدمة"
+                        currentPlan.title == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
-                          : selectedOption == "باقة بريميوم"
+                          : currentPlan.title == "باقة بريميوم"
                           ? "/assets/icons/purple-check-icon.svg"
                           : "/assets/icons/blue-check.svg"
                       }
@@ -270,7 +269,7 @@ const OrderSummaryForm = (
                       alt="image"
                     />
                   }
-                /> */}
+                />
                   </div>
                 }
               />
@@ -303,10 +302,10 @@ const OrderSummaryForm = (
             <h2 className={`font-medium text-2xl px-3 mt-6`}>
               <span>الدفع</span>
             </h2>
-            <div className=" mt-8">
-              <div className="grid gap-6 md:grid-cols-12 border rounded-2xl border-gray-300 bg-white sm:px-8 pt-3 pb-10">
-                <div className="mysr-form"></div>
-              </div>
+            <div className="mt-8">
+              <div id="payment" className="grid w-full border rounded-2xl border-gray-300 bg-white sm:px-8 pt-8 pb-10">
+                <div className="mysr-form" id="mysr-form"></div>
+              </div> 
             </div>
           </div>
           <Image
