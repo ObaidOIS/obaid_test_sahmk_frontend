@@ -2,19 +2,19 @@ import React from 'react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import {pricing} from "@/components/common/pricing";  
 
-const RadioCardGroup = ({dataList, selectedOption, handleOptionChange, frequency}) => {
+const RadioCardGroup = ({dataList, selectedOption, handleOptionChange, frequency, currentPlan}) => {
     
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
-
+  // console.log(currentPlan.title, link.title, "hello")
   return (
     <>
         {dataList.map((link) => (
           <label
             key={link.title}
             className={`relative flex cursor-pointer rounded-lg border bg-white p-3 shadow-sm focus:outline-none ${
-              selectedOption === link.title ? 'border-primaryColor ring-2 ring-primaryColor' : 'border-gray-300'
+              currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption === link.title ? 'border-primaryColor ring-2 ring-primaryColor' : 'border-gray-300'
             }`}
           >
             <input
@@ -22,7 +22,7 @@ function classNames(...classes) {
               name="subscription-plan"
               value={link.title}
               className="sr-only"
-              checked={selectedOption === link.title}
+              checked={(currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) === link.title}
               onChange={() => handleOptionChange(link.title, link, frequency.value)}
             />
             <span className="flex flex-1 items-start gap-4">
@@ -37,10 +37,10 @@ function classNames(...classes) {
               </span>
             </span>
             <CheckCircleIcon
-                  className={classNames((selectedOption !== link.title) ? 'invisible' : '', 'h-5 w-5 border-2 rounded-full border-primaryColor text-primaryColor')}
+                  className={classNames(((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !== link.title) ? 'invisible' : '', 'h-5 w-5 border-2 rounded-full border-primaryColor text-primaryColor')}
                   aria-hidden="true"
                 />
-            <span className={`pointer-events-none absolute -inset-px rounded-lg ${selectedOption === link.title ? 'border-2 border-primaryColor' : 'border-transparent'}`} aria-hidden="true"></span>
+            <span className={`pointer-events-none absolute -inset-px rounded-lg ${(currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) === link.title ? 'border-2 border-primaryColor' : 'border-transparent'}`} aria-hidden="true"></span>
           </label>
         ))}
     </>

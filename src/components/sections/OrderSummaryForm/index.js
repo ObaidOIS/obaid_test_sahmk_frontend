@@ -22,6 +22,7 @@ const OrderSummaryForm = (
   const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
+  const [currentPlanDuration, setCurrentPlanDuration] = useState("");
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
@@ -136,6 +137,7 @@ const OrderSummaryForm = (
 
   useEffect(() => {
     setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
+    setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
   }, [])
 
   useEffect(() => {
@@ -246,12 +248,12 @@ const OrderSummaryForm = (
                     /> */}
                     <AvatarWithText
                   title={currentPlan.title}
-                  // desc={` ${ 
-                  //     currentPlan.title == "الباقة المتقدمة"
-                  //       ? pricing.pricing.companies[frequency?.value]
-                  //       : currentPlan.title == "باقة بريميوم"
-                  //       ? pricing.pricing.premium[frequency?.value]
-                  //       : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
+                  desc={` ${ 
+                      currentPlan.title == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : currentPlan.title == "باقة بريميوم"
+                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]} / ${currentPlanDuration ? currentPlanDuration?.label : frequency?.label} `}
                   descStyle={
                     currentPlan.title == "الباقة المتقدمة"
                         ? "!text-yellowColor"

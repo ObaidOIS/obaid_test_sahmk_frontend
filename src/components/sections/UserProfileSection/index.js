@@ -48,7 +48,7 @@ const UserProfileSection = () => {
     setIsAuthenticate(isAuthenticated());
   }, []);
 
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -101,7 +101,6 @@ const UserProfileSection = () => {
   //     setPage(storedPage);
   // }
   // }, [storedPage]);
-
 
 
   useEffect(() => {
@@ -267,6 +266,17 @@ const UserProfileSection = () => {
     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
       frequencies[0]
   );
+  
+  const [currentPlan, setCurrentPlan] = useState(
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+    subscriptionTypeMap.free)
+
+
+  const [currentPlanDuration, setCurrentPlanDuration] = useState(
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]
+  );
+
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -295,6 +305,39 @@ const UserProfileSection = () => {
 
     // Save the serialized data to localStorage
     localStorage.setItem("currentPlan", serializedData);
+    setCurrentPlan(data);
+  };
+
+  
+  const handleUpgardPlanDuration = (data) => {
+    // Create a replacer function for handling circular references
+    const circularReferenceReplacer = () => {
+      // Create a WeakSet to keep track of seen objects
+      const seen = new WeakSet();
+
+      // Return a replacer function
+      return (key, value) => {
+        // If the value is an object and not null
+        if (typeof value === "object" && value !== null) {
+          // If the object has been seen before (circular reference), return undefined
+          if (seen.has(value)) {
+            return;
+          }
+          // Add the object to the set to mark it as seen
+          seen.add(value);
+        }
+        // Return the value
+        return value;
+      };
+    };
+
+    // Use JSON.stringify with the circularReferenceReplacer
+    const serializedData = JSON.stringify(data, circularReferenceReplacer());
+
+    // Save the serialized data to localStorage
+    localStorage.setItem("currentPlanDuration", serializedData);
+    setCurrentPlanDuration(data)
+    // setFrequency(data);
   };
 
   const [activeStat, setActiveStat] = useState("0");
@@ -370,6 +413,7 @@ const UserProfileSection = () => {
   };
 
   console.log(chartData);
+
 
   return (
     <div>
@@ -465,9 +509,7 @@ const UserProfileSection = () => {
             ) : page.name == "weekly-stock" ? (
               <div className="space-y-6">
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                  <UserProfileFeatureThree
-                  // chartTagsList={chartTagsList} activeStat={activeStat} tagsList={tagsList} setActiveStat={setActiveStat} activeChartTag={activeChartTag} setActiveChartTag={setActiveChartTag}
-                  />
+                  <UserProfileFeatureThree />
                 </div>
               </div>
             ) : page.name == "my-account" ? (
@@ -490,6 +532,11 @@ const UserProfileSection = () => {
                     subscriptionTypeMap={subscriptionTypeMap}
                     subscriptionPeriodMap={subscriptionPeriodMap}
                     handleUpgradPlan={handleUpgradPlan}
+                    setCurrentPlan={setCurrentPlan}
+                    currentPlan={currentPlan}
+                    handleUpgardPlanDuration={handleUpgardPlanDuration}
+                    setCurrentPlanDuration={setCurrentPlanDuration}
+                    currentPlanDuration={currentPlanDuration}
                   />
                 </div>
               </div>

@@ -27,6 +27,11 @@ const UserProfileFeatureFour = ({
   subscriptionTypeMap,
   subscriptionPeriodMap,
   handleUpgradPlan,
+  setCurrentPlan,
+  currentPlan,
+  handleUpgardPlanDuration,
+  setCurrentPlanDuration,
+  currentPlanDuration,
 }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
@@ -69,7 +74,11 @@ const UserProfileFeatureFour = ({
   const [isUpgraded, setIsUpgraded] = useState(null);
   const [upgradButton, setUpgradButton] = useState(false);
 
-  const currentPlan = JSON.parse(localStorage.getItem('currentPlan'));
+  
+  useEffect(() => {
+    setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
+    setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
+  }, [localStorage, currentPlan, currentPlanDuration])
 
   const pricingRadio = [
     {
@@ -338,7 +347,20 @@ const UserProfileFeatureFour = ({
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
         frequencies[0]
     );
+
+    setCurrentPlan(
+      subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
+        subscriptionTypeMap.free
+    );
+
+    setCurrentPlanDuration(
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+        frequencies[0]
+    );
+
   }, [originalSubscriptionDetails]);
+
+  console.log(currentPlan, "hello");
 
   return (
     <>
@@ -390,6 +412,9 @@ const UserProfileFeatureFour = ({
                 setFrequency={setFrequency}
                 pricingRadio={pricingRadio}
                 handleUpgradPlan={handleUpgradPlan}
+                currentPlan={currentPlan}
+                handleUpgardPlanDuration={handleUpgardPlanDuration}
+                currentPlanDuration={currentPlanDuration}
               />
             }
           />
@@ -415,26 +440,26 @@ const UserProfileFeatureFour = ({
             content={
               <div>
                 <AvatarWithText
-                  title={currentPlan.title}
+                  title={currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption}
                   desc={` ${ 
-                    currentPlan.title == "الباقة المتقدمة"
-                        ? pricing.pricing.companies[frequency?.value]
-                        : currentPlan.title == "باقة بريميوم"
-                        ? pricing.pricing.premium[frequency?.value]
-                        : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
+                    (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "باقة بريميوم"
+                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency.value]} / ${currentPlanDuration ? currentPlanDuration?.label : frequency?.label} `}
                   descStyle={
-                    currentPlan.title == "الباقة المتقدمة"
+                    (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "الباقة المتقدمة"
                         ? "!text-yellowColor"
-                        : currentPlan.title == "باقة بريميوم"
+                        : (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "باقة بريميوم"
                         ? "!text-purpleColor"
                         : "!text-blueColor"
                   }
                   image={
                     <Image
                       src={
-                        currentPlan.title == "الباقة المتقدمة"
+                        (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
-                          : currentPlan.title == "باقة بريميوم"
+                          : (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "باقة بريميوم"
                           ? "/assets/icons/purple-check-icon.svg"
                           : "/assets/icons/blue-check.svg"
                       }
@@ -485,7 +510,7 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {currentPlan.title !=
+                {(currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
                     subscriptionTypeMap[
                       originalSubscriptionDetails?.subscriptionType
                     ] && (

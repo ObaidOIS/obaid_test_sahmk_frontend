@@ -18,6 +18,9 @@ const LoginCardForm = () => {
   
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
+  
+  const [warningAlert, setWarningAlert] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("warning");
 
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("success");
@@ -94,19 +97,26 @@ const LoginCardForm = () => {
     setIsOpen(false);
   };
 
-  const handleOpenOtpModal = (e) => {
+  const handleOpenOtpModal = async (e) => {
     e.preventDefault();
     const cleanedPhoneNumber = cleanPhoneNumber(userData.phoneNumber);
     setUserData({
       ...userData,
       phoneNumber: cleanedPhoneNumber,
     });
+    const phoneNumberExists = await checkPhoneNumber();
+
     // if (userData.phoneNumber) {
+      if(phoneNumberExists){
     if (cleanedPhoneNumber) {
       setIsOtpModalOpen(true);
     } else {
       setErrorMessage("الرجاء إدخال رقم هاتف");
       setErrorAlert(true);
+    }}
+    else{
+      setWarningMessage("الرجاء التسجيل، هذا الرقم غير موجود." + " " + userData.countryCode + " " + userData.phoneNumber);
+      setWarningAlert(true);
     }
   };
 
@@ -159,27 +169,9 @@ const LoginCardForm = () => {
       } else {
         setPhoneNumberNotExists(true);
       }
+      return response.result.exists;
     }
   };
-
-  // Use useCallback to memoize the debounced version of checkPhoneNumber
-  const debouncedCheckPhoneNumber = useCallback(
-    debounce(checkPhoneNumber, 500),
-    [userData] // Dependencies
-  );
-
-  // Use effect to trigger the debounced function when phone number changes
-  useEffect(() => {
-    if (userData.phoneNumber) {
-      debouncedCheckPhoneNumber();
-    }
-  }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
-
-  useEffect(() => {
-    if (phoneNumberNotExists) {
-      alert("الرجاء التسجيل، هذا الرقم غير موجود." + " " + userData.countryCode + " " + userData.phoneNumber);
-    }
-  }, [phoneNumberNotExists]);
 
   return (
     <>
@@ -207,6 +199,20 @@ const LoginCardForm = () => {
             icon={
               <XCircleIcon
                 className="h-5 w-5 text-redColor"
+                aria-hidden="true"
+              />
+            }
+          />
+        )}
+        {warningAlert == true && (
+          <MessageAlert
+            setOpenModal={setWarningAlert}
+            title="خطأ"
+            message={warningMessage}
+            alertStyle="fixed top-5 right-2 text-yellow-800 bg-yellow-50"
+            icon={
+              <XCircleIcon
+                className="h-5 w-5 text-yellowColor"
                 aria-hidden="true"
               />
             }

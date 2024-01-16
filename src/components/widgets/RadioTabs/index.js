@@ -1,7 +1,7 @@
 import React from "react";
 import { RadioGroup } from "@headlessui/react";
 
-const RadioTabs = ({ frequencies, setFrequency, frequency }) => {
+const RadioTabs = ({ frequencies, setFrequency, frequency, handleUpgardPlanDuration, currentPlanDuration }) => {
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -15,7 +15,9 @@ const RadioTabs = ({ frequencies, setFrequency, frequency }) => {
             value={option.value}
             className="sr-only"
             checked={frequency.value === option.value}
-            onChange={() => {setFrequency(option)}} />
+            onChange={() => {
+              setFrequency(option); 
+              handleUpgardPlanDuration(option)}} />
            <span>{option.label}</span>
         </label>
       ))}
