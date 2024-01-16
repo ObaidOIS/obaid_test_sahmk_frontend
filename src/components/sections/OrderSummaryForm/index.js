@@ -21,6 +21,7 @@ const OrderSummaryForm = (
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
   const [price, setPrice] = useState("");
+  const [currentPlan, setCurrentPlan] = useState("");
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
@@ -134,6 +135,10 @@ const OrderSummaryForm = (
   };
 
   useEffect(() => {
+    setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
+  }, [])
+
+  useEffect(() => {
     // Include Moyasar CSS and JS
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -156,7 +161,6 @@ const OrderSummaryForm = (
     };
   }, []); // Empty dependency array means this runs once on mount
 
-  const currentPlan = JSON.parse(localStorage.getItem('currentPlan'));
 
   return (
     <>
