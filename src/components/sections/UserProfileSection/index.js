@@ -276,7 +276,8 @@ const UserProfileSection = () => {
     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
       frequencies[0]
   );
-
+// console.log(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+//   frequencies[0], "hello")
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -299,7 +300,6 @@ const UserProfileSection = () => {
         return value;
       };
     };
-
     // Use JSON.stringify with the circularReferenceReplacer
     const serializedData = JSON.stringify(data, circularReferenceReplacer());
 
@@ -336,9 +336,19 @@ const UserProfileSection = () => {
 
     // Save the serialized data to localStorage
     localStorage.setItem("currentPlanDuration", serializedData);
-    setCurrentPlanDuration(data)
+    setCurrentPlanDuration(data);
     // setFrequency(data);
   };
+
+  console.log(
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0], "hello");
+  useEffect(() => {
+    handleUpgardPlanDuration(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]);
+    handleUpgradPlan(currentPlan);
+  }, [originalSubscriptionDetails])
+
 
   const [activeStat, setActiveStat] = useState("0");
   const [activeChartTag, setActiveChartTag] = useState("شهر");
@@ -411,9 +421,6 @@ const UserProfileSection = () => {
       }
     }
   };
-
-  console.log(chartData);
-
 
   return (
     <div>
@@ -559,6 +566,9 @@ const UserProfileSection = () => {
                   subscriptionTypeMap={subscriptionTypeMap}
                   subscriptionPeriodMap={subscriptionPeriodMap}
                   handleUpgradPlan={handleUpgradPlan}
+                  // currentDuration={currentPlanDuration}
+                  currentDuration={subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] || frequencies[0]}
+                  setCurrentPlanDuration={setCurrentPlanDuration}
                 />
               </div>
             ) : (

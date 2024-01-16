@@ -78,7 +78,13 @@ const UserProfileFeatureFour = ({
   useEffect(() => {
     setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
     setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
-  }, [localStorage, currentPlan, currentPlanDuration])
+  }, [localStorage])
+  
+  // useEffect(() => {
+  //   setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
+  //   setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
+  // }, [localStorage, currentPlan, currentPlanDuration])
+  
 
   const pricingRadio = [
     {
@@ -360,7 +366,9 @@ const UserProfileFeatureFour = ({
 
   }, [originalSubscriptionDetails]);
 
-  console.log(currentPlan, "hello");
+  console.log(currentPlanDuration?.value, subscriptionTypeMap[
+    originalSubscriptionDetails?.subscriptionPeriod] ,"hello");
+
 
   return (
     <>
@@ -510,10 +518,13 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {(currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
+                {(((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
                     subscriptionTypeMap[
                       originalSubscriptionDetails?.subscriptionType
-                    ] && (
+                    ]) || ((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
+                    subscriptionTypeMap[
+                      originalSubscriptionDetails?.subscriptionPeriod
+                    ])) && (
                   <div
                     className="mt-3"
                     onClick={() => {

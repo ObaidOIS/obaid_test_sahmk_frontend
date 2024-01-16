@@ -15,14 +15,20 @@ const OrderSummaryForm = (
   setFrequency,
   subscriptionTypeMap,
   subscriptionPeriodMap,
+  subscriptionPeriod,
   frequencies,
+  currentDuration,
+  // currentPlanDuration,
+  // setCurrentPlanDuration,
 ) => {
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
-  const [currentPlanDuration, setCurrentPlanDuration] = useState("");
+  const [currentPlanDuration, setCurrentPlanDuration] = useState(currentDuration);
+  //   subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+  //     frequencies[0]);
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
@@ -40,6 +46,8 @@ const OrderSummaryForm = (
       setOrigin(window.location.origin);
     }
   }, []);
+
+  console.log(currentPlanDuration, "hello");
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -163,7 +171,7 @@ const OrderSummaryForm = (
     };
   }, []); // Empty dependency array means this runs once on mount
 
-
+console.log(currentPlanDuration, frequency?.value, "hello");
   return (
     <>
       {isAlertSuccessOpen ? (

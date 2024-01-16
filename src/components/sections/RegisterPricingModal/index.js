@@ -37,6 +37,7 @@ const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, 
                 selectedOption={selectedOption}
                 handleOptionChange={handleOptionChange}
                 currentPlan={currentPlan}
+                currentPlanDuration={currentPlanDuration}
               />
             </div>
           </fieldset>

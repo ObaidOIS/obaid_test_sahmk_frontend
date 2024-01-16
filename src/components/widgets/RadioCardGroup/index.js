@@ -2,7 +2,7 @@ import React from 'react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import {pricing} from "@/components/common/pricing";  
 
-const RadioCardGroup = ({dataList, selectedOption, handleOptionChange, frequency, currentPlan}) => {
+const RadioCardGroup = ({dataList, selectedOption, handleOptionChange, frequency, currentPlan, currentPlanDuration}) => {
     
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -23,7 +23,7 @@ function classNames(...classes) {
               value={link.title}
               className="sr-only"
               checked={(currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) === link.title}
-              onChange={() => handleOptionChange(link.title, link, frequency.value)}
+              onChange={() => handleOptionChange(link.title, link, currentPlanDuration ? currentPlanDuration : frequency.value)}
             />
             <span className="flex flex-1 items-start gap-4">
             {link.icon}
@@ -32,7 +32,7 @@ function classNames(...classes) {
                 <span className="mt-1 flex items-center text-sm text-gray-500">{link.desc}</span>
                 <span className="mt-6 text-sm font-medium text-gray-900">
                   {/* {link.price[frequency.value]} */}
-                  {link.card == "free" ? pricing.pricing.free[frequency.value] : link.card == "premium" ? pricing.pricing.premium[frequency?.value] : link.card == "advance" ? pricing.pricing.companies[frequency?.value] : "" }
+                  {link.card == "free" ? pricing.pricing.free[currentPlanDuration ? currentPlanDuration : frequency.value] : link.card == "premium" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration : frequency?.value] : link.card == "advance" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration : frequency?.value] : "" }
                   </span>
               </span>
             </span>
