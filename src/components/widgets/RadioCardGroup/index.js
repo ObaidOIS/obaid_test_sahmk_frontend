@@ -32,7 +32,8 @@ function classNames(...classes) {
                 <span className="mt-1 flex items-center text-sm text-gray-500">{link.desc}</span>
                 <span className="mt-6 text-sm font-medium text-gray-900">
                   {/* {link.price[frequency.value]} */}
-                  {link.card == "free" ? pricing.pricing.free[currentPlanDuration ? currentPlanDuration : frequency.value] : link.card == "premium" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration : frequency?.value] : link.card == "advance" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration : frequency?.value] : "" }
+                  {link.card == "free" ? pricing.pricing.free[frequency.value] : link.card == "premium" ? pricing.pricing.premium[frequency.value] : link.card == "advance" ? pricing.pricing.companies[frequency.value] : "" } ريال
+                  {/* {link.card == "free" ? pricing.pricing.free[currentPlanDuration ? currentPlanDuration.value : frequency.value] : link.card == "premium" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration.value : frequency?.value] : link.card == "advance" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration.value : frequency?.value] : "" } ريال */}
                   </span>
               </span>
             </span>

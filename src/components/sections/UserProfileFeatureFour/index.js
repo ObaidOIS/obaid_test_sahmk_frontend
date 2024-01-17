@@ -75,10 +75,10 @@ const UserProfileFeatureFour = ({
   const [upgradButton, setUpgradButton] = useState(false);
 
   
-  useEffect(() => {
-    setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
-    setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
-  }, [localStorage])
+  // useEffect(() => {
+  //   setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
+  //   setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
+  // }, [localStorage])
   
   // useEffect(() => {
   //   setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
@@ -100,6 +100,7 @@ const UserProfileFeatureFour = ({
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
       price: { monthly: "مجاناً", annually: "48 ريال" },
+      card: "free",
       features: {
         monthly: [
           { feature: "monthly basic", isAvaiable: true },
@@ -169,6 +170,7 @@ const UserProfileFeatureFour = ({
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
       price: { monthly: "49 ريال", annually: "488 ريال" },
+      card: "premium",
       features: {
         monthly: [
           { feature: "monthly standard", isAvaiable: true },
@@ -235,6 +237,7 @@ const UserProfileFeatureFour = ({
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
       price: { monthly: "99 ريال", annually: "688 ريال" },
+      card: "advance",
       features: {
         monthly: [
           { feature: "monthly premium", isAvaiable: true },
@@ -366,8 +369,25 @@ const UserProfileFeatureFour = ({
 
   }, [originalSubscriptionDetails]);
 
-  console.log(currentPlanDuration?.value, subscriptionTypeMap[
-    originalSubscriptionDetails?.subscriptionPeriod] ,"hello");
+    // console.log((((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
+    //   subscriptionTypeMap[
+    //     originalSubscriptionDetails?.subscriptionType
+    //   ])) ,"hello type"); 
+    //   console.log((((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
+    //     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value
+    //     )) ,"hello duration")
+
+    // console.log((((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
+    // subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value
+    // )) || (((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
+    // subscriptionTypeMap[
+    //   originalSubscriptionDetails?.subscriptionType
+    // ])), "hello all");
+
+
+    // console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "hello")
+
+
 
 
   return (
@@ -518,20 +538,26 @@ const UserProfileFeatureFour = ({
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
                   />
                 </div>
-                {(((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
+                {/* {(((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
                     subscriptionTypeMap[
                       originalSubscriptionDetails?.subscriptionType
-                    ]) || ((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
+                    ] ||
+                    subscriptionTypeMap.free) || ((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
+                    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value || frequencies[0].value
+                    )) && ( */}
+                    {((currentPlan !== "الباقة المجانية"  && (currentPlan.title && currentPlan.title) !== "الباقة المجانية") && (((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
+                    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value
+                    )) || (((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
                     subscriptionTypeMap[
-                      originalSubscriptionDetails?.subscriptionPeriod
-                    ])) && (
+                      originalSubscriptionDetails?.subscriptionType
+                    ]))) && (
                   <div
                     className="mt-3"
                     onClick={() => {
                       handlePageChange({
                         name: "payment",
                         value: "باقتي وحسابي",
-                      });
+                      }); 
                       // setSelectedOption();
                       // handlePlanChange(selectedOption, frequency);
 

@@ -6,6 +6,8 @@ import SimpleCardHeader from "@/components/widgets/SimpleCardHeader";
 import AvatarWithText from "@/components/widgets/AvatarWithText";
 import apiCall from "@/components/common/api";
 import { pricing } from "@/components/common/pricing";
+import Loader from "@/components/widgets/Loader";
+import { usePathname } from "next/navigation";
 
 const OrderSummaryForm = (
   originalSubscriptionDetails,
@@ -21,6 +23,7 @@ const OrderSummaryForm = (
   // currentPlanDuration,
   // setCurrentPlanDuration,
 ) => {
+  const pathname = usePathname();
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
@@ -78,6 +81,12 @@ const OrderSummaryForm = (
     fetchUserData();
   }, []);
 
+  const navigateToAnotherPage = () => {
+    setTimeout(() => {
+      router.push('/userprofile');
+    }, 3000); 
+  };
+
   useEffect(() => {
     // Verify payment when redirected back to this page
     const verifyPayment = async (paymentId) => {
@@ -88,6 +97,8 @@ const OrderSummaryForm = (
 
       if (result && result.result && result.result.check) {
         setIsAlertSuccessOpen(true);
+        // router.push("/userprofile");
+        navigateToAnotherPage();
       } else {
         setIsAlertErrorOpen(true);
       }
@@ -108,14 +119,28 @@ const OrderSummaryForm = (
     }
   }, []);
 
-  const initMoyasar = () => {
+
+  const [buttonPrice, setButtonPrice] = useState(1);
+
+
+  console.log(currentPlan.title == "الباقة المتقدمة"
+  ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+  : currentPlan.title == "باقة بريميوم"
+  ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+  : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
+
+
+  // const buttonPrice = Number.isInteger(20);
+  console.log(buttonPrice,"hello hi");
+  const initMoyasar = (p) => {
     window.Moyasar.init({
       element: ".mysr-form",
-      amount: (price || 1) * 100,
+      // amount: (price || 1) * 100,
+      amount: p * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+      // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
@@ -135,8 +160,12 @@ const OrderSummaryForm = (
 
           if (result && result.result && result.result.check) {
             resolve({});
+            setIsAlertSuccessOpen(true);
+            // setSuccessMessage("success");
           } else {
             reject();
+            setIsAlertErrorOpen(true);
+            // setErrorMessage("error");
           }
         });
       },
@@ -144,9 +173,20 @@ const OrderSummaryForm = (
   };
 
   useEffect(() => {
+    console.log(pathname);
+    if(pathname == "/auth/order"){
+    setCurrentPlan(JSON.parse(localStorage.getItem('currentPlanRegister')));
+    setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDurationRegister')));
+    }else{
     setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
     setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
-  }, [])
+    }
+  }, [pathname])
+
+  
+  useEffect(() => {
+    setButtonPrice(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
+  }, [buttonPrice])
 
   useEffect(() => {
     // Include Moyasar CSS and JS
@@ -158,9 +198,11 @@ const OrderSummaryForm = (
     const script = document.createElement("script");
     script.src = "https://cdn.moyasar.com/mpf/1.12.0/moyasar.js";
     script.async = true;
+    // setButtonPrice(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
     script.onload = () => {
+      setButtonPrice(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
       // Initialize Moyasar once script is loaded
-      initMoyasar();
+      buttonPrice != 1 && initMoyasar(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
     };
     document.head.appendChild(script);
 
@@ -169,11 +211,21 @@ const OrderSummaryForm = (
       document.head.removeChild(script);
       document.head.removeChild(link);
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, [buttonPrice]); // Empty dependency array means this runs once on mount
+
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", function (e) {
+  //     localStorage.removeItem("currentPlan");
+  //     localStorage.removeItem("currentPlanDuration");
+  // });
+  // }, [])
 
 console.log(currentPlanDuration, frequency?.value, "hello");
   return (
     <>
+    {currentPlan == undefined ? 
+    (<Loader />) :
+    (<>
       {isAlertSuccessOpen ? (
         <AlertButtonsModal
           onClose={() => setIsAlertSuccessOpen(false)}
@@ -229,7 +281,6 @@ console.log(currentPlanDuration, frequency?.value, "hello");
       ) : (
         ""
       )}
-
       <div className="mb-20 relative space-y-5">
         <div className="bg-gray-50 border relative border-gray-300 rounded-2xl px-5 pb-5 pt-5">
           <div>
@@ -254,14 +305,15 @@ console.log(currentPlanDuration, frequency?.value, "hello");
                         />
                       }
                     /> */}
+                    {currentPlanDuration == undefined ? "" :
                     <AvatarWithText
-                  title={currentPlan.title}
+                  title={currentPlan ? currentPlan.title ? currentPlan.title : currentPlan : ""}
                   desc={` ${ 
-                      currentPlan.title == "الباقة المتقدمة"
-                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                    currentPlan.title == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration.value : frequency?.value]
                         : currentPlan.title == "باقة بريميوم"
-                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]} / ${currentPlanDuration ? currentPlanDuration?.label : frequency?.label} `}
+                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration.value : frequency?.value]
+                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration.value : frequency?.value]} / ${currentPlanDuration ? currentPlanDuration?.label : frequency?.label} `}
                   descStyle={
                     currentPlan.title == "الباقة المتقدمة"
                         ? "!text-yellowColor"
@@ -283,7 +335,7 @@ console.log(currentPlanDuration, frequency?.value, "hello");
                       alt="image"
                     />
                   }
-                />
+                />}
                   </div>
                 }
               />
@@ -297,7 +349,12 @@ console.log(currentPlanDuration, frequency?.value, "hello");
                       تكلفة الباقة
                     </h3>
                     <h3 className="text-base font-semibold leading-6 text-gray-900">
-                      {price} ريال
+                      {/* {price}  */}
+                      { currentPlan.title == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : currentPlan.title == "باقة بريميوم"
+                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]} ريال
                     </h3>
                   </div>
                 }
@@ -306,7 +363,13 @@ console.log(currentPlanDuration, frequency?.value, "hello");
             <div>
               <div className="flex items-center font-medium text-2xl mx-5 my-6 justify-between">
                 <h3 className="leading-6 text-gray-900">الإجمالي</h3>
-                <h3 className="leading-6 text-gray-900">{price} ريال</h3>
+                <h3 className="leading-6 text-gray-900">{price} 
+                {currentPlan.title == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : currentPlan.title == "باقة بريميوم"
+                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
+                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]}
+                ريال</h3>
               </div>
             </div>
           </div>
@@ -331,6 +394,7 @@ console.log(currentPlanDuration, frequency?.value, "hello");
           />
         </div>
       </div>
+    </>)}
     </>
   );
 };

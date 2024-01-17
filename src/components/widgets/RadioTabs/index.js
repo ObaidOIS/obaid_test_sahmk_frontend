@@ -7,6 +7,7 @@ const RadioTabs = ({ frequencies, setFrequency, frequency, handleUpgardPlanDurat
     return classes.filter(Boolean).join(" ");
   }
 
+
   return (
     <fieldset className="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center bg-whiteColor text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200">
         {frequencies.map((option) => (
@@ -17,10 +18,11 @@ const RadioTabs = ({ frequencies, setFrequency, frequency, handleUpgardPlanDurat
             checked={frequency.value === option.value}
             onChange={() => {
               setFrequency(option); 
-              handleUpgardPlanDuration(option)}} />
+              handleUpgardPlanDuration ? handleUpgardPlanDuration(option) : ""}} />
            <span>{option.label}</span>
         </label>
-      ))}
+      )
+      )}
       </fieldset>
   );
 };

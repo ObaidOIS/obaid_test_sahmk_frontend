@@ -20,6 +20,8 @@ const OtpModal = ({
   setErrorMessage,
   setSuccessAlert,
   setSuccessMessage,
+  currentPlan,
+  selectedOption,
 }) => {
   const router = useRouter();
   const [timer, setTimer] = useState(
@@ -171,6 +173,8 @@ const OtpModal = ({
 
         // Redirect based on the previousPage
         if (previousPage === "signup") {
+          (currentPlan  == "الباقة المجانية"  || (currentPlan.title ? currentPlan.title : selectedOption) == "الباقة المجانية") ?
+          router.push("/userprofile") :
           router.push("/auth/order");
         } else if (previousPage === "signin") {
           router.push("/userprofile");
@@ -181,11 +185,12 @@ const OtpModal = ({
     }
   };
 
+  console.log(currentPlan, "hello here")
 
   const handleKeyUp = (e, prevId, nextId, index) => {
     console.log(prevId, "hello");
     // Handle backspace
-    if (e.code === "Backspace" && index > 0) {
+    if ((e.code === "Backspace" || e.keyCode === 46) && index > 0) {
       // document.getElementById(prevId)?.setAttribute("id", `code-${index - 1}`);
       document.getElementById(prevId)?.focus();
       handleInputChange("", index);

@@ -120,6 +120,12 @@ const RegisterForm = () => {
   const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
   const [frequency, setFrequency] = useState(frequencies[0]);
 
+  
+  const [currentPlan, setCurrentPlan] = useState("الباقة المجانية")
+
+
+  const [currentPlanDuration, setCurrentPlanDuration] = useState(frequencies[0]);
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -456,13 +462,109 @@ const RegisterForm = () => {
 
   console.log(phoneNumberExists, "hello");
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     checkPhoneNumber();
-    if(isFormValid == true && phoneNumberExists == true){
-    handleOpenOtpModal();
+    if(phoneNumberExists == false){
+      handleOpenOtpModal();
     }
   }
+
+  
+  const handleUpgradPlan = (data) => {
+    // Create a replacer function for handling circular references
+    const circularReferenceReplacer = () => {
+      // Create a WeakSet to keep track of seen objects
+      const seen = new WeakSet();
+
+      // Return a replacer function
+      return (key, value) => {
+        // If the value is an object and not null
+        if (typeof value === "object" && value !== null) {
+          // If the object has been seen before (circular reference), return undefined
+          if (seen.has(value)) {
+            return;
+          }
+          // Add the object to the set to mark it as seen
+          seen.add(value);
+        }
+        // Return the value
+        return value;
+      };
+    };
+    // Use JSON.stringify with the circularReferenceReplacer
+    const serializedData = JSON.stringify(data, circularReferenceReplacer());
+
+    // Save the serialized data to localStorage
+    localStorage.setItem("currentPlanRegister", serializedData);
+    setCurrentPlan(data);
+  };
+
+  
+  const handleUpgardPlanDuration = (data) => {
+    // Create a replacer function for handling circular references
+    const circularReferenceReplacer = () => {
+      // Create a WeakSet to keep track of seen objects
+      const seen = new WeakSet();
+
+      // Return a replacer function
+      return (key, value) => {
+        // If the value is an object and not null
+        if (typeof value === "object" && value !== null) {
+          // If the object has been seen before (circular reference), return undefined
+          if (seen.has(value)) {
+            return;
+          }
+          // Add the object to the set to mark it as seen
+          seen.add(value);
+        }
+        // Return the value
+        return value;
+      };
+    };
+
+    // Use JSON.stringify with the circularReferenceReplacer
+    const serializedData = JSON.stringify(data, circularReferenceReplacer());
+
+    // Save the serialized data to localStorage
+    localStorage.setItem("currentPlanDurationRegister", serializedData);
+    setCurrentPlanDuration(data);
+    // setFrequency(data);
+  };
+
+  
+  useEffect(() => {
+    
+    // Create a replacer function for handling circular references
+    const circularReferenceReplacer = () => {
+      // Create a WeakSet to keep track of seen objects
+      const seen = new WeakSet();
+
+      // Return a replacer function
+      return (key, value) => {
+        // If the value is an object and not null
+        if (typeof value === "object" && value !== null) {
+          // If the object has been seen before (circular reference), return undefined
+          if (seen.has(value)) {
+            return;
+          }
+          // Add the object to the set to mark it as seen
+          seen.add(value);
+        }
+        // Return the value
+        return value;
+      };
+    };
+
+    // Use JSON.stringify with the circularReferenceReplacer
+    const serializedData = JSON.stringify(frequencies[0], circularReferenceReplacer());
+
+    // Save the serialized data to localStorage
+    localStorage.setItem("currentPlanDurationRegister", serializedData);
+    // Update the states whenever the original subscription details change
+    setCurrentPlanDuration(frequencies[0]);
+  }, []);
 
   return (
     <>
@@ -503,6 +605,7 @@ const RegisterForm = () => {
           isOpen={isOtpModalOpen}
           content={
             <OtpModal
+              currentPlan={currentPlan}
               isOpen={isOtpModalOpen}
               userData={userData}
               previousPage={"signup"}
@@ -510,6 +613,7 @@ const RegisterForm = () => {
               setErrorAlert={setErrorAlert}
               setSuccessAlert={setSuccessAlert}
               setSuccessMessage={setSuccessMessage}
+              selectedOption={selectedOption}
             />
           } // Adjust according to your implementation
         />
@@ -531,6 +635,10 @@ const RegisterForm = () => {
               setFrequency={setFrequency}
               pricingRadio={pricingRadio}
               setSelectedItems={setSelectedItems}
+              handleUpgradPlan={handleUpgradPlan}
+              currentPlan={currentPlan}
+              handleUpgardPlanDuration={handleUpgardPlanDuration}
+              currentPlanDuration={currentPlanDuration}
             />
           }
         />
