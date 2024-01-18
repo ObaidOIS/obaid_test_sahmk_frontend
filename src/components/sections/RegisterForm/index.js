@@ -20,6 +20,7 @@ import { XCircleIcon } from "@heroicons/react/20/solid";
 import { useSearchParams } from "next/navigation";
 import apiCall from "@/components/common/api";
 import { debounce, getFullPhoneNumber } from "@/components/common/utils";
+import NotificationAlert from "@/components/widgets/NotificationAlert";
 
 const isValidFirstName = (value) => value.trim() !== "";
 const isValidLastName = (value) => value.trim() !== "";
@@ -56,6 +57,9 @@ const RegisterForm = () => {
   const [isAllFeaturesModalOpen, setIsAllFeaturesModalOpen] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
+  
+  const [warningAlert, setWarningAlert] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("warning");
 
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("success");
@@ -433,8 +437,8 @@ const RegisterForm = () => {
       );
       if (response && response.result && response.result.exists) {
         setPhoneNumberExists(true);
-        setErrorAlert(true);
-        setErrorMessage("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول للمتابعة.");
+        setWarningAlert(true);
+        setWarningMessage("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول للمتابعة.");
       } else {
         setPhoneNumberExists(false);
       }
@@ -597,6 +601,22 @@ const RegisterForm = () => {
                 aria-hidden="true"
               />
             }
+          />
+        )}
+        {warningAlert == true && (
+          <NotificationAlert
+            isOpen={warningAlert}
+            setOpenModal={setWarningAlert}
+            title="خطأ"
+            message={warningMessage}
+            alertStyle="fixed top-5 right-2 "
+            icon={
+              <XCircleIcon
+                className="h-5 w-5 text-mediumGreyColor"
+                aria-hidden="true"
+              />
+            }
+            button={{name: "تسجيل الدخول", href: "/auth/login"}}
           />
         )}
       </div>

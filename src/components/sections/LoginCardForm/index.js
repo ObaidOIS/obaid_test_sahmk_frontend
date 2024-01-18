@@ -13,6 +13,7 @@ import MessageAlert from "@/components/widgets/MessageAlert";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 import apiCall from "@/components/common/api";
 import { getFullPhoneNumber, debounce } from "@/components/common/utils";
+import NotificationAlert from "@/components/widgets/NotificationAlert";
 
 const LoginCardForm = () => {
   
@@ -205,17 +206,20 @@ const LoginCardForm = () => {
           />
         )}
         {warningAlert == true && (
-          <MessageAlert
+          <NotificationAlert
+            isOpen={warningAlert}
+            // isOpen={true}
             setOpenModal={setWarningAlert}
             title="خطأ"
             message={warningMessage}
-            alertStyle="fixed top-5 right-2 text-yellow-800 bg-yellow-50"
+            alertStyle="fixed top-5 right-2 "
             icon={
               <XCircleIcon
-                className="h-5 w-5 text-yellowColor"
+                className="h-5 w-5 text-mediumGreyColor"
                 aria-hidden="true"
               />
             }
+            button={{name: "اذهب إلى التسجيل", href: "/auth/register"}}
           />
         )}
       </div>

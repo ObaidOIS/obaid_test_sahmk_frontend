@@ -9,6 +9,9 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  ReferenceLine, 
+  Label,
+  LabelList,
 } from "recharts";
 
 const UserProfileChart = ({ data }) => {
@@ -50,16 +53,18 @@ const UserProfileChart = ({ data }) => {
             <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={data[0].uv < data[data.length - 1].uv ? "#51C77A" : "#C15959"}  />
               <stop offset="5%" stopColor={data[0].uv < data[data.length - 1].uv ? "#51C77A" : "#C15959"}  />
-              <stop offset="90%" stopColor="#ffffff" />
+              <stop offset="5%" stopColor={data[0].uv < data[data.length - 1].uv ? "#51C77A" : "#C15959"}  />
+              <stop offset="93%" stopColor="#ffffff" />
             </linearGradient>
           </defs>
+          <Tooltip content={<CustomTooltip />} cursor={{ stroke: (data[0].uv < data[data.length - 1].uv) ? "#46a667" : "#C15959", strokeWidth: 2 }} />
           <Area
             type="monotone"
             dataKey="uv"
-            stroke={data[0].uv < data[data.length - 1].uv ? "#1D6362" :"#C15959"}
+            stroke={data[0].uv < data[data.length - 1].uv ? "#46a667" :"#C15959"}
             className=" cursor-pointer"
             activeDot={{
-              stroke: (data[0].uv < data[data.length - 1].uv) ? "#1D6362" : "#C15959",
+              stroke: (data[0].uv < data[data.length - 1].uv) ? "#46a667" : "#C15959",
               strokeWidth: 2,
               r: 8,
               zIndex: 1,
@@ -69,10 +74,37 @@ const UserProfileChart = ({ data }) => {
             strokeWidth={2}
             fill="url(#colorUv)"
           />
+          
           <CartesianGrid stroke="#ccc" strokeDasharray="" 
           // horizontal={false}
           vertical={false}
            />
+           
+          <ReferenceLine y={data.length - 1} fill="black" stroke="#8884d8" type="monotone"  strokeDasharray="3 3"/>
+          {/* Add a text label for the last value */}
+          <Label content={
+            <text
+            x={data.length - 1}
+            y={data.length - 1}
+            // y={300}
+            dy={-8}
+            textAnchor="middle"
+            fill="black"
+          >
+            {parseFloat(data[data.length - 1].uv).toFixed(2)}
+          </text>
+          } position={"right"}/>
+          {/* <text
+            x={data.length - 1}
+            y={data.length - 1}
+            // y={300}
+            dy={-8}
+            textAnchor="middle"
+            fill="black"
+          >
+            {parseFloat(data[data.length - 1].uv).toFixed(2)}
+          </text> */}
+          {/* <LabelList dataKey="name" position="top" /> */}
           <XAxis
             dataKey="name"
             tickLine={false}
@@ -82,14 +114,16 @@ const UserProfileChart = ({ data }) => {
             className="font-medium text-sm text-darkColor"
           />
           <YAxis
+            label={{ value: parseFloat(data[data.length - 1].uv).toFixed(2), angle: 0, position: 'left' }}
             orientation="right"
             axisLine={false}
-            dx={25}
+            dx={20}
             tickLine={false}
             className="text-xs text-black"
             domain={['auto', 'auto']}
+            tickCount={6}
+            tickFormatter={(num)=>parseFloat(num).toFixed(0)}
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ stroke: (data[0].uv < data[data.length - 1].uv) ? "teal" : "#C15959", strokeWidth: 2 }} />
         </AreaChart>
       </ResponsiveContainer>
     </div>
