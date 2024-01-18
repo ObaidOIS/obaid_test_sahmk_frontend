@@ -352,6 +352,13 @@ const UserProfileSection = () => {
 
   const [activeStat, setActiveStat] = useState("0");
   const [activeChartTag, setActiveChartTag] = useState("شهر");
+  const [oneDayChartTag, setOneDayChartTag] = useState(true);
+  const [fiveDayChartTag, setFiveDayChartTag] = useState(false);
+  const [oneMonthChartTag, setOneMonthChartTag] = useState(false);
+  const [sixMonthChartTag, setSixMonthChartTag] = useState(false);
+  const [oneYearChartTag, setOneYearChartTag] = useState(false);
+  const [yearsChartTag, setYearsChartTag] = useState(false);
+  const [maxChartTag, setMaxChartTag] = useState(false);
   const [tagsList, setTagsList] = useState([]);
   const [selectedSymbol, setSelectedSymbol] = useState("");
   const [chartData, setChartData] = useState([]);
@@ -484,7 +491,6 @@ const UserProfileSection = () => {
                       badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
                     />
                   </div>
-
                   <UserProfileStatistics
                     tagsList={tagsList}
                     chartTagsList={chartTagsList}

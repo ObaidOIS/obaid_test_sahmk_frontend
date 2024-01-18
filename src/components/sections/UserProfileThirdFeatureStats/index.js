@@ -1,9 +1,9 @@
 import MainBadge from "@/components/widgets/MainBadge";
+import SimpleLineChart from "@/components/widgets/SimpleLineChart";
+import Stats from "@/components/widgets/Stats";
 import React from "react";
-import UserProfileStats from "../UserProfileStats";
-import UserProfileChart from "../UserProfileChart";
 
-const UserProfileStatistics = ({tagsList, chartTagsList, chartData, setSelectedSymbol, setActiveStat, activeStat, selectedSymbol, activeChartTag, setActiveChartTag, handleTagClick }) => {
+const UserProfileThirdFeatureStats = ({tagsList, chartTagsList, chartData, setSelectedSymbol, setActiveStat, activeStat, selectedSymbol, activeChartTag, setActiveChartTag, handleTagClick}) => {
   return (
     <div>
       <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
@@ -35,7 +35,7 @@ const UserProfileStatistics = ({tagsList, chartTagsList, chartData, setSelectedS
           return (
             <div key={index}>
               {activeStat == index ? (
-                <UserProfileStats stats={item.eod_data.eod_data_list} />
+                <Stats stats={item.eod_data.eod_data_list} />
               ) : (
                 ""
               )}
@@ -78,13 +78,13 @@ const UserProfileStatistics = ({tagsList, chartTagsList, chartData, setSelectedS
           </div>
           {chartData && chartData.length > 0 && (
             <div>
-              <UserProfileChart data={chartData} />
+              <SimpleLineChart data={chartData} />
             </div>
           )}
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default UserProfileStatistics;
+export default UserProfileThirdFeatureStats

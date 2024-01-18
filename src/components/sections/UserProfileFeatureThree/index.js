@@ -4,7 +4,7 @@ import SimpleLineChart from "@/components/widgets/SimpleLineChart";
 import Stats from "@/components/widgets/Stats";
 import React, { useState, useEffect } from "react";
 import apiCall from "@/components/common/api";
-import UserProfileStatistics from "../UserProfileStatistics";
+import UserProfileThirdFeatureStats from "../UserProfileThirdFeatureStats";
 
 const UserProfileFeatureThree = () => {
   const [activeStat, setActiveStat] = useState("0");
@@ -95,7 +95,7 @@ const UserProfileFeatureThree = () => {
           تقرير اسبوع : 12/01/2024
         </p>
       </div>
-      <UserProfileStatistics
+      <UserProfileThirdFeatureStats
         tagsList={tagsList}
         chartTagsList={chartTagsList}
         chartData={chartData}
