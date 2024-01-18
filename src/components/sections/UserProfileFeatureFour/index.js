@@ -74,17 +74,15 @@ const UserProfileFeatureFour = ({
   const [isUpgraded, setIsUpgraded] = useState(null);
   const [upgradButton, setUpgradButton] = useState(false);
 
-  
   // useEffect(() => {
   //   setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
   //   setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
   // }, [localStorage])
-  
+
   // useEffect(() => {
   //   setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
   //   setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
   // }, [localStorage, currentPlan, currentPlanDuration])
-  
 
   const pricingRadio = [
     {
@@ -350,45 +348,23 @@ const UserProfileFeatureFour = ({
     // Update the states whenever the original subscription details change
     setSelectedOption(
       subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-        subscriptionTypeMap.free
+      subscriptionTypeMap.free
     );
     setFrequency(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-        frequencies[0]
+      frequencies[0]
     );
 
     setCurrentPlan(
       subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-        subscriptionTypeMap.free
+      subscriptionTypeMap.free
     );
 
     setCurrentPlanDuration(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-        frequencies[0]
+      frequencies[0]
     );
-
   }, [originalSubscriptionDetails]);
-
-    // console.log((((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
-    //   subscriptionTypeMap[
-    //     originalSubscriptionDetails?.subscriptionType
-    //   ])) ,"hello type"); 
-    //   console.log((((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
-    //     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value
-    //     )) ,"hello duration")
-
-    // console.log((((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
-    // subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value
-    // )) || (((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
-    // subscriptionTypeMap[
-    //   originalSubscriptionDetails?.subscriptionType
-    // ])), "hello all");
-
-
-    // console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "hello")
-
-
-
 
   return (
     <>
@@ -468,28 +444,73 @@ const UserProfileFeatureFour = ({
             content={
               <div>
                 <AvatarWithText
-                  title={currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption}
-                  desc={` ${ 
-                    (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "الباقة المتقدمة"
-                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "باقة بريميوم"
-                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency.value]} / ${currentPlanDuration ? currentPlanDuration?.label : frequency?.label} `}
+                  title={
+                    currentPlan
+                      ? currentPlan.title == undefined
+                        ? currentPlan
+                        : currentPlan.title
+                      : selectedOption
+                  }
+                  desc={` ${(currentPlan
+                      ? currentPlan.title == undefined
+                        ? currentPlan
+                        : currentPlan.title
+                      : selectedOption) == "الباقة المتقدمة"
+                      ? pricing.pricing.companies[
+                      currentPlanDuration
+                        ? currentPlanDuration?.value
+                        : frequency?.value
+                      ]
+                      : (currentPlan
+                        ? currentPlan.title == undefined
+                          ? currentPlan
+                          : currentPlan.title
+                        : selectedOption) == "باقة بريميوم"
+                        ? pricing.pricing.premium[
+                        currentPlanDuration
+                          ? currentPlanDuration?.value
+                          : frequency?.value
+                        ]
+                        : pricing.pricing.free[
+                        currentPlanDuration
+                          ? currentPlanDuration?.value
+                          : frequency.value
+                        ]
+                    } / ${currentPlanDuration
+                      ? currentPlanDuration?.label
+                      : frequency?.label
+                    } `}
                   descStyle={
-                    (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "الباقة المتقدمة"
-                        ? "!text-yellowColor"
-                        : (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "باقة بريميوم"
+                    (currentPlan
+                      ? currentPlan.title == undefined
+                        ? currentPlan
+                        : currentPlan.title
+                      : selectedOption) == "الباقة المتقدمة"
+                      ? "!text-yellowColor"
+                      : (currentPlan
+                        ? currentPlan.title == undefined
+                          ? currentPlan
+                          : currentPlan.title
+                        : selectedOption) == "باقة بريميوم"
                         ? "!text-purpleColor"
                         : "!text-blueColor"
                   }
                   image={
                     <Image
                       src={
-                        (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "الباقة المتقدمة"
+                        (currentPlan
+                          ? currentPlan.title == undefined
+                            ? currentPlan
+                            : currentPlan.title
+                          : selectedOption) == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
-                          : (currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) == "باقة بريميوم"
-                          ? "/assets/icons/purple-check-icon.svg"
-                          : "/assets/icons/blue-check.svg"
+                          : (currentPlan
+                            ? currentPlan.title == undefined
+                              ? currentPlan
+                              : currentPlan.title
+                            : selectedOption) == "باقة بريميوم"
+                            ? "/assets/icons/purple-check-icon.svg"
+                            : "/assets/icons/blue-check.svg"
                       }
                       height={30}
                       width={30}
@@ -545,30 +566,40 @@ const UserProfileFeatureFour = ({
                     subscriptionTypeMap.free) || ((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
                     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value || frequencies[0].value
                     )) && ( */}
-                    {((currentPlan !== "الباقة المجانية"  && (currentPlan.title && currentPlan.title) !== "الباقة المجانية") && (((currentPlanDuration ? currentPlanDuration?.value : frequency?.value) !=
-                    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value
-                    )) || (((currentPlan ? currentPlan.title == undefined ? currentPlan : currentPlan.title : selectedOption) !=
-                    subscriptionTypeMap[
-                      originalSubscriptionDetails?.subscriptionType
-                    ]))) && (
-                  <div
-                    className="mt-3"
-                    onClick={() => {
-                      handlePageChange({
-                        name: "payment",
-                        value: "باقتي وحسابي",
-                      }); 
-                      // setSelectedOption();
-                      // handlePlanChange(selectedOption, frequency);
-
-                    }}
-                  >
-                    <PrimaryButton
-                      button="متابعة للدفع"
-                      buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
-                    />
-                  </div>
-                )}
+                {((currentPlan !== "الباقة المجانية" &&
+                  (currentPlan.title && currentPlan.title) !==
+                  "الباقة المجانية" &&
+                  (currentPlanDuration
+                    ? currentPlanDuration?.value
+                    : frequency?.value) !=
+                  subscriptionPeriodMap[
+                    originalSubscriptionDetails?.subscriptionPeriod
+                  ].value) ||
+                  (currentPlan
+                    ? currentPlan.title == undefined
+                      ? currentPlan
+                      : currentPlan.title
+                    : selectedOption) !=
+                  subscriptionTypeMap[
+                  originalSubscriptionDetails?.subscriptionType
+                  ]) && (
+                    <div
+                      className="mt-3"
+                      onClick={() => {
+                        handlePageChange({
+                          name: "payment",
+                          value: "باقتي وحسابي",
+                        });
+                        // setSelectedOption();
+                        // handlePlanChange(selectedOption, frequency);
+                      }}
+                    >
+                      <PrimaryButton
+                        button="متابعة للدفع"
+                        buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                      />
+                    </div>
+                  )}
               </div>
             }
           />

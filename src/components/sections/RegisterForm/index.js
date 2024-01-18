@@ -57,7 +57,7 @@ const RegisterForm = () => {
   const [isAllFeaturesModalOpen, setIsAllFeaturesModalOpen] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
-  
+
   const [warningAlert, setWarningAlert] = useState(false);
   const [warningMessage, setWarningMessage] = useState("warning");
 
@@ -124,11 +124,11 @@ const RegisterForm = () => {
   const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
   const [frequency, setFrequency] = useState(frequencies[0]);
 
-  
-  const [currentPlan, setCurrentPlan] = useState("الباقة المجانية")
+  const [currentPlan, setCurrentPlan] = useState("الباقة المجانية");
 
-
-  const [currentPlanDuration, setCurrentPlanDuration] = useState(frequencies[0]);
+  const [currentPlanDuration, setCurrentPlanDuration] = useState(
+    frequencies[0]
+  );
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -382,7 +382,6 @@ const RegisterForm = () => {
   // };
 
   const validateForm = () => {
-    
     // Validate each field and update the overall form validity
     setIsFormValid(
       isValidFirstName(userData.firstName) &&
@@ -438,7 +437,9 @@ const RegisterForm = () => {
       if (response && response.result && response.result.exists) {
         setPhoneNumberExists(true);
         setWarningAlert(true);
-        setWarningMessage("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول للمتابعة.");
+        setWarningMessage(
+          "هذا الرقم موجود بالفعل، يرجى تسجيل الدخول للمتابعة."
+        );
       } else {
         setPhoneNumberExists(false);
       }
@@ -464,19 +465,14 @@ const RegisterForm = () => {
   //   }
   // }, [phoneNumberExists]);
 
-  console.log(phoneNumberExists, "hello");
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     checkPhoneNumber();
-    if(phoneNumberExists == false){
-      console.log(phoneNumberExists, "hello here");
+    if (phoneNumberExists == false) {
       handleOpenOtpModal();
     }
-  }
+  };
 
-  
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
     const circularReferenceReplacer = () => {
@@ -506,7 +502,6 @@ const RegisterForm = () => {
     setCurrentPlan(data);
   };
 
-  
   const handleUpgardPlanDuration = (data) => {
     // Create a replacer function for handling circular references
     const circularReferenceReplacer = () => {
@@ -538,9 +533,7 @@ const RegisterForm = () => {
     // setFrequency(data);
   };
 
-  
   useEffect(() => {
-    
     // Create a replacer function for handling circular references
     const circularReferenceReplacer = () => {
       // Create a WeakSet to keep track of seen objects
@@ -563,14 +556,16 @@ const RegisterForm = () => {
     };
 
     // Use JSON.stringify with the circularReferenceReplacer
-    const serializedData = JSON.stringify(frequencies[0], circularReferenceReplacer());
+    const serializedData = JSON.stringify(
+      frequencies[0],
+      circularReferenceReplacer()
+    );
 
     // Save the serialized data to localStorage
     localStorage.setItem("currentPlanDurationRegister", serializedData);
     // Update the states whenever the original subscription details change
     setCurrentPlanDuration(frequencies[0]);
   }, []);
-
 
   return (
     <>
@@ -616,7 +611,7 @@ const RegisterForm = () => {
                 aria-hidden="true"
               />
             }
-            button={{name: "تسجيل الدخول", href: "/auth/login"}}
+            button={{ name: "تسجيل الدخول", href: "/auth/login" }}
           />
         )}
       </div>
@@ -834,7 +829,7 @@ const RegisterForm = () => {
             <PrimaryButton
               onClick={(e) => {
                 validateForm();
-                handleSubmit(e)
+                handleSubmit(e);
               }}
               button="تسجيل"
               buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"

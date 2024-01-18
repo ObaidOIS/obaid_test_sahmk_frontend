@@ -19,23 +19,26 @@ const OrderSummaryForm = (
   subscriptionPeriodMap,
   subscriptionPeriod,
   frequencies,
-  currentDuration,
+  currentDuration
   // currentPlanDuration,
   // setCurrentPlanDuration,
 ) => {
   const pathname = usePathname();
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
-  const [origin, setOrigin] = useState("https://sahmk-huzaifazahoor.vercel.app");
+  const [origin, setOrigin] = useState(
+    "https://sahmk-huzaifazahoor.vercel.app"
+  );
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
-  const [currentPlanDuration, setCurrentPlanDuration] = useState(currentDuration);
+  const [currentPlanDuration, setCurrentPlanDuration] =
+    useState(currentDuration);
   //   subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
   //     frequencies[0]);
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
-    email: "", 
+    email: "",
     countryCode: "",
     subscriptionType: "",
     subscriptionPeriod: "",
@@ -49,8 +52,6 @@ const OrderSummaryForm = (
       setOrigin(window.location.origin);
     }
   }, []);
-
-  console.log(currentPlanDuration, "hello");
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -70,7 +71,7 @@ const OrderSummaryForm = (
 
         const calculatedPrice =
           pricing["pricing"][userData.subscriptionType][
-            userData.subscriptionPeriod
+          userData.subscriptionPeriod
           ];
         if (calculatedPrice) {
           setPrice(calculatedPrice);
@@ -83,8 +84,8 @@ const OrderSummaryForm = (
 
   const navigateToAnotherPage = () => {
     setTimeout(() => {
-      router.push('/userprofile');
-    }, 3000); 
+      router.push("/userprofile");
+    }, 3000);
   };
 
   useEffect(() => {
@@ -119,19 +120,9 @@ const OrderSummaryForm = (
     }
   }, []);
 
-
   const [buttonPrice, setButtonPrice] = useState(1);
 
-
-  console.log(currentPlan.title == "الباقة المتقدمة"
-  ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-  : currentPlan.title == "باقة بريميوم"
-  ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-  : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
-
-
   // const buttonPrice = Number.isInteger(20);
-  console.log(buttonPrice,"hello hi");
   const initMoyasar = (p) => {
     window.Moyasar.init({
       element: ".mysr-form",
@@ -173,20 +164,34 @@ const OrderSummaryForm = (
   };
 
   useEffect(() => {
-    console.log(pathname);
-    if(pathname == "/auth/order"){
-    setCurrentPlan(JSON.parse(localStorage.getItem('currentPlanRegister')));
-    setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDurationRegister')));
-    }else{
-    setCurrentPlan(JSON.parse(localStorage.getItem('currentPlan')));
-    setCurrentPlanDuration(JSON.parse(localStorage.getItem('currentPlanDuration')));
+    if (pathname == "/auth/order") {
+      setCurrentPlan(JSON.parse(localStorage.getItem("currentPlanRegister")));
+      setCurrentPlanDuration(
+        JSON.parse(localStorage.getItem("currentPlanDurationRegister"))
+      );
+    } else {
+      setCurrentPlan(JSON.parse(localStorage.getItem("currentPlan")));
+      setCurrentPlanDuration(
+        JSON.parse(localStorage.getItem("currentPlanDuration"))
+      );
     }
-  }, [pathname])
+  }, [pathname]);
 
-  
   useEffect(() => {
-    setButtonPrice(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
-  }, [buttonPrice])
+    setButtonPrice(
+      currentPlan?.title == "الباقة المتقدمة"
+        ? pricing.pricing.companies[
+        currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+        ]
+        : currentPlan?.title == "باقة بريميوم"
+          ? pricing.pricing.premium[
+          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+          ]
+          : pricing.pricing.free[
+          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+          ]
+    );
+  }, [buttonPrice]);
 
   useEffect(() => {
     // Include Moyasar CSS and JS
@@ -198,11 +203,48 @@ const OrderSummaryForm = (
     const script = document.createElement("script");
     script.src = "https://cdn.moyasar.com/mpf/1.12.0/moyasar.js";
     script.async = true;
-    // setButtonPrice(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
+    // setButtonPrice(currentPlan?.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan?.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
     script.onload = () => {
-      setButtonPrice(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
+      setButtonPrice(
+        currentPlan?.title == "الباقة المتقدمة"
+          ? pricing.pricing.companies[
+          currentPlanDuration
+            ? currentPlanDuration?.value
+            : frequency?.value
+          ]
+          : currentPlan?.title == "باقة بريميوم"
+            ? pricing.pricing.premium[
+            currentPlanDuration
+              ? currentPlanDuration?.value
+              : frequency?.value
+            ]
+            : pricing.pricing.free[
+            currentPlanDuration
+              ? currentPlanDuration?.value
+              : frequency?.value
+            ]
+      );
       // Initialize Moyasar once script is loaded
-      buttonPrice != 1 && initMoyasar(currentPlan.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
+      buttonPrice != 1 &&
+        initMoyasar(
+          currentPlan?.title == "الباقة المتقدمة"
+            ? pricing.pricing.companies[
+            currentPlanDuration
+              ? currentPlanDuration?.value
+              : frequency?.value
+            ]
+            : currentPlan?.title == "باقة بريميوم"
+              ? pricing.pricing.premium[
+              currentPlanDuration
+                ? currentPlanDuration?.value
+                : frequency?.value
+              ]
+              : pricing.pricing.free[
+              currentPlanDuration
+                ? currentPlanDuration?.value
+                : frequency?.value
+              ]
+        );
     };
     document.head.appendChild(script);
 
@@ -220,79 +262,79 @@ const OrderSummaryForm = (
   // });
   // }, [])
 
-console.log(currentPlanDuration, frequency?.value, "hello");
   return (
     <>
-    {currentPlan == undefined ? 
-    (<Loader />) :
-    (<>
-      {isAlertSuccessOpen ? (
-        <AlertButtonsModal
-          onClose={() => setIsAlertSuccessOpen(false)}
-          isOpen={isAlertSuccessOpen}
-          setIsOpen={setIsAlertSuccessOpen}
-          title="تم الاشتراك بنجاح"
-          buttonOne="إدارة حسابي"
-          image={
-            <Image
-              src="/assets/icons/alert-payment-success.svg"
-              height={220}
-              width={220}
-              alt="image"
-            />
-          }
-          messageTitle="تم تفعيل باقتك بنجاح 🎉"
-          messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
-          buttonTwo="ابدأ بمراسلة النظام الذكي"
-          buttonIcon={
-            <Image
-              src="/assets/icons/green-right-arrow.svg"
-              height={15}
-              width={15}
-              alt="image"
-            />
-          }
-          actionButton={true}
-          messageType="success"
-        />
+      {currentPlan == undefined ? (
+        <Loader />
       ) : (
-        ""
-      )}
-      {isAlertErrorOpen ? (
-        <AlertButtonsModal
-          onClose={() => setIsAlertErrorOpen(false)}
-          isOpen={isAlertErrorOpen}
-          setIsOpen={setIsAlertErrorOpen}
-          title="فشلت عملية الدفع!"
-          buttonOne="حاولة مرة أخرى"
-          image={
-            <Image
-              src="/assets/icons/alert-payment-error.svg"
-              height={220}
-              width={220}
-              alt="image"
+        <>
+          {isAlertSuccessOpen ? (
+            <AlertButtonsModal
+              onClose={() => setIsAlertSuccessOpen(false)}
+              isOpen={isAlertSuccessOpen}
+              setIsOpen={setIsAlertSuccessOpen}
+              title="تم الاشتراك بنجاح"
+              buttonOne="إدارة حسابي"
+              image={
+                <Image
+                  src="/assets/icons/alert-payment-success.svg"
+                  height={220}
+                  width={220}
+                  alt="image"
+                />
+              }
+              messageTitle="تم تفعيل باقتك بنجاح 🎉"
+              messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
+              buttonTwo="ابدأ بمراسلة النظام الذكي"
+              buttonIcon={
+                <Image
+                  src="/assets/icons/green-right-arrow.svg"
+                  height={15}
+                  width={15}
+                  alt="image"
+                />
+              }
+              actionButton={true}
+              messageType="success"
             />
-          }
-          messageTitle="فشلت عملية الدفع "
-          messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك"
-          actionButton={false}
-          messageType="error"
-        />
-      ) : (
-        ""
-      )}
-      <div className="mb-20 relative space-y-5">
-        <div className="bg-gray-50 border relative border-gray-300 rounded-2xl px-5 pb-5 pt-5">
-          <div>
-            <h2 className={`font-medium text-2xl px-3 mt-2`}>
-              <span>ملخص الطلب </span>
-            </h2>
-            <div className="bg-white border border-gray-300 rounded-2xl my-5">
-              <SimpleCardHeader
-                title="نوع الباقة"
-                content={
-                  <div className="flex items-center gap-4">
-                    {/* <AvatarWithText
+          ) : (
+            ""
+          )}
+          {isAlertErrorOpen ? (
+            <AlertButtonsModal
+              onClose={() => setIsAlertErrorOpen(false)}
+              isOpen={isAlertErrorOpen}
+              setIsOpen={setIsAlertErrorOpen}
+              title="فشلت عملية الدفع!"
+              buttonOne="حاولة مرة أخرى"
+              image={
+                <Image
+                  src="/assets/icons/alert-payment-error.svg"
+                  height={220}
+                  width={220}
+                  alt="image"
+                />
+              }
+              messageTitle="فشلت عملية الدفع "
+              messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك"
+              actionButton={false}
+              messageType="error"
+            />
+          ) : (
+            ""
+          )}
+          <div className="mb-20 relative space-y-5">
+            <div className="bg-gray-50 border relative border-gray-300 rounded-2xl px-5 pb-5 pt-5">
+              <div>
+                <h2 className={`font-medium text-2xl px-3 mt-2`}>
+                  <span>ملخص الطلب </span>
+                </h2>
+                <div className="bg-white border border-gray-300 rounded-2xl my-5">
+                  <SimpleCardHeader
+                    title="نوع الباقة"
+                    content={
+                      <div className="flex items-center gap-4">
+                        {/* <AvatarWithText
                       title="باقة بريميوم"
                       desc="199 ريال/سنة"
                       descStyle="text-purpleColor"
@@ -305,96 +347,151 @@ console.log(currentPlanDuration, frequency?.value, "hello");
                         />
                       }
                     /> */}
-                    {currentPlanDuration == undefined ? "" :
-                    <AvatarWithText
-                  title={currentPlan ? currentPlan.title ? currentPlan.title : currentPlan : ""}
-                  desc={` ${ 
-                    currentPlan.title == "الباقة المتقدمة"
-                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration.value : frequency?.value]
-                        : currentPlan.title == "باقة بريميوم"
-                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration.value : frequency?.value]
-                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration.value : frequency?.value]} / ${currentPlanDuration ? currentPlanDuration?.label : frequency?.label} `}
-                  descStyle={
-                    currentPlan.title == "الباقة المتقدمة"
-                        ? "!text-yellowColor"
-                        : currentPlan.title == "باقة بريميوم"
-                        ? "!text-purpleColor"
-                        : "!text-blueColor"
-                  }
-                  image={
-                    <Image
-                      src={
-                        currentPlan.title == "الباقة المتقدمة"
-                          ? "/assets/icons/yellow-check.svg"
-                          : currentPlan.title == "باقة بريميوم"
-                          ? "/assets/icons/purple-check-icon.svg"
-                          : "/assets/icons/blue-check.svg"
-                      }
-                      height={30}
-                      width={30}
-                      alt="image"
-                    />
-                  }
-                />}
-                  </div>
-                }
-              />
-            </div>
-            <div className="bg-white border border-gray-300 rounded-2xl my-5">
-              <SimpleCardHeader
-                title="ملخص الدفع"
-                content={
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-base font-semibold leading-6 text-gray-900">
-                      تكلفة الباقة
+                        {currentPlanDuration == undefined ? (
+                          ""
+                        ) : (
+                          <AvatarWithText
+                            title={
+                              currentPlan
+                                ? currentPlan?.title
+                                  ? currentPlan?.title
+                                  : currentPlan
+                                : ""
+                            }
+                            desc={` ${currentPlan?.title == "الباقة المتقدمة"
+                                ? pricing.pricing.companies[
+                                currentPlanDuration
+                                  ? currentPlanDuration.value
+                                  : frequency?.value
+                                ]
+                                : currentPlan?.title == "باقة بريميوم"
+                                  ? pricing.pricing.premium[
+                                  currentPlanDuration
+                                    ? currentPlanDuration.value
+                                    : frequency?.value
+                                  ]
+                                  : pricing.pricing.free[
+                                  currentPlanDuration
+                                    ? currentPlanDuration.value
+                                    : frequency?.value
+                                  ]
+                              } / ${currentPlanDuration
+                                ? currentPlanDuration?.label
+                                : frequency?.label
+                              } `}
+                            descStyle={
+                              currentPlan?.title == "الباقة المتقدمة"
+                                ? "!text-yellowColor"
+                                : currentPlan.title == "باقة بريميوم"
+                                  ? "!text-purpleColor"
+                                  : "!text-blueColor"
+                            }
+                            image={
+                              <Image
+                                src={
+                                  currentPlan?.title == "الباقة المتقدمة"
+                                    ? "/assets/icons/yellow-check.svg"
+                                    : currentPlan?.title == "باقة بريميوم"
+                                      ? "/assets/icons/purple-check-icon.svg"
+                                      : "/assets/icons/blue-check.svg"
+                                }
+                                height={30}
+                                width={30}
+                                alt="image"
+                              />
+                            }
+                          />
+                        )}
+                      </div>
+                    }
+                  />
+                </div>
+                <div className="bg-white border border-gray-300 rounded-2xl my-5">
+                  <SimpleCardHeader
+                    title="ملخص الدفع"
+                    content={
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-base font-semibold leading-6 text-gray-900">
+                          تكلفة الباقة
+                        </h3>
+                        <h3 className="text-base font-semibold leading-6 text-gray-900">
+                          {/* {price}  */}
+                          {currentPlan?.title == "الباقة المتقدمة"
+                            ? pricing.pricing.companies[
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
+                            ]
+                            : currentPlan?.title == "باقة بريميوم"
+                              ? pricing.pricing.premium[
+                              currentPlanDuration
+                                ? currentPlanDuration?.value
+                                : frequency?.value
+                              ]
+                              : pricing.pricing.free[
+                              currentPlanDuration
+                                ? currentPlanDuration?.value
+                                : frequency?.value
+                              ]}{" "}
+                          ريال
+                        </h3>
+                      </div>
+                    }
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center font-medium text-2xl mx-5 my-6 justify-between">
+                    <h3 className="leading-6 text-gray-900">الإجمالي</h3>
+                    <h3 className="leading-6 text-gray-900">
+                      {price}
+                      {currentPlan?.title == "الباقة المتقدمة"
+                        ? pricing.pricing.companies[
+                        currentPlanDuration
+                          ? currentPlanDuration?.value
+                          : frequency?.value
+                        ]
+                        : currentPlan?.title == "باقة بريميوم"
+                          ? pricing.pricing.premium[
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency?.value
+                          ]
+                          : pricing.pricing.free[
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency?.value
+                          ]}
+                      ريال
                     </h3>
-                    <h3 className="text-base font-semibold leading-6 text-gray-900">
-                      {/* {price}  */}
-                      { currentPlan.title == "الباقة المتقدمة"
-                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : currentPlan.title == "باقة بريميوم"
-                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]} ريال
-                    </h3>
                   </div>
-                }
-              />
-            </div>
-            <div>
-              <div className="flex items-center font-medium text-2xl mx-5 my-6 justify-between">
-                <h3 className="leading-6 text-gray-900">الإجمالي</h3>
-                <h3 className="leading-6 text-gray-900">{price} 
-                {currentPlan.title == "الباقة المتقدمة"
-                        ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : currentPlan.title == "باقة بريميوم"
-                        ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]
-                        : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]}
-                ريال</h3>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 ">
-          <div>
-            <h2 className={`font-medium text-2xl px-3 mt-6`}>
-              <span>الدفع</span>
-            </h2>
-            <div className="mt-8">
-              <div id="payment" className="grid w-full border rounded-2xl border-gray-300 bg-white sm:px-8 pt-8 pb-10">
-                <div className="mysr-form" id="mysr-form"></div>
-              </div> 
+            <div className="bg-gray-50 border relative border-gray-300 sm:rounded-2xl px-5 pb-20 md:pb-5 ">
+              <div>
+                <h2 className={`font-medium text-2xl px-3 mt-6`}>
+                  <span>الدفع</span>
+                </h2>
+                <div className="mt-8">
+                  <div
+                    id="payment"
+                    className="grid w-full border rounded-2xl border-gray-300 bg-white sm:px-8 pt-8 pb-10"
+                  >
+                    <div className="mysr-form" id="mysr-form"></div>
+                  </div>
+                </div>
+              </div>
+              <Image
+                src="/assets/images/gradient-bottom.svg"
+                width={170}
+                height={170}
+                className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
+                alt="img"
+              />
             </div>
           </div>
-          <Image
-            src="/assets/images/gradient-bottom.svg"
-            width={170}
-            height={170}
-            className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
-            alt="img"
-          />
-        </div>
-      </div>
-    </>)}
+        </>
+      )}
     </>
   );
 };

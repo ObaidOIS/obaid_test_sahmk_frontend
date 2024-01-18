@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
 import OrderSummaryForm from "@/components/sections/OrderSummaryForm";
