@@ -71,7 +71,7 @@ const OrderSummaryForm = (
 
         const calculatedPrice =
           pricing["pricing"][userData.subscriptionType][
-          userData.subscriptionPeriod
+            userData.subscriptionPeriod
           ];
         if (calculatedPrice) {
           setPrice(calculatedPrice);
@@ -181,14 +181,14 @@ const OrderSummaryForm = (
     setButtonPrice(
       currentPlan?.title == "الباقة المتقدمة"
         ? pricing.pricing.companies[
-        currentPlanDuration ? currentPlanDuration?.value : frequency?.value
-        ]
-        : currentPlan?.title == "باقة بريميوم"
-          ? pricing.pricing.premium[
-          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
-          : pricing.pricing.free[
-          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+        : currentPlan?.title == "باقة بريميوم"
+        ? pricing.pricing.premium[
+            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+          ]
+        : pricing.pricing.free[
+            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
     );
   }, [buttonPrice]);
@@ -200,60 +200,88 @@ const OrderSummaryForm = (
     link.href = "https://cdn.moyasar.com/mpf/1.12.0/moyasar.css";
     document.head.appendChild(link);
 
-    const script = document.createElement("script");
-    script.src = "https://cdn.moyasar.com/mpf/1.12.0/moyasar.js";
-    script.async = true;
-    // setButtonPrice(currentPlan?.title == "الباقة المتقدمة" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : currentPlan?.title == "باقة بريميوم" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration?.value : frequency?.value] : pricing.pricing.free[currentPlanDuration ? currentPlanDuration?.value : frequency?.value]);
-    script.onload = () => {
-      setButtonPrice(
-        currentPlan?.title == "الباقة المتقدمة"
-          ? pricing.pricing.companies[
-          currentPlanDuration
-            ? currentPlanDuration?.value
-            : frequency?.value
-          ]
-          : currentPlan?.title == "باقة بريميوم"
+    // Load Moyasar scripts
+    const scriptUrls = [
+      "https://polyfill.io/v3/polyfill.min.js?features=fetch",
+      "https://cdn.moyasar.com/mpf/1.12.0/moyasar.js",
+    ];
+
+    // Create an array to store dynamically created script elements
+    const scriptElements = [];
+
+    const checkAllScriptsLoaded = () => {
+      // Check if all scripts have loaded
+      if (scriptElements.every((script) => script.loaded)) {
+        // All scripts loaded, now set the button price
+        setButtonPrice(
+          currentPlan?.title == "الباقة المتقدمة"
+            ? pricing.pricing.companies[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+            : currentPlan?.title == "باقة بريميوم"
             ? pricing.pricing.premium[
-            currentPlanDuration
-              ? currentPlanDuration?.value
-              : frequency?.value
-            ]
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
             : pricing.pricing.free[
-            currentPlanDuration
-              ? currentPlanDuration?.value
-              : frequency?.value
-            ]
-      );
-      // Initialize Moyasar once script is loaded
-      buttonPrice != 1 &&
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+        );
+        // Initialize Moyasar after setting the button price
         initMoyasar(
           currentPlan?.title == "الباقة المتقدمة"
             ? pricing.pricing.companies[
-            currentPlanDuration
-              ? currentPlanDuration?.value
-              : frequency?.value
-            ]
-            : currentPlan?.title == "باقة بريميوم"
-              ? pricing.pricing.premium[
-              currentPlanDuration
-                ? currentPlanDuration?.value
-                : frequency?.value
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
               ]
-              : pricing.pricing.free[
-              currentPlanDuration
-                ? currentPlanDuration?.value
-                : frequency?.value
+            : currentPlan?.title == "باقة بريميوم"
+            ? pricing.pricing.premium[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+            : pricing.pricing.free[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
               ]
         );
+      }
     };
-    document.head.appendChild(script);
+
+    scriptUrls.forEach((url, index) => {
+      const script = document.createElement("script");
+      script.src = url;
+      script.async = true;
+      script.loaded = false;
+
+      script.onload = () => {
+        script.loaded = true;
+        checkAllScriptsLoaded();
+      };
+
+      document.head.appendChild(script);
+
+      // Store the script element in the array
+      scriptElements.push(script);
+    });
 
     // Cleanup function to remove script and style
     return () => {
-      document.head.removeChild(script);
+      // Remove each dynamically added script element
+      scriptElements.forEach((script) => {
+        document.head.removeChild(script);
+      });
       document.head.removeChild(link);
     };
-  }, [buttonPrice]); // Empty dependency array means this runs once on mount
+  }, [buttonPrice]);
+  // Empty dependency array means this runs once on mount
 
   // useEffect(() => {
   //   window.addEventListener("beforeunload", function (e) {
@@ -358,33 +386,35 @@ const OrderSummaryForm = (
                                   : currentPlan
                                 : ""
                             }
-                            desc={` ${currentPlan?.title == "الباقة المتقدمة"
+                            desc={` ${
+                              currentPlan?.title == "الباقة المتقدمة"
                                 ? pricing.pricing.companies[
-                                currentPlanDuration
-                                  ? currentPlanDuration.value
-                                  : frequency?.value
-                                ]
+                                    currentPlanDuration
+                                      ? currentPlanDuration.value
+                                      : frequency?.value
+                                  ]
                                 : currentPlan?.title == "باقة بريميوم"
-                                  ? pricing.pricing.premium[
-                                  currentPlanDuration
-                                    ? currentPlanDuration.value
-                                    : frequency?.value
+                                ? pricing.pricing.premium[
+                                    currentPlanDuration
+                                      ? currentPlanDuration.value
+                                      : frequency?.value
                                   ]
-                                  : pricing.pricing.free[
-                                  currentPlanDuration
-                                    ? currentPlanDuration.value
-                                    : frequency?.value
+                                : pricing.pricing.free[
+                                    currentPlanDuration
+                                      ? currentPlanDuration.value
+                                      : frequency?.value
                                   ]
-                              } / ${currentPlanDuration
+                            } / ${
+                              currentPlanDuration
                                 ? currentPlanDuration?.label
                                 : frequency?.label
-                              } `}
+                            } `}
                             descStyle={
                               currentPlan?.title == "الباقة المتقدمة"
                                 ? "!text-yellowColor"
                                 : currentPlan.title == "باقة بريميوم"
-                                  ? "!text-purpleColor"
-                                  : "!text-blueColor"
+                                ? "!text-purpleColor"
+                                : "!text-blueColor"
                             }
                             image={
                               <Image
@@ -392,8 +422,8 @@ const OrderSummaryForm = (
                                   currentPlan?.title == "الباقة المتقدمة"
                                     ? "/assets/icons/yellow-check.svg"
                                     : currentPlan?.title == "باقة بريميوم"
-                                      ? "/assets/icons/purple-check-icon.svg"
-                                      : "/assets/icons/blue-check.svg"
+                                    ? "/assets/icons/purple-check-icon.svg"
+                                    : "/assets/icons/blue-check.svg"
                                 }
                                 height={30}
                                 width={30}
@@ -418,20 +448,20 @@ const OrderSummaryForm = (
                           {/* {price}  */}
                           {currentPlan?.title == "الباقة المتقدمة"
                             ? pricing.pricing.companies[
-                            currentPlanDuration
-                              ? currentPlanDuration?.value
-                              : frequency?.value
-                            ]
-                            : currentPlan?.title == "باقة بريميوم"
-                              ? pricing.pricing.premium[
-                              currentPlanDuration
-                                ? currentPlanDuration?.value
-                                : frequency?.value
+                                currentPlanDuration
+                                  ? currentPlanDuration?.value
+                                  : frequency?.value
                               ]
-                              : pricing.pricing.free[
-                              currentPlanDuration
-                                ? currentPlanDuration?.value
-                                : frequency?.value
+                            : currentPlan?.title == "باقة بريميوم"
+                            ? pricing.pricing.premium[
+                                currentPlanDuration
+                                  ? currentPlanDuration?.value
+                                  : frequency?.value
+                              ]
+                            : pricing.pricing.free[
+                                currentPlanDuration
+                                  ? currentPlanDuration?.value
+                                  : frequency?.value
                               ]}{" "}
                           ريال
                         </h3>
@@ -446,20 +476,20 @@ const OrderSummaryForm = (
                       {price}
                       {currentPlan?.title == "الباقة المتقدمة"
                         ? pricing.pricing.companies[
-                        currentPlanDuration
-                          ? currentPlanDuration?.value
-                          : frequency?.value
-                        ]
-                        : currentPlan?.title == "باقة بريميوم"
-                          ? pricing.pricing.premium[
-                          currentPlanDuration
-                            ? currentPlanDuration?.value
-                            : frequency?.value
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
                           ]
-                          : pricing.pricing.free[
-                          currentPlanDuration
-                            ? currentPlanDuration?.value
-                            : frequency?.value
+                        : currentPlan?.title == "باقة بريميوم"
+                        ? pricing.pricing.premium[
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
+                          ]
+                        : pricing.pricing.free[
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
                           ]}
                       ريال
                     </h3>
@@ -477,7 +507,7 @@ const OrderSummaryForm = (
                     id="payment"
                     className="grid w-full border rounded-2xl border-gray-300 bg-white sm:px-8 pt-8 pb-10"
                   >
-                    <div className="mysr-form" id="mysr-form"></div>
+                    <div className="mysr-form"></div>
                   </div>
                 </div>
               </div>
