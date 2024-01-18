@@ -60,19 +60,18 @@ const OtpModal = ({
         action: "send",
         number: phoneNumber, // assuming phoneNumber is the key in userData
       };
-      const response = await apiCall(
-        "/auth/otp/",
-        "POST",
-        data,
-        previousPage
-      );
+      const response = await apiCall("/auth/otp/", "POST", data, previousPage);
 
       setOtpId(response.result.id);
       // setErrorAlert(true);
       // setErrorMessage("phone no correct karo");
       // onClose();
       setSuccessAlert(true);
-      setSuccessMessage(resend !== undefined && resend == true ? "تمت إعادة إرسال الرمز إلى هاتفك المحمول بنجاح" : "تم ارسال الرمز إلى جوالك بنجاح");
+      setSuccessMessage(
+        resend !== undefined && resend == true
+          ? "تمت إعادة إرسال الرمز إلى هاتفك المحمول بنجاح"
+          : "تم ارسال الرمز إلى جوالك بنجاح"
+      );
     }
   };
 
@@ -88,27 +87,22 @@ const OtpModal = ({
   };
 
   const handleInputChange = (value, index) => {
-
     // Update the corresponding OTP digit
     let newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    
-  if (value === "") {
-    // If the first digit is removed, focus on the same input
-    document.getElementById(`code-${index - 1}`)?.focus();
-  }
-
-    console.log(index, value, "hello");
-    if (index == 3 && value !== "") {
-    // if (newOtp.length == 4 && value !== "") {
-      // const code = (otp + value).replace(/,/g, '');
-      const code = newOtp.join('');
-      console.log(code, "hello")
-      handleSubmit(code);
+    if (value === "") {
+      // If the first digit is removed, focus on the same input
+      document.getElementById(`code-${index - 1}`)?.focus();
     }
 
+    if (index == 3 && value !== "") {
+      // if (newOtp.length == 4 && value !== "") {
+      // const code = (otp + value).replace(/,/g, '');
+      const code = newOtp.join("");
+      handleSubmit(code);
+    }
   };
 
   const resendText = ` ${timer.minutes()}:${timer.seconds()}`;
@@ -138,8 +132,6 @@ const OtpModal = ({
     // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
 
-    // console.log("im here too" ,otpId, enteredOTP, value, otp.join(""), "hello")
-
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
       const otpPayload = {
@@ -159,36 +151,40 @@ const OtpModal = ({
         previousPage
       );
 
-      console.log(otpResponse, "hello");
-
-      if(otpResponse.error){
+      if (otpResponse.error) {
         setErrorAlert(true);
         setErrorMessage("رمز OTP الذي أدخلته غير صحيح");
-      }
-        else{
-      if (otpResponse.result.access_token && otpResponse.result.refresh_token) {
-        // Store tokens in localStorage
-        localStorage.setItem("accessToken", otpResponse.result.access_token);
-        localStorage.setItem("refreshToken", otpResponse.result.refresh_token);
+      } else {
+        if (
+          otpResponse.result.access_token &&
+          otpResponse.result.refresh_token
+        ) {
+          // Store tokens in localStorage
+          localStorage.setItem("accessToken", otpResponse.result.access_token);
+          localStorage.setItem(
+            "refreshToken",
+            otpResponse.result.refresh_token
+          );
 
-        // Redirect based on the previousPage
-        if (previousPage === "signup") {
-          (currentPlan  == "الباقة المجانية"  || (currentPlan.title ? currentPlan.title : selectedOption) == "الباقة المجانية") ?
-          router.push("/userprofile") :
-          router.push("/auth/order");
-        } else if (previousPage === "signin") {
-          router.push("/userprofile");
-          if (localStorage.getItem('page')) { localStorage.removeItem('page') }
+          // Redirect based on the previousPage
+          if (previousPage === "signup") {
+            currentPlan == "الباقة المجانية" ||
+              (currentPlan.title ? currentPlan.title : selectedOption) ==
+              "الباقة المجانية"
+              ? router.push("/userprofile")
+              : router.push("/auth/order");
+          } else if (previousPage === "signin") {
+            router.push("/userprofile");
+            if (localStorage.getItem("page")) {
+              localStorage.removeItem("page");
+            }
+          }
         }
       }
     }
-    }
   };
 
-  console.log(currentPlan, "hello here")
-
   const handleKeyUp = (e, prevId, nextId, index) => {
-    console.log(prevId, "hello");
     // Handle backspace
     if ((e.code === "Backspace" || e.keyCode === 46) && index > 0) {
       // document.getElementById(prevId)?.setAttribute("id", `code-${index - 1}`);
@@ -196,7 +192,7 @@ const OtpModal = ({
       handleInputChange("", index);
       return;
     }
-  }
+  };
 
   return (
     <div>
@@ -228,14 +224,14 @@ const OtpModal = ({
             id={`code-${index}`}
             buttonStyle="text-center"
             inputmode="numeric"
-            handleKeyUp={(e)=>{
-              console.log(e.keyCode, "hello"); 
+            handleKeyUp={(e) => {
               handleKeyUp(
-                  e,
+                e,
                 `code-${index - 1}`, // Previous ID
-                `code-${index + 1}`, // Next ID 
+                `code-${index + 1}`, // Next ID
                 index
-              )}}
+              );
+            }}
           />
         ))}
       </div>

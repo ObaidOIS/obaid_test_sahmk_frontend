@@ -18,7 +18,7 @@ import { extractCountryCodeFromPhoneNumber } from "@/components/common/utils";
 import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -102,29 +102,32 @@ const UserProfileSection = () => {
   // }
   // }, [storedPage]);
 
-
   useEffect(() => {
-    handlePageChange(page.name == "payment" ? { name: "my-account", value: "باقتي وحسابي" } : {
-      name: "userprofile",
-      value: "الخدمات الرئىيسية",
-    });
+    handlePageChange(
+      page.name == "payment"
+        ? { name: "my-account", value: "باقتي وحسابي" }
+        : {
+          name: "userprofile",
+          value: "الخدمات الرئىيسية",
+        }
+    );
     addEventListener("popstate", () => {
-    const userprofilePage = page.name == "payment" ? { name: "my-account", value: "باقتي وحسابي" } : {
-      name: "userprofile",
-      value: "الخدمات الرئىيسية",
-    }
-  const cleanPage = cleanCircularReferences(userprofilePage);
-  const serializedPage = JSON.stringify(cleanPage);
+      const userprofilePage =
+        page.name == "payment"
+          ? { name: "my-account", value: "باقتي وحسابي" }
+          : {
+            name: "userprofile",
+            value: "الخدمات الرئىيسية",
+          };
+      const cleanPage = cleanCircularReferences(userprofilePage);
+      const serializedPage = JSON.stringify(cleanPage);
 
-  
-  if(pathname === "/userprofile"){
-    router.push("/userprofile");
-     localStorage.setItem("page", serializedPage);
-  }
-  });
-    
+      if (pathname === "/userprofile") {
+        router.push("/userprofile");
+        localStorage.setItem("page", serializedPage);
+      }
+    });
   }, [pathname]);
-
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
@@ -260,24 +263,22 @@ const UserProfileSection = () => {
   // Initialize states with the original subscription details using mapping
   const [selectedOption, setSelectedOption] = useState(
     subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-      subscriptionTypeMap.free
+    subscriptionTypeMap.free
   );
   const [frequency, setFrequency] = useState(
     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]
+    frequencies[0]
   );
-  
+
   const [currentPlan, setCurrentPlan] = useState(
     subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-    subscriptionTypeMap.free)
-
+    subscriptionTypeMap.free
+  );
 
   const [currentPlanDuration, setCurrentPlanDuration] = useState(
     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]
+    frequencies[0]
   );
-// console.log(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-//   frequencies[0], "hello")
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -308,7 +309,6 @@ const UserProfileSection = () => {
     setCurrentPlan(data);
   };
 
-  
   const handleUpgardPlanDuration = (data) => {
     // Create a replacer function for handling circular references
     const circularReferenceReplacer = () => {
@@ -340,15 +340,13 @@ const UserProfileSection = () => {
     // setFrequency(data);
   };
 
-  console.log(
-    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0], "hello");
   useEffect(() => {
-    handleUpgardPlanDuration(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]);
+    handleUpgardPlanDuration(
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]
+    );
     handleUpgradPlan(currentPlan);
-  }, [originalSubscriptionDetails])
-
+  }, [originalSubscriptionDetails]);
 
   const [activeStat, setActiveStat] = useState("0");
   const [activeChartTag, setActiveChartTag] = useState("شهر");
@@ -573,7 +571,11 @@ const UserProfileSection = () => {
                   subscriptionPeriodMap={subscriptionPeriodMap}
                   handleUpgradPlan={handleUpgradPlan}
                   // currentDuration={currentPlanDuration}
-                  currentDuration={subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] || frequencies[0]}
+                  currentDuration={
+                    subscriptionPeriodMap[
+                    originalSubscriptionDetails?.subscriptionPeriod
+                    ] || frequencies[0]
+                  }
                   setCurrentPlanDuration={setCurrentPlanDuration}
                 />
               </div>

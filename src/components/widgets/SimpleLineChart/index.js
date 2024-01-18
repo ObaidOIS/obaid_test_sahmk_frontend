@@ -12,7 +12,6 @@ import {
 } from "recharts";
 
 const SimpleLineChart = ({ data }) => {
-  console.log(data[0].uv, "hello");
   const [cursorValue, setCursorValue] = useState(null);
 
   const handleMouseMove = (e) => {
@@ -48,20 +47,30 @@ const SimpleLineChart = ({ data }) => {
         >
           <defs>
             <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={data[0].uv < data[data.length - 1].uv ? "#51C77A" : "#C15959"} stopOpacity={0.8} />
+              <stop
+                offset="5%"
+                stopColor={
+                  data[0].uv < data[data.length - 1].uv ? "#51C77A" : "#C15959"
+                }
+                stopOpacity={0.8}
+              />
               <stop offset="95%" stopColor="#ffffff" stopOpacity={0} />
             </linearGradient>
           </defs>
           <Area
             type="monotone"
             dataKey="uv"
-            stroke={data[0].uv < data[data.length - 1].uv ? "#1D6362" :"#C15959"}
+            stroke={
+              data[0].uv < data[data.length - 1].uv ? "#1D6362" : "#C15959"
+            }
             className=" cursor-pointer"
             activeDot={{
-              stroke: (data[0].uv < data[data.length - 1].uv) ? "#1D6362" : "#C15959",
+              stroke:
+                data[0].uv < data[data.length - 1].uv ? "#1D6362" : "#C15959",
               strokeWidth: 4,
               r: 7,
-              fill: (data[0].uv < data[data.length - 1].uv) ? "#51C77A" : "#fc7b7b",
+              fill:
+                data[0].uv < data[data.length - 1].uv ? "#51C77A" : "#fc7b7b",
             }}
             strokeWidth={2}
             fill="url(#colorUv)"
@@ -80,7 +89,14 @@ const SimpleLineChart = ({ data }) => {
             tickLine={false}
             className="text-xs text-black"
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ stroke: (data[0].uv < data[data.length - 1].uv) ? "teal" : "#C15959", strokeWidth: 2 }} />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{
+              stroke:
+                data[0].uv < data[data.length - 1].uv ? "teal" : "#C15959",
+              strokeWidth: 2,
+            }}
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>
