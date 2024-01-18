@@ -5,6 +5,7 @@ const BasicTableUI = ({
   tableData,
   setIsSecondFeatureModalOpen,
   setFormData,
+  confirmDelete,
 }) => {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -44,6 +45,7 @@ const BasicTableUI = ({
                       <div
                         onClick={() => {
                           setFormData(item);
+                          confirmDelete(item);
                         }}
                         className="text-redColor/80 cursor-pointer hover:text-redColor"
                       >

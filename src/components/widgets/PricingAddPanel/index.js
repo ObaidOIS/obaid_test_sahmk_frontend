@@ -20,6 +20,7 @@ const PricingAddPanel = ({
   tableTitles,
   setIsSecondFeatureModalOpen,
   setFormData,
+  confirmDelete,
 }) => {
   return (
     <div className="px-5 cursor-auto">
@@ -51,25 +52,31 @@ const PricingAddPanel = ({
         <div className="pt-6">
           {feature == "first" ? (
             <div className="max-h-[660px] overflow-y-scroll">
-            <AddList
-              filteredData={selectedItems}
-              setSelectedItems={setSelectedItems}
-              selectedItems={selectedItems}
-              removeItem={removeItem}
-              isOpen={false}
-              // icon={
-              //   <MinusIcon
-              //     className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-              //     aria-hidden="true"
-              //   />
-              // }
-            />
+              <AddList
+                filteredData={selectedItems}
+                setSelectedItems={setSelectedItems}
+                selectedItems={selectedItems}
+                removeItem={removeItem}
+                isOpen={false}
+                // icon={
+                //   <MinusIcon
+                //     className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                //     aria-hidden="true"
+                //   />
+                // }
+              />
             </div>
           ) : (
             ""
           )}
           {feature == "second" && selectedItems?.length !== 0 ? (
-            <BasicTableUI setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen} tableTitles={tableTitles} tableData={selectedItems} setFormData={setFormData} />
+            <BasicTableUI
+              setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
+              tableTitles={tableTitles}
+              tableData={selectedItems}
+              setFormData={setFormData}
+              confirmDelete={confirmDelete}
+            />
           ) : (
             ""
           )}

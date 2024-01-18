@@ -168,6 +168,19 @@ const UserProfileFeatureTwo = ({
     { title: "" },
   ];
 
+  const confirmDelete = async (company) => {
+    const url = `/api/stocks/delete?id=${company.id}`;
+    const response = await apiCall(url, "DELETE");
+    // Check if the response status code is 204
+    if (response.status === 200) {
+      setSuccessAlert(true);
+      setSuccessMessage(response.result.message);
+    } else {
+      setErrorAlert(true);
+      setErrorMessage(response.error);
+    }
+  };
+
   return (
     <>
       <div>
@@ -294,6 +307,7 @@ const UserProfileFeatureTwo = ({
                     handleFeedClick={handleFeedClick}
                     selectedItems={tableData}
                     setFormData={setFormData}
+                    confirmDelete={confirmDelete}
                   />
                 }
               />
