@@ -442,17 +442,17 @@ const RegisterForm = () => {
   };
 
   // Use useCallback to memoize the debounced version of checkPhoneNumber
-  // const debouncedCheckPhoneNumber = useCallback(
-  //   debounce(checkPhoneNumber, 500),
-  //   [userData] // Dependencies
-  // );
+  const debouncedCheckPhoneNumber = useCallback(
+    debounce(checkPhoneNumber, 500),
+    [userData] // Dependencies
+  );
 
   // Use effect to trigger the debounced function when phone number changes
-  // useEffect(() => {
-  //   if (userData.phoneNumber) {
-  //     debouncedCheckPhoneNumber();
-  //   }
-  // }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
+  useEffect(() => {
+    if (userData.phoneNumber) {
+      debouncedCheckPhoneNumber();
+    }
+  }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
 
   // useEffect(() => {
   //   if (phoneNumberExists) {
@@ -467,6 +467,7 @@ const RegisterForm = () => {
     e.preventDefault();
     checkPhoneNumber();
     if(phoneNumberExists == false){
+      console.log(phoneNumberExists, "hello here");
       handleOpenOtpModal();
     }
   }
@@ -565,6 +566,7 @@ const RegisterForm = () => {
     // Update the states whenever the original subscription details change
     setCurrentPlanDuration(frequencies[0]);
   }, []);
+
 
   return (
     <>

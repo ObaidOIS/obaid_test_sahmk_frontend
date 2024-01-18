@@ -40,14 +40,24 @@ const BasicTableUI = ({
                       {item.target_price || "-"}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                      <div className="flex gap-4">
+                      <div
+                        onClick={() => {
+                          setFormData(item);
+                        }}
+                        className="text-redColor/80 cursor-pointer hover:text-redColor"
+                      >
+                        حذف<span className="sr-only">, {item.name}</span>
+                      </div>
                       <div
                         onClick={() => {
                           setIsSecondFeatureModalOpen(true);
                           setFormData(item);
                         }}
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="text-indigo-600 cursor-pointer hover:text-indigo-900"
                       >
                         تعديل<span className="sr-only">, {item.name}</span>
+                      </div>
                       </div>
                     </td>
                   </tr>
