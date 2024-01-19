@@ -23,3 +23,6 @@
 #payment #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] input.mysr-form-bottomLeftRadius0, #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] input.mysr-form-bottomLeftRadius0[type=text]{
     border-radius: 7px;
 }
+.recharts-text { 
+    background-color: red !important;
+}

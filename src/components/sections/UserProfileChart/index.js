@@ -13,8 +13,9 @@ import {
   Label,
   LabelList,
 } from "recharts";
+import CustomChartLabel from "../CustomChartLabel";
 
-const UserProfileChart = ({ data }) => {
+const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTag }) => {
   const [cursorValue, setCursorValue] = useState(null);
 
   const handleMouseMove = (e) => {
@@ -35,6 +36,32 @@ const UserProfileChart = ({ data }) => {
     setCursorValue(null);
   };
 
+  const formatNumber = (value) => {
+    // Check if the value has a floating point number greater than 0
+    if (Number.isFinite(value) && value % 1 !== 0) {
+      // If true, show with two decimal places
+      return value.toFixed(1);
+    } else {
+      // If false, show without decimal places
+      return String(value);
+    }
+  };
+
+  const renderCustomLabel = () => {
+    return (<g>
+        <foreignObject x={10} y={10} width={100} height={100}>
+        <text
+    position="insideBottomRight" 
+    y="10"
+    x="10" 
+    className="bg-[#de434f]"
+  >
+    {parseFloat(data[data.length - 1].uv).toFixed(2)}
+  </text>
+        </foreignObject>
+    </g>)
+}
+
   return (
     <div>
       {/* {cursorValue !== null && <p>Cursor Value: {cursorValue}</p>} */}
@@ -46,7 +73,7 @@ const UserProfileChart = ({ data }) => {
           data={data}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          margin={{ top: 20, right: -15, bottom: 5, left: 5 }}
+          margin={{ top: 40, right: -15, bottom: 5, left: 5 }}
         >
           <defs>
             <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="1">
@@ -107,53 +134,32 @@ const UserProfileChart = ({ data }) => {
           />
 
           <ReferenceLine
-            y={data.length - 1}
+            y={data[data.length - 1].uv}
             fill="black"
-            stroke="#8884d8"
+            stroke="#C15959"
             type="monotone"
-            strokeDasharray="3 3"
+            strokeDasharray="5 5"
+            position="center"
+            // dx="right"
+            // label={<CustomChartLabel data={data} />}
+            // label={renderCustomLabel}
+            label={{value:parseFloat(data[data.length - 1].uv).toFixed(2), fontSize: "12px", fill: "red", position: "insideBottomRight", dy: 10, dx: 10, className:"bg-redColor"}}
           />
-          {/* Add a text label for the last value */}
-          <Label
-            content={
-              <text
-                x={data.length - 1}
-                y={data.length - 1}
-                // y={300}
-                dy={-8}
-                textAnchor="middle"
-                fill="black"
-              >
-                {parseFloat(data[data.length - 1].uv).toFixed(2)}
-              </text>
-            }
-            position={"right"}
-          />
-          {/* <text
-            x={data.length - 1}
-            y={data.length - 1}
-            // y={300}
-            dy={-8}
-            textAnchor="middle"
-            fill="black"
-          >
-            {parseFloat(data[data.length - 1].uv).toFixed(2)}
-          </text> */}
-          {/* <LabelList dataKey="name" position="top" /> */}
           <XAxis
             dataKey="name"
             tickLine={false}
             // axisLine={false}
             // stroke="some-color"
+            tickFormatter={value => `${value}`}
             dy={8}
             className="font-medium text-sm text-darkColor"
           />
           <YAxis
-            label={{
-              value: parseFloat(data[data.length - 1].uv).toFixed(2),
-              angle: 0,
-              position: "left",
-            }}
+            // label={{
+            //   value: formatNumber(data[data.length - 1].uv),
+            //   angle: 0,
+            //   position: "left",
+            // }}
             orientation="right"
             axisLine={false}
             dx={20}
@@ -161,7 +167,7 @@ const UserProfileChart = ({ data }) => {
             className="text-xs text-black"
             domain={["auto", "auto"]}
             tickCount={6}
-            tickFormatter={(num) => parseFloat(num).toFixed(0)}
+            tickFormatter={(num) => formatNumber(num)}
           />
         </AreaChart>
       </ResponsiveContainer>

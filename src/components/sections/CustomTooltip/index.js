@@ -3,7 +3,7 @@ import React from 'react'
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="custom-tooltip bg-whiteColor p-2 shadow-2xl">
+        <div className="custom-tooltip bg-whiteColor rounded-xl p-2 shadow-2xl">
           <p className="label">{`${label}`}</p>
           {/* : ${payload[0].value} */}
           <div>

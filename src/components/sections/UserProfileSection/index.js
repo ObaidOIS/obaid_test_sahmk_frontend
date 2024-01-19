@@ -19,6 +19,7 @@ import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
 import { usePathname } from "next/navigation";
+import DotBadgeUI from "@/components/widgets/DotBadgeUI";
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -349,6 +350,7 @@ const UserProfileSection = () => {
   }, [originalSubscriptionDetails]);
 
   const [activeStat, setActiveStat] = useState("0");
+  const [activeStatistics, setActiveStatistics] = useState("نظرة عامة")
   const [activeChartTag, setActiveChartTag] = useState("شهر");
   const [oneDayChartTag, setOneDayChartTag] = useState(true);
   const [fiveDayChartTag, setFiveDayChartTag] = useState(false);
@@ -406,6 +408,7 @@ const UserProfileSection = () => {
         const response = await apiCall("/api/stocks/user-stocks/");
         if (response && response.result) {
           setTagsList(response.result); // Update state with the fetched data
+          console.log(response.result, "hello");
         }
       } catch (error) {
         console.error("Error fetching user stocks:", error.message);
@@ -426,6 +429,13 @@ const UserProfileSection = () => {
       }
     }
   };
+
+  const statisticsData = [
+    "نظرة عامة",
+    "الصفقات",
+    "القوائم المالية",
+    "المعلومات الأساسية",
+  ]
 
   return (
     <div>
@@ -481,15 +491,17 @@ const UserProfileSection = () => {
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <div className="flex items-end mb-5">
                     <div className="text-2xl font-medium leading-none m-2">
-                      {" "}
-                      مؤشر السوق{" "}
+                    الأسهم
                     </div>
-                    <MainBadge
-                      title="الأسعار متأخرة"
-                      badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
+                    <DotBadgeUI
+                      title="الأسعار متأخرة 15 دقيقة"
+                      // badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
+                      badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
+                      dotStyle="fill-yellowColor"
                     />
                   </div>
                   <UserProfileStatistics
+                    statisticsData={statisticsData}
                     tagsList={tagsList}
                     chartTagsList={chartTagsList}
                     chartData={chartData}
@@ -500,6 +512,8 @@ const UserProfileSection = () => {
                     activeChartTag={activeChartTag}
                     setActiveChartTag={setActiveChartTag}
                     handleTagClick={handleTagClick}
+                    setActiveStatistics={setActiveStatistics}
+                    activeStatistics={activeStatistics}
                   />
                 </div>
               </div>
