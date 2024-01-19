@@ -8,6 +8,8 @@ import apiCall from "@/components/common/api";
 import { pricing } from "@/components/common/pricing";
 import Loader from "@/components/widgets/Loader";
 import { usePathname } from "next/navigation";
+import { isAuthenticated } from "@/components/common/utils";
+import { useRouter } from "next/navigation";
 
 const OrderSummaryForm = (
   originalSubscriptionDetails,
@@ -24,6 +26,7 @@ const OrderSummaryForm = (
   // setCurrentPlanDuration,
 ) => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState(
@@ -47,6 +50,14 @@ const OrderSummaryForm = (
 
   useEffect(() => {
     // Set the origin state to the current window location's origin
+    const currentPlanRegister = localStorage.getItem("currentPlanRegister")
+    if(currentPlanRegister == "الباقة المجانية"){
+      if(isAuthenticated()){
+        router.push("/userprofile");
+      }else{
+        router.push("/auth/register");
+      }
+    }
     // This includes the protocol and host
     if (typeof window !== "undefined") {
       setOrigin(window.location.origin);
@@ -165,7 +176,20 @@ const OrderSummaryForm = (
 
   useEffect(() => {
     if (pathname == "/auth/order") {
-      setCurrentPlan(JSON.parse(localStorage.getItem("currentPlanRegister")));
+      const currentPlanJSON = localStorage.getItem("currentPlanRegister");
+
+    if (currentPlanJSON) {
+      try {
+        setCurrentPlan(JSON.parse(currentPlanJSON));
+      } catch (error) {
+        // If parsing fails, set the currentPlan to the raw string
+        setCurrentPlan(currentPlanJSON);
+      }
+    } else {
+      // Handle the case where currentPlanJSON is not available
+      console.error("currentPlanJSON is not available in localStorage");
+    }
+      // setCurrentPlan(JSON.parse(localStorage.getItem("currentPlanRegister")));
       setCurrentPlanDuration(
         JSON.parse(localStorage.getItem("currentPlanDurationRegister"))
       );

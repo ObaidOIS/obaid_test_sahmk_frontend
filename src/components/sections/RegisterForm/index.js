@@ -556,14 +556,18 @@ const RegisterForm = () => {
     };
 
     // Use JSON.stringify with the circularReferenceReplacer
-    const serializedData = JSON.stringify(
+    const serializedDurationData = JSON.stringify(
       frequencies[0],
       circularReferenceReplacer()
     );
 
+    const serializedPlanData = "الباقة المجانية";
+
     // Save the serialized data to localStorage
-    localStorage.setItem("currentPlanDurationRegister", serializedData);
+    localStorage.setItem("currentPlanRegister", serializedPlanData);
+    localStorage.setItem("currentPlanDurationRegister", serializedDurationData);
     // Update the states whenever the original subscription details change
+    setCurrentPlan("الباقة المجانية")
     setCurrentPlanDuration(frequencies[0]);
   }, []);
 
