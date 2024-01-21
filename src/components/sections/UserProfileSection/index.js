@@ -406,9 +406,8 @@ const UserProfileSection = () => {
     const fetchUserStocks = async () => {
       try {
         const response = await apiCall("/api/stocks/user-stocks/");
-        if (response && response.result) {
-          setTagsList(response.result); // Update state with the fetched data
-          console.log(response.result, "hello");
+        if (response && response.result.results) {
+          setTagsList(response.result.results); // Update state with the fetched data
         }
       } catch (error) {
         console.error("Error fetching user stocks:", error.message);
