@@ -364,6 +364,8 @@ const UserProfileSection = () => {
   const [selectedSymbol, setSelectedSymbol] = useState("");
   const [chartData, setChartData] = useState([]);
 
+  const [chartLoading, setChartLoading] = useState(false);
+
   const chartTagsList = [
     {
       id: 1,
@@ -420,12 +422,14 @@ const UserProfileSection = () => {
 
   const handleTagClick = async (range, symbol) => {
     if (symbol) {
+      setChartLoading(true);
       const response = await apiCall(
         `/api/stocks/historical_data/?symbol=${symbol}.SR&range=${range}`
       );
       if (response && response.result) {
         // Update your state with the new data
         setChartData(response.result);
+        setChartLoading(false);
       }
     }
   };
@@ -467,7 +471,7 @@ const UserProfileSection = () => {
 
   const zone = "Asia/Riyadh";
 
-  console.log(originalSubscriptionDetails?.subscriptionType, "hello here")
+  console.log(chartData, "hello here");
 
   return (
     <div>
@@ -539,6 +543,7 @@ const UserProfileSection = () => {
                     />) : "" }
                   </div>
                   <UserProfileStatistics
+                    chartLoading={chartLoading}
                     statisticsData={statisticsData}
                     tagsList={tagsList}
                     chartTagsList={chartTagsList}

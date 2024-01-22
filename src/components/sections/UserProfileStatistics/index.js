@@ -6,8 +6,10 @@ import UserProfileChart from "../UserProfileChart";
 import PillTabsUI from "@/components/widgets/PillTabsUI";
 import TabsBarUI from "@/components/widgets/TabsBarUI";
 import Image from "next/image";
+import Loader from "@/components/widgets/Loader";
 
 const UserProfileStatistics = ({
+  chartLoading,
   statisticsData,
   tagsList,
   chartTagsList,
@@ -22,7 +24,8 @@ const UserProfileStatistics = ({
   setActiveStatistics,
   activeStatistics,
 }) => {
-  const [selectedChartCurrentValue, setSelectedChartCurrentValue] = useState("");
+  const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
+    useState("");
   const [selectedStatCurrentValue, setSelectedStatCurrentValue] = useState("");
 
   const handleSelectedChartCurrentValue = (value) => {
@@ -37,39 +40,44 @@ const UserProfileStatistics = ({
   return (
     <div>
       <div className="mt-0 mb-2 pb-4 pt-2">
-      <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
-        <Image src="/assets/icons/success-filter.svg"
-          width={24}
-          height={24}  
-          className="cursor-pointer mx-4" alt="img" />
-        {tagsList &&
-          tagsList.map((item, index) => {
-            return (
-              <span
-                key={index}
-                onClick={() => {
-                  setActiveStat(item.stock_name || item.stock_company);
-                  setSelectedSymbol(item.stock_company);
-                  handleSelectedStatCurrentValue(item.eod_data?.eod_data_list[1]?.value);
-                }}
-              >
-                {
-                  <PillTabsUI
-                    tab={item.stock_name || item.stock_company}
-                    index={index}
-                    active={activeStat}
-                    currentTab={item.stock_name || item.stock_company}
-                    badgeStyle={`${
-                      activeStat == (item.stock_name || item.stock_company)
-                        ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                        : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                    } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
-                  />
-                }
-              </span>
-            );
-          })}
-      </div>
+        <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
+          <Image
+            src="/assets/icons/success-filter.svg"
+            width={24}
+            height={24}
+            className="cursor-pointer mx-4"
+            alt="img"
+          />
+          {tagsList &&
+            tagsList.map((item, index) => {
+              return (
+                <span
+                  key={index}
+                  onClick={() => {
+                    setActiveStat(item.stock_name || item.stock_company);
+                    setSelectedSymbol(item.stock_company);
+                    handleSelectedStatCurrentValue(
+                      item.eod_data?.eod_data_list[1]?.value
+                    );
+                  }}
+                >
+                  {
+                    <PillTabsUI
+                      tab={item.stock_name || item.stock_company}
+                      index={index}
+                      active={activeStat}
+                      currentTab={item.stock_name || item.stock_company}
+                      badgeStyle={`${
+                        activeStat == (item.stock_name || item.stock_company)
+                          ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                          : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                      } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
+                    />
+                  }
+                </span>
+              );
+            })}
+        </div>
         <div className="bg-whiteColor py-3 pe-3 shadow-lg border rounded-3xl ">
           <div>
             <div className="flex items-center justify-between">
@@ -85,10 +93,15 @@ const UserProfileStatistics = ({
                 <div className="">
                   <MainBadge
                     title={selectedStatCurrentValue}
-                    icon={<Image src="/assets/icons/success-arrow.svg"
-                    width={8}
-                    height={8}  
-                    className="cursor-pointer" alt="img" />}
+                    icon={
+                      <Image
+                        src="/assets/icons/success-arrow.svg"
+                        width={8}
+                        height={8}
+                        className="cursor-pointer"
+                        alt="img"
+                      />
+                    }
                     badgeStyle={`text-primaryColor bg-primaryColor/10 hover:text-gray-700 truncate px-2 !text-xs justify-center py-1.5 ml-3 block cursor-pointer`}
                   />
                 </div>
@@ -99,15 +112,44 @@ const UserProfileStatistics = ({
             </div>
           </div>
           <div>
-            {chartData && chartData.length > 0 && (
-              <div>
-                <UserProfileChart
-                  data={chartData}
-                  activeChartTag={activeChartTag}
-                  handleSelectedChartCurrentValue={
-                    handleSelectedChartCurrentValue
-                  }
-                />
+            {/* {(chartData && chartData.length > 0) && ( */}
+            {chartLoading == false ? (
+              chartData &&
+              chartData.length > 0 && (
+                <div>
+                  <UserProfileChart
+                    data={chartData}
+                    activeChartTag={activeChartTag}
+                    handleSelectedChartCurrentValue={
+                      handleSelectedChartCurrentValue
+                    }
+                  />
+                </div>
+              )
+            ) : (
+              <div className="animate-pulse">
+                <div class="h-72 flex justify-center items-center bg-lightGreyColor mr-3 mt-2">
+                <svg
+                    className="animate-spin h-6 w-6 text-primaryColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                </div>
               </div>
             )}
           </div>
