@@ -24,7 +24,7 @@ const PhoneNumberUI = ({
       </label>
       <div className="relative mt-2 rounded-md shadow-sm">
         <div className="absolute inset-y-0 left-0 flex items-center">
-          <label htmlFor="country" className="sr-only">
+          <label htmlFor="country" dir="ltr" className="sr-only">
             {activeItem ?? "+966"}
           </label>
           <select
@@ -35,7 +35,7 @@ const PhoneNumberUI = ({
             onChange={(e) => handleMenuItemClick(e.target.value)}
           >
             {dataList?.map((item, index) => (
-              <option key={index} value={item.dial_code}>
+              <option key={index} dir="ltr" value={item.dial_code}>
                 {item.dial_code}
               </option>
             ))}

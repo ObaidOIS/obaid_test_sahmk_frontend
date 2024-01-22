@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import UserProfileStats from "../UserProfileStats";
 import UserProfileChart from "../UserProfileChart";
 import PillTabsUI from "@/components/widgets/PillTabsUI";
-import OutlinePillTabsUI from "@/components/widgets/OutlinePillTabsUI";
 import TabsBarUI from "@/components/widgets/TabsBarUI";
 import Image from "next/image";
 
@@ -55,10 +54,11 @@ const UserProfileStatistics = ({
                 }}
               >
                 {
-                  <OutlinePillTabsUI
+                  <PillTabsUI
                     tab={item.stock_name || item.stock_company}
                     index={index}
                     active={activeStat}
+                    currentTab={index}
                     badgeStyle={`${
                       activeStat == index
                         ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
@@ -137,16 +137,6 @@ const UserProfileStatistics = ({
                             : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
                         } truncate px-4 justify-center py-1.5 my-1 ml-3 block cursor-pointer`}
                       />
-                      {/* <OutlinePillTabsUI
-                    tab={item.name}
-                    index={item.name}
-                    active={activeChartTag}
-                    badgeStyle={`${
-                      activeChartTag == item.name
-                        ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                        : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                    } truncate px-4 justify-center py-1.5 my-1 ml-3 block cursor-pointer`}
-                  /> */}
                       {/* <MainBadge
                       title={item.name}
                       index={index}
@@ -179,6 +169,7 @@ const UserProfileStatistics = ({
                     tab={item}
                     index={index}
                     active={activeStatistics}
+                    currentTab={item}
                     badgeStyle={`${
                       activeStatistics == item
                         ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"

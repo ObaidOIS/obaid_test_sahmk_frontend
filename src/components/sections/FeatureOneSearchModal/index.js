@@ -15,7 +15,7 @@ const FeatureOneSearchModal = ({
 }) => {
   return (
     <div>
-      <div className="mt-3 w-full h-[75vh]">
+      <div className="mt-3 w-full h-[55vh]">
         <div>
           <SearchInput 
               searchQuery={searchQuery}
@@ -27,7 +27,7 @@ const FeatureOneSearchModal = ({
             <span className="text-primaryColor">تم تحديد ( {selectedItems?.length} )</span>
           </div>
         </div>
-        <div className="h-[68vh] mt-3 overflow-scroll">
+        <div className="h-[45vh] mt-3 overflow-y-scroll">
         <AddList
           originalData={originalData}
           filteredData={filteredData}

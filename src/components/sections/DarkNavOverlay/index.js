@@ -40,7 +40,7 @@ const DarkNavOverlay = ({
               >
                 <Bars3Icon className="h-6 w-6 text-whiteColor" />
               </div>
-              <div className="lg:hidden flex flex-1 justify-end">
+              <div className="flex flex-1 justify-end">
                 <div className="bg-whiteColor/10 rounded-lg ml-2 cursor-pointer">
                   <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p>
                 </div>
