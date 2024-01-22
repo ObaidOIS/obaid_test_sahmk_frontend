@@ -39,16 +39,16 @@ const UserProfileStatistics = ({
       <div className="mt-0 mb-2 pb-4 pt-2">
       <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
         <Image src="/assets/icons/success-filter.svg"
-                    width={80}
-                    height={80}  
-                    className="cursor-pointer mx-4" alt="img" />
+          width={24}
+          height={24}  
+          className="cursor-pointer mx-4" alt="img" />
         {tagsList &&
           tagsList.map((item, index) => {
             return (
               <span
                 key={index}
                 onClick={() => {
-                  setActiveStat(index);
+                  setActiveStat(item.stock_name || item.stock_company);
                   setSelectedSymbol(item.stock_company);
                   handleSelectedStatCurrentValue(item.eod_data?.eod_data_list[1]?.value);
                 }}
@@ -58,9 +58,9 @@ const UserProfileStatistics = ({
                     tab={item.stock_name || item.stock_company}
                     index={index}
                     active={activeStat}
-                    currentTab={index}
+                    currentTab={item.stock_name || item.stock_company}
                     badgeStyle={`${
-                      activeStat == index
+                      activeStat == (item.stock_name || item.stock_company)
                         ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
                         : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
                     } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
@@ -78,7 +78,7 @@ const UserProfileStatistics = ({
                   السهم
                 </dt>
                 <dd className="tracking-tight text-gray-900 font-medium ">
-                  شركة الاتصالات السعودية
+                  {activeStat}
                 </dd>
               </div>
               <div className="flex items-end">

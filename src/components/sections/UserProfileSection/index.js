@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
 import { usePathname } from "next/navigation";
 import DotBadgeUI from "@/components/widgets/DotBadgeUI";
+import moment from 'moment-timezone';
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -349,7 +350,7 @@ const UserProfileSection = () => {
     handleUpgradPlan(currentPlan);
   }, [originalSubscriptionDetails]);
 
-  const [activeStat, setActiveStat] = useState("0");
+  const [activeStat, setActiveStat] = useState("TASI");
   const [activeStatistics, setActiveStatistics] = useState("نظرة عامة")
   const [activeChartTag, setActiveChartTag] = useState("شهر");
   const [oneDayChartTag, setOneDayChartTag] = useState(true);
@@ -436,6 +437,38 @@ const UserProfileSection = () => {
     "المعلومات الأساسية",
   ]
 
+  function isOpen(openTime, closeTime, timezone) {
+
+    // handle special case
+    if (openTime === "24HR") {
+      return "open";
+    }
+  
+    // get the current date and time in the given time zone
+    const now = moment.tz(timezone);
+  
+    // Get the exact open and close times on that date in the given time zone
+    // See https://github.com/moment/moment-timezone/issues/119
+    const date = now.format("YYYY-MM-DD");
+    const storeOpenTime = moment.tz(date + ' ' + openTime, "YYYY-MM-DD h:mmA", timezone);
+    const storeCloseTime = moment.tz(date + ' ' + closeTime, "YYYY-MM-DD h:mmA", timezone);
+  
+    let check;
+    if (storeCloseTime.isBefore(storeOpenTime)) {
+      // Handle ranges that span over midnight
+      check = now.isAfter(storeOpenTime) || now.isBefore(storeCloseTime);
+    } else {
+      // Normal range check using an inclusive start time and exclusive end time
+      check = now.isBetween(storeOpenTime, storeCloseTime, null, '[)');
+    }
+  
+    return check ? "open" : "closed";
+  }
+
+  const zone = "Asia/Riyadh";
+
+  console.log(originalSubscriptionDetails?.subscriptionType, "hello here")
+
   return (
     <div>
       {typeof window == "undefined" ? (
@@ -492,12 +525,18 @@ const UserProfileSection = () => {
                     <div className="text-2xl font-medium leading-none m-2">
                     الأسهم
                     </div>
+                    {isOpen("10:00AM", "3:00PM", zone) == "open" ?
+                    (originalSubscriptionDetails?.subscriptionType == "free" ?
                     <DotBadgeUI
                       title="الأسعار متأخرة 15 دقيقة"
-                      // badgeStyle="bg-amber-100 text-amber-500 px-4 py-1"
                       badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
                       dotStyle="fill-yellowColor"
-                    />
+                    /> : 
+                    <DotBadgeUI
+                      title="الأسعار حية"
+                      badgeStyle="bg-whiteColor shadow-xl text-primaryColor"
+                      dotStyle="fill-primaryColor"
+                    />) : "" }
                   </div>
                   <UserProfileStatistics
                     statisticsData={statisticsData}
