@@ -23,6 +23,8 @@ const UserProfileStatistics = ({
   handleTagClick,
   setActiveStatistics,
   activeStatistics,
+  apiRange,
+  setApiRange,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
@@ -36,6 +38,8 @@ const UserProfileStatistics = ({
     // setSelectedChartCurrentValue(selectedChartCurrentValue);
     setSelectedStatCurrentValue(statValue);
   };
+
+  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList, "hello api")
 
   return (
     <div>
@@ -54,6 +58,7 @@ const UserProfileStatistics = ({
                 <span
                   key={index}
                   onClick={() => {
+                    handleTagClick(apiRange, item.stock_company);
                     setActiveStat(item.stock_name || item.stock_company);
                     setSelectedSymbol(item.stock_company);
                     handleSelectedStatCurrentValue(
@@ -64,7 +69,7 @@ const UserProfileStatistics = ({
                   {
                     <PillTabsUI
                       tab={item.stock_name || item.stock_company}
-                      index={index}
+                      // index={index}
                       active={activeStat}
                       currentTab={item.stock_name || item.stock_company}
                       badgeStyle={`${
@@ -79,6 +84,8 @@ const UserProfileStatistics = ({
             })}
         </div>
         <div className="bg-whiteColor py-3 pe-3 shadow-lg border rounded-3xl ">
+          {chartLoading == false ? ( 
+          <>
           <div>
             <div className="flex items-center justify-between">
               <div className="flex flex-col ms-3">
@@ -113,8 +120,7 @@ const UserProfileStatistics = ({
           </div>
           <div>
             {/* {(chartData && chartData.length > 0) && ( */}
-            {chartLoading == false ? (
-              chartData &&
+            {chartData &&
               chartData.length > 0 && (
                 <div>
                   <UserProfileChart
@@ -125,42 +131,33 @@ const UserProfileStatistics = ({
                     }
                   />
                 </div>
-              )
-            ) : (
-              <div className="animate-pulse">
-                <div class="h-72 flex justify-center items-center bg-lightGreyColor mr-3 mt-2">
-                <svg
-                    className="animate-spin h-6 w-6 text-primaryColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-            )}
+              )}
           </div>
+          </>
+          ) : (
+            <div className="animate-pulse">
+              <div class="h-80 align-middle pt-12 text-center mr-3 mt-2">
+                <Image
+                  src="/assets/icons/chart-loader.gif"
+                  width={160}
+                  height={160}
+                  className="cursor-pointer mx-auto"
+                  alt="img"
+                />
+                
+                <p>جاري جلب البيانات يرجى الانتظار</p>
+              </div>
+            </div>
+          )}
           <div className="my-5 p-2 ms-3 bg-lightGreyColor/60 rounded-full">
-            <div className="space-x-3 flex overflow-x-auto  rounded-full md:ps-3">
+            <div className="space-x-3 flex overflow-x-auto rounded-full md:ps-3">
               {chartTagsList &&
                 chartTagsList.map((item, index) => {
                   return (
                     <span
                       key={index}
                       onClick={() => {
+                        setApiRange(item.apiRange);
                         handleTagClick(item.apiRange, selectedSymbol);
                         setActiveChartTag(item.name);
                         handleSelectedChartCurrentValue(

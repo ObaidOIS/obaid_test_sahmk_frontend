@@ -44,6 +44,7 @@ const UserProfileSection = () => {
   const [plan, setPlan] = useState("");
   const [originalSubscriptionDetails, setOriginalSubscriptionDetails] =
     useState({ subscriptionType: "free", subscriptionPeriod: "monthly" });
+  const [apiRange, setApiRange] = useState("1d");
 
   const [isAuthenticate, setIsAuthenticate] = useState(false);
   useEffect(() => {
@@ -352,7 +353,7 @@ const UserProfileSection = () => {
 
   const [activeStat, setActiveStat] = useState("TASI");
   const [activeStatistics, setActiveStatistics] = useState("نظرة عامة")
-  const [activeChartTag, setActiveChartTag] = useState("شهر");
+  const [activeChartTag, setActiveChartTag] = useState("يوم");
   const [oneDayChartTag, setOneDayChartTag] = useState(true);
   const [fiveDayChartTag, setFiveDayChartTag] = useState(false);
   const [oneMonthChartTag, setOneMonthChartTag] = useState(false);
@@ -418,6 +419,7 @@ const UserProfileSection = () => {
     };
 
     fetchUserStocks();
+    handleTagClick(apiRange, activeStat);
   }, []);
 
   const handleTagClick = async (range, symbol) => {
@@ -543,6 +545,8 @@ const UserProfileSection = () => {
                     />) : "" }
                   </div>
                   <UserProfileStatistics
+                    apiRange={apiRange}
+                    setApiRange={setApiRange}
                     chartLoading={chartLoading}
                     statisticsData={statisticsData}
                     tagsList={tagsList}

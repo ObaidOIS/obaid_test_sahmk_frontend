@@ -147,14 +147,14 @@ const MultiSelectSearchInput = ({
                             selectedItems.includes(item.id)
                               ? "bg-lightGreyColor/20 border-lightGreyColor"
                               : ""
-                          } border-b hover:bg-lightGreyColor/40`}
+                          }  hover:bg-lightGreyColor/40`}
                           onClick={() => {
                             toggleSelection(item.id);
                             selectedOption === "الباقة المجانية" ? (setErrorAlert(true), setErrorMessage("الخطة المجانية لا يمكنها إضافة أي شركات.")) : "";
                             // setDropdownOpen(false);
                           }}
                         >
-                          <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
+                          <div className={`flex w-full items-center p-2 pl-2 border-b border relative ${selectedItems.includes(item.id) ? "border-primaryColor" : "border-t-transparent border-x-transparent"}`}>
                             <div className="w-full items-center flex">
                               <div className="mx-2 leading-6">{item.name}</div>
                             </div>
