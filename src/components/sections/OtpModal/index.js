@@ -63,6 +63,7 @@ const OtpModal = ({
       const response = await apiCall("/auth/otp/", "POST", data, previousPage);
 
       setOtpId(response.result.id);
+      console.log(response, "hello")
       // setErrorAlert(true);
       // setErrorMessage("phone no correct karo");
       // onClose();
@@ -194,8 +195,35 @@ const OtpModal = ({
     }
   };
 
+
+
+
+    const [copied, setCopied] = useState(false);
+  
+    const handleCopyClick = () => {
+      const textarea = document.createElement('textarea');
+      textarea.value = "hello";
+      document.body.appendChild(textarea);
+  
+      textarea.select();
+      document.execCommand('copy');
+  
+      document.body.removeChild(textarea);
+  
+      setCopied(true);
+    };
+  
+    useEffect(() => {
+      if (copied) {
+        // Display any additional UI/notification for the user
+        alert('Text copied to clipboard!');
+        setCopied(false); // Reset copied state
+      }
+    }, [copied]);
+
   return (
     <div>
+      <button onClick={handleCopyClick}>Copy Text</button>
       <div className="flex justify-center">
         <Image loading="eager"  
           src="/assets/icons/mail-fast.svg"

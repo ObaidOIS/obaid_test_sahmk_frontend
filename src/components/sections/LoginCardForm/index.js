@@ -179,8 +179,32 @@ const LoginCardForm = () => {
     }
   };
 
+
+  const [copied, setCopied] = useState(false);
+  
+  const handleCopyClick = () => {
+    const textarea = document.createElement('textarea');
+    textarea.value = "pika pika";
+    document.body.appendChild(textarea);
+
+    textarea.select();
+    document.execCommand('copy');
+
+    document.body.removeChild(textarea);
+
+    setCopied(true);
+  };
+
+  useEffect(() => {
+    if (copied) {
+      // Display any additional UI/notification for the user
+      setCopied(false); // Reset copied state
+    }
+  }, [copied]);
+
   return (
     <>
+      {/* <button onClick={handleCopyClick} className="py-5 px-5 bg-white">Copy Text</button> */}
       <div>
         {successAlert == true && (
           <MessageAlert
@@ -265,10 +289,10 @@ const LoginCardForm = () => {
               alt="img"
               priority
             />
-            <div className=" bg-white border border-lightGreyColor rounded-2xl px-6 pt-0 pb-20 sm:py-12 sm:px-12">
+            <div className=" bg-white border border-lightGreyColor rounded-2xl px-6 pt-20 pb-20 sm:py-12 sm:px-12">
               <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="lg:container w-full text-center ">
-                  <div className="sm:visible invisible flex items-center justify-center">
+                  <div className="visible flex items-center justify-center">
                     <Link href="/">
                       <Image loading="eager"  
                         src="/assets/logos/logo.svg"
@@ -296,6 +320,8 @@ const LoginCardForm = () => {
                   <div className="flex items-end gap-4">
                     <div className="flex-grow ">
                       <InputFieldUI
+                        placeholder="5123456789"
+                        dir="ltr"
                         label="رقم الجوال"
                         inputmode="numeric"
                         name="phone-tel"
