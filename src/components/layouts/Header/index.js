@@ -30,7 +30,7 @@ const Header = ({ toggleSidebar }) => {
   return (
     <>
       <header className="w-full">
-        <Image
+        <Image loading="eager"  
           src="/assets/images/beam-bg-top.png"
           width={300}
           height={200}
@@ -40,7 +40,7 @@ const Header = ({ toggleSidebar }) => {
         />
         <div className="lg:container flex items-center p-6 mx-auto flex-row">
           <Link href="/" className="flex items-center">
-            <Image
+            <Image loading="eager"  
               src="/assets/logos/logo.svg"
               width={100}
               height={33}

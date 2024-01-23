@@ -67,7 +67,7 @@ const MainSidebar = ({
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <div className=" pb-6 mt-4">
-                        <Image
+                        <Image loading="eager"  
                           src="/assets/logos/logo.svg"
                           width={150}
                           height={150}
@@ -100,7 +100,7 @@ const MainSidebar = ({
                           <IconButtonUI
                             button="EN"
                             icon={
-                              <Image
+                              <Image loading="eager"  
                                 src="/assets/icons/globe.svg"
                                 width={20}
                                 height={20}
@@ -116,7 +116,7 @@ const MainSidebar = ({
                             <IconButtonUI
                               button="تسجيل الخروج"
                               icon={
-                                <Image
+                                <Image loading="eager"  
                                   src="/assets/icons/logout.svg"
                                   width={20}
                                   height={20}

@@ -38,7 +38,7 @@ const ProfileFooter = () => {
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
           <Link href="/" className="mt-8 mb-14">
-            <Image
+            <Image loading="eager"  
               src="/assets/logos/logo.svg"
               width={100}
               height={100}           

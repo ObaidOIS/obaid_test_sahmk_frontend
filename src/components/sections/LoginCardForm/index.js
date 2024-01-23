@@ -33,7 +33,7 @@ const LoginCardForm = () => {
       name: "Saudi Arabia",
       dial_code: "+966",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/saudi-arabia-flag.png"
           width="24"
           height="24"
@@ -249,7 +249,7 @@ const LoginCardForm = () => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
           <div className="relative">
-            <Image
+            <Image loading="eager"  
               src="/assets/images/mask-left-corner-login.svg"
               width={600}
               height={600}
@@ -257,7 +257,7 @@ const LoginCardForm = () => {
               alt="img"
               priority
             />
-            <Image
+            <Image loading="eager"  
               src="/assets/images/mask-right-corner-login.svg"
               width={600}
               height={600}
@@ -270,7 +270,7 @@ const LoginCardForm = () => {
                 <div className="lg:container w-full text-center ">
                   <div className="sm:visible invisible flex items-center justify-center">
                     <Link href="/">
-                      <Image
+                      <Image loading="eager"  
                         src="/assets/logos/logo.svg"
                         width={140}
                         height={60}
@@ -352,7 +352,7 @@ const LoginCardForm = () => {
                 buttonStyle="!rounded-lg mt-5 sm:mt-0 !border-primaryColor !text-primaryColor !px-3"
                 button="أنشأ حسابك"
                 icon={
-                  <Image
+                  <Image loading="eager"  
                     src="/assets/icons/green-right-arrow.svg"
                     width={12}
                     height={12}

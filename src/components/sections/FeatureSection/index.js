@@ -10,7 +10,7 @@ const FeatureSection = () => {
       title: "استلام تنبيهات بأسعار الافتتاح والاغلاق",
       desc: "سيصلك من خلال أوقات الافتتاح والاغلاق  ، بيانات بأسعار الشركات المختارة في حسابك كما يمكنك التحكم بالبيانات ،إدارتها .",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/notification.svg"
           width={20}
           height={25}
@@ -25,7 +25,7 @@ const FeatureSection = () => {
       title: "إدارة الأسعار المستهدفة",
       desc: "يمكنك من خلال إدارة حسابك إضافة الأسعار المستهدفة إلى حسابك ومعرفة التفاصيل .",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/hotspot.svg"
           width={25}
           height={25}
@@ -40,7 +40,7 @@ const FeatureSection = () => {
       title: "إستلام تقرير اسبوعي لحالة أسهمك والشركات.",
       desc: "سيصلك من خلال أوقات الافتتاح والاغلاق  ، بيانات بأسعار الشركات المختارة في حسابك كما يمكنك التحكم بالبيانات ،إدارتها .",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/notification.svg"
           width={20}
           height={25}
@@ -141,7 +141,7 @@ const FeatureSection = () => {
           {Features.map((item, index) => {
             return activeTab === index ? (
               <div key={index} className="lg:col-span-7 hidden lg:flex">
-                <Image
+                <Image loading="eager"  
                   src={item.image}
                   width={700}
                   height={800}
@@ -160,7 +160,7 @@ const FeatureSection = () => {
                 key={index}
                 className="col-span-12 z-30 lg:hidden flex justify-center "
               >
-                <Image
+                <Image loading="eager"  
                   src={item.image}
                   width={750}
                   height={800}

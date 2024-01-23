@@ -197,7 +197,7 @@ const OtpModal = ({
   return (
     <div>
       <div className="flex justify-center">
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/mail-fast.svg"
           width={32}
           height={32}

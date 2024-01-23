@@ -17,7 +17,7 @@ const OrderSummary = () => {
   return (
     <div>
       <header className="w-full sm:ms-0 relative">
-        <Image
+        <Image loading="eager"  
           src="/assets/images/beam-2-bg.png"
           width={300}
           height={200}
@@ -27,7 +27,7 @@ const OrderSummary = () => {
         />
         <div className="lg:container flex items-center sm:ps-0 ps-8 pt-20 mx-auto">
           <Link href="/" className="flex items-center">
-            <Image
+            <Image loading="eager"  
               src="/assets/logos/logo.svg"
               width={140}
               height={60}

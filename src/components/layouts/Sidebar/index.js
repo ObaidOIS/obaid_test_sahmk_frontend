@@ -56,7 +56,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Sahmak_sa</span>
-                <Image
+                <Image loading="eager"  
                   className="h-10 w-auto"
                   src="/assets/logos/logo.svg"
                   width={30}

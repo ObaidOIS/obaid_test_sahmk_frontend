@@ -331,7 +331,7 @@ const OrderSummaryForm = (
               title="تم الاشتراك بنجاح"
               buttonOne="إدارة حسابي"
               image={
-                <Image
+                <Image loading="eager"  
                   src="/assets/icons/alert-payment-success.svg"
                   height={220}
                   width={220}
@@ -343,7 +343,7 @@ const OrderSummaryForm = (
               messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
               buttonTwo="ابدأ بمراسلة النظام الذكي"
               buttonIcon={
-                <Image
+                <Image loading="eager"  
                   src="/assets/icons/green-right-arrow.svg"
                   height={15}
                   width={15}
@@ -365,7 +365,7 @@ const OrderSummaryForm = (
               title="فشلت عملية الدفع!"
               buttonOne="حاولة مرة أخرى"
               image={
-                <Image
+                <Image loading="eager"  
                   src="/assets/icons/alert-payment-error.svg"
                   height={220}
                   width={220}
@@ -397,7 +397,7 @@ const OrderSummaryForm = (
                       desc="199 ريال/سنة"
                       descStyle="text-purpleColor"
                       image={
-                        <Image
+                        <Image loading="eager"  
                           src="/assets/icons/purple-check-icon.svg"
                           height={30}
                           width={30}
@@ -448,7 +448,7 @@ const OrderSummaryForm = (
                                 : "!text-blueColor"
                             }
                             image={
-                              <Image
+                              <Image loading="eager"  
                                 src={
                                   currentPlan?.title == "الباقة المتقدمة"
                                     ? "/assets/icons/yellow-check.svg"
@@ -543,7 +543,7 @@ const OrderSummaryForm = (
                   </div>
                 </div>
               </div>
-              <Image
+              <Image loading="eager"  
                 src="/assets/images/gradient-bottom.svg"
                 width={170}
                 height={170}

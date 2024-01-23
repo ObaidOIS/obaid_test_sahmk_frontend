@@ -17,7 +17,7 @@ const HeroSection = () => {
         <div className="w-full text-center mb-10">
             <div className="bg-green-100/60 px-6 py-3 mx-auto inline-flex rounded-full">
                 <span className="text-sm text-teal-800 font-small capitalize xl:text-center flex"> 
-                <Image src="/assets/icons/whatsapp.svg" width={20} height={20} className="ml-5" alt="img" priority /> 
+                <Image loading="eager"   src="/assets/icons/whatsapp.svg" width={20} height={20} className="ml-5" alt="img" priority /> 
                 عن طريق الواتساب توصلك كل معلومات الأسهم
                 </span>
             </div>
@@ -25,7 +25,7 @@ const HeroSection = () => {
           <div className="sm:text-6xl text-5xl font-semibold text-gray-900 leading-tight md:leading-none">
             <span>اتخذ قرارات مالية <br />أفضل مع</span>
             <span className=" relative sm:whitespace-nowrap text-teal-900/90 sm:inline hidden"> نظام سهمك الذكي
-            <Image 
+            <Image loading="eager"   
                 src="/assets/icons/zline.svg"
                 width={500}
                 height={33}
@@ -34,7 +34,7 @@ const HeroSection = () => {
                 priority /></span>
                 <span className="sm:hidden text-teal-900/90"> نظام </span>
                 <span className=" relative whitespace-nowrap text-teal-900/90 sm:hidden inline"> سهمك الذكي 
-            <Image 
+            <Image loading="eager"   
                 src="/assets/icons/zline.svg"
                 width={500}
                 height={33}
@@ -51,16 +51,16 @@ const HeroSection = () => {
           </div>
           <div className="flex gap-y-2 justify-center mt-4 gap-x-4">
             <div onClick={handleOpenWhatsapp}>
-            <OutlineButton button="جرب الخدمة"  icon={<Image src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5 whitespace-nowrap" alt="img" priority />}/>
+            <OutlineButton button="جرب الخدمة"  icon={<Image loading="eager"   src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5 whitespace-nowrap" alt="img" priority />}/>
             </div>
             <Link href="/auth/register">
-            <PrimaryButton button="شهر مجانا" buttonStyle="py-2.5 shadow-lg" icon={<Image src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5  whitespace-nowrap" alt="img" priority />}/>
+            <PrimaryButton button="شهر مجانا" buttonStyle="py-2.5 shadow-lg" icon={<Image loading="eager"   src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5  whitespace-nowrap" alt="img" priority />}/>
             </Link>
           </div>
           <div className="mx-auto my-20">
             <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
             <div className="flex justify-center mt-5">
-            <Image src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" priority />
+            <Image loading="eager"   src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" priority />
             </div>
           </div>
           

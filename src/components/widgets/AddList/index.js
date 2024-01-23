@@ -24,7 +24,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
               <span className="flex min-w-0 flex-1 items-center space-x-3">
                 {person.imageUrl ? (
                   <span className="block flex-shrink-0">
-                    <Image
+                    <Image loading="eager"  
                       width={20}
                       heiight={20}
                       alt="image"
@@ -77,7 +77,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
               <span className="flex min-w-0 flex-1 items-center space-x-3">
                 {person.imageUrl ? (
                   <span className="block flex-shrink-0">
-                    <Image
+                    <Image loading="eager"  
                       width={20}
                       heiight={20}
                       alt="image"

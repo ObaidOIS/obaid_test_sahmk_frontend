@@ -25,7 +25,7 @@ const DarkNavOverlay = ({
     <div>
       <div className="min-h-full">
         <div className="bg-gray-800 pb-32 bg-custome">
-          <Image
+          <Image loading="eager"  
             src="/assets/images/userprofile-layer-design.png"
             width={500}
             height={50}
@@ -48,7 +48,7 @@ const DarkNavOverlay = ({
 
                 <Link href="/auth/logout">
                   <div className="bg-whiteColor/10 cursor-pointer flex justify-center py-1.5 px-2 items-center rounded-lg">
-                    <Image
+                    <Image loading="eager"  
                       src="/assets/icons/white-logout.svg"
                       width={16}
                       height={16}
@@ -84,7 +84,7 @@ const DarkNavOverlay = ({
 
             <div className="lg:container flex items-center pt-8 justify-center mx-auto">
               <Link href="/" className="flex items-center">
-                <Image
+                <Image loading="eager"  
                   src="/assets/logos/logo.svg"
                   width={160}
                   height={90}
@@ -126,7 +126,7 @@ const DarkNavOverlay = ({
                   }}
                   className=" flex items-center self-center align-middle gap-4 cursor-pointer text-whiteColor font-medium mb-5 leading-none"
                 >
-                  <Image
+                  <Image loading="eager"  
                     src="/assets/icons/white-right-arrow.svg"
                     width={16}
                     height={16}

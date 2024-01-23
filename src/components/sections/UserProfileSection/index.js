@@ -183,7 +183,7 @@ const UserProfileSection = () => {
       title: "خدمة إشعارات الأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/message-glow-icon.svg"
           width={85}
           height={85}
@@ -197,7 +197,7 @@ const UserProfileSection = () => {
       title: " الأسعار المستهدفة للأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/point-glow-icon.svg"
           width={85}
           height={85}
@@ -211,7 +211,7 @@ const UserProfileSection = () => {
       title: "تقارير أسهمي الاسبوعية",
       desc: "مشاهدة التقرير الاسبوعي لأسهمي",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/progress-glow-icon.svg"
           width={85}
           height={85}
@@ -225,7 +225,7 @@ const UserProfileSection = () => {
       title: "باقتي وحسابي",
       desc: "تفاصيل باقتك والحساب الخاص بك",
       icon: (
-        <Image
+        <Image loading="eager"  
           src="/assets/icons/profile-glow-icon.svg"
           width={85}
           height={85}
@@ -513,7 +513,7 @@ const UserProfileSection = () => {
                       >
                         <ArrowList
                           leftIcon={
-                            <Image
+                            <Image loading="eager"  
                               src="/assets/icons/arrow-right.svg"
                               width={8}
                               height={8}

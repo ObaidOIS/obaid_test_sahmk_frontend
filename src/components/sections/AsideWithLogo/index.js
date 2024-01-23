@@ -10,7 +10,7 @@ const AsideWithLogo = () => {
 
   return (
     <div className="relative flex-1">
-      <Image
+      <Image loading="eager"  
         // src={pathname == "/auth/login" ? "/assets/images/login-dark.svg" : "/assets/images/dark-rectangle.png"}
         src="/assets/images/dark-rectangle.png"
         width={300}
@@ -20,7 +20,7 @@ const AsideWithLogo = () => {
         alt="image"
         priority
       />
-      <Image
+      <Image loading="eager"  
         // src={pathname == "/auth/login" ? "/assets/images/login-gradient.svg" : "/assets/images/gradient-rectangle.png"}
         src="/assets/images/gradient-rectangle.png"
         layout="fill"
@@ -31,7 +31,7 @@ const AsideWithLogo = () => {
       />
       <div className="absolute top-0 w-full">
         <div className="relative">
-          <Image
+          <Image loading="eager"  
             src="/assets/images/layer-design.png"
             className="absolute top-8 right-0 w-full"
             width={800}
@@ -43,7 +43,7 @@ const AsideWithLogo = () => {
         <div className="grid grid-cols-1 mt-32 ml-24">
           <div className="ms-auto text-center z-50">
             <Link href="/" className="w-full flex justify-center">
-            <Image
+            <Image loading="eager"  
               src="/assets/logos/logo-accent.svg"
               height={150}
               width={150}

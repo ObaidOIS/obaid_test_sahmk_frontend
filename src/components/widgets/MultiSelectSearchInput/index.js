@@ -185,7 +185,7 @@ const MultiSelectSearchInput = ({
                   }
                 >
                   {dropdownOpen == true ? (
-                    <Image
+                    <Image loading="eager"  
                       src="/assets/icons/arrow-right.svg"
                       height={5}
                       width={5}
@@ -194,7 +194,7 @@ const MultiSelectSearchInput = ({
                       priority
                     />
                   ) : (
-                    <Image
+                    <Image loading="eager"  
                       src="/assets/icons/arrow-right.svg"
                       height={5}
                       width={5}

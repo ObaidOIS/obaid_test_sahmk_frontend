@@ -197,7 +197,7 @@ const UserProfileFeatureOne = ({
               setIsPricingAddPanelOpen(false);
             }}
             image={
-              <Image
+              <Image loading="eager"  
                 src="/assets/icons/success-new-icon.svg"
                 width={400}
                 height={400}
@@ -256,7 +256,7 @@ const UserProfileFeatureOne = ({
                 title=" استقبال أسعار الافتتاح والإغلاق  للشركات"
                 desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
                 icon={
-                  <Image
+                  <Image loading="eager"  
                     src="/assets/icons/green-bell-icon.svg"
                     width={25}
                     height={25}
@@ -270,7 +270,7 @@ const UserProfileFeatureOne = ({
                   <PricingAddPanel
                     feature="first"
                     image={
-                      <Image
+                      <Image loading="eager"  
                         src="/assets/icons/apps-add.svg"
                         width={42}
                         height={42}
@@ -308,7 +308,7 @@ const UserProfileFeatureOne = ({
                 title=" استلام ملخص السوق"
                 desc="رسائل ملخص السوق العام"
                 icon={
-                  <Image
+                  <Image loading="eager"  
                     src="/assets/icons/tv-icon.svg"
                     width={25}
                     height={25}

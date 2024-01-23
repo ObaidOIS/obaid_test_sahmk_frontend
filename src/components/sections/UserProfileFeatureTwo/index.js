@@ -240,7 +240,7 @@ const UserProfileFeatureTwo = ({
             setOpenModal={setOpenSucessModal}
             onClose={() => setIsSecondFeatureModalOpen(false)}
             image={
-              <Image
+              <Image loading="eager"  
                 src="/assets/icons/success-2-icon.svg"
                 width={400}
                 height={400}
@@ -295,7 +295,7 @@ const UserProfileFeatureTwo = ({
                 title="الأسعار المستهدفة للأسهم"
                 desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
                 icon={
-                  <Image
+                  <Image loading="eager"  
                     src="/assets/icons/target-price-icon.svg"
                     width={25}
                     height={25}
@@ -309,7 +309,7 @@ const UserProfileFeatureTwo = ({
                   <PricingAddPanel
                     feature="second"
                     image={
-                      <Image
+                      <Image loading="eager"  
                         src="/assets/icons/target-secondary-icon.svg"
                         width={42}
                         height={42}

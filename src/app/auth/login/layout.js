@@ -5,7 +5,7 @@ const LoginLayout = ({ children }) => {
   return (
     <div className="mx-auto gap-5 h-screen bg-darkNavyColor ">
       <div className="relative bg-darkNavyColor z-[20]">
-          <Image
+          <Image loading="eager"  
             src="/assets/images/login-layer-design.svg"
             layout="fill"
             className=" w-screen absolute top-0 bottom-0 left-0 right-0"
