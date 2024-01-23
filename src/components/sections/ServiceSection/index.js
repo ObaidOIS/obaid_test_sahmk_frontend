@@ -7,32 +7,32 @@ const ServiceSection = () => {
   const services = [
     {
       title: " الوصول  للأسعار المباشر عن طريق الواتساب",
-      icon: <Image src="/assets/icons/24hours.svg" width={70} height={70} alt="img" className="-mr-4" />,
+      icon: <Image src="/assets/icons/24hours.svg" width={70} height={70} alt="img" className="-mr-4" priority />,
       desc: "بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة ",
     },
     {
       title: "معرفة القوائم المالية للشركات",
-      icon: <Image src="/assets/icons/alert.svg" width={70} height={70} alt="img" className="-mr-4" />,
+      icon: <Image src="/assets/icons/alert.svg" width={70} height={70} alt="img" className="-mr-4" priority />,
       desc: "بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة ",
     },
     {
       title: "استقبال اشعارات اسعار الافتتاح والاغلاق اليومي",
-      icon: <Image src="/assets/icons/teal-notification.svg" width={70} height={70} alt="img" className="-mr-4" />,
+      icon: <Image src="/assets/icons/teal-notification.svg" width={70} height={70} alt="img" className="-mr-4" priority />,
       desc: "بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة ",
     },
     {
       title: "إستلام تقارير اسبوعية لأداء أسهمك",
-      icon: <Image src="/assets/icons/chart-icon.svg" width={70} height={70} alt="img" className="-mr-4" />,
+      icon: <Image src="/assets/icons/chart-icon.svg" width={70} height={70} alt="img" className="-mr-4" priority />,
       desc: "بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة ",
     },
     {
       title: "تفعيل خاصية ارتفاع عدد الصفقات المفاجئ",
-      icon: <Image src="/assets/icons/money-icon.svg" width={70} height={70} alt="img" className="-mr-4" />,
+      icon: <Image src="/assets/icons/money-icon.svg" width={70} height={70} alt="img" className="-mr-4" priority />,
       desc: "بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة ",
     },
     {
       title: "السؤال عن ملخص السوق يوميا",
-      icon: <Image src="/assets/icons/document.svg" width={70} height={70} alt="img" className="-mr-4" />,
+      icon: <Image src="/assets/icons/document.svg" width={70} height={70} alt="img" className="-mr-4" priority />,
       desc: "بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة ",
     },
   ];

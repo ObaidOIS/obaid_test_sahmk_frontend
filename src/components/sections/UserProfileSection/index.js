@@ -188,6 +188,7 @@ const UserProfileSection = () => {
           width={85}
           height={85}
           alt="img"
+          priority
         />
       ),
       page: { name: "stock-notification", value: "خدمة إشعارات الأسهم" },
@@ -201,6 +202,7 @@ const UserProfileSection = () => {
           width={85}
           height={85}
           alt="img"
+          priority
         />
       ),
       page: { name: "target-prices", value: "الأسعار المستهدفة للأسهم" },
@@ -214,6 +216,7 @@ const UserProfileSection = () => {
           width={85}
           height={85}
           alt="img"
+          priority
         />
       ),
       page: { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" },
@@ -227,6 +230,7 @@ const UserProfileSection = () => {
           width={85}
           height={85}
           alt="img"
+          priority
         />
       ),
       page: { name: "my-account", value: "باقتي وحسابي" },
@@ -515,6 +519,7 @@ const UserProfileSection = () => {
                               height={8}
                               alt="img"
                               className="group-hover:opacity-100 opacity-20 me-4"
+                              priority
                             />
                           }
                           title={item.title}

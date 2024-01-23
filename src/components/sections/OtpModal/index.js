@@ -203,6 +203,7 @@ const OtpModal = ({
           height={32}
           className=""
           alt="img"
+          priority
         />
       </div>
       <p className="text-sm font-medium text-center mt-8">

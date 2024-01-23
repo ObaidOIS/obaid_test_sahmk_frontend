@@ -141,8 +141,8 @@ const OrderSummaryForm = (
       amount: p * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+      // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
@@ -164,6 +164,9 @@ const OrderSummaryForm = (
             resolve({});
             setIsAlertSuccessOpen(true);
             // setSuccessMessage("success");
+            if(isAlertSuccessOpen == false){
+              console.log(isAlertSuccessOpen, "hello payment");
+            }
           } else {
             reject();
             setIsAlertErrorOpen(true);
@@ -333,6 +336,7 @@ const OrderSummaryForm = (
                   height={220}
                   width={220}
                   alt="image"
+                  priority
                 />
               }
               messageTitle="تم تفعيل باقتك بنجاح 🎉"
@@ -344,6 +348,7 @@ const OrderSummaryForm = (
                   height={15}
                   width={15}
                   alt="image"
+                  priority
                 />
               }
               actionButton={true}
@@ -365,6 +370,7 @@ const OrderSummaryForm = (
                   height={220}
                   width={220}
                   alt="image"
+                  priority
                 />
               }
               messageTitle="فشلت عملية الدفع "
@@ -396,6 +402,7 @@ const OrderSummaryForm = (
                           height={30}
                           width={30}
                           alt="image"
+                          priority
                         />
                       }
                     /> */}
@@ -452,6 +459,7 @@ const OrderSummaryForm = (
                                 height={30}
                                 width={30}
                                 alt="image"
+                                priority
                               />
                             }
                           />
@@ -541,6 +549,7 @@ const OrderSummaryForm = (
                 height={170}
                 className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
                 alt="img"
+                priority
               />
             </div>
           </div>

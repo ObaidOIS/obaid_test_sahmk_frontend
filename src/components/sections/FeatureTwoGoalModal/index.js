@@ -27,6 +27,7 @@ const FeatureTwoGoalModal = ({
               height={35}
               className=""
               alt="img"
+              priority
             />
           }
         />
@@ -42,7 +43,7 @@ const FeatureTwoGoalModal = ({
       <InputFieldUI
         value={formData.stock_price}
         handleChange={handleChange}
-        label="السعر الحالي"
+        label="السعر الحالي" 
         placeholder="0.0"
         name="stock_price"
       />

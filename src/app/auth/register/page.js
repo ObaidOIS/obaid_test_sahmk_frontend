@@ -13,6 +13,7 @@ const Register = () => {
             height={200}
             className="w-full absolute z-[-99999] top-0"
             alt="Background Image"
+            priority
           />
           <div className="lg:container flex items-center sm:ps-0 ps-8 pt-20 mx-auto">
             <Link href="/" className="flex items-center">
@@ -22,6 +23,7 @@ const Register = () => {
                 height={60}
                 className="cursor-pointer"
                 alt="Logo"
+                priority
               />
             </Link>
           </div>

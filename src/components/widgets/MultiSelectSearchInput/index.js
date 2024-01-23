@@ -191,6 +191,7 @@ const MultiSelectSearchInput = ({
                       width={5}
                       className="rotate-90 mt-1 ml-1 text-sm"
                       alt="image"
+                      priority
                     />
                   ) : (
                     <Image
@@ -199,6 +200,7 @@ const MultiSelectSearchInput = ({
                       width={5}
                       className="-rotate-90 mt-1 ml-1 text-sm"
                       alt="image"
+                      priority
                     />
                   )}
                 </button>

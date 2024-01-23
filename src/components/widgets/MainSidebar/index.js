@@ -73,6 +73,7 @@ const MainSidebar = ({
                           height={150}
                           alt="img"
                           className="ms-4"
+                          priority
                         />
                         <ul className="my-10 space-y-5 text-sm font-semibold">
                           {list.map((item, index) => (
@@ -105,6 +106,7 @@ const MainSidebar = ({
                                 height={20}
                                 alt="img"
                                 className="me-5"
+                                priority
                               />
                             }
                             buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
@@ -120,6 +122,7 @@ const MainSidebar = ({
                                   height={20}
                                   alt="img"
                                   className="me-5"
+                                  priority
                                 />
                               }
                               buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"

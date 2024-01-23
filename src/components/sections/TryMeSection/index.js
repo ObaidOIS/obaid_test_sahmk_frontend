@@ -77,6 +77,7 @@ const TryMeSection = () => {
                   height={16}
                   className="mr-5"
                   alt="img"
+                  priority
                 />{" "}
               </span>
             </span>

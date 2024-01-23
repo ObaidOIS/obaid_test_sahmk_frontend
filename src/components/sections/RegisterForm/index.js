@@ -75,6 +75,7 @@ const RegisterForm = () => {
           height="24"
           alt="Saudi Arabia"
           className="w-5 h-5"
+          priority
         />
       ),
     },
@@ -180,6 +181,7 @@ const RegisterForm = () => {
           height={25}
           alt="img"
           className="mt-1"
+          priority
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
@@ -250,6 +252,7 @@ const RegisterForm = () => {
           height={25}
           alt="img"
           className="mt-1"
+          priority
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
@@ -317,6 +320,7 @@ const RegisterForm = () => {
           height={25}
           alt="img"
           className="mt-1"
+          priority
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
@@ -844,6 +848,7 @@ const RegisterForm = () => {
               height={170}
               className="absolute -bottom-14 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
               alt="img"
+              priority
             />
           </div>
         </div>

@@ -16,10 +16,9 @@ import { getFullPhoneNumber, debounce } from "@/components/common/utils";
 import NotificationAlert from "@/components/widgets/NotificationAlert";
 
 const LoginCardForm = () => {
-  
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
-  
+
   const [warningAlert, setWarningAlert] = useState(false);
   const [warningMessage, setWarningMessage] = useState("warning");
 
@@ -28,7 +27,6 @@ const LoginCardForm = () => {
 
   const [phoneNumberNotExists, setPhoneNumberNotExists] = useState(false);
   // const [isAuthenticate, setIsAuthenticate] = useState(false)
-
 
   const countryCodes = [
     {
@@ -41,6 +39,7 @@ const LoginCardForm = () => {
           height="24"
           alt="Saudi Arabia"
           className="w-5 h-5"
+          priority
         />
       ),
     },
@@ -108,15 +107,21 @@ const LoginCardForm = () => {
     const phoneNumberExists = await checkPhoneNumber();
 
     // if (userData.phoneNumber) {
-      if(phoneNumberExists){
-    if (cleanedPhoneNumber) {
-      setIsOtpModalOpen(true);
+    if (phoneNumberExists) {
+      if (cleanedPhoneNumber) {
+        setIsOtpModalOpen(true);
+      } else {
+        setErrorMessage("الرجاء إدخال رقم هاتف");
+        setErrorAlert(true);
+      }
     } else {
-      setErrorMessage("الرجاء إدخال رقم هاتف");
-      setErrorAlert(true);
-    }}
-    else{
-      setWarningMessage("الرجاء التسجيل، هذا الرقم غير موجود." + " " + userData.countryCode + " " + userData.phoneNumber);
+      setWarningMessage(
+        "الرجاء التسجيل، هذا الرقم غير موجود." +
+          " " +
+          userData.countryCode +
+          " " +
+          userData.phoneNumber
+      );
       setWarningAlert(true);
     }
   };
@@ -149,9 +154,9 @@ const LoginCardForm = () => {
     // Remove the prefix if found
     const cleanedPhoneNumber = hasPrefix
       ? prefixesToRemove.reduce(
-        (number, prefix) => number.replace(new RegExp(`^${prefix}`), ""),
-        phoneNumber
-      )
+          (number, prefix) => number.replace(new RegExp(`^${prefix}`), ""),
+          phoneNumber
+        )
       : phoneNumber;
 
     return cleanedPhoneNumber;
@@ -182,7 +187,7 @@ const LoginCardForm = () => {
             setOpenModal={setSuccessAlert}
             title="نجاح"
             message={successMessage}
-            alertStyle="fixed top-5 right-2 text-primaryColor bg-teal-50 "
+            alertStyle="fixed top-5 !z-50 right-2 text-primaryColor bg-teal-50 "
             icon={
               <CheckCircleIcon
                 className="h-5 w-5 text-primaryColor"
@@ -196,7 +201,7 @@ const LoginCardForm = () => {
             setOpenModal={setErrorAlert}
             title="خطأ"
             message={errorMessage}
-            alertStyle="fixed top-5 right-2 text-redColor bg-red-50 "
+            alertStyle="fixed top-5 !z-50 right-2 text-redColor bg-red-50 "
             icon={
               <XCircleIcon
                 className="h-5 w-5 text-redColor"
@@ -219,7 +224,7 @@ const LoginCardForm = () => {
                 aria-hidden="true"
               />
             }
-            button={{name: "اذهب إلى التسجيل", href: "/auth/register"}}
+            button={{ name: "اذهب إلى التسجيل", href: "/auth/register" }}
           />
         )}
       </div>
@@ -243,102 +248,117 @@ const LoginCardForm = () => {
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
-          <div className="bg-white relative px-6 pt-0 pb-20 sm:py-12 border border-lightGreyColor rounded-2xl sm:px-12">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
-              <div className="lg:container w-full text-center ">
-                <div className="sm:visible invisible flex items-center justify-center">
-                  <Link href="/">
-                    <Image
-                      src="/assets/logos/logo.svg"
-                      width={140}
-                      height={60}
-                      className="cursor-pointer"
-                      alt="Logo"
-                    />
-                  </Link>
-                </div>
-                <p className="text-lg leading-7 mt-2 ">
-                  مرحبا بك في نظام سهمك الذكي
-                </p>
-              </div>
-            </div>
-            <div className="mt-8 text-center mb-14 sm:mb-10">
-              <div className="text-3xl font-semibold mb-5 leading-none">
-                تسجيل الدخول لحسابك
-              </div>
-            </div>
-            <div className="space-y-4">
-              <form>
-                <div className="flex items-end gap-4">
-                  <div className="flex-grow ">
-                    <InputFieldUI
-                      label="رقم الجوال"
-                      inputmode="numeric"
-                      name="phone-tel"
-                      value={userData.phoneNumber}
-                      handleChange={(e) => {
-                        const value = e.target.value;
-                        // Check if the value is a number
-                        if (/^\d*$/.test(value)) {
-                          handleDataChange("phoneNumber", value);
-                        }
-                        setValidate({
-                          ...validate,
-                          phone: value === null || value === "",
-                        });
-                      }}
-                      maxlength="12"
-                      isValid={validate.phone}
-                      required={true}
-                    />
-                    <p></p>
-                  </div>
-                  <DropdownUI
-                    dataList={countryCodes}
-                    isOpen={isOpen}
-                    handleMenuItemClick={handleMenuItemClick}
-                    handleToggleDropdown={handleToggleDropdown}
-                    activeItem={activeItem}
-                    setActiveItem={setActiveItem}
-                    setIsOpen={setIsOpen}
-                  />
-                </div>
-                <div>
-                  <PrimaryButton
-                    type="submit"
-                    onClick={(e) => {
-                      handleOpenOtpModal(e);
-                    }}
-                    button="تسجيل الدخول"
-                    buttonStyle="py-3 rounded-md !font-normal w-full justify-center mt-6"
-                  />
-                </div>
-              </form>
-            </div>
+          <div className="relative">
             <Image
-              src="/assets/images/gradient-bottom.svg"
-              width={170}
-              height={170}
-              className="absolute -bottom-9 sm:-bottom-12 w-[calc(100%-0.75rem)] left-0 right-0 -z-30"
+              src="/assets/images/mask-left-corner-login.svg"
+              width={600}
+              height={600}
+              className="absolute -bottom-32 -left-8 sm:-left-12 md:-left-16 lg:-left-44 z-[-2] md:h-full md:w-full"
               alt="img"
+              priority
             />
+            <Image
+              src="/assets/images/mask-right-corner-login.svg"
+              width={600}
+              height={600}
+              className="absolute -top-32 -right-8 sm:-right-12 md:-right-16 lg:-right-44 z-[-2]  md:h-full md:w-full"
+              alt="img"
+              priority
+            />
+            <div className=" bg-white border border-lightGreyColor rounded-2xl px-6 pt-0 pb-20 sm:py-12 sm:px-12">
+              <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="lg:container w-full text-center ">
+                  <div className="sm:visible invisible flex items-center justify-center">
+                    <Link href="/">
+                      <Image
+                        src="/assets/logos/logo.svg"
+                        width={140}
+                        height={60}
+                        className="cursor-pointer"
+                        alt="Logo"
+                        priority
+                      />
+                    </Link>
+                  </div>
+                  {/* <p className="text-lg leading-7 mt-2 ">
+                  مرحبا بك في نظام سهمك الذكي
+                </p> */}
+                </div>
+              </div>
+              <div className="mt-8 text-center mb-14 sm:mb-10">
+                <div className="text-xl font-medium mb-5 leading-none">
+                  {/* تسجيل الدخول لحسابك */}
+                  ياهلاوسهلا فيك معنا في سهمك
+                </div>
+              </div>
+              <div className="space-y-4">
+                <form>
+                  <div className="flex items-end gap-4">
+                    <div className="flex-grow ">
+                      <InputFieldUI
+                        label="رقم الجوال"
+                        inputmode="numeric"
+                        name="phone-tel"
+                        value={userData.phoneNumber}
+                        handleChange={(e) => {
+                          const value = e.target.value;
+                          // Check if the value is a number
+                          if (/^\d*$/.test(value)) {
+                            handleDataChange("phoneNumber", value);
+                          }
+                          setValidate({
+                            ...validate,
+                            phone: value === null || value === "",
+                          });
+                        }}
+                        maxlength="12"
+                        isValid={validate.phone}
+                        required={true}
+                      />
+                      <p></p>
+                    </div>
+                    <DropdownUI
+                      dataList={countryCodes}
+                      isOpen={isOpen}
+                      handleMenuItemClick={handleMenuItemClick}
+                      handleToggleDropdown={handleToggleDropdown}
+                      activeItem={activeItem}
+                      setActiveItem={setActiveItem}
+                      setIsOpen={setIsOpen}
+                    />
+                  </div>
+                  <div>
+                    <PrimaryButton
+                      type="submit"
+                      onClick={(e) => {
+                        handleOpenOtpModal(e);
+                      }}
+                      // button="تسجيل الدخول"
+                      button="دخول"
+                      buttonStyle="py-3 rounded-xl !font-normal text-lg w-full justify-center mt-6 !bg-darkColor"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-32 text-center sm:flex items-center gap-6 justify-center text-sm text-gray-500">
-            <div className="font-semibold leading-6 text-secondaryColor hover:text-primaryColor">
+          <div className="mt-32 text-center items-center gap-6 justify-center text-sm text-gray-500">
+            <div className="leading-6 mb-5 text-white">
               إذا كنت لاتملك حساب يمكنك إنشاء حسابك
             </div>
             <Link href="/auth/register">
               <OutlineButton
-                buttonStyle="!rounded-2xl mt-5 sm:mt-0 !border-secondaryColor !px-3"
+                buttonStyle="!rounded-lg mt-5 sm:mt-0 !border-primaryColor !text-primaryColor !px-3"
                 button="أنشأ حسابك"
                 icon={
                   <Image
                     src="/assets/icons/green-right-arrow.svg"
                     width={12}
                     height={12}
-                    className="mr-5"
+                    className="mr-4"
                     alt="img"
+                    priority
                   />
                 }
               />

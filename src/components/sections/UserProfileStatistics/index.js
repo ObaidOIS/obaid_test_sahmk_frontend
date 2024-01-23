@@ -51,6 +51,7 @@ const UserProfileStatistics = ({
             height={24}
             className="cursor-pointer mx-4"
             alt="img"
+            priority
           />
           {tagsList &&
             tagsList.map((item, index) => {
@@ -107,6 +108,7 @@ const UserProfileStatistics = ({
                         height={8}
                         className="cursor-pointer"
                         alt="img"
+                        priority
                       />
                     }
                     badgeStyle={`text-primaryColor bg-primaryColor/10 hover:text-gray-700 truncate px-2 !text-xs justify-center py-1.5 ml-3 block cursor-pointer`}
@@ -143,6 +145,7 @@ const UserProfileStatistics = ({
                   height={160}
                   className="cursor-pointer mx-auto"
                   alt="img"
+                  priority
                 />
                 
                 <p>جاري جلب البيانات يرجى الانتظار</p>

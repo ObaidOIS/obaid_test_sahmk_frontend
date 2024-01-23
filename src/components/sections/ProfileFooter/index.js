@@ -43,6 +43,7 @@ const ProfileFooter = () => {
               width={100}
               height={100}           
               alt="img"
+              priority
             />
           </Link>
           <div className="flex flex-col items-center gap-6">

@@ -16,7 +16,7 @@ const ContactUsForm = () => {
     {
       name: "Saudi Arabia",
       dial_code: "+966",
-      icon : <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia" className="w-5 h-5" />,
+      icon : <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" alt="Saudi Arabia" className="w-5 h-5" priority />,
     },
     {
       name: "Bahrain",

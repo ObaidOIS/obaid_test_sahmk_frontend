@@ -140,6 +140,7 @@ const UserProfileFeatureTwo = ({
       formData.target_price !== "custom" ||
       formData.target_price !== null
     ) {
+      console.log(formData.id, "id");
       const endpoint = formData.id
         ? "/api/stocks/update/"
         : "/api/stocks/create/";
@@ -151,17 +152,32 @@ const UserProfileFeatureTwo = ({
       } else {
         setSuccessAlert(true);
         setSuccessMessage(response.result.message);
+        setTableData((prevPeople) => {
+          if (formData.id) {
+        // Check if there is an existing row with the same id
+    const existingIndex = prevPeople.findIndex(item => item.id === formData.id);
 
-        // Update formPayload after successful operation
-        if (formData.id) {
-          setTableData((prevPeople) => [...prevPeople, formData]);
-          // Update existing stock
-        }
+    if (existingIndex !== -1) {
+      // If the row with the same id exists, update its values
+      const updatedPeople = [...prevPeople];
+      updatedPeople[existingIndex] = formData;
+      return updatedPeople;
+    } }
+    else {
+      // If the row with the same id doesn't exist, add it to the tableData
+      return [...prevPeople, formData];
+    }  
+  }); 
+        // // Update formPayload after successful operation
+        // if (!formData.id) {
+        //   setTableData((prevPeople) => [...prevPeople, formData]);
+        //   // Update existing stock
+        // }
       }
     }
   };
 
-  const tableTitles = [
+  const tableTitles = [ 
     { title: "الشركة" },
     { title: "السعر الحالي" },
     { title: "الهدف" },
@@ -230,6 +246,7 @@ const UserProfileFeatureTwo = ({
                 height={400}
                 alt="img"
                 className=""
+                priority
               />
             }
             title="تم إضافة الهدف بنجاح"
@@ -284,6 +301,7 @@ const UserProfileFeatureTwo = ({
                     height={25}
                     alt="img"
                     className="ml-5"
+                    priority
                   />
                 }
                 isChecked={isPricesChecked}
@@ -297,6 +315,7 @@ const UserProfileFeatureTwo = ({
                         height={42}
                         alt="img"
                         className=""
+                        priority
                       />
                     }
                     setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}

@@ -20,8 +20,9 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
             width={5}
             className="-rotate-90 mt-1 ml-1 text-sm "
             alt="image"
+            priority
           />
-          {activeItem ? <> <span dir="ltr" >{activeItem.dial_code}</span> {activeItem.icon} </>: <> <span dir="ltr" >+966 </span> <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-5 h-5" alt="Saudi Arabia" /> </>}
+          {activeItem ? <> <span dir="ltr" >{activeItem.dial_code}</span> {activeItem.icon} </>: <> <span dir="ltr" >+966 </span> <Image src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-5 h-5" alt="Saudi Arabia" priority /> </>}
         </button>
       </div>
 

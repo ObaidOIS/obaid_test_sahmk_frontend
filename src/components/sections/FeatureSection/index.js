@@ -1,6 +1,5 @@
 "use client";
 import PrimaryCard from "@/components/widgets/PrimaryCard";
-import { PrimaryFeatures } from "@/components/widgets/PrimaryFeatures";
 import TabSection from "@/components/widgets/TabSection";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -17,6 +16,7 @@ const FeatureSection = () => {
           height={25}
           className="ml-5"
           alt="img"
+          priority
         />
       ),
       image: "/assets/images/desktop.svg",
@@ -31,6 +31,7 @@ const FeatureSection = () => {
           height={25}
           className="ml-5"
           alt="img"
+          priority
         />
       ),
       image: "/assets/images/chat-desktop.svg",
@@ -45,6 +46,7 @@ const FeatureSection = () => {
           height={25}
           className="ml-5"
           alt="img"
+          priority
         />
       ),
       image: "/assets/images/desktop.svg",
@@ -145,6 +147,7 @@ const FeatureSection = () => {
                   height={800}
                   className="absolute xl:right-0 right-[-30] top-[0px]"
                   alt="img"
+                  priority
                 />
               </div>
             ) : (
@@ -163,6 +166,7 @@ const FeatureSection = () => {
                   height={800}
                   className="absolute top-64 sm:top-56"
                   alt="img"
+                  priority
                 />
               </div>
             ) : (

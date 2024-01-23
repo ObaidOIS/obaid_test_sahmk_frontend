@@ -61,7 +61,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   src="/assets/logos/logo.svg"
                   width={30}
                   height={30}
-                  alt=""
+                  alt="img"
+                  priority
                 />
               </Link>
               <button

@@ -203,6 +203,7 @@ const UserProfileFeatureOne = ({
                 height={400}
                 alt="img"
                 className=""
+                priority
               />
             }
             openModal={openSucessModal}
@@ -261,6 +262,7 @@ const UserProfileFeatureOne = ({
                     height={25}
                     alt="img"
                     className="ml-5"
+                    priority
                   />
                 }
                 isChecked={isNotificationChecked}
@@ -274,6 +276,7 @@ const UserProfileFeatureOne = ({
                         height={42}
                         alt="img"
                         className=""
+                        priority
                       />
                     }
                     removeItem={removeItem}
@@ -312,6 +315,7 @@ const UserProfileFeatureOne = ({
                     alt="img"
                     className="ml-5"
                     isChecked={isTvChecked}
+                    priority
                   />
                 }
               />

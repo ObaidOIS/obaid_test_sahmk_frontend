@@ -42,6 +42,7 @@ const Footer = () => {
         height={33} 
         className="w-full absolute rotate-180 -z-10 bottom-0"
         alt="img"
+        priority
       />
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
@@ -53,6 +54,7 @@ const Footer = () => {
               height={100} 
               className=" cursor-pointer"
               alt="img"
+              priority
             />
             </Link>
           <div className="mx-auto">
@@ -61,7 +63,8 @@ const Footer = () => {
             <Image src="/assets/images/tadawul.svg"
              width={100}
              height={100}  
-             className="cursor-pointer" alt="img" />
+             className="cursor-pointer" alt="img"
+             priority />
             </Link>
           </div>
           </div>

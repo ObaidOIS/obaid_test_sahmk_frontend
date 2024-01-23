@@ -18,6 +18,7 @@ const AsideWithLogo = () => {
         className={`z-20 h-full w-[calc(100%-0.75rem)] ms-3`}
         objectFit="cover"
         alt="image"
+        priority
       />
       <Image
         // src={pathname == "/auth/login" ? "/assets/images/login-gradient.svg" : "/assets/images/gradient-rectangle.png"}
@@ -26,6 +27,7 @@ const AsideWithLogo = () => {
         className="z-[-9999]"
         objectFit="cover"
         alt="image"
+        priority
       />
       <div className="absolute top-0 w-full">
         <div className="relative">
@@ -35,6 +37,7 @@ const AsideWithLogo = () => {
             width={800}
             height={800}
             alt="image"
+            priority
           />
         </div>
         <div className="grid grid-cols-1 mt-32 ml-24">
@@ -46,6 +49,7 @@ const AsideWithLogo = () => {
               width={150}
               alt="image"
               className="cursor-pointer"
+              priority
             />
             </Link>
             <div className="w-60 mt-40">

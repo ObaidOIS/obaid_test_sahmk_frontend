@@ -31,6 +31,7 @@ const DarkNavOverlay = ({
             height={50}
             className=" w-full absolute top-[-30px] h-[340px]"
             alt="Background Image"
+            priority
           />
           <header className="w-full relative">
             <div className="flex p-6">
@@ -52,6 +53,7 @@ const DarkNavOverlay = ({
                       width={16}
                       height={16}
                       alt="Image"
+                      priority
                     />
                   </div>
                 </Link>
@@ -88,6 +90,7 @@ const DarkNavOverlay = ({
                   height={90}
                   className="cursor-pointer"
                   alt="Logo"
+                  priority
                 />
               </Link>
             </div>
@@ -129,6 +132,7 @@ const DarkNavOverlay = ({
                     height={16}
                     className=""
                     alt="img"
+                    priority
                   />{" "}
                   عودة للقائمة
                 </div>

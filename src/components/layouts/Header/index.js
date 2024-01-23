@@ -36,6 +36,7 @@ const Header = ({ toggleSidebar }) => {
           height={200}
           className="w-full absolute z-[-99999] top-0"
           alt="img"
+          priority
         />
         <div className="lg:container flex items-center p-6 mx-auto flex-row">
           <Link href="/" className="flex items-center">
@@ -45,6 +46,7 @@ const Header = ({ toggleSidebar }) => {
               height={33}
               className=" cursor-pointer"
               alt="img"
+              priority
             />
           </Link>
           <nav className="lg:flex hidden items-center justify-center text-base md:ml-auto mr-5">

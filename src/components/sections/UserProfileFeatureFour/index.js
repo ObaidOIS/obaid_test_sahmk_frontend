@@ -94,6 +94,7 @@ const UserProfileFeatureFour = ({
           height={25}
           alt="img"
           className="mt-1"
+          priority
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
@@ -164,6 +165,7 @@ const UserProfileFeatureFour = ({
           height={25}
           alt="img"
           className="mt-1"
+          priority
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
@@ -231,6 +233,7 @@ const UserProfileFeatureFour = ({
           height={25}
           alt="img"
           className="mt-1"
+          priority
         />
       ),
       desc: "باقة بريميوم مميزة وأسعار مباشرة",
@@ -437,6 +440,7 @@ const UserProfileFeatureFour = ({
                     height={30}
                     width={30}
                     alt="image"
+                    priority
                   />
                 }
               />
@@ -515,6 +519,7 @@ const UserProfileFeatureFour = ({
                       height={30}
                       width={30}
                       alt="image"
+                      priority
                     />
                   }
                 />
@@ -545,6 +550,7 @@ const UserProfileFeatureFour = ({
                       height={30}
                       width={30}
                       alt="image"
+                      priority
                     />
                   }
                 /> */}
@@ -616,6 +622,7 @@ const UserProfileFeatureFour = ({
                     height={20}
                     width={20}
                     alt="image"
+                    priority
                   />
                 }
               />

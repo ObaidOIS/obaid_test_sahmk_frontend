@@ -24,6 +24,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, 
                     height={30}
                     width={30}
                     alt="image"
+                    priority
                   />
                 }
               />
@@ -37,6 +38,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, 
                     height={30}
                     width={30}
                     alt="image"
+                    priority
                   />
                 }
               /> */}

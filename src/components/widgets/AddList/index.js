@@ -30,6 +30,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
                       alt="image"
                       className="h-10 w-10 rounded-full"
                       src={person.imageUrl}
+                      priority
                     />
                   </span>
                 ) : (
@@ -82,6 +83,7 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
                       alt="image"
                       className="h-10 w-10 rounded-full"
                       src={person.imageUrl}
+                      priority
                     />
                   </span>
                 ) : (
