@@ -26,3 +26,19 @@
 .recharts-text { 
     background-color: red !important;
 }
+
+/* .recharts-cartesian-axis-ticks:first-child text {
+    stroke: none;
+} */
+.recharts-xAxis g.recharts-cartesian-axis-ticks g:first-child{
+    display: none !important;
+}
+/* .recharts-xAxis g.recharts-cartesian-axis-ticks g:last-child{
+    display: none !important;
+} */
+/* .recharts-cartesian-axis-ticks:last-child  {
+    stroke: none;
+}
+.recharts-cartesian-axis-ticks:last-child  {
+    font-size: 0;
+} */

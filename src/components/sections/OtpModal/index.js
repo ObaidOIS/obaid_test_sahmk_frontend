@@ -223,7 +223,7 @@ const OtpModal = ({
 
   return (
     <div>
-      <button onClick={handleCopyClick}>Copy Text</button>
+      {/* <button onClick={handleCopyClick}>Copy Text</button> */}
       <div className="flex justify-center">
         <Image loading="eager"  
           src="/assets/icons/mail-fast.svg"

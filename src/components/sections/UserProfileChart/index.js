@@ -14,11 +14,14 @@ import {
   LabelList,
 } from "recharts";
 import CustomChartLabel from "../CustomChartLabel";
+import moment from "moment";
+
 
 const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTag }) => {
   const [cursorValue, setCursorValue] = useState(null);
 
   const handleMouseMove = (e) => {
+
     if (e.activeLabel) {
       // Use the activeLabel as the x-axis value
       const xValue = e.activeLabel;
@@ -61,6 +64,25 @@ const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTa
         </foreignObject>
     </g>)
 }
+
+const outputFormat = 'MMM D';
+const formatDate = (date) => {
+  
+  return moment(date, 'MMM D, YYYY').format(outputFormat);
+};
+
+// console.log(data, "hello data")
+
+// const visibleData = data.slice(0, 3); // Change this according to your needs
+// const ticks = visibleData.map(item => item.name);
+
+// const xAxisTicks = data.slice(1, -1).map(entry => entry.name);
+const xAxisTickCount = 6;
+const step = Math.ceil(data.length / xAxisTickCount);
+
+const xAxisTicks = data
+.filter((entry, index) => index % step === 0) // Filter based on the step
+.map(entry => entry.name);
 
   return (
     <div>
@@ -128,6 +150,7 @@ const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTa
 
           <CartesianGrid
             stroke="#ccc"
+            strokeOpacity={0.6}
             strokeDasharray=""
             // horizontal={false}
             vertical={false}
@@ -147,11 +170,19 @@ const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTa
           />
           <XAxis
             dataKey="name"
-            tickLine={false}
+            // tickLine={false}
+            // textAnchor="start"
+            // textAnchor="end"
+            ticks={xAxisTicks}
+            // ticks={data}
             // axisLine={false}
-            // stroke="some-color"
-            tickFormatter={value => `${value}`}
+            // type="number"
+            interval="equidistantPreserveStart"
+            tick={{ fontSize: 12, fontWeight: 'light' }}
+            // tickFormatter={(date) => formatDate(date)}
             dy={8}
+            domain={["auto", "auto"]}
+            tickCount={4}
             className="font-medium text-sm text-darkColor"
           />
           <YAxis
