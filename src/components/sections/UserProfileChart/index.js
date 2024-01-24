@@ -77,7 +77,7 @@ const formatDate = (date) => {
 // const ticks = visibleData.map(item => item.name);
 
 // const xAxisTicks = data.slice(1, -1).map(entry => entry.name);
-const xAxisTickCount = 6;
+const xAxisTickCount = 5;
 const step = Math.ceil(data.length / xAxisTickCount);
 
 const xAxisTicks = data
