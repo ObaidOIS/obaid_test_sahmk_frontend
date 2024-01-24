@@ -30,7 +30,7 @@ const OrderSummaryForm = (
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState(
-    "https://sahmk-huzaifazahoor.vercel.app"
+    "https://sahmk.sa"
   );
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
@@ -51,10 +51,10 @@ const OrderSummaryForm = (
   useEffect(() => {
     // Set the origin state to the current window location's origin
     const currentPlanRegister = localStorage.getItem("currentPlanRegister")
-    if(currentPlanRegister == "الباقة المجانية"){
-      if(isAuthenticated()){
+    if (currentPlanRegister == "الباقة المجانية") {
+      if (isAuthenticated()) {
         router.push("/userprofile");
-      }else{
+      } else {
         router.push("/auth/register");
       }
     }
@@ -82,7 +82,7 @@ const OrderSummaryForm = (
 
         const calculatedPrice =
           pricing["pricing"][userData.subscriptionType][
-            userData.subscriptionPeriod
+          userData.subscriptionPeriod
           ];
         if (calculatedPrice) {
           setPrice(calculatedPrice);
@@ -141,8 +141,8 @@ const OrderSummaryForm = (
       amount: p * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
@@ -164,7 +164,7 @@ const OrderSummaryForm = (
             resolve({});
             setIsAlertSuccessOpen(true);
             // setSuccessMessage("success");
-            if(isAlertSuccessOpen == false){
+            if (isAlertSuccessOpen == false) {
               console.log(isAlertSuccessOpen, "hello payment");
             }
           } else {
@@ -181,17 +181,17 @@ const OrderSummaryForm = (
     if (pathname == "/auth/order") {
       const currentPlanJSON = localStorage.getItem("currentPlanRegister");
 
-    if (currentPlanJSON) {
-      try {
-        setCurrentPlan(JSON.parse(currentPlanJSON));
-      } catch (error) {
-        // If parsing fails, set the currentPlan to the raw string
-        setCurrentPlan(currentPlanJSON);
+      if (currentPlanJSON) {
+        try {
+          setCurrentPlan(JSON.parse(currentPlanJSON));
+        } catch (error) {
+          // If parsing fails, set the currentPlan to the raw string
+          setCurrentPlan(currentPlanJSON);
+        }
+      } else {
+        // Handle the case where currentPlanJSON is not available
+        console.error("currentPlanJSON is not available in localStorage");
       }
-    } else {
-      // Handle the case where currentPlanJSON is not available
-      console.error("currentPlanJSON is not available in localStorage");
-    }
       // setCurrentPlan(JSON.parse(localStorage.getItem("currentPlanRegister")));
       setCurrentPlanDuration(
         JSON.parse(localStorage.getItem("currentPlanDurationRegister"))
@@ -208,14 +208,14 @@ const OrderSummaryForm = (
     setButtonPrice(
       currentPlan?.title == "الباقة المتقدمة"
         ? pricing.pricing.companies[
-            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
-          ]
+        currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+        ]
         : currentPlan?.title == "باقة بريميوم"
-        ? pricing.pricing.premium[
-            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+          ? pricing.pricing.premium[
+          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
-        : pricing.pricing.free[
-            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+          : pricing.pricing.free[
+          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
     );
   }, [buttonPrice]);
@@ -243,40 +243,40 @@ const OrderSummaryForm = (
         setButtonPrice(
           currentPlan?.title == "الباقة المتقدمة"
             ? pricing.pricing.companies[
-                currentPlanDuration
-                  ? currentPlanDuration?.value
-                  : frequency?.value
-              ]
+            currentPlanDuration
+              ? currentPlanDuration?.value
+              : frequency?.value
+            ]
             : currentPlan?.title == "باقة بريميوم"
-            ? pricing.pricing.premium[
-                currentPlanDuration
-                  ? currentPlanDuration?.value
-                  : frequency?.value
+              ? pricing.pricing.premium[
+              currentPlanDuration
+                ? currentPlanDuration?.value
+                : frequency?.value
               ]
-            : pricing.pricing.free[
-                currentPlanDuration
-                  ? currentPlanDuration?.value
-                  : frequency?.value
+              : pricing.pricing.free[
+              currentPlanDuration
+                ? currentPlanDuration?.value
+                : frequency?.value
               ]
         );
         // Initialize Moyasar after setting the button price
         initMoyasar(
           currentPlan?.title == "الباقة المتقدمة"
             ? pricing.pricing.companies[
-                currentPlanDuration
-                  ? currentPlanDuration?.value
-                  : frequency?.value
-              ]
+            currentPlanDuration
+              ? currentPlanDuration?.value
+              : frequency?.value
+            ]
             : currentPlan?.title == "باقة بريميوم"
-            ? pricing.pricing.premium[
-                currentPlanDuration
-                  ? currentPlanDuration?.value
-                  : frequency?.value
+              ? pricing.pricing.premium[
+              currentPlanDuration
+                ? currentPlanDuration?.value
+                : frequency?.value
               ]
-            : pricing.pricing.free[
-                currentPlanDuration
-                  ? currentPlanDuration?.value
-                  : frequency?.value
+              : pricing.pricing.free[
+              currentPlanDuration
+                ? currentPlanDuration?.value
+                : frequency?.value
               ]
         );
       }
@@ -331,7 +331,7 @@ const OrderSummaryForm = (
               title="تم الاشتراك بنجاح"
               buttonOne="إدارة حسابي"
               image={
-                <Image loading="eager"  
+                <Image loading="eager"
                   src="/assets/icons/alert-payment-success.svg"
                   height={220}
                   width={220}
@@ -343,7 +343,7 @@ const OrderSummaryForm = (
               messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
               buttonTwo="ابدأ بمراسلة النظام الذكي"
               buttonIcon={
-                <Image loading="eager"  
+                <Image loading="eager"
                   src="/assets/icons/green-right-arrow.svg"
                   height={15}
                   width={15}
@@ -365,7 +365,7 @@ const OrderSummaryForm = (
               title="فشلت عملية الدفع!"
               buttonOne="حاولة مرة أخرى"
               image={
-                <Image loading="eager"  
+                <Image loading="eager"
                   src="/assets/icons/alert-payment-error.svg"
                   height={220}
                   width={220}
@@ -417,44 +417,42 @@ const OrderSummaryForm = (
                                   : currentPlan
                                 : ""
                             }
-                            desc={` ${
-                              currentPlan?.title == "الباقة المتقدمة"
+                            desc={` ${currentPlan?.title == "الباقة المتقدمة"
                                 ? pricing.pricing.companies[
-                                    currentPlanDuration
-                                      ? currentPlanDuration.value
-                                      : frequency?.value
-                                  ]
+                                currentPlanDuration
+                                  ? currentPlanDuration.value
+                                  : frequency?.value
+                                ]
                                 : currentPlan?.title == "باقة بريميوم"
-                                ? pricing.pricing.premium[
-                                    currentPlanDuration
-                                      ? currentPlanDuration.value
-                                      : frequency?.value
+                                  ? pricing.pricing.premium[
+                                  currentPlanDuration
+                                    ? currentPlanDuration.value
+                                    : frequency?.value
                                   ]
-                                : pricing.pricing.free[
-                                    currentPlanDuration
-                                      ? currentPlanDuration.value
-                                      : frequency?.value
+                                  : pricing.pricing.free[
+                                  currentPlanDuration
+                                    ? currentPlanDuration.value
+                                    : frequency?.value
                                   ]
-                            } / ${
-                              currentPlanDuration
+                              } / ${currentPlanDuration
                                 ? currentPlanDuration?.label
                                 : frequency?.label
-                            } `}
+                              } `}
                             descStyle={
                               currentPlan?.title == "الباقة المتقدمة"
                                 ? "!text-yellowColor"
                                 : currentPlan.title == "باقة بريميوم"
-                                ? "!text-purpleColor"
-                                : "!text-blueColor"
+                                  ? "!text-purpleColor"
+                                  : "!text-blueColor"
                             }
                             image={
-                              <Image loading="eager"  
+                              <Image loading="eager"
                                 src={
                                   currentPlan?.title == "الباقة المتقدمة"
                                     ? "/assets/icons/yellow-check.svg"
                                     : currentPlan?.title == "باقة بريميوم"
-                                    ? "/assets/icons/purple-check-icon.svg"
-                                    : "/assets/icons/blue-check.svg"
+                                      ? "/assets/icons/purple-check-icon.svg"
+                                      : "/assets/icons/blue-check.svg"
                                 }
                                 height={30}
                                 width={30}
@@ -480,20 +478,20 @@ const OrderSummaryForm = (
                           {/* {price}  */}
                           {currentPlan?.title == "الباقة المتقدمة"
                             ? pricing.pricing.companies[
-                                currentPlanDuration
-                                  ? currentPlanDuration?.value
-                                  : frequency?.value
-                              ]
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
+                            ]
                             : currentPlan?.title == "باقة بريميوم"
-                            ? pricing.pricing.premium[
-                                currentPlanDuration
-                                  ? currentPlanDuration?.value
-                                  : frequency?.value
+                              ? pricing.pricing.premium[
+                              currentPlanDuration
+                                ? currentPlanDuration?.value
+                                : frequency?.value
                               ]
-                            : pricing.pricing.free[
-                                currentPlanDuration
-                                  ? currentPlanDuration?.value
-                                  : frequency?.value
+                              : pricing.pricing.free[
+                              currentPlanDuration
+                                ? currentPlanDuration?.value
+                                : frequency?.value
                               ]}{" "}
                           ريال
                         </h3>
@@ -508,20 +506,20 @@ const OrderSummaryForm = (
                       {price}
                       {currentPlan?.title == "الباقة المتقدمة"
                         ? pricing.pricing.companies[
-                            currentPlanDuration
-                              ? currentPlanDuration?.value
-                              : frequency?.value
-                          ]
+                        currentPlanDuration
+                          ? currentPlanDuration?.value
+                          : frequency?.value
+                        ]
                         : currentPlan?.title == "باقة بريميوم"
-                        ? pricing.pricing.premium[
-                            currentPlanDuration
-                              ? currentPlanDuration?.value
-                              : frequency?.value
+                          ? pricing.pricing.premium[
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency?.value
                           ]
-                        : pricing.pricing.free[
-                            currentPlanDuration
-                              ? currentPlanDuration?.value
-                              : frequency?.value
+                          : pricing.pricing.free[
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency?.value
                           ]}
                       ريال
                     </h3>
@@ -543,7 +541,7 @@ const OrderSummaryForm = (
                   </div>
                 </div>
               </div>
-              <Image loading="eager"  
+              <Image loading="eager"
                 src="/assets/images/gradient-bottom.svg"
                 width={170}
                 height={170}
