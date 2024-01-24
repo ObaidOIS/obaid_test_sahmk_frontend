@@ -21,6 +21,9 @@ const PricingAddPanel = ({
   setIsSecondFeatureModalOpen,
   setFormData,
   confirmDelete,
+  setWarningAlert,
+  setWarningMessage,
+  setCompanyToBeDeteled,
 }) => {
   return (
     <div className="px-5 cursor-auto">
@@ -71,11 +74,14 @@ const PricingAddPanel = ({
           )}
           {feature == "second" && selectedItems?.length !== 0 ? (
             <BasicTableUI
+              setWarningAlert={setWarningAlert}
+              setWarningMessage={setWarningMessage}
               setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
               tableTitles={tableTitles}
               tableData={selectedItems}
               setFormData={setFormData}
               confirmDelete={confirmDelete}
+              setCompanyToBeDeteled={setCompanyToBeDeteled}
             />
           ) : (
             ""

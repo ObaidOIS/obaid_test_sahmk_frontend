@@ -9,6 +9,7 @@ import FeatureTwoGoalModal from "../FeatureTwoGoalModal";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
+import NotificationAlert from "@/components/widgets/NotificationAlert";
 
 const UserProfileFeatureTwo = ({
   isPricesChecked,
@@ -32,6 +33,9 @@ const UserProfileFeatureTwo = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [warningAlert, setWarningAlert] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("warning");
+  const [companyToBeDeteled, setCompanyToBeDeteled] = useState("")
 
   const buttonTabs = [
     { button: "-10%" },
@@ -42,35 +46,35 @@ const UserProfileFeatureTwo = ({
   ];
 
   // Fetch companies from API and set to both dataList and originalData
+  const fetchCompanies = async () => {
+    const userStocksResponse = await apiCall("/api/stocks/");
+    if (userStocksResponse.status === 200 && userStocksResponse.result) {
+      const userStocks = userStocksResponse.result.stocks.map((stock) => ({
+        id: stock.id,
+        symbol: stock.symbol,
+        target_price: stock.target_price,
+        name: stock.stock_name,
+        stock_price: stock.stock_price,
+      }));
+      setSelectedItems(userStocks);
+      setTableData(userStocks);
+    }
+
+    const response = await apiCall("/api/stocks/get-stocks-list?price=yes");
+    if (response.result) {
+      const formattedData = response.result.map(
+        ({ symbol, first_name, current_price }) => ({
+          id: symbol,
+          symbol: symbol,
+          name: first_name,
+          stock_price: current_price,
+        })
+      );
+      setOptions(formattedData); // Set original data here
+    }
+  };
+
   useEffect(() => {
-    const fetchCompanies = async () => {
-      const userStocksResponse = await apiCall("/api/stocks/");
-      if (userStocksResponse.status === 200 && userStocksResponse.result) {
-        const userStocks = userStocksResponse.result.stocks.map((stock) => ({
-          id: stock.id,
-          symbol: stock.symbol,
-          target_price: stock.target_price,
-          name: stock.stock_name,
-          stock_price: stock.stock_price,
-        }));
-        setSelectedItems(userStocks);
-        setTableData(userStocks);
-      }
-
-      const response = await apiCall("/api/stocks/get-stocks-list?price=yes");
-      if (response.result) {
-        const formattedData = response.result.map(
-          ({ symbol, first_name, current_price }) => ({
-            id: symbol,
-            symbol: symbol,
-            name: first_name,
-            stock_price: current_price,
-          })
-        );
-        setOptions(formattedData); // Set original data here
-      }
-    };
-
     fetchCompanies();
   }, []);
 
@@ -185,6 +189,7 @@ const UserProfileFeatureTwo = ({
   ];
 
   const confirmDelete = async (company) => {
+    console.log(company.id, "hello")
     const url = `/api/stocks/delete?id=${company.id}`;
     const response = await apiCall(url, "DELETE");
     // Check if the response status code is 204
@@ -195,6 +200,7 @@ const UserProfileFeatureTwo = ({
       setErrorAlert(true);
       setErrorMessage(response.error);
     }
+    fetchCompanies();
   };
 
   return (
@@ -212,6 +218,24 @@ const UserProfileFeatureTwo = ({
                 aria-hidden="true"
               />
             }
+          />
+        )}
+        {warningAlert == true && (
+          <NotificationAlert
+            isOpen={warningAlert}
+            // isOpen={true}
+            setOpenModal={setWarningAlert}
+            title="تحذير"
+            message={warningMessage}
+            alertStyle="fixed top-5 right-2 "
+            icon={
+              <XCircleIcon
+                className="h-5 w-5 text-mediumGreyColor"
+                aria-hidden="true"
+              />
+            }
+            onClick={()=>confirmDelete(companyToBeDeteled)}
+            button={{ name: "يمسح"}}
           />
         )}
         {errorAlert == true && (
@@ -308,6 +332,9 @@ const UserProfileFeatureTwo = ({
                 addPanel={
                   <PricingAddPanel
                     feature="second"
+                    setCompanyToBeDeteled={setCompanyToBeDeteled}
+                    setWarningAlert={setWarningAlert}
+                    setWarningMessage={setWarningMessage}
                     image={
                       <Image loading="eager"  
                         src="/assets/icons/target-secondary-icon.svg"

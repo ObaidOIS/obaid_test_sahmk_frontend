@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, {useState} from "react";
 
 const BasicTableUI = ({
   tableTitles,
@@ -6,7 +7,18 @@ const BasicTableUI = ({
   setIsSecondFeatureModalOpen,
   setFormData,
   confirmDelete,
+  setWarningAlert,
+  setWarningMessage,
+  setCompanyToBeDeteled,
 }) => {
+  
+
+  const onClickDelete = (item) => {
+    setCompanyToBeDeteled(item);
+    setWarningMessage("هل أنت متأكد أنك تريد حذف مخزون المستخدم هذا؟");
+    setWarningAlert(true);
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="mt-8 flow-root">
@@ -44,8 +56,9 @@ const BasicTableUI = ({
                       <div className="flex gap-4">
                       <div
                         onClick={() => {
-                          setFormData(item);
-                          confirmDelete(item);
+                          // setFormData(item);
+                          // confirmDelete(item); 
+                          onClickDelete(item);
                         }}
                         className="text-redColor/80 cursor-pointer hover:text-redColor"
                       >

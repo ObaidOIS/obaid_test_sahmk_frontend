@@ -155,6 +155,17 @@ const xAxisTicks = data
             // horizontal={false}
             vertical={false}
           />
+          <svg width="100%" height="100%">
+          <defs>
+            <filter x="0" y="0" width="1" height="1" id="solid">
+              <feFlood flood-color="#C15959" operator="xor" flood-opacity="1" result="bg" />
+              <feMerge>
+                <feMergeNode in="bg"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
 
           <ReferenceLine
             y={data[data.length - 1].uv}
@@ -166,7 +177,9 @@ const xAxisTicks = data
             // dx="right"
             // label={<CustomChartLabel data={data} />}
             // label={renderCustomLabel}
-            label={{value:parseFloat(data[data.length - 1].uv).toFixed(2), fontSize: "12px", fill: "red", position: "insideBottomRight", dy: 10, dx: 10, className:"bg-redColor"}}
+            label={{value:parseFloat(data[data.length - 1].uv).toFixed(2), 
+              // filter: "url(#solid)", 
+              fontSize: "12px", fill: "red", position: "insideBottomRight", dy: 10, dx: 10, className:"bg-redColor"}}
           />
           <XAxis
             dataKey="name"

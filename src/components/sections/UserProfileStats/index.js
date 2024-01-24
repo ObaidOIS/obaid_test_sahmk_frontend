@@ -11,7 +11,7 @@ const UserProfileStats = ({ stats }) => {
               <dt className="text-sm leading-7 text-gray-500/90 font-medium truncate">
                 {stat.name}
               </dt>
-              <dd className="tracking-tight text-gray-900 font-medium ">
+              <dd className={`tracking-tight text-gray-900 font-medium ${stat.name == "نسبة التغيير" ? "text-primaryColor" : ""}`}>
                 {stat.value}
               </dd>
             </div>

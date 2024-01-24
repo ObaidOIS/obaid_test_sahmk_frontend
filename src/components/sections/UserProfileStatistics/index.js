@@ -39,7 +39,7 @@ const UserProfileStatistics = ({
     setSelectedStatCurrentValue(statValue);
   };
 
-  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList, "hello api")
+  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList,activeStat, "hello api")
 
   return (
     <div>
@@ -227,7 +227,7 @@ const UserProfileStatistics = ({
         tagsList.map((item, index) => {
           return (
             <div key={index}>
-              {activeStat == index ? (
+              {activeStat == (item.stock_name || item.stock_company) ? (
                 <UserProfileStats stats={item.eod_data.eod_data_list} />
               ) : (
                 ""

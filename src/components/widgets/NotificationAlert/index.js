@@ -5,7 +5,7 @@ import { InboxIcon } from '@heroicons/react/24/outline'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 
-const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, button, isOpen }) => {
+const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, button, isOpen, onClick }) => {
 
   const notificationRef = useRef(null);
 
@@ -73,12 +73,16 @@ const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, butt
                     {message}
                   </p>
                   <div className="mt-3 flex space-x-7 gap-x-7">
+                    {button.href ? 
                     <Link
                       href={button.href}
                       className="rounded-md bg-white text-sm font-medium text-primaryColor hover:text-primaryColor/80 focus:outline-none focus:ring-2 focus:ring-primaryColor/80 focus:ring-offset-2"
                     >
                       {button.name}
-                    </Link>
+                    </Link> : 
+                    <div onClick={onClick} className=" cursor-pointer rounded-md bg-white text-sm font-medium text-primaryColor hover:text-primaryColor/80 focus:outline-none focus:ring-2 focus:ring-primaryColor/80 focus:ring-offset-2">
+                      {button.name}
+                    </div>}
                     <button
                       type="button"
                       onClick={() => {
