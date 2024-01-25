@@ -97,11 +97,13 @@ const OtpModal = ({
       // If the first digit is removed, focus on the same input
       document.getElementById(`code-${index - 1}`)?.focus();
     }
+    console.log(otp, newOtp[index], value,  newOtp,   "hello id its me")
 
     if (index == 3 && value !== "") {
       // if (newOtp.length == 4 && value !== "") {
       // const code = (otp + value).replace(/,/g, '');
       const code = newOtp.join("");
+      // console.log(otp, "hello id its me")
       handleSubmit(code);
     }
   };
@@ -109,7 +111,7 @@ const OtpModal = ({
   const resendText = ` ${timer.minutes()}:${timer.seconds()}`;
 
   const focusNextInput = (e, prevId, nextId, index) => {
-    const value = e.target.value;
+    const value = e.target?.value ? e.target.value : e;
 
     // Ensure input is numeric
     if (!value || isNaN(value)) {
@@ -133,6 +135,7 @@ const OtpModal = ({
     // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
 
+    // console.log(enteredOTP, "hello id")
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
       const otpPayload = {
@@ -197,7 +200,6 @@ const OtpModal = ({
 
 
 
-
     const [copied, setCopied] = useState(false);
   
     const handleCopyClick = () => {
@@ -221,6 +223,33 @@ const OtpModal = ({
       }
     }, [copied]);
 
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text/plain').trim();
+    const otpInputs = Array.from({ length: 4 }, (_, index) => `code-${index}`);
+    
+    // Distribute pasted data to each input field
+    otpInputs.forEach((inputId, index) => {
+      // console.log(inputId, "hello id")
+      // handleInputChange(inputId, index);
+      const inputElement = document.getElementById(inputId);
+      if (inputElement) {
+        const newValue = pastedData[index] || ''; // Use pasted digit or empty string
+        inputElement.value = newValue;
+        console.log(newValue, index, "hello id")
+        focusNextInput(
+          newValue,
+          `code-${index - 3}`, // Previous ID
+          `code-${index + 3}`, // Next ID
+          index // Current index for OTP
+        );
+        // handleInputChange(newValue, index);
+      }
+    });
+    
+  };
+
   return (
     <div>
       {/* <button onClick={handleCopyClick}>Copy Text</button> */}
@@ -241,7 +270,8 @@ const OtpModal = ({
         {Array.from({ length: 4 }, (_, index) => (
           <InputFieldUI
             key={index}
-            maxlength="1"
+            // maxlength="1"
+            autocomplete="one-time-code"
             handleChange={(e) => {
               focusNextInput(
                 e,
@@ -253,6 +283,7 @@ const OtpModal = ({
             id={`code-${index}`}
             buttonStyle="text-center"
             inputmode="numeric"
+            // handlePaste={(e)=>{handlePaste(e)}}
             handleKeyUp={(e) => {
               handleKeyUp(
                 e,

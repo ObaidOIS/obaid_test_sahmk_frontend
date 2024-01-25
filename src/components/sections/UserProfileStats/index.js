@@ -1,10 +1,10 @@
 import React from "react";
 
-const UserProfileStats = ({ stats }) => {
+const UserProfileStats = ({ stats, activeTab }) => {
   return (
     <div className="bg-white pt-8 pb-12 shadow-lg mb-5 rounded-3xl">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="text-lg font-medium mb-5">نظرة عامة</div>
+        <div className="text-lg font-medium mb-5">{activeTab}</div>
         <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3">
           {stats && stats.map((stat) => (
             <div key={stat.name} className=" flex flex-col">

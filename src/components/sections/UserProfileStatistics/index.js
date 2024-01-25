@@ -39,21 +39,29 @@ const UserProfileStatistics = ({
     setSelectedStatCurrentValue(statValue);
   };
 
-  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList,activeStat, "hello api")
+  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList,activeStat, "hello api");
+  const [filterExpand, setFilterExpand] = useState(false);
+
 
   return (
     <div>
       <div className="mt-0 mb-2 pb-4 pt-2">
         <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
+          <div className="">
+            <div className={`bg-secondaryColor/10 rounded-md ml-3 px-2 py-2 flex justify-center  transition-max-h duration-300 overflow-hidden max-h-20`}>
           <Image loading="eager"  
             src="/assets/icons/success-filter.svg"
             width={24}
             height={24}
-            className="cursor-pointer mx-4"
+            className="cursor-pointer w-5 h-5 max-w-5"
+            onClick={()=>{setFilterExpand(!filterExpand)}}
             alt="img"
             priority
           />
-          {tagsList &&
+          </div>
+          </div>
+          {filterExpand && (
+          tagsList &&
             tagsList.map((item, index) => {
               return (
                 <span
@@ -73,16 +81,17 @@ const UserProfileStatistics = ({
                       // index={index}
                       active={activeStat}
                       currentTab={item.stock_name || item.stock_company}
-                      badgeStyle={`${
-                        activeStat == (item.stock_name || item.stock_company)
-                          ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                          : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                      } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
+                      tabStyle={`transition-transform duration-300 transform translate-x-0`}
+                      // badgeStyle={`${
+                      //   activeStat == (item.stock_name || item.stock_company)
+                      //     ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                      //     : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                      // } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
                     />
                   }
                 </span>
               );
-            })}
+            }))}
         </div>
         <div className="bg-whiteColor py-3 pe-3 shadow-lg border rounded-3xl ">
           {chartLoading == false ? ( 
@@ -228,14 +237,13 @@ const UserProfileStatistics = ({
           return (
             <div key={index}>
               {activeStat == (item.stock_name || item.stock_company) ? (
-                <UserProfileStats stats={item.eod_data.eod_data_list} />
+                <UserProfileStats stats={item.eod_data.eod_data_list} activeTab={activeStatistics} />
               ) : (
                 ""
               )}
             </div>
           );
         })}
-
       <div>
         <div className="font-medium text-right leading-none m-2 mt-5 mb-14">
           تحديث البيانات{" "}

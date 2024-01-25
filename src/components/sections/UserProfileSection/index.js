@@ -69,6 +69,7 @@ const UserProfileSection = () => {
           countryCode: countryCode,
           expirationDate: data.expirationDate || null,
         });
+        console.log(response.result, "hello data")
         setOriginalSubscriptionDetails({
           subscriptionType: data.subscriptionType || "free",
           subscriptionPeriod: data.subscriptionPeriod || "monthly",
@@ -269,23 +270,29 @@ const UserProfileSection = () => {
 
   // Initialize states with the original subscription details using mapping
   const [selectedOption, setSelectedOption] = useState(
-    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-    subscriptionTypeMap.free
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] 
+    // ||
+    // subscriptionTypeMap.free
   );
   const [frequency, setFrequency] = useState(
-    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-    frequencies[0]
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+    // ||
+    // frequencies[0]
   );
 
   const [currentPlan, setCurrentPlan] = useState(
-    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-    subscriptionTypeMap.free
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] 
+    // ||
+    // subscriptionTypeMap.free
   );
 
   const [currentPlanDuration, setCurrentPlanDuration] = useState(
-    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+    ||
     frequencies[0]
   );
+
+  console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] , "hello");
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -434,7 +441,14 @@ const UserProfileSection = () => {
       );
       if (response && response.result) {
         // Update your state with the new data
-        setChartData(response.result);
+        console.log(response.result[0].uv, "hello chart")
+
+        if(response.result[0].uv == "0"){
+        let removeFirstZeroObject = response.result.slice(1);
+        setChartData(removeFirstZeroObject);
+        }else{
+          setChartData(response.result);
+        }
         setChartLoading(false);
       }
     }

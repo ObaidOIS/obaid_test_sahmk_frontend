@@ -4,7 +4,7 @@ import React from 'react';
     return classes.filter(Boolean).join(' ')
   }
   
-  export default function PillTabsUI({tab, active, index, currentTab}) {
+  export default function PillTabsUI({tab, active, index, currentTab, tabStyle}) {
     return (
       <div> 
         <div className="block">
@@ -14,7 +14,7 @@ import React from 'react';
                 className={classNames(
                   active == currentTab ? 'bg-secondaryColor text-white' : 'bg-gray-200 text-secondaryColor bg-primaryColor/5 hover:text-gray-700',
                   index == 0 ? "ml-3" : "", 
-                  'rounded-md px-3 py-2 text-sm cursor-pointer font-medium truncate'
+                  `rounded-md px-3 py-2 text-sm cursor-pointer font-medium truncate ${tabStyle}`
                 )}
                 aria-current={active == currentTab ? 'page' : undefined}
               >

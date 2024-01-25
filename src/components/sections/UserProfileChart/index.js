@@ -84,6 +84,12 @@ const xAxisTicks = data
 .filter((entry, index) => index % step === 0) // Filter based on the step
 .map(entry => entry.name);
 
+const minValueAfterZero = Math.min(
+  ...data.filter((point) => point.uv !== 0).map((point) => point.uv)
+);
+
+console.log(minValueAfterZero,  "hello min" );
+
   return (
     <div>
       {/* {cursorValue !== null && <p>Cursor Value: {cursorValue}</p>} */}
@@ -209,6 +215,8 @@ const xAxisTicks = data
             dx={20}
             tickLine={false}
             className="text-xs text-black"
+            // domain={["22", 'dataMax']}
+            // domain={["dataMin", "dataMax"]}
             domain={["auto", "auto"]}
             tickCount={6}
             tickFormatter={(num) => formatNumber(num)}
