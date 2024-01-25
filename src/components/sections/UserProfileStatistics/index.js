@@ -1,6 +1,6 @@
 "use client";
 import MainBadge from "@/components/widgets/MainBadge";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserProfileStats from "../UserProfileStats";
 import UserProfileChart from "../UserProfileChart";
 import PillTabsUI from "@/components/widgets/PillTabsUI";
@@ -25,10 +25,13 @@ const UserProfileStatistics = ({
   activeStatistics,
   apiRange,
   setApiRange,
+  lastUpdatedDates,
+  setStockProfileData,
+  stockProfileData,
 }) => {
-  const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
-    useState("");
+  const [selectedChartCurrentValue, setSelectedChartCurrentValue] = useState("");
   const [selectedStatCurrentValue, setSelectedStatCurrentValue] = useState("");
+  const [selectedStockProfileCurrentValue, setSelectedStockProfileCurrentValue] = useState({});
 
   const handleSelectedChartCurrentValue = (value) => {
     setSelectedChartCurrentValue(value);
@@ -41,6 +44,21 @@ const UserProfileStatistics = ({
 
   console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList,activeStat, "hello api");
   const [filterExpand, setFilterExpand] = useState(false);
+
+  useEffect(() => {
+    if(stockProfileData[selectedSymbol]){
+      console.log(stockProfileData[selectedSymbol], stockProfileData, "user-stock-profile");
+      setSelectedStockProfileCurrentValue(stockProfileData[selectedSymbol]);
+
+    } 
+    // else{
+    //   if(selectedSymbol == "TASI" || selectedSymbol == "NOMUC" ){
+
+    //   }else{
+    //     console.log("can find that symbol in user-stock-profile")
+    //   }
+    // }
+  }, [selectedSymbol])
 
 
   return (
@@ -204,9 +222,36 @@ const UserProfileStatistics = ({
           </div>
         </div>
       </div>
-
+      {(selectedStockProfileCurrentValue != {} && stockProfileData[selectedSymbol]) ? 
       <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
-        {statisticsData &&
+        {selectedStockProfileCurrentValue &&
+          Object.keys(selectedStockProfileCurrentValue).map((item, index) => {
+            return (
+              <span
+                key={index}
+                onClick={() => {
+                  setActiveStatistics(item);
+                }}
+              >
+                {
+                  <PillTabsUI
+                  // tab={item}
+                  tab={item == "general_view" ? statisticsData[0] : item == "trades_info" ? statisticsData[1] : item == "financials" ? statisticsData[2] : item == "fundamental_info" ? statisticsData[3] : item}
+                    // tab={item == "general_view" ? statisticsData[0] : item == "trades_info" ? statisticsData[1] : item == "financials" ? statisticsData[2] : item == "fundamental_info" ? statisticsData[3] : item }
+                    index={index}
+                    active={activeStatistics}
+                    currentTab={item}
+                    badgeStyle={`${
+                      activeStatistics == item
+                        ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                        : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                    } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
+                  />
+                }
+              </span>
+            );
+          })}
+        {/* {statisticsData &&
           statisticsData.map((item, index) => {
             return (
               <span
@@ -230,25 +275,37 @@ const UserProfileStatistics = ({
                 }
               </span>
             );
-          })}
-      </div>
-      {tagsList &&
+          })} */}
+      </div> : ""}
+      {(selectedStockProfileCurrentValue != {} && stockProfileData[selectedSymbol]) &&
+            <div>
+              {/* {activeStat == (item.stock_name || item.stock_company) ? ( */}
+                <UserProfileStats 
+                stats={selectedStockProfileCurrentValue[activeStatistics]} 
+                activeTab={activeStatistics == "general_view" ? statisticsData[0] : activeStatistics == "trades_info" ? statisticsData[1] : activeStatistics == "financials" ? statisticsData[2] : activeStatistics == "fundamental_info" ? statisticsData[3] : activeStatistics} />
+              {/* ) : (
+                ""
+              )} */}
+            </div>}
+      {/* {tagsList &&
         tagsList.map((item, index) => {
           return (
             <div key={index}>
               {activeStat == (item.stock_name || item.stock_company) ? (
-                <UserProfileStats stats={item.eod_data.eod_data_list} activeTab={activeStatistics} />
+                <UserProfileStats 
+                stats={item.eod_data.eod_data_list} 
+                activeTab={activeStatistics == "general_view" ? statisticsData[0] : activeStatistics == "trades_info" ? statisticsData[1] : activeStatistics == "financials" ? statisticsData[2] : activeStatistics == "fundamental_info" ? statisticsData[3] : activeStatistics} />
               ) : (
                 ""
               )}
             </div>
           );
-        })}
+        })} */}
       <div>
         <div className="font-medium text-right leading-none m-2 mt-5 mb-14">
           تحديث البيانات{" "}
           <span className="font-normal text-gray-500/80">
-            اليوم الساعة 2:00
+            اليوم الساعة {lastUpdatedDates}
           </span>
         </div>
       </div>

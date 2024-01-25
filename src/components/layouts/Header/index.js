@@ -76,6 +76,7 @@ const Header = ({ toggleSidebar }) => {
           <div
             className="lg:hidden flex items-center flex-1 justify-end"
           >
+            {isAuthenticate == true ? "" :
             <div className="ml-4 inline">
               <Link href="/auth/register" >
                 <PrimaryButton
@@ -83,7 +84,7 @@ const Header = ({ toggleSidebar }) => {
                   buttonStyle="!py-2"
                 />
               </Link>
-            </div>
+            </div>}
             <Bars3Icon className="h-6 w-6" onClick={() => toggleSidebar()} />
           </div>
           <div className="items-center h-full lg:flex hidden ">
@@ -92,11 +93,12 @@ const Header = ({ toggleSidebar }) => {
               {" "}
               تسجل الدخول{" "}
             </Link>
+            {isAuthenticate == true ? "" :
             <div className="mr-4 inline">
             <Link href="/auth/register" >
               <PrimaryButton button="سجل معنا" buttonStyle={`font-normal`} />
               </Link>
-            </div>
+            </div>}
           </div>
         </div>
       </header>

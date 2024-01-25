@@ -363,7 +363,7 @@ const UserProfileSection = () => {
   }, [originalSubscriptionDetails]);
 
   const [activeStat, setActiveStat] = useState("TASI");
-  const [activeStatistics, setActiveStatistics] = useState("نظرة عامة")
+  const [activeStatistics, setActiveStatistics] = useState("general_view")
   const [activeChartTag, setActiveChartTag] = useState("يوم");
   const [oneDayChartTag, setOneDayChartTag] = useState(true);
   const [fiveDayChartTag, setFiveDayChartTag] = useState(false);
@@ -377,6 +377,9 @@ const UserProfileSection = () => {
   const [chartData, setChartData] = useState([]);
 
   const [chartLoading, setChartLoading] = useState(false);
+  const [lastUpdatedDates, setLastUpdatedDates] = useState("");
+
+  const [stockProfileData, setStockProfileData] = useState([])
 
   const chartTagsList = [
     {
@@ -421,8 +424,20 @@ const UserProfileSection = () => {
     const fetchUserStocks = async () => {
       try {
         const response = await apiCall("/api/stocks/user-stocks/");
+        // console.log(response, "hello stock")
         if (response && response.result.results) {
+          setLastUpdatedDates(response.result.last_updated_date);
           setTagsList(response.result.results); // Update state with the fetched data
+        }
+      } catch (error) {
+        console.error("Error fetching user stocks:", error.message);
+      }
+      try {
+        const response = await apiCall("/api/stocks/user-stocks-profile/");
+        // console.log(response, "hello stock")
+        if (response && response.result) {
+          console.log(response, "hello api too")
+          setStockProfileData(response.result);
         }
       } catch (error) {
         console.error("Error fetching user stocks:", error.message);
@@ -564,12 +579,15 @@ const UserProfileSection = () => {
                     />) : "" }
                   </div>
                   <UserProfileStatistics
+                    setStockProfileData={setStockProfileData}
+                    stockProfileData={stockProfileData}
                     apiRange={apiRange}
                     setApiRange={setApiRange}
                     chartLoading={chartLoading}
                     statisticsData={statisticsData}
                     tagsList={tagsList}
                     chartTagsList={chartTagsList}
+                    lastUpdatedDates={lastUpdatedDates}
                     chartData={chartData}
                     setSelectedSymbol={setSelectedSymbol}
                     setActiveStat={setActiveStat}
