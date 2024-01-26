@@ -12,7 +12,7 @@ const UserProfileStats = ({ stats, activeTab }) => {
                 {stat.name}
               </dt>
               <dd className={`tracking-tight text-gray-900 font-medium ${stat.name == "نسبة التغيير" ? "text-primaryColor" : ""}`}>
-                {stat.value}
+                {stat.value == "-" ? stat.value : Number(stat.value).toLocaleString()}
               </dd>
             </div>
           ))}

@@ -7,6 +7,9 @@ import PillTabsUI from "@/components/widgets/PillTabsUI";
 import TabsBarUI from "@/components/widgets/TabsBarUI";
 import Image from "next/image";
 import Loader from "@/components/widgets/Loader";
+import PrimaryButton from "@/components/widgets/PrimaryButton";
+import { FunnelIcon } from '@heroicons/react/24/solid';
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 const UserProfileStatistics = ({
   chartLoading,
@@ -37,6 +40,15 @@ const UserProfileStatistics = ({
     setSelectedChartCurrentValue(value);
   };
 
+
+  useEffect(() => {
+    if(typeof window !== "undefined"){
+    handleSelectedChartCurrentValue(chartData[chartData?.length - 1]?.uv);
+    handleSelectedStatCurrentValue(tagsList[0]?.eod_data?.eod_data_list[1]?.value)
+    // console.log(chartData, "hello chart nan");
+    }
+  }, [chartData, tagsList])
+
   const handleSelectedStatCurrentValue = (statValue) => {
     // setSelectedChartCurrentValue(selectedChartCurrentValue);
     setSelectedStatCurrentValue(statValue);
@@ -60,25 +72,54 @@ const UserProfileStatistics = ({
     // }
   }, [selectedSymbol])
 
+  // console.log(chartData, "hello chart nan")
+
 
   return (
     <div>
       <div className="mt-0 mb-2 pb-4 pt-2">
-        <div className="space-x-3 flex overflow-x-auto pt-2 pb-6 ">
-          <div className="">
-            <div className={`bg-secondaryColor/10 rounded-md ml-3 px-2 py-2 flex justify-center  transition-max-h duration-300 overflow-hidden max-h-20`}>
-          <Image loading="eager"  
-            src="/assets/icons/success-filter.svg"
-            width={24}
-            height={24}
-            className="cursor-pointer w-5 h-5 max-w-5"
-            onClick={()=>{setFilterExpand(!filterExpand)}}
-            alt="img"
-            priority
-          />
+        <div className={`space-x-3 ${filterExpand ? "" : "overflow-x-auto flex" } pt-2 pb-6 `}>
+          <div className="inline-flex items-center justify-center align-middle">
+            <div className={`bg-primaryColor/10 rounded-md ml-3 px-2 mb-2 py-2 ${filterExpand ? "flex" : "flex" } justify-center transition-max-h duration-300 overflow-hidden max-h-20 items-center`}>
+              <FunnelIcon onClick={()=>{setFilterExpand(!filterExpand)}} className={`cursor-pointer w-5 h-5 ${filterExpand ? "text-whiteColor" : "text-secondaryColor"}`} />
           </div>
           </div>
-          {filterExpand && (
+          {filterExpand ? 
+            tagsList &&
+            tagsList.map((item, index) => {
+              return (
+                <span
+                  className=""
+                  key={index}
+                  onClick={() => {
+                    handleTagClick(apiRange, item.stock_company);
+                    setActiveStat(item.stock_name || item.stock_company);
+                    setSelectedSymbol(item.stock_company);
+                    handleSelectedStatCurrentValue(
+                      item.eod_data?.eod_data_list[1]?.value
+                    );
+                  }}
+                >
+                  <PrimaryButton button={item.stock_name || item.stock_company}
+                  buttonStyle={`py-1 rounded-md mb-4 !font-normal ${activeStat == (item.stock_name || item.stock_company) ? "!bg-secondaryColor " : "!bg-primaryColor/5 !text-secondaryColor"} hover:!shadow-0 truncate justify-center`} />
+                  
+                    {/* <PillTabsUI
+                      tab={item.stock_name || item.stock_company}
+                      // index={index}
+                      active={activeStat}
+                      currentTab={item.stock_name || item.stock_company}
+                      tabStyle={`transition-transform duration-300 transform translate-x-0`}
+                      // badgeStyle={`${
+                      //   activeStat == (item.stock_name || item.stock_company)
+                      //     ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
+                      //     : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
+                      // } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
+                    /> */}
+                  
+                </span>
+              );
+            })
+           :        
           tagsList &&
             tagsList.map((item, index) => {
               return (
@@ -109,7 +150,7 @@ const UserProfileStatistics = ({
                   }
                 </span>
               );
-            }))}
+            })}
         </div>
         <div className="bg-whiteColor py-3 pe-3 shadow-lg border rounded-3xl ">
           {chartLoading == false ? ( 
@@ -129,16 +170,19 @@ const UserProfileStatistics = ({
                   <MainBadge
                     title={selectedStatCurrentValue}
                     icon={
-                      <Image loading="eager"  
-                        src="/assets/icons/success-arrow.svg"
-                        width={8}
-                        height={8}
-                        className="cursor-pointer"
-                        alt="img"
-                        priority
-                      />
+                      chartData[0].uv < chartData[chartData.length - 1].uv ? 
+                      <TiArrowSortedUp className="text-primaryColor" /> :
+                      <TiArrowSortedDown className="text-redColor" />
+                      // <Image loading="eager"  
+                      //   src="/assets/icons/success-arrow.svg"
+                      //   width={8}
+                      //   height={8}
+                      //   className="cursor-pointer text-red-500"
+                      //   alt="img"
+                      //   priority
+                      // />
                     }
-                    badgeStyle={`text-primaryColor bg-primaryColor/10 hover:text-gray-700 truncate px-2 !text-xs justify-center py-1.5 ml-3 block cursor-pointer`}
+                    badgeStyle={`${chartData[0].uv < chartData[chartData.length - 1].uv ? "text-primaryColor bg-primaryColor/10" : "text-redColor bg-redColor/10" } hover:text-gray-700 truncate px-2 !text-xs justify-center py-1.5 ml-3 block cursor-pointer`}
                   />
                 </div>
                 <p className="text-2xl font-medium">

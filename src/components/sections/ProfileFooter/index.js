@@ -4,8 +4,9 @@ import Link from "next/link";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { FaEnvelope } from "react-icons/fa6";
+import Loader from "@/components/widgets/Loader";
 
-const ProfileFooter = () => {
+const ProfileFooter = ({name}) => {
   const footerLinks = [
     { name: "الرئيسية", href: '#features' },
     { name: "المميزات", href: '#' },
@@ -34,6 +35,9 @@ const ProfileFooter = () => {
   ];
 
   return (
+    <>
+    {name !== "" &&
+      (
     <footer className="w-full border-t shadow-2xl transition duration-300">
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
@@ -81,7 +85,8 @@ const ProfileFooter = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </footer>)}
+    </>
   );
 };
 

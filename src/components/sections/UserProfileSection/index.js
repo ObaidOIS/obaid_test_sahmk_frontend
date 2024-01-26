@@ -21,6 +21,7 @@ import UserProfileStatistics from "../UserProfileStatistics";
 import { usePathname } from "next/navigation";
 import DotBadgeUI from "@/components/widgets/DotBadgeUI";
 import moment from 'moment-timezone';
+import Loader from "@/components/widgets/Loader";
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -456,11 +457,11 @@ const UserProfileSection = () => {
       );
       if (response && response.result) {
         // Update your state with the new data
-        console.log(response.result[0].uv, "hello chart")
+        console.log(response.result[response.result?.length - 1]?.uv, "hello chart")
 
         if(response.result[0].uv == "0"){
         let removeFirstZeroObject = response.result.slice(1);
-        setChartData(removeFirstZeroObject);
+          setChartData(removeFirstZeroObject);
         }else{
           setChartData(response.result);
         }
@@ -510,7 +511,7 @@ const UserProfileSection = () => {
 
   return (
     <div>
-      {typeof window == "undefined" ? (
+      {(typeof window == "undefined" && userData.name == "") ? (
         ""
       ) : (
         <>
@@ -682,7 +683,7 @@ const UserProfileSection = () => {
             )}
           </DarkNavOverlay>
           <div>
-            <ProfileFooter />
+            <ProfileFooter name={userData.name} />
           </div>
         </>
       )}

@@ -7,6 +7,7 @@ import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import React, { useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import { usePathname } from 'next/navigation'
+import Loader from "@/components/widgets/Loader";
 
 const DarkNavOverlay = ({
   children,
@@ -23,7 +24,8 @@ const DarkNavOverlay = ({
   
   return (
     <div>
-      <div className="min-h-full">
+      {name !== "" ?
+      (<div className="min-h-full">
         <div className="bg-gray-800 pb-32 bg-custome">
           <Image loading="eager"  
             src="/assets/images/userprofile-layer-design.png"
@@ -100,7 +102,10 @@ const DarkNavOverlay = ({
               <div className="max-w-2xl ">
                 <div className="text-2xl mb-5 leading-none">
                   مرحبا بك{" "}
-                  <span className="text-primaryColor">{name || "شخص"}،</span> في نظام
+                  <span className="text-primaryColor">
+                  {name}
+                    {/* {name || "شخص"} */}
+                    ،</span> في نظام
                   سهمك
                 </div>
                 <p className=" font-small text-gray-400/60 text-sm ">
@@ -146,7 +151,7 @@ const DarkNavOverlay = ({
             </div>
           </div>
         </main>
-      </div>
+      </div>) : <Loader />}
     </div>
   );
 };

@@ -121,14 +121,14 @@ const MultiSelectSearchInput = ({
             >
               تفعيل الشركات{" "}
             </label>
-            <div className="my-2 p-1 flex border border-mediumGreyColor bg-white rounded-md shadow-sm svelte-1l8159u">
+            <div className={`my-2 p-1 flex border bg-white rounded-md shadow-sm svelte-1l8159u ${dropdownOpen ? "border-2 border-primaryColor" : "border-mediumGreyColor"}`}>
               <div className="flex flex-auto flex-wrap relative w-full">
                 <input
                   placeholder={placeholderText}
                   id="company"
                   value={inputText}
                   // disabled={selectedOption === "الباقة المجانية" ? true : false}
-                  className="bg-transparent placeholder-primaryColor py-4 px-2 appearance-none outline-none h-full w-full text-gray-800"
+                  className={`bg-transparent placeholder-primaryColor py-4 px-2 appearance-none outline-none h-full w-full text-gray-800`}
                   onFocus={() => setDropdownOpen(!dropdownOpen)}
                   onClick={() => setDropdownOpen(true)}
                   // onBlur={() => setDropdownOpen(false)}
