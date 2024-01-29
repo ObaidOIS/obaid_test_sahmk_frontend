@@ -270,14 +270,14 @@ const LoginCardForm = () => {
           }
         />
       </div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-4 sm:px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
           <div className="relative">
             <Image loading="eager"  
               src="/assets/images/mask-left-corner-login.svg"
               width={600}
               height={600}
-              className="absolute -bottom-32 -left-8 sm:-left-12 md:-left-16 lg:-left-44 z-[-2] md:h-full md:w-full"
+              className="absolute -bottom-32 -left-4 sm:-left-12 md:-left-16 lg:-left-44 z-[-2] md:h-full md:w-full"
               alt="img"
               priority
             />
@@ -289,7 +289,7 @@ const LoginCardForm = () => {
               alt="img"
               priority
             />
-            <div className=" bg-white border border-lightGreyColor rounded-2xl px-6 pt-20 pb-20 sm:py-12 sm:px-12">
+            <div className=" bg-white border border-lightGreyColor rounded-2xl px-6 py-8 sm:py-12 sm:px-12">
               <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="lg:container w-full text-center ">
                   <div className="visible flex items-center justify-center">
@@ -309,7 +309,7 @@ const LoginCardForm = () => {
                 </p> */}
                 </div>
               </div>
-              <div className="mt-8 text-center mb-14 sm:mb-10">
+              <div className="mt-8 text-center mb-10">
                 <div className="text-xl font-medium mb-5 leading-none">
                   {/* تسجيل الدخول لحسابك */}
                   ياهلاوسهلا فيك معنا في سهمك
