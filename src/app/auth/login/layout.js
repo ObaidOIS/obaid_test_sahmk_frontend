@@ -5,20 +5,27 @@ import React from "react";
 
 const LoginLayout = ({ children }) => {
   return (
-    <div className="mx-auto gap-5 h-screen bg-darkNavyColor ">
-      <div className="relative bg-darkNavyColor z-[20]">
-          <Image loading="eager"  
+    <div className="mx-auto relative gap-5 h-screen bg-darkNavyColor ">
+      <Image loading="eager"  
+            src="/assets/images/login-layer-design.svg"
+            layout="fill"
+            className=" w-screen absolute top-0 bottom-0 left-0 z-20 right-0"
+            alt="Background Image"
+            priority
+          />
+      <div className="relative z-[20]">
+          {/* <Image loading="eager"  
             src="/assets/images/login-layer-design.svg"
             layout="fill"
             className=" w-screen absolute top-0 bottom-0 left-0 right-0"
             alt="Background Image"
             priority
-          />
+          /> */}
           {/* <header className="w-full relative py-20"> */}
-          <div className="w-full relative py-8">
+          <div className="w-full relative py-8 z-40">
           {children}
           </div>
-          <div className="bottom-[-90px] inset-x-0 text-center absolute items-center gap-6 justify-center text-sm text-gray-500">
+          <div className="bottom-[-90px] z-40 inset-x-0 text-center absolute items-center gap-6 justify-center text-sm text-gray-500">
             <div className="leading-6 mb-3 text-white">
               إذا كنت لاتملك حساب يمكنك إنشاء حسابك
             </div>
