@@ -198,7 +198,7 @@ const MultiSelectSearchInput = ({
                                   className="h-6 w-5 flex-none text-primaryColor"
                                   aria-hidden="true"
                                 />
-                                {index}
+                                {/* {index} */}
                               </div>
                             )}
                           </div>
