@@ -1,4 +1,6 @@
+import OutlineButton from "@/components/widgets/OutlineButton";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const LoginLayout = ({ children }) => {
@@ -12,9 +14,31 @@ const LoginLayout = ({ children }) => {
             alt="Background Image"
             priority
           />
-          <header className="w-full relative py-20">
+          {/* <header className="w-full relative py-20"> */}
+          <div className="w-full relative py-8">
           {children}
-          </header>
+          </div>
+          <div className="bottom-[-90px] inset-x-0 text-center absolute items-center gap-6 justify-center text-sm text-gray-500">
+            <div className="leading-6 mb-3 text-white">
+              إذا كنت لاتملك حساب يمكنك إنشاء حسابك
+            </div>
+            <Link href="/auth/register">
+              <OutlineButton
+                buttonStyle="!rounded-lg mt-5 sm:mt-0 !border-primaryColor !text-primaryColor !px-3"
+                button="أنشأ حسابك"
+                icon={
+                  <Image loading="eager"  
+                    src="/assets/icons/green-right-arrow.svg"
+                    width={12}
+                    height={12}
+                    className="mr-4"
+                    alt="img"
+                    priority
+                  />
+                }
+              />
+            </Link>
+          </div>
       </div>
     </div>
   );
