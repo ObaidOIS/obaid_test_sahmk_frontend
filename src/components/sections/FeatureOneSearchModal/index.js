@@ -12,6 +12,9 @@ const FeatureOneSearchModal = ({
   handleSearch,
   filteredData,
   originalData,
+  setErrorAlert,
+  setErrorMessage,
+  originalSubscriptionDetails,
 }) => {
   return (
     <div>
@@ -29,6 +32,9 @@ const FeatureOneSearchModal = ({
         </div>
         <div className="h-[35vh] mt-3 overflow-y-scroll">
         <AddList
+          setErrorAlert={setErrorAlert}
+          setErrorMessage={setErrorMessage}
+          originalSubscriptionDetails={originalSubscriptionDetails}
           originalData={originalData}
           filteredData={filteredData}
           dataList={dataList}

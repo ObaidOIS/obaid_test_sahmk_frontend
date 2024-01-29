@@ -135,7 +135,7 @@ const OtpModal = ({
     // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
 
-    // console.log(enteredOTP, "hello id")
+    console.log(enteredOTP, "hello id")
     if (otpId && enteredOTP.length === 4) {
       // Ensure otpId is set and OTP is complete
       const otpPayload = {
@@ -224,31 +224,66 @@ const OtpModal = ({
     }, [copied]);
 
 
+    
+  // const handlePaste = (e) => {
+  //   console.log(e, "hello otp")
+  //   e.preventDefault();
+  //   const pastedData = e.clipboardData.getData('text/plain').trim();
+  //   const otpInputs = Array.from({ length: 4 }, (_, index) => `code-${index}`);
+    
+  //   // Distribute pasted data to each input field
+  //   otpInputs.forEach((inputId, index) => {
+  //     // console.log(inputId, "hello id")
+  //     // handleInputChange(inputId, index);
+  //     const inputElement = document.getElementById(inputId);
+  //     if (inputElement) {
+  //       const newValue = pastedData[index] || ''; // Use pasted digit or empty string
+  //       inputElement.value = newValue;
+  //       console.log(newValue, index, "hello id")
+  //       focusNextInput(
+  //         newValue,
+  //         `code-${index - 3}`, // Previous ID
+  //         `code-${index + 3}`, // Next ID
+  //         index // Current index for OTP
+  //       );
+  //       // handleInputChange(newValue, index);
+  //     }
+  //   });
+    
+  // };
+
   const handlePaste = (e) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData('text/plain').trim();
     const otpInputs = Array.from({ length: 4 }, (_, index) => `code-${index}`);
-    
-    // Distribute pasted data to each input field
+  
+    let enteredOTP = Array(4).fill(""); // Initialize enteredOTP as an array of empty strings
+  
     otpInputs.forEach((inputId, index) => {
-      // console.log(inputId, "hello id")
-      // handleInputChange(inputId, index);
       const inputElement = document.getElementById(inputId);
       if (inputElement) {
         const newValue = pastedData[index] || ''; // Use pasted digit or empty string
         inputElement.value = newValue;
-        console.log(newValue, index, "hello id")
+        enteredOTP[index] = newValue; // Update the corresponding index in enteredOTP
         focusNextInput(
           newValue,
           `code-${index - 3}`, // Previous ID
           `code-${index + 3}`, // Next ID
           index // Current index for OTP
         );
-        // handleInputChange(newValue, index);
       }
     });
-    
+  
+    // Now enteredOTP is an array with four digits
+    console.log(enteredOTP, "hello id its me");
+    const enteredOTPArray = enteredOTP.join("");
+    // You can optionally call the handleSubmit function here passing the enteredOTP
+    handleSubmit(enteredOTPArray);
+    // Or update the state if needed
+    // setOtp(enteredOTP); // Update the state with the enteredOTP array
+    // focusNextInput(...); // Focus on the next input if needed
   };
+  
 
   return (
     <div>

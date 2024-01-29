@@ -16,6 +16,7 @@ const UserProfileFeatureOne = ({
   handleNotificationSwitch,
   handleTvSwitch,
   isTvChecked,
+  originalSubscriptionDetails,
 }) => {
   const [isPricingAddPanelOpen, setIsPricingAddPanelOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -74,8 +75,8 @@ const UserProfileFeatureOne = ({
     //   stocks: popupStocks,
     // };
     const requestData = {
-        stocks: stocksArray,
-      };
+      stocks: stocksArray,
+    };
 
     // Send a POST request using your custom apiCall function
     const response = await apiCall(endpoint, "POST", requestData);
@@ -108,10 +109,10 @@ const UserProfileFeatureOne = ({
     setSelectedItems((prevSelectedItems) => {
       const isAlreadySelected = prevSelectedItems.some(
         (item) => item.symbol === itemSymbol
-    );
-  //   const isAlreadySelected = prevSelectedItems.some(
-  //     (item) => item === itemObject
-  // );
+      );
+      //   const isAlreadySelected = prevSelectedItems.some(
+      //     (item) => item === itemObject
+      // );
 
       let newSelectedItems;
 
@@ -120,17 +121,55 @@ const UserProfileFeatureOne = ({
         newSelectedItems = prevSelectedItems.filter(
           (item) => item.symbol !== itemSymbol
         );
+
+        // Update popupStocks similarly as selectedItems
+        setPopupStocks(newSelectedItems);
+        handlePopupSave(newSelectedItems);
       } else {
         // Add the new item
-        newSelectedItems = [
-          ...prevSelectedItems,
-          { id: itemId, name: itemName, symbol: itemSymbol },
-        ];
+        let isError = false;
+        if (originalSubscriptionDetails?.subscriptionType == "free") {
+          setErrorAlert(true);
+          setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+          isError = true;
+        }
+        if (
+          originalSubscriptionDetails?.subscriptionType == "premium" &&
+          selectedItems.length + 1 > 10
+        ) {
+          setErrorAlert(true);
+          setErrorMessage(
+            "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
+          );
+          isError = true;
+        }
+        if (
+          originalSubscriptionDetails?.subscriptionType == "companies" &&
+          selectedItems.length + 1 > 50
+        ) {
+          setErrorAlert(true);
+          setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+          isError = true;
+        }
+        if (!isError) {
+          newSelectedItems = [
+            ...prevSelectedItems,
+            { id: itemId, name: itemName, symbol: itemSymbol },
+          ];
+          // Update popupStocks similarly as selectedItems
+          setPopupStocks(newSelectedItems);
+          handlePopupSave(newSelectedItems);
+        } else {
+          newSelectedItems = [
+            ...prevSelectedItems,
+            // { id: itemId, name: itemName, symbol: itemSymbol },
+          ];
+        }
       }
 
-      // Update popupStocks similarly as selectedItems
-      setPopupStocks(newSelectedItems);
-      handlePopupSave(newSelectedItems);
+      // // Update popupStocks similarly as selectedItems
+      // setPopupStocks(newSelectedItems);
+      // handlePopupSave(newSelectedItems);
 
       return newSelectedItems;
     });
@@ -197,7 +236,8 @@ const UserProfileFeatureOne = ({
               setIsPricingAddPanelOpen(false);
             }}
             image={
-              <Image loading="eager"  
+              <Image
+                loading="eager"
                 src="/assets/icons/success-new-icon.svg"
                 width={400}
                 height={400}
@@ -226,6 +266,7 @@ const UserProfileFeatureOne = ({
             button="حفظ"
             content={
               <FeatureOneSearchModal
+                originalSubscriptionDetails={originalSubscriptionDetails}
                 originalData={originalData}
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
@@ -235,6 +276,8 @@ const UserProfileFeatureOne = ({
                 toggleSelection={toggleSelection}
                 setSelectedItems={setSelectedItems}
                 selectedItems={selectedItems}
+                setErrorAlert={setErrorAlert}
+                setErrorMessage={setErrorMessage}
               />
             }
           />
@@ -256,7 +299,8 @@ const UserProfileFeatureOne = ({
                 title=" استقبال أسعار الافتتاح والإغلاق  للشركات"
                 desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
                 icon={
-                  <Image loading="eager"  
+                  <Image
+                    loading="eager"
                     src="/assets/icons/green-bell-icon.svg"
                     width={25}
                     height={25}
@@ -270,7 +314,8 @@ const UserProfileFeatureOne = ({
                   <PricingAddPanel
                     feature="first"
                     image={
-                      <Image loading="eager"  
+                      <Image
+                        loading="eager"
                         src="/assets/icons/apps-add.svg"
                         width={42}
                         height={42}
@@ -308,7 +353,8 @@ const UserProfileFeatureOne = ({
                 title=" استلام ملخص السوق"
                 desc="رسائل ملخص السوق العام"
                 icon={
-                  <Image loading="eager"  
+                  <Image
+                    loading="eager"
                     src="/assets/icons/tv-icon.svg"
                     width={25}
                     height={25}

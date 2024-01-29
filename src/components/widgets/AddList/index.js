@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
-const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon, isOpen, removeItem }) => {
+const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon, isOpen, removeItem, originalSubscriptionDetails, setErrorAlert, setErrorMessage }) => {
 
   const [personIdx, setPersonIdx] = useState("")
 
+  console.log(selectedItems, "originalData");
   return (
     <div>
       <ul role="list" className="mt-4 grid grid-cols-1 gap-4">
@@ -14,7 +15,9 @@ const AddList = ({ dataList, filteredData, toggleSelection, selectedItems, icon,
           <li key={person.id}>
             <button
               type="button"
-              onClick={() => {setPersonIdx(person); toggleSelection !== undefined ? toggleSelection(person.id, person.name, person.symbol) : null}}
+              // onClick={() => {originalSubscriptionDetails?.subscriptionType == "free" ? "set error please upgrade your plan to select companies" : (originalSubscriptionDetails?.subscriptionType == "premium" && selectedItems >= 10) ? "can’t add more please upgrade your plane to add 50 companies" : (originalSubscriptionDetails?.subscriptionType == "advance" && selectedItems >= 50) ? "can’t add more companies" : setPersonIdx(person); toggleSelection !== undefined ? toggleSelection(person.id, person.name, person.symbol) : null}}
+              // onClick={() => {handleCheck(person.id, person.name, person.symbol, person, selectedItems)}}
+              onClick={()=>{setPersonIdx(person); toggleSelection !== undefined ? toggleSelection(person.id, person.name, person.symbol, person, selectedItems) : null}}
               className={`group flex w-full items-center justify-between space-x-3 rounded-full border ${
                 (isOpen == true && selectedItems?.some(item => item.symbol === person.symbol)) ? 
                   "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"

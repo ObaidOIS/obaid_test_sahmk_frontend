@@ -51,6 +51,9 @@ const MultiSelectSearchInput = ({
 
   const toggleSelection = (itemId) => {
     if (selectedOption === "الباقة المتقدمة") {
+      if(!(selectedItems.includes(itemId))){
+      selectedItems.length < 50 ? "" : setErrorAlert(true); setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+      }
       setSelectedItems((prevSelected) =>
         prevSelected.includes(itemId)
           ? prevSelected.filter((id) => id !== itemId)
@@ -60,12 +63,15 @@ const MultiSelectSearchInput = ({
       );
     }
     if (selectedOption === "باقة بريميوم") {
+      if(!(selectedItems.includes(itemId))){
+      selectedItems.length < 10 ? "" : setErrorAlert(true); setErrorMessage("لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة.");}
       setSelectedItems((prevSelected) =>
         prevSelected.includes(itemId)
           ? prevSelected.filter((id) => id !== itemId)
           : selectedItems.length < 10
           ? [...prevSelected, itemId]
           : [...prevSelected]
+          // : ([...prevSelected], setErrorAlert(true), setErrorMessage("premium reach its limit"))
       );
     }
     if (selectedOption === "الباقة المجانية") {
@@ -75,6 +81,7 @@ const MultiSelectSearchInput = ({
           : selectedItems.length < 0
           ? [...prevSelected, itemId]
           : [...prevSelected]
+          // : ([...prevSelected], setErrorAlert(true), setErrorMessage("companies reach its limit"))
       );
     }
   };
@@ -110,6 +117,33 @@ const MultiSelectSearchInput = ({
 
   const inputText = dropdownOpen ? searchQuery : "";
 
+  const CheckPlanError = () => {
+    
+    if (originalSubscriptionDetails?.subscriptionType == "free") {
+      setErrorAlert(true);
+      setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+      isError = true;
+    }
+    if (
+      originalSubscriptionDetails?.subscriptionType == "premium" &&
+      selectedItems.length + 1 > 10
+    ) {
+      setErrorAlert(true);
+      setErrorMessage(
+        "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
+      );
+      isError = true;
+    }
+    if (
+      originalSubscriptionDetails?.subscriptionType == "companies" &&
+      selectedItems.length + 1 > 50
+    ) {
+      setErrorAlert(true);
+      setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+      isError = true;
+    }
+  }
+
   return (
     <div className="w-full flex flex-col items-center mx-auto relative">
       <div className="w-full">
@@ -140,7 +174,7 @@ const MultiSelectSearchInput = ({
                     className="absolute shadow top-[65px] bg-white z-40 w-full left-0 rounded max-h-select overflow-y-auto svelte-5uyqqj"
                   >
                     <div className=" max-h-52 overflow-y-auto flex flex-col w-full">
-                      {filteredData.map((item) => (
+                      {filteredData.map((item, index) => (
                         <div
                           key={item.id}
                           className={`cursor-pointer w-full border-gray-100 ${
@@ -164,6 +198,7 @@ const MultiSelectSearchInput = ({
                                   className="h-6 w-5 flex-none text-primaryColor"
                                   aria-hidden="true"
                                 />
+                                {index}
                               </div>
                             )}
                           </div>

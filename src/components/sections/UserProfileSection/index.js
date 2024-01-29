@@ -626,6 +626,7 @@ const UserProfileSection = () => {
               </div>
             ) : page.name == "stock-notification" ? (
               <UserProfileFeatureOne
+                originalSubscriptionDetails={originalSubscriptionDetails}
                 isNotificationChecked={isNotificationChecked}
                 handleNotificationSwitch={handleNotificationSwitch}
                 handleTvSwitch={handleTvSwitch}
