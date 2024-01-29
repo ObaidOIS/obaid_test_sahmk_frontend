@@ -459,12 +459,34 @@ const UserProfileSection = () => {
         // Update your state with the new data
         console.log(response.result[response.result?.length - 1]?.uv, "hello chart")
 
+        if(range == "1d"){
+          let transformedData;
+          if(response.result[0].uv == "0"){
+            // let removeFirstZeroObject = response.result.slice(1);
+              // setChartData(removeFirstZeroObject);
+              transformedData = response.result.slice(1);
+            }else{
+              // setChartData(response.result);
+              transformedData = response.result;
+            }
+            const formattedData = transformedData.map(entry => {
+              const dateObject = new Date(entry.name);
+              const hours = dateObject.getHours();
+              const minutes = dateObject.getMinutes();
+              const time = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+              return { ...entry, name: time };
+            });
+          
+            setChartData(formattedData);
+        }
+        else{
         if(response.result[0].uv == "0"){
         let removeFirstZeroObject = response.result.slice(1);
           setChartData(removeFirstZeroObject);
         }else{
           setChartData(response.result);
         }
+      }
         setChartLoading(false);
       }
     }

@@ -190,7 +190,7 @@ const OtpModal = ({
 
   const handleKeyUp = (e, prevId, nextId, index) => {
     // Handle backspace
-    if ((e.code === "Backspace" || e.keyCode === 46) && index > 0) {
+    if ((e.code === "Backspace" || e.keyCode === 46 || e.key === 'Backspace' ) && index > 0) {
       // document.getElementById(prevId)?.setAttribute("id", `code-${index - 1}`);
       document.getElementById(prevId)?.focus();
       handleInputChange("", index);
@@ -283,7 +283,7 @@ const OtpModal = ({
             id={`code-${index}`}
             buttonStyle="text-center"
             inputmode="numeric"
-            // handlePaste={(e)=>{handlePaste(e)}}
+            handlePaste={(e)=>{handlePaste(e)}}
             handleKeyUp={(e) => {
               handleKeyUp(
                 e,

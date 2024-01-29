@@ -17,7 +17,7 @@ import CustomChartLabel from "../CustomChartLabel";
 import moment from "moment";
 
 
-const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTag }) => {
+const UserProfileChart = ({ data, handleSelectedChartCurrentValue, activeChartTag, apiRange }) => {
   const [cursorValue, setCursorValue] = useState(null);
 
   const handleMouseMove = (e) => {
@@ -88,7 +88,35 @@ const minValueAfterZero = Math.min(
   ...data.filter((point) => point.uv !== 0).map((point) => point.uv)
 );
 
-console.log(minValueAfterZero,  "hello min" );
+console.log(xAxisTicks, "hello api")
+
+const generateTimeArray = () => {
+  const startTime = new Date();
+  startTime.setHours(10, 0, 0, 0); // Set start time to 10:00 AM
+
+  const endTime = new Date();
+  endTime.setHours(15, 0, 0, 0); // Set end time to 3:00 PM
+
+  const timeArray = [];
+
+  while (startTime < endTime) {
+    const hours = startTime.getHours();
+    const minutes = startTime.getMinutes();
+    const timeString = `${hours === 0 ? 12 : hours}:${minutes.toString().padStart(2, '0')}`;
+    timeArray.push(timeString);
+
+    startTime.setTime(startTime.getTime() + 60 * 60 * 1000); // Add one hour
+
+  }
+
+  return timeArray;
+};
+
+// Generate the time array
+const result = generateTimeArray();
+
+console.log(xAxisTicks, result, "helllllll")
+
 
   return (
     <div>
@@ -192,6 +220,7 @@ console.log(minValueAfterZero,  "hello min" );
             // tickLine={false}
             // textAnchor="start"
             // textAnchor="end"
+            // ticks={apiRange == "1d" ? ['10:00', '11:00', '12:00', '1:00', '2:00', '3:00'] : xAxisTicks}
             ticks={xAxisTicks}
             // ticks={data}
             // axisLine={false}

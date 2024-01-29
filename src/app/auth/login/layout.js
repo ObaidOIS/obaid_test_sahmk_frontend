@@ -25,7 +25,7 @@ const LoginLayout = ({ children }) => {
           <div className="w-full relative py-8 z-40">
           {children}
           </div>
-          <div className="bottom-[-90px] z-40 inset-x-0 text-center absolute items-center gap-6 justify-center text-sm text-gray-500">
+          <div className="bottom-[-90px] z-30 inset-x-0 text-center absolute items-center gap-6 justify-center text-sm text-gray-500">
             <div className="leading-6 mb-3 text-white">
               إذا كنت لاتملك حساب يمكنك إنشاء حسابك
             </div>

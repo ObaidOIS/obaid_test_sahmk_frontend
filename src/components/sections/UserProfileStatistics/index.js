@@ -54,7 +54,7 @@ const UserProfileStatistics = ({
     setSelectedStatCurrentValue(statValue);
   };
 
-  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList,activeStat, "hello api");
+  console.log(chartTagsList[0].apiRange, selectedSymbol, tagsList,activeStat, apiRange, "hello api");
   const [filterExpand, setFilterExpand] = useState(false);
 
   useEffect(() => {
@@ -186,7 +186,7 @@ const UserProfileStatistics = ({
                   />
                 </div>
                 <p className="text-2xl font-medium">
-                  {parseFloat(selectedChartCurrentValue).toFixed(2)}
+                  {Number(parseFloat(selectedChartCurrentValue).toFixed(2)).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -197,6 +197,7 @@ const UserProfileStatistics = ({
               chartData.length > 0 && (
                 <div>
                   <UserProfileChart
+                    apiRange={apiRange}
                     data={chartData}
                     activeChartTag={activeChartTag}
                     handleSelectedChartCurrentValue={
