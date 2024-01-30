@@ -8,9 +8,9 @@ const ProgressBarUI = ({precentageIn, precentageOut}) => {
     <div className='flex items-center'>
       <div className='ml-2'>{precentageIn}%</div>
       <div className='flex-1'>
-        <div className='overflow-hidden rounded-full bg-redColor'>
+        <div className='overflow-hidden rounded-full bg-lightRedColor'>
           <div
-            className='h-3 rounded-r-full bg-primaryColor'
+            className='h-3 rounded-r-full bg-lightGreenColor'
             style={{ width: `${precentageIn}%` }}
           />
         </div>

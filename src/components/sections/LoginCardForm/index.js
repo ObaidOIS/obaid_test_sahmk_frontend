@@ -361,7 +361,7 @@ const LoginCardForm = () => {
                       }}
                       // button="تسجيل الدخول"
                       button="دخول"
-                      buttonStyle="py-3 rounded-xl !font-normal text-lg w-full justify-center mt-6 !bg-darkColor"
+                      buttonStyle="py-3 rounded-xl !font-normal text-lg w-full justify-center mt-6 !bg-mediumGreenColor"
                     />
                   </div>
                 </form>
@@ -369,7 +369,7 @@ const LoginCardForm = () => {
             </div>
           </div>
 
-          {/* <div className="mt-32 text-center items-center gap-6 justify-center text-sm text-gray-500">
+          <div className="mt-8 text-center items-center gap-6 justify-center text-sm text-gray-500">
             <div className="leading-6 mb-5 text-white">
               إذا كنت لاتملك حساب يمكنك إنشاء حسابك
             </div>
@@ -389,7 +389,7 @@ const LoginCardForm = () => {
                 }
               />
             </Link>
-          </div> */}
+          </div>
         </div>
       </div>
     </>

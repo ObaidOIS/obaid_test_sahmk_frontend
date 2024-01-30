@@ -15,6 +15,7 @@ const SelectSearchInput = ({
   value,
 }) => {
 
+  const [isFocused, setIsFocused] = useState(false);
   const preventKeyboard = useRef(false);
   const dropdownRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,15 +33,36 @@ const SelectSearchInput = ({
     setFilteredData(filtered);
   };
 
-  const handleFocus = (e) => {
-    console.log(preventKeyboard.current, e, "hello keyboard")
-    if (preventKeyboard.current) {
-      e.preventDefault();
-    }
+//  const handleFocus = (e) => {
+//     console.log(preventKeyboard.current, e, "hello keyboard")
+//     if (preventKeyboard.current) {
+//       e.preventDefault();
+//       preventKeyboard.current = false;
+//     }else{
 
-    // Toggle the flag for the next focus event
-    preventKeyboard.current = !preventKeyboard.current;
-  };
+//     // Toggle the flag for the next focus event
+//     // preventKeyboard.current = !preventKeyboard.current;
+//     preventKeyboard.current = true;}
+
+//   }; 
+
+const handleFocus = (e) => {
+  console.log(preventKeyboard.current, e, "hello keyboard");
+  
+  // If the input is already focused and clicked again, prevent the keyboard
+  if (isFocused) {
+    e.preventDefault();
+    preventKeyboard.current = true;
+  }
+
+  // Update the focus state
+  setIsFocused(true);
+};
+
+const handleBlur = () => {
+  // Reset the focus state when the input is blurred
+  setIsFocused(false);
+};
 
   const handleItemClick = (item) => {
     setSelected(item.id);
@@ -99,15 +121,17 @@ const SelectSearchInput = ({
         <input
           type="text"
           value={ dropdownOpen == true ? searchQuery : placeholderText }
+          onBlur={handleBlur}
           // value={placeholderText}
           // value={searchQuery}
-          readOnly={!preventKeyboard.current}
+          // readOnly={!preventKeyboard.current}
+          readOnly={!isFocused}
           name={name}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}
-          onFocus={(e) => {setDropdownOpen(!dropdownOpen);}}
-          onClick={(e) => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); handleFocus(e);}}
+          onFocus={(e) => {setDropdownOpen(!dropdownOpen); handleFocus(e);}}
+          onClick={(e) => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options);}}
           placeholder={placeholderText}
           className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         />

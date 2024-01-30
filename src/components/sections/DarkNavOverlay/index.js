@@ -44,8 +44,15 @@ const DarkNavOverlay = ({
                 <Bars3Icon className="h-6 w-6 text-whiteColor" />
               </div>
               <div className="flex flex-1 justify-end">
-                <div className="bg-whiteColor/10 rounded-lg ml-2 cursor-pointer">
-                  <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p>
+                <div className="bg-whiteColor/10 flex justify-center py-1.5 px-2 items-center rounded-lg ml-2 cursor-pointer">
+                  {/* <p className=" text-whiteColor py-1.5 px-2 text-sm">EN</p> */}
+                  <Image loading="eager"  
+                      src="/assets/icons/share.svg"
+                      width={16}
+                      height={16}
+                      alt="Image"
+                      priority
+                    />
                 </div>
 
                 <Link href="/auth/logout">

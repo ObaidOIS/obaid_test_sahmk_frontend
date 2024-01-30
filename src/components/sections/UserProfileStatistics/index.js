@@ -78,8 +78,8 @@ const UserProfileStatistics = ({
   return (
     <div>
       <div className="mt-0 mb-2 pb-4 pt-2">
-        <div className={`space-x-3 ${filterExpand ? "" : "overflow-x-auto flex" } pt-2 pb-6 `}>
-          <div className="inline-flex items-center justify-center align-middle">
+        <div className={`space-x-3 ${filterExpand ? "grid grid-cols-3 gap-2 overflow-hidden" : "overflow-x-auto flex" } pt-2 pb-6 `}>
+          <div className="inline-flex items-center align-middle">
             <div className={`bg-primaryColor/10 rounded-md ml-3 px-2 mb-2 py-2 ${filterExpand ? "flex" : "flex" } justify-center transition-max-h duration-300 overflow-hidden max-h-20 items-center`}>
               <FunnelIcon onClick={()=>{setFilterExpand(!filterExpand)}} className={`cursor-pointer w-5 h-5 ${filterExpand ? "text-whiteColor" : "text-secondaryColor"}`} />
           </div>
@@ -88,8 +88,9 @@ const UserProfileStatistics = ({
             tagsList &&
             tagsList.map((item, index) => {
               return (
-                <span
-                  className=""
+                <div
+                  title={item.stock_name || item.stock_company}
+                  className=" inline-block overflow-hidden"
                   key={index}
                   onClick={() => {
                     handleTagClick(apiRange, item.stock_company);
@@ -101,7 +102,7 @@ const UserProfileStatistics = ({
                   }}
                 >
                   <PrimaryButton button={item.stock_name || item.stock_company}
-                  buttonStyle={`py-1 rounded-md mb-4 !font-normal ${activeStat == (item.stock_name || item.stock_company) ? "!bg-secondaryColor " : "!bg-primaryColor/5 !text-secondaryColor"} hover:!shadow-0 truncate justify-center`} />
+                  buttonStyle={`py-1 rounded-md mb-4 !font-normal !block overflow-hidden max-w-[130px] sm:max-w-full flex text-ellipsis w- ${activeStat == (item.stock_name || item.stock_company) ? "!bg-secondaryColor " : "!bg-primaryColor/5 !text-secondaryColor"} hover:!shadow-md !truncate justify-center whitespace-nowrap`} />
                   
                     {/* <PillTabsUI
                       tab={item.stock_name || item.stock_company}
@@ -116,7 +117,7 @@ const UserProfileStatistics = ({
                       // } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
                     /> */}
                   
-                </span>
+                </div>
               );
             })
            :        

@@ -588,8 +588,9 @@ const UserProfileSection = () => {
                     <div className="text-2xl font-medium leading-none m-2">
                     الأسهم
                     </div>
-                    {isOpen("10:00AM", "3:00PM", zone) == "open" ?
-                    (originalSubscriptionDetails?.subscriptionType == "free" ?
+                    {/* {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
+                                        ) : "" } */}
+                    {originalSubscriptionDetails?.subscriptionType == "free" ?
                     <DotBadgeUI
                       title="الأسعار متأخرة 15 دقيقة"
                       badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
@@ -599,7 +600,7 @@ const UserProfileSection = () => {
                       title="الأسعار مباشرة"
                       badgeStyle="bg-whiteColor shadow-xl text-redColor"
                       dotStyle="fill-redColor"
-                    />) : "" }
+                    />}
                   </div>
                   <UserProfileStatistics
                     setStockProfileData={setStockProfileData}
