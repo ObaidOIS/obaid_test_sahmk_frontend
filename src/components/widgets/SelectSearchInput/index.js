@@ -33,6 +33,7 @@ const SelectSearchInput = ({
   };
 
   const handleFocus = (e) => {
+    console.log(preventKeyboard.current, e, "hello keyboard")
     if (preventKeyboard.current) {
       e.preventDefault();
     }
@@ -100,12 +101,13 @@ const SelectSearchInput = ({
           value={ dropdownOpen == true ? searchQuery : placeholderText }
           // value={placeholderText}
           // value={searchQuery}
+          readOnly={!preventKeyboard.current}
           name={name}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}
-          onFocus={(e) => {setDropdownOpen(!dropdownOpen);handleFocus(e);}}
-          onClick={() => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); }}
+          onFocus={(e) => {setDropdownOpen(!dropdownOpen);}}
+          onClick={(e) => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); handleFocus(e);}}
           placeholder={placeholderText}
           className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         />
