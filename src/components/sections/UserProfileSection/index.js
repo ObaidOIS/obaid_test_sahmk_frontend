@@ -425,7 +425,7 @@ const UserProfileSection = () => {
     const fetchUserStocks = async () => {
       try {
         const response = await apiCall("/api/stocks/user-stocks/");
-        // console.log(response, "hello stock")
+        console.log(response.result, "hello stock")
         if (response && response.result.results) {
           setLastUpdatedDates(response.result.last_updated_date);
           setTagsList(response.result.results); // Update state with the fetched data
@@ -596,9 +596,9 @@ const UserProfileSection = () => {
                       dotStyle="fill-yellowColor"
                     /> : 
                     <DotBadgeUI
-                      title="الأسعار حية"
-                      badgeStyle="bg-whiteColor shadow-xl text-primaryColor"
-                      dotStyle="fill-primaryColor"
+                      title="الأسعار مباشرة"
+                      badgeStyle="bg-whiteColor shadow-xl text-redColor"
+                      dotStyle="fill-redColor"
                     />) : "" }
                   </div>
                   <UserProfileStatistics

@@ -326,7 +326,9 @@ const UserProfileStatistics = ({
             <div>
               {/* {activeStat == (item.stock_name || item.stock_company) ? ( */}
                 <UserProfileStats 
+                selectedStockProfileCurrentValue={selectedStockProfileCurrentValue}
                 stats={selectedStockProfileCurrentValue[activeStatistics]} 
+                activeStatistics={activeStatistics}
                 activeTab={activeStatistics == "general_view" ? statisticsData[0] : activeStatistics == "trades_info" ? statisticsData[1] : activeStatistics == "financials" ? statisticsData[2] : activeStatistics == "fundamental_info" ? statisticsData[3] : activeStatistics} />
               {/* ) : (
                 ""

@@ -1,11 +1,41 @@
-import React from "react";
+"use client";
+import ProgressBarUI from "@/components/widgets/ProgressBarUI";
+import React, { useEffect, useState } from "react";
 
-const UserProfileStats = ({ stats, activeTab }) => {
+const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockProfileCurrentValue }) => {
+
+  const [precentageIn, setPrecentageIn] = useState("");
+  const [precentageOut, setPrecentageOut] = useState("");
+
+  useEffect(() => {
+    if(activeStatistics == "trades_info"){
+      const filterNames = ["عدد الصفقات الداخلة", "عدد الصفقات الخارجة"];
+      const filteredData = stats.filter((item) => filterNames.includes(item.name));
+      const values = filteredData.map((item) => item.value);
+      const inValue = Number(values[0]);
+      const outValue = Number(values[1]);
+  
+      // Calculate the total value
+      const totalValue = inValue + outValue;
+      
+      // Calculate percentages
+      const inPercentage = ((inValue / totalValue) * 100).toFixed(0);
+      const outPercentage = ((outValue / totalValue) * 100).toFixed(0);
+  
+      setPrecentageIn(inPercentage);
+      setPrecentageOut(outPercentage);
+    }
+  }, [activeStatistics, selectedStockProfileCurrentValue ])
+
+ 
   return (
     <div className="bg-white pt-8 pb-12 shadow-lg mb-5 rounded-3xl">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="text-lg font-medium mb-5">{activeTab}</div>
-        <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3">
+      <div className="mx-auto max-w-7xl">
+        <div className="text-lg font-medium mb-5 px-6 lg:px-8">{activeTab}</div>
+        <div className={` ${activeStatistics == "trades_info" ? "px-3 pb-8" : "hidden"}`}>
+          <ProgressBarUI precentageIn={precentageIn} precentageOut={precentageOut} />
+        </div>
+        <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 px-6 lg:px-8">
           {stats && stats.map((stat) => (
             <div key={stat.name} className=" flex flex-col">
               <dt className="text-sm leading-7 text-gray-500/90 font-medium truncate">

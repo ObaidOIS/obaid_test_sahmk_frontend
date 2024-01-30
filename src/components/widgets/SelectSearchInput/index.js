@@ -14,6 +14,8 @@ const SelectSearchInput = ({
   handleChange,
   value,
 }) => {
+
+  const preventKeyboard = useRef(false);
   const dropdownRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(options);
@@ -28,6 +30,15 @@ const SelectSearchInput = ({
         item.id.toString().toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
+  };
+
+  const handleFocus = (e) => {
+    if (preventKeyboard.current) {
+      e.preventDefault();
+    }
+
+    // Toggle the flag for the next focus event
+    preventKeyboard.current = !preventKeyboard.current;
   };
 
   const handleItemClick = (item) => {
@@ -86,14 +97,14 @@ const SelectSearchInput = ({
         </span>
         <input
           type="text"
-          // value={ dropdownOpen == true ? searchQuery : placeholderText }
-          value={placeholderText}
+          value={ dropdownOpen == true ? searchQuery : placeholderText }
+          // value={placeholderText}
           // value={searchQuery}
           name={name}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}
-          onFocus={() => setDropdownOpen(!dropdownOpen)}
+          onFocus={(e) => {setDropdownOpen(!dropdownOpen);handleFocus(e);}}
           onClick={() => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); }}
           placeholder={placeholderText}
           className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"

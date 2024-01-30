@@ -58,6 +58,7 @@ const UserProfileFeatureTwo = ({
       }));
       setSelectedItems(userStocks);
       setTableData(userStocks);
+      console.log(userStocksResponse, "userStocks")
     }
 
     const response = await apiCall("/api/stocks/get-stocks-list?price=yes");
