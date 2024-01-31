@@ -126,6 +126,7 @@ const handleClick = () => {
           // readOnly={!preventKeyboard.current}
           // readOnly={!isFocused}
           readOnly={!showKeyboard}
+          inputMode={showKeyboard == true ? "none" : "text"}
           name={name}
           onChange={(e) => {
             handleSearch(e.target.value);
