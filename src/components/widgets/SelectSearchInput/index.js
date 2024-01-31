@@ -22,6 +22,7 @@ const SelectSearchInput = ({
   const [filteredData, setFilteredData] = useState(options);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selected, setSelected] = useState("");
+  const [showKeyboard, setShowKeyboard] = useState(false);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -47,14 +48,6 @@ const SelectSearchInput = ({
 //   }; 
 
 const handleFocus = (e) => {
-  console.log(preventKeyboard.current, e, "hello keyboard");
-  
-  // If the input is already focused and clicked again, prevent the keyboard
-  if (isFocused) {
-    e.preventDefault();
-    preventKeyboard.current = true;
-  }
-
   // Update the focus state
   setIsFocused(true);
 };
@@ -62,7 +55,13 @@ const handleFocus = (e) => {
 const handleBlur = () => {
   // Reset the focus state when the input is blurred
   setIsFocused(false);
+  setShowKeyboard(false);
 };
+
+const handleClick = () => {
+  console.log(isFocused, showKeyboard, "isFocused");
+  isFocused == true ? setShowKeyboard(true) : setShowKeyboard(false);
+}
 
   const handleItemClick = (item) => {
     setSelected(item.id);
@@ -125,13 +124,14 @@ const handleBlur = () => {
           // value={placeholderText}
           // value={searchQuery}
           // readOnly={!preventKeyboard.current}
-          readOnly={!isFocused}
+          // readOnly={!isFocused}
+          readOnly={!showKeyboard}
           name={name}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}
-          onFocus={(e) => {setDropdownOpen(!dropdownOpen); handleFocus(e);}}
-          onClick={(e) => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options);}}
+          onFocus={() => {setDropdownOpen(!dropdownOpen); handleFocus();}}
+          onClick={() => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); handleClick()}}
           placeholder={placeholderText}
           className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         />

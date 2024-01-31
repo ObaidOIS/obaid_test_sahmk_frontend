@@ -595,12 +595,27 @@ const UserProfileSection = () => {
                       title="الأسعار متأخرة 15 دقيقة"
                       badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
                       dotStyle="fill-yellowColor"
+                      isDot={true}
                     /> : 
                     <DotBadgeUI
                       title="الأسعار مباشرة"
-                      badgeStyle="bg-whiteColor shadow-xl text-redColor"
-                      dotStyle="fill-redColor"
+                      badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
+                      dotStyle="fill-lightRedColor"
+                      isDot={true}
                     />}
+                    {isOpen("10:00AM", "3:00PM", zone) == "open" ? 
+                    <DotBadgeUI
+                      title="السوق مفتوح"
+                      badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
+                      dotStyle="fill-primaryColor"
+                      isDot={false}
+                    /> : 
+                    <DotBadgeUI
+                      title="السوق مغلق"
+                      badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
+                      dotStyle="fill-lightRedColor"
+                      isDot={false}
+                    /> }
                   </div>
                   <UserProfileStatistics
                     setStockProfileData={setStockProfileData}

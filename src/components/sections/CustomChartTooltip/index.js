@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomChartTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
         <>
@@ -24,4 +24,4 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-export default CustomTooltip
+export default CustomChartTooltip

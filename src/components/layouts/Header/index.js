@@ -84,14 +84,30 @@ const Header = ({ toggleSidebar }) => {
                   buttonStyle="!py-2"
                 />
               </Link>
-            </div> : ""}
+            </div> : 
+            <div className="ml-4 inline">
+            <Link href={isAuthenticate == true ? "/userprofile" : "/auth/login"} 
+              onClick={(e)=>{if(isAuthenticate == true && localStorage.getItem('page')){localStorage.removeItem('page')}}} className="hover:text-gray-900 font-normal">
+              {" "}
+              {/* <PrimaryButton button="تسجل الدخول" buttonStyle={`font-normal`} /> */}
+              <PrimaryButton
+                  button="تسجل الدخول"
+                  buttonStyle="!py-2"
+                />
+              {/* تسجل الدخول{" "} */}
+            </Link>
+            </div>}
+            
             <Bars3Icon className="h-6 w-6" onClick={() => toggleSidebar()} />
           </div>
           <div className="items-center h-full lg:flex hidden ">
             <Link href={isAuthenticate == true ? "/userprofile" : "/auth/login"} 
               onClick={(e)=>{if(isAuthenticate == true && localStorage.getItem('page')){localStorage.removeItem('page')}}} className="hover:text-gray-900 font-normal">
               {" "}
-              تسجل الدخول{" "}
+              {isAuthenticate == false &&
+            "تسجل الدخول" }
+              {isAuthenticate == true &&
+              <PrimaryButton button="تسجل الدخول" buttonStyle={`font-normal`} /> }
             </Link>
             {(isAuthenticate != null && isAuthenticate == false) &&
             <div className="mr-4 inline">

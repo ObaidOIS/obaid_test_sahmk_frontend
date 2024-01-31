@@ -1,5 +1,5 @@
 "use client";
-import CustomTooltip from "@/components/sections/CustomTooltip";
+import CustomChartTooltip from "@/components/sections/CustomChartTooltip";
 import React, { Component, useState } from "react";
 import {
   AreaChart,
@@ -155,7 +155,7 @@ console.log(xAxisTicks, result, "helllllll")
             </linearGradient>
           </defs>
           <Tooltip
-            content={<CustomTooltip />}
+            content={<CustomChartTooltip />}
             cursor={{
               stroke:
                 data[0].uv < data[data.length - 1].uv ? "#46a667" : "#C15959",

@@ -1,6 +1,7 @@
 "use client";
 import ProgressBarUI from "@/components/widgets/ProgressBarUI";
 import StatsBoxUI from "@/components/widgets/StatsBoxUI";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockProfileCurrentValue }) => {
@@ -11,8 +12,10 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
   useEffect(() => {
     if(activeStatistics == "trades_info"){
       const filterNames = ["عدد الصفقات الداخلة", "عدد الصفقات الخارجة"];
-      const filteredData = stats.filter((item) => filterNames.includes(item.name));
-      const values = filteredData.map((item) => item.value);
+      const filteredData = stats?.filter((item) => filterNames.includes(item.name));
+      const values = filteredData?.map((item) => item.value);
+      console.log(values, "values")
+      if(values !== undefined){
       const inValue = Number(values[0]);
       const outValue = Number(values[1]);
   
@@ -25,6 +28,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
   
       setPrecentageIn(inPercentage);
       setPrecentageOut(outPercentage);
+      }
     }
   }, [activeStatistics, selectedStockProfileCurrentValue ])
 
@@ -33,7 +37,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
     <div>
       <div className="mx-auto max-w-7xl">
         <div className="text-2xl font-medium mb-5 ">{activeTab}</div>
-        <div className={` ${activeStatistics == "trades_info" ? "px-3 pb-8" : "hidden"}`}>
+        <div className={` rounded-2xl mb-4 border border-mediumGreyColor px-3 py-5 bg-whiteColor ${activeStatistics == "trades_info" ? "" : "hidden"}`}>
           <ProgressBarUI precentageIn={precentageIn} precentageOut={precentageOut} />
         </div>
         <dl className="grid grid-cols-2 gap-x-3 gap-y-3 ">
@@ -53,6 +57,14 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
             </>
           ))}
         </dl>
+        <div className={` rounded-2xl my-4 border shadow-2xl px-6 py-5 bg-whiteColor`}>
+        <div className="mx-auto inline-flex">
+                <span className=" text-secondaryColor font-medium flex items-center"> 
+                <Image loading="eager" src="/assets/icons/whatsapp.svg" width={30} height={30} className="ml-5" alt="img" priority /> 
+                انتقل إلى محادثة النظام الذكي على الواتساب
+                </span>
+            </div>
+        </div>
       </div>
     </div>
   //   <div className="bg-white pt-8 pb-12 shadow-lg mb-5 rounded-3xl">

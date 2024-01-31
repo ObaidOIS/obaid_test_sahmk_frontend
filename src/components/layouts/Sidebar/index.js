@@ -87,7 +87,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                     </a>
                   ))}
                 </div>
-                <div className="py-6">
+                {isAuthenticate != null && isAuthenticate == false ?
+                <div className="py-6 ">
                   <div className="items-center h-full mt-6 flex">
                     <Link
                       href={
@@ -106,7 +107,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                       تسجل الدخول{" "}
                     </Link>
                   </div>
-                </div>
+                </div> : ""}
               </div>
             </div>
           </Dialog.Panel>

@@ -26,12 +26,12 @@ const DarkNavOverlay = ({
     <div>
       {name !== "" ?
       (<div className="min-h-full">
-        <div className="bg-gray-800 pb-32 bg-custome">
+        <div className="bg-gray-800 relative pb-32 bg-custome">
           <Image loading="eager"  
-            src="/assets/images/userprofile-layer-design.png"
+            src="/assets/images/layer-design.png"
             width={500}
             height={50}
-            className=" w-full absolute top-[-30px] h-[340px]"
+            className=" w-full absolute top-[-30px]"
             alt="Background Image"
             priority
           />
@@ -123,7 +123,7 @@ const DarkNavOverlay = ({
           </header>
         </div>
 
-        <main className="-mt-32">
+        <main className="-mt-32 relative">
           <div className="mx-auto xl:w-6/12 lg:w-8/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
             <div className="rounded-lg text-sm px-3 py-6 sm:px-6">
               {page.name !== "userprofile" ? (

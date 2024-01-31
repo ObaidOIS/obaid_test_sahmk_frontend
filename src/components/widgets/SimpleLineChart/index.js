@@ -1,5 +1,5 @@
 "use client";
-import CustomTooltip from "@/components/sections/CustomTooltip";
+import CustomChartTooltip from "@/components/sections/CustomChartTooltip";
 import React, { Component, useState } from "react";
 import {
   AreaChart,
@@ -90,7 +90,7 @@ const SimpleLineChart = ({ data }) => {
             className="text-xs text-black"
           />
           <Tooltip
-            content={<CustomTooltip />}
+            content={<CustomChartTooltip />}
             cursor={{
               stroke:
                 data[0].uv < data[data.length - 1].uv ? "teal" : "#C15959",
