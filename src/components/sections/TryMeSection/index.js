@@ -9,9 +9,10 @@ const TryMeSection = () => {
   const handleLinkClick = (message) => {
     window.open(`https://wa.me/+966591254924?text=${message}`, '_blank');
   };
-
+  
   const handleOpenWhatsapp = () => {
-    window.open('https://wa.me/+966591254924', '_blank');
+    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
+    window.open(`https://api.whatsapp.com/send/?phone=+923241045712&text=${encodedMessage}`, '_blank');
   }
 
   const questions = [

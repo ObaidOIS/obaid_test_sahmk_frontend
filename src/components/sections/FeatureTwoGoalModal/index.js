@@ -44,6 +44,7 @@ const FeatureTwoGoalModal = ({
         value={formData.stock_price}
         handleChange={handleChange}
         label="السعر الحالي" 
+        disabled={true}
         placeholder="0.0"
         name="stock_price"
       />

@@ -162,14 +162,14 @@ const UserProfileStatistics = ({
                   buttonStyle={`py-1 rounded-md mb-4 !font-normal !block overflow-hidden max-w-[130px] sm:max-w-full flex text-ellipsis w- ${activeStat == (item.stock_name || item.stock_company) ? "!bg-secondaryColor " : "!bg-primaryColor/5 !text-secondaryColor"} hover:!shadow-md !truncate justify-center whitespace-nowrap`} /> */}
 
                       <PrimaryButton
-                        button={item.stock_name || item.stock_company}
+                        button={item?.stock_company == "TASI" ? "تاسي" : item?.stock_company == "NOMUC" ? "سوق نمو" : (item.stock_name || item.stock_company)}
                         buttonStyle={`py-1 !px-2 sm:!px-4 rounded-md mb-4 relative !font-normal overflow-hidden truncate !block w-full  ${
                           activeStat == (item.stock_name || item.stock_company)
                             ? "!bg-secondaryColor "
                             : "!bg-primaryColor/5 !text-secondaryColor"
                         } hover:!shadow-md !truncate justify-center whitespace-nowrap`}
                       />
-                      <CustomTooltip text={item.stock_name || item.stock_company} />
+                      <CustomTooltip text={item?.stock_company == "TASI" ? "تاسي" : item?.stock_company == "NOMUC" ? "سوق نمو" : (item.stock_name || item.stock_company)} />
                     </div>
                   );
                 })}
@@ -218,7 +218,7 @@ const UserProfileStatistics = ({
                       السهم
                     </dt>
                     <dd className="tracking-tight text-gray-900 font-medium ">
-                      {activeStat}
+                      {activeStat == "TASI" ? "تاسي" : activeStat == "NOMUC" ? "سوق نمو" : activeStat}
                     </dd>
                   </div>
                   <div className="flex items-end">

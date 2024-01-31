@@ -277,7 +277,9 @@ const LoginCardForm = () => {
               src="/assets/images/mask-left-corner-login.svg"
               width={600}
               height={600}
-              className="absolute -bottom-32 -left-4 sm:-left-12 md:-left-16 lg:-left-44 z-[-2] md:h-full md:w-full"
+              // layout="fill"
+              // className="absolute sm:block -bottom-32 -left-4 sm:-left-12 md:-left-16 lg:-left-44 z-[-2] h-full w-full"
+              className="absolute -bottom-32 -left-44 z-[-2] md:h-full md:w-full"
               alt="img"
               priority
             />
@@ -285,7 +287,8 @@ const LoginCardForm = () => {
               src="/assets/images/mask-right-corner-login.svg"
               width={600}
               height={600}
-              className="absolute -top-32 -right-8 sm:-right-12 md:-right-16 lg:-right-44 z-[-2]  md:h-full md:w-full"
+              className="absolute sm:-top-32 -top-36 left-36 z-[-2]  md:h-full md:w-full"
+              // className="absolute sm:block -top-32 -right-8 sm:-right-12 md:-right-16 lg:-right-36 z-[-2]  md:h-full md:w-full"
               alt="img"
               priority
             />
@@ -368,7 +371,6 @@ const LoginCardForm = () => {
               </div>
             </div>
           </div>
-
           <div className="mt-8 text-center items-center gap-6 justify-center text-sm text-gray-500">
             <div className="leading-6 mb-5 text-white">
               إذا كنت لاتملك حساب يمكنك إنشاء حسابك

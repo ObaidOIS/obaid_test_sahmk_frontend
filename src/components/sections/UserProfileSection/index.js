@@ -363,6 +363,7 @@ const UserProfileSection = () => {
     handleUpgradPlan(currentPlan);
   }, [originalSubscriptionDetails]);
 
+  // const [activeStat, setActiveStat] = useState("TASI");
   const [activeStat, setActiveStat] = useState("TASI");
   const [activeStatistics, setActiveStatistics] = useState("general_view")
   const [activeChartTag, setActiveChartTag] = useState("يوم");

@@ -18,7 +18,7 @@ import React from 'react';
                 )}
                 aria-current={active == currentTab ? 'page' : undefined}
               >
-                {tab}
+                {tab == "TASI" ? "تاسي" : tab == "NOMUC" ? "سوق نمو" : tab} 
               </div>
           </nav>
         </div>

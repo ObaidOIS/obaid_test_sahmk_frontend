@@ -22,7 +22,7 @@ const LoginLayout = ({ children }) => {
         alt="Background Image"
         priority
       />
-      <div className="h-screen flex bg-darkNavyColor  items-center">
+      <div className="h-screen flex bg-darkNavyColor overflow-clip items-center">
         <div className="mx-auto gap-5 ">
           <Image
             loading="eager"
