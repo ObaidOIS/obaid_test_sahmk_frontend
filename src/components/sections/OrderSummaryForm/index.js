@@ -125,11 +125,12 @@ const OrderSummaryForm = (
       const paymentStatus = params.get("status");
       const paymentMessage = params.get("message");
 
-      if (paymentId && paymentStatus && paymentMessage) {
+      if (paymentId && paymentStatus && paymentMessage &&
+        userData.subscriptionPeriod && userData.subscriptionType) {
         verifyPayment(paymentId);
       }
     }
-  }, []);
+  }, [userData.subscriptionPeriod, userData.subscriptionType]);
 
   const [buttonPrice, setButtonPrice] = useState(1);
 
