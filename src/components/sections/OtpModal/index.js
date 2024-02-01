@@ -255,6 +255,23 @@ const OtpModal = ({
     // setOtp(enteredOTP); // Update the state with the enteredOTP array
     // focusNextInput(...); // Focus on the next input if needed
   };
+
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const handleAnimationStart = () => {
+      // This function will be called when an animation starts on the input field
+      console.log("Autofill detected!");
+      handlePaste(); // Handle the autofill event
+    };
+
+    inputRef.current.addEventListener("animationstart", handleAnimationStart);
+
+    return () => {
+      inputRef.current.removeEventListener("animationstart", handleAnimationStart);
+    };
+  }, [handlePaste]);
   
 
   return (
@@ -276,6 +293,7 @@ const OtpModal = ({
       <div className="flex gap-4 my-5" dir="ltr">
         {Array.from({ length: 4 }, (_, index) => (
           <InputFieldUI
+            ref={inputRef}
             handleBeforeInput={(e)=>{handlePaste(e)}}
             handleOnInput={(e)=>{handlePaste(e)}}
             key={index}

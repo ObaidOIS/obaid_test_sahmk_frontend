@@ -1,11 +1,12 @@
 import React from 'react'
 
-const InputFieldUI = ({label, placeholder, name, value, id, handleKeyUp, required, handleChange, maxlength, buttonStyle, inputmode, isValid, dir, handlePaste, autocomplete, disabled, handleOnInput, handleBeforeInput}) => {
+const InputFieldUI = ({label, placeholder, name, value, id, handleKeyUp, required, handleChange, maxlength, buttonStyle, inputmode, isValid, dir, handlePaste, autocomplete, disabled, handleOnInput, handleBeforeInput, ref}) => {
   return (
     <div>
     {label ? <label htmlFor="text" className="block text-sm font-medium leading-6 text-gray-900">{label}</label> : "" }
     <div className="mt-2">
       <input 
+      ref={ref}
       onBeforeInput={handleBeforeInput}
       onInput={handleOnInput} inputMode={inputmode} value={value} 
       onKeyUp={handleKeyUp} dir={dir}
