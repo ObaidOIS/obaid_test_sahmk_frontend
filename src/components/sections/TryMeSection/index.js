@@ -12,7 +12,7 @@ const TryMeSection = () => {
   
   const handleOpenWhatsapp = () => {
     const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
-    window.open(`https://api.whatsapp.com/send/?phone=+923241045712&text=${encodedMessage}`, '_blank');
+    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
   }
 
   const questions = [

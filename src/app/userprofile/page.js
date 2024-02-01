@@ -1,27 +1,19 @@
-"use client";
-import React, { useEffect } from "react";
-import dynamic from "next/dynamic";
-import { isAuthenticated } from "@/components/common/utils";
-import { useRouter } from "next/navigation";
-// import UserProfileSection from "@/components/sections/UserProfileSection";
-const UserProfileSection = dynamic(
-  () => import("@/components/sections/UserProfileSection"),
-  {
-    ssr: false,
-  }
-);
-const UserProfile = () => {
-  const router = useRouter();
-  useEffect(() => {
-    const isAuth = isAuthenticated();
-    isAuth || router.push("/auth/login");
-  }, []);
+import React from "react";
+import UserProfileContainer from "@/components/sections/UserProfileContainer";
 
+const UserProfile = () => {
   return (
     <div>
-      <UserProfileSection />
+      <UserProfileContainer />
     </div>
   );
 };
 
 export default UserProfile;
+
+export async function generateMetadata({ params }) {
+  return {
+    themeColor: '#09202D',
+  }
+}
+

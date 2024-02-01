@@ -25,7 +25,7 @@ const DarkNavOverlay = ({
   return (
     <div>
       {name !== "" ?
-      (<div className="min-h-full">
+      (<div className="min-h-full overflow-clip">
         <div className="bg-gray-800 relative pb-32 bg-custome">
           <Image loading="eager"  
             src="/assets/images/layer-design.png"

@@ -148,6 +148,7 @@ const UserProfileStatistics = ({
                       // title={item.stock_name || item.stock_company}
                       // className=" inline-block overflow-hidden"
                       className="flex-none group w-[calc(36.2%-1rem)] max-w-[calc(36.2%-1rem)] sm:w-[calc(34.9%-1rem)] sm:max-w-[calc(34.9%-1rem)] relative"
+                      // className="flex-none group w-[calc(36.2%-1rem)] max-w-[calc(36.2%-1rem)] sm:w-[calc(34.9%-1rem)] sm:max-w-[calc(34.9%-1rem)] relative"
                       key={index}
                       onClick={() => {
                         handleTagClick(apiRange, item.stock_company);

@@ -27,10 +27,12 @@ const myFont = localFont({
   ],
 })
 
+
 export const metadata = {
   metadataBase: new URL('https://sahmk.sa'),
   title: 'سهمك | SAHMK',
   description: 'منصة سهمك, موثوق من تداول السعودية',
+  themeColor: 'white',
   icons: {
     icon: '/assets/images/icon.ico', 
   },
