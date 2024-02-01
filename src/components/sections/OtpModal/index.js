@@ -224,34 +224,6 @@ const OtpModal = ({
     }, [copied]);
 
 
-    
-  // const handlePaste = (e) => {
-  //   console.log(e, "hello otp")
-  //   e.preventDefault();
-  //   const pastedData = e.clipboardData.getData('text/plain').trim();
-  //   const otpInputs = Array.from({ length: 4 }, (_, index) => `code-${index}`);
-    
-  //   // Distribute pasted data to each input field
-  //   otpInputs.forEach((inputId, index) => {
-  //     // console.log(inputId, "hello id")
-  //     // handleInputChange(inputId, index);
-  //     const inputElement = document.getElementById(inputId);
-  //     if (inputElement) {
-  //       const newValue = pastedData[index] || ''; // Use pasted digit or empty string
-  //       inputElement.value = newValue;
-  //       console.log(newValue, index, "hello id")
-  //       focusNextInput(
-  //         newValue,
-  //         `code-${index - 3}`, // Previous ID
-  //         `code-${index + 3}`, // Next ID
-  //         index // Current index for OTP
-  //       );
-  //       // handleInputChange(newValue, index);
-  //     }
-  //   });
-    
-  // };
-
   const handlePaste = (e) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData('text/plain').trim();
@@ -304,6 +276,7 @@ const OtpModal = ({
       <div className="flex gap-4 my-5" dir="ltr">
         {Array.from({ length: 4 }, (_, index) => (
           <InputFieldUI
+            onInput={(e)=>{handlePaste(e)}}
             key={index}
             // maxlength="1"
             autocomplete="one-time-code"

@@ -1,19 +1,13 @@
 import React from "react";
-import { CgClose } from "react-icons/cg";
-import ArrowList from "@/components/widgets/ArrowList";
-import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import IconButtonUI from "../IconButtonUI";
-import Link from "next/link";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const MainSidebar = ({
   isSidebarOpen,
   toggleSidebar,
-  list,
   setIsSidebarOpen,
-  handlePageChange,
+  content,
 }) => {
   return (
     <Transition.Root show={isSidebarOpen} as={Fragment}>
@@ -65,73 +59,8 @@ const MainSidebar = ({
                     </div>
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                    <div className="px-4 sm:px-6">
-                      <div className=" pb-6 mt-4">
-                        <Image loading="eager"  
-                          src="/assets/logos/logo.svg"
-                          width={150}
-                          height={150}
-                          alt="img"
-                          className="ms-4"
-                          priority
-                        />
-                        <ul className="my-10 space-y-5 text-sm font-semibold">
-                          {list.map((item, index) => (
-                            <li
-                              key={index}
-                              onClick={() => {
-                                handlePageChange(item.page);
-                                toggleSidebar();
-                              }}
-                              className=""
-                            >
-                              <div key={index}>
-                                <ArrowList
-                                  title={item.title}
-                                  desc={item.desc}
-                                  icon={item.icon}
-                                  bgColor={item.bgColor}
-                                />
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="border-t space-y-4 py-5 ">
-                          <IconButtonUI
-                            button="EN"
-                            icon={
-                              <Image loading="eager"  
-                                src="/assets/icons/globe.svg"
-                                width={20}
-                                height={20}
-                                alt="img"
-                                className="me-5"
-                                priority
-                              />
-                            }
-                            buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
-                          />
-                          <div>
-                            <Link href="/auth/logout" >
-                            <IconButtonUI
-                              button="تسجيل الخروج"
-                              icon={
-                                <Image loading="eager"  
-                                  src="/assets/icons/logout.svg"
-                                  width={20}
-                                  height={20}
-                                  alt="img"
-                                  className="me-5"
-                                  priority
-                                />
-                              }
-                              buttonStyle="text-darkColor hover:bg-whiteColor hover:border-whiteColor hover:text-darkGreyColor bg-whiteColor !shadow-none"
-                            />
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {/* <UserProfileSidebar /> */}
+                    {content}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

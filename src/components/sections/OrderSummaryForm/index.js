@@ -207,11 +207,11 @@ const OrderSummaryForm = (
 
   useEffect(() => {
     setButtonPrice(
-      currentPlan?.title == "الباقة المتقدمة"
+      (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
         ? pricing.pricing.companies[
         currentPlanDuration ? currentPlanDuration?.value : frequency?.value
         ]
-        : currentPlan?.title == "باقة بريميوم"
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
           ? pricing.pricing.premium[
           currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
@@ -242,13 +242,13 @@ const OrderSummaryForm = (
       if (scriptElements.every((script) => script.loaded)) {
         // All scripts loaded, now set the button price
         setButtonPrice(
-          currentPlan?.title == "الباقة المتقدمة"
+          (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
             ? pricing.pricing.companies[
             currentPlanDuration
               ? currentPlanDuration?.value
               : frequency?.value
             ]
-            : currentPlan?.title == "باقة بريميوم"
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
               ? pricing.pricing.premium[
               currentPlanDuration
                 ? currentPlanDuration?.value
@@ -262,13 +262,13 @@ const OrderSummaryForm = (
         );
         // Initialize Moyasar after setting the button price
         initMoyasar(
-          currentPlan?.title == "الباقة المتقدمة"
+          (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
             ? pricing.pricing.companies[
             currentPlanDuration
               ? currentPlanDuration?.value
               : frequency?.value
             ]
-            : currentPlan?.title == "باقة بريميوم"
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
               ? pricing.pricing.premium[
               currentPlanDuration
                 ? currentPlanDuration?.value
@@ -317,6 +317,8 @@ const OrderSummaryForm = (
   //     localStorage.removeItem("currentPlanDuration");
   // });
   // }, [])
+
+  console.log(currentPlan, "hello current plan")
 
   return (
     <>
@@ -418,13 +420,13 @@ const OrderSummaryForm = (
                                   : currentPlan
                                 : ""
                             }
-                            desc={` ${currentPlan?.title == "الباقة المتقدمة"
+                            desc={` ${(currentPlan?.title || currentPlan)  == "الباقة المتقدمة"
                                 ? pricing.pricing.companies[
                                 currentPlanDuration
                                   ? currentPlanDuration.value
                                   : frequency?.value
                                 ]
-                                : currentPlan?.title == "باقة بريميوم"
+                                : (currentPlan?.title || currentPlan) == "باقة بريميوم"
                                   ? pricing.pricing.premium[
                                   currentPlanDuration
                                     ? currentPlanDuration.value
@@ -440,18 +442,18 @@ const OrderSummaryForm = (
                                 : frequency?.label
                               } `}
                             descStyle={
-                              currentPlan?.title == "الباقة المتقدمة"
+                              (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
                                 ? "!text-yellowColor"
-                                : currentPlan.title == "باقة بريميوم"
+                                : (currentPlan?.title || currentPlan) == "باقة بريميوم"
                                   ? "!text-purpleColor"
                                   : "!text-blueColor"
                             }
                             image={
                               <Image loading="eager"
                                 src={
-                                  currentPlan?.title == "الباقة المتقدمة"
+                                  (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
                                     ? "/assets/icons/yellow-check.svg"
-                                    : currentPlan?.title == "باقة بريميوم"
+                                    : (currentPlan?.title || currentPlan) == "باقة بريميوم"
                                       ? "/assets/icons/purple-check-icon.svg"
                                       : "/assets/icons/blue-check.svg"
                                 }
@@ -477,13 +479,13 @@ const OrderSummaryForm = (
                         </h3>
                         <h3 className="text-base font-semibold leading-6 text-gray-900">
                           {/* {price}  */}
-                          {currentPlan?.title == "الباقة المتقدمة"
+                          {(currentPlan?.title || currentPlan) == "الباقة المتقدمة"
                             ? pricing.pricing.companies[
                             currentPlanDuration
                               ? currentPlanDuration?.value
                               : frequency?.value
                             ]
-                            : currentPlan?.title == "باقة بريميوم"
+                            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
                               ? pricing.pricing.premium[
                               currentPlanDuration
                                 ? currentPlanDuration?.value
@@ -505,13 +507,13 @@ const OrderSummaryForm = (
                     <h3 className="leading-6 text-gray-900">الإجمالي</h3>
                     <h3 className="leading-6 text-gray-900">
                       {price}
-                      {currentPlan?.title == "الباقة المتقدمة"
+                      {(currentPlan?.title || currentPlan) == "الباقة المتقدمة"
                         ? pricing.pricing.companies[
                         currentPlanDuration
                           ? currentPlanDuration?.value
                           : frequency?.value
                         ]
-                        : currentPlan?.title == "باقة بريميوم"
+                        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
                           ? pricing.pricing.premium[
                           currentPlanDuration
                             ? currentPlanDuration?.value

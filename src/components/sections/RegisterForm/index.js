@@ -122,13 +122,15 @@ const RegisterForm = () => {
   // const [selectedOption, setSelectedOption] = useState(subscription != undefined ? subscription : "الباقة المجانية" );
   // const [frequency, setFrequency] = useState(duration != undefined ? duration : frequencies[0]);
 
-  const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
-  const [frequency, setFrequency] = useState(frequencies[0]);
+  // const [selectedOption, setSelectedOption] = useState("الباقة المجانية");
+  const [selectedOption, setSelectedOption] = useState("باقة بريميوم");
 
-  const [currentPlan, setCurrentPlan] = useState("الباقة المجانية");
+  const [frequency, setFrequency] = useState(frequencies[1]);
+
+  const [currentPlan, setCurrentPlan] = useState("باقة بريميوم");
 
   const [currentPlanDuration, setCurrentPlanDuration] = useState(
-    frequencies[0]
+    frequencies[1]
   );
 
   const [userData, setUserData] = useState({
@@ -561,18 +563,18 @@ const RegisterForm = () => {
 
     // Use JSON.stringify with the circularReferenceReplacer
     const serializedDurationData = JSON.stringify(
-      frequencies[0],
+      frequencies[1],
       circularReferenceReplacer()
     );
 
-    const serializedPlanData = "الباقة المجانية";
+    const serializedPlanData = "باقة بريميوم";
 
     // Save the serialized data to localStorage
     localStorage.setItem("currentPlanRegister", serializedPlanData);
     localStorage.setItem("currentPlanDurationRegister", serializedDurationData);
     // Update the states whenever the original subscription details change
-    setCurrentPlan("الباقة المجانية")
-    setCurrentPlanDuration(frequencies[0]);
+    setCurrentPlan("باقة بريميوم")
+    setCurrentPlanDuration(frequencies[1]);
   }, []);
 
   return (
@@ -661,7 +663,8 @@ const RegisterForm = () => {
               pricingRadio={pricingRadio}
               setSelectedItems={setSelectedItems}
               handleUpgradPlan={handleUpgradPlan}
-              currentPlan={currentPlan}
+              // currentPlan={currentPlan}
+              currentPlan={selectedOption}
               handleUpgardPlanDuration={handleUpgardPlanDuration}
               currentPlanDuration={currentPlanDuration}
             />

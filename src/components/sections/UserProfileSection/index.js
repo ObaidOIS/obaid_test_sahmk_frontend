@@ -20,8 +20,9 @@ import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
 import { usePathname } from "next/navigation";
 import DotBadgeUI from "@/components/widgets/DotBadgeUI";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 import Loader from "@/components/widgets/Loader";
+import UserProfileSidebar from "../UserProfileSidebar";
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -70,7 +71,7 @@ const UserProfileSection = () => {
           countryCode: countryCode,
           expirationDate: data.expirationDate || null,
         });
-        console.log(response.result, "hello data")
+        console.log(response.result, "hello data");
         setOriginalSubscriptionDetails({
           subscriptionType: data.subscriptionType || "free",
           subscriptionPeriod: data.subscriptionPeriod || "monthly",
@@ -112,18 +113,18 @@ const UserProfileSection = () => {
       page.name == "payment"
         ? { name: "my-account", value: "باقتي وحسابي" }
         : {
-          name: "userprofile",
-          value: "الخدمات الرئىيسية",
-        }
+            name: "userprofile",
+            value: "الخدمات الرئىيسية",
+          }
     );
     addEventListener("popstate", () => {
       const userprofilePage =
         page.name == "payment"
           ? { name: "my-account", value: "باقتي وحسابي" }
           : {
-            name: "userprofile",
-            value: "الخدمات الرئىيسية",
-          };
+              name: "userprofile",
+              value: "الخدمات الرئىيسية",
+            };
       const cleanPage = cleanCircularReferences(userprofilePage);
       const serializedPage = JSON.stringify(cleanPage);
 
@@ -185,7 +186,8 @@ const UserProfileSection = () => {
       title: "خدمة إشعارات الأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/message-glow-icon.svg"
           width={85}
           height={85}
@@ -199,7 +201,8 @@ const UserProfileSection = () => {
       title: " الأسعار المستهدفة للأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/point-glow-icon.svg"
           width={85}
           height={85}
@@ -213,7 +216,8 @@ const UserProfileSection = () => {
       title: "تقارير أسهمي الاسبوعية",
       desc: "مشاهدة التقرير الاسبوعي لأسهمي",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/progress-glow-icon.svg"
           width={85}
           height={85}
@@ -227,7 +231,8 @@ const UserProfileSection = () => {
       title: "باقتي وحسابي",
       desc: "تفاصيل باقتك والحساب الخاص بك",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/profile-glow-icon.svg"
           width={85}
           height={85}
@@ -271,29 +276,31 @@ const UserProfileSection = () => {
 
   // Initialize states with the original subscription details using mapping
   const [selectedOption, setSelectedOption] = useState(
-    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] 
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]
     // ||
     // subscriptionTypeMap.free
   );
   const [frequency, setFrequency] = useState(
-    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod]
     // ||
     // frequencies[0]
   );
 
   const [currentPlan, setCurrentPlan] = useState(
-    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] 
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]
     // ||
     // subscriptionTypeMap.free
   );
 
   const [currentPlanDuration, setCurrentPlanDuration] = useState(
-    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
-    ||
-    frequencies[0]
+    subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
+      frequencies[0]
   );
 
-  console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] , "hello");
+  console.log(
+    subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType],
+    "hello"
+  );
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -358,14 +365,14 @@ const UserProfileSection = () => {
   useEffect(() => {
     handleUpgardPlanDuration(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]
+        frequencies[0]
     );
     handleUpgradPlan(currentPlan);
   }, [originalSubscriptionDetails]);
 
   // const [activeStat, setActiveStat] = useState("TASI");
   const [activeStat, setActiveStat] = useState("TASI");
-  const [activeStatistics, setActiveStatistics] = useState("general_view")
+  const [activeStatistics, setActiveStatistics] = useState("general_view");
   const [activeChartTag, setActiveChartTag] = useState("يوم");
   const [oneDayChartTag, setOneDayChartTag] = useState(true);
   const [fiveDayChartTag, setFiveDayChartTag] = useState(false);
@@ -381,7 +388,7 @@ const UserProfileSection = () => {
   const [chartLoading, setChartLoading] = useState(false);
   const [lastUpdatedDates, setLastUpdatedDates] = useState("");
 
-  const [stockProfileData, setStockProfileData] = useState([])
+  const [stockProfileData, setStockProfileData] = useState([]);
 
   const chartTagsList = [
     {
@@ -426,7 +433,7 @@ const UserProfileSection = () => {
     const fetchUserStocks = async () => {
       try {
         const response = await apiCall("/api/stocks/user-stocks/");
-        console.log(response.result, "hello stock")
+        console.log(response.result, "hello stock");
         if (response && response.result.results) {
           setLastUpdatedDates(response.result.last_updated_date);
           setTagsList(response.result.results); // Update state with the fetched data
@@ -438,7 +445,7 @@ const UserProfileSection = () => {
         const response = await apiCall("/api/stocks/user-stocks-profile/");
         // console.log(response, "hello stock")
         if (response && response.result) {
-          console.log(response, "hello api too")
+          console.log(response, "hello api too");
           setStockProfileData(response.result);
         }
       } catch (error) {
@@ -458,36 +465,40 @@ const UserProfileSection = () => {
       );
       if (response && response.result) {
         // Update your state with the new data
-        console.log(response.result[response.result?.length - 1]?.uv, "hello chart")
+        console.log(
+          response.result[response.result?.length - 1]?.uv,
+          "hello chart"
+        );
 
-        if(range == "1d"){
+        if (range == "1d") {
           let transformedData;
-          if(response.result[0].uv == "0"){
+          if (response.result[0].uv == "0") {
             // let removeFirstZeroObject = response.result.slice(1);
-              // setChartData(removeFirstZeroObject);
-              transformedData = response.result.slice(1);
-            }else{
-              // setChartData(response.result);
-              transformedData = response.result;
-            }
-            const formattedData = transformedData.map(entry => {
-              const dateObject = new Date(entry.name);
-              const hours = dateObject.getHours();
-              const minutes = dateObject.getMinutes();
-              const time = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-              return { ...entry, name: time };
-            });
-          
-            setChartData(formattedData);
+            // setChartData(removeFirstZeroObject);
+            transformedData = response.result.slice(1);
+          } else {
+            // setChartData(response.result);
+            transformedData = response.result;
+          }
+          const formattedData = transformedData.map((entry) => {
+            const dateObject = new Date(entry.name);
+            const hours = dateObject.getHours();
+            const minutes = dateObject.getMinutes();
+            const time = `${hours.toString().padStart(2, "0")}:${minutes
+              .toString()
+              .padStart(2, "0")}`;
+            return { ...entry, name: time };
+          });
+
+          setChartData(formattedData);
+        } else {
+          if (response.result[0].uv == "0") {
+            let removeFirstZeroObject = response.result.slice(1);
+            setChartData(removeFirstZeroObject);
+          } else {
+            setChartData(response.result);
+          }
         }
-        else{
-        if(response.result[0].uv == "0"){
-        let removeFirstZeroObject = response.result.slice(1);
-          setChartData(removeFirstZeroObject);
-        }else{
-          setChartData(response.result);
-        }
-      }
         setChartLoading(false);
       }
     }
@@ -498,33 +509,40 @@ const UserProfileSection = () => {
     "الصفقات",
     "القوائم المالية",
     "المعلومات الأساسية",
-  ]
+  ];
 
   function isOpen(openTime, closeTime, timezone) {
-
     // handle special case
     if (openTime === "24HR") {
       return "open";
     }
-  
+
     // get the current date and time in the given time zone
     const now = moment.tz(timezone);
-  
+
     // Get the exact open and close times on that date in the given time zone
     // See https://github.com/moment/moment-timezone/issues/119
     const date = now.format("YYYY-MM-DD");
-    const storeOpenTime = moment.tz(date + ' ' + openTime, "YYYY-MM-DD h:mmA", timezone);
-    const storeCloseTime = moment.tz(date + ' ' + closeTime, "YYYY-MM-DD h:mmA", timezone);
-  
+    const storeOpenTime = moment.tz(
+      date + " " + openTime,
+      "YYYY-MM-DD h:mmA",
+      timezone
+    );
+    const storeCloseTime = moment.tz(
+      date + " " + closeTime,
+      "YYYY-MM-DD h:mmA",
+      timezone
+    );
+
     let check;
     if (storeCloseTime.isBefore(storeOpenTime)) {
       // Handle ranges that span over midnight
       check = now.isAfter(storeOpenTime) || now.isBefore(storeCloseTime);
     } else {
       // Normal range check using an inclusive start time and exclusive end time
-      check = now.isBetween(storeOpenTime, storeCloseTime, null, '[)');
+      check = now.isBetween(storeOpenTime, storeCloseTime, null, "[)");
     }
-  
+
     return check ? "open" : "closed";
   }
 
@@ -534,7 +552,7 @@ const UserProfileSection = () => {
 
   return (
     <div>
-      {(typeof window == "undefined" && userData.name == "") ? (
+      {typeof window == "undefined" && userData.name == "" ? (
         ""
       ) : (
         <>
@@ -549,11 +567,16 @@ const UserProfileSection = () => {
             name={userData.name}
           >
             <MainSidebar
-              handlePageChange={handlePageChange}
               isSidebarOpen={isSidebarOpen}
               setIsSidebarOpen={setIsSidebarOpen}
               toggleSidebar={toggleSidebar}
-              list={list}
+              content={
+                <UserProfileSidebar
+                  handlePageChange={handlePageChange}
+                  toggleSidebar={toggleSidebar}
+                  list={list}
+                />
+              }
             />
             {page.name == "userprofile" ? (
               <div className="space-y-6 translation duration-500 ease-in-out">
@@ -566,7 +589,8 @@ const UserProfileSection = () => {
                       >
                         <ArrowList
                           leftIcon={
-                            <Image loading="eager"  
+                            <Image
+                              loading="eager"
                               src="/assets/icons/arrow-right.svg"
                               width={8}
                               height={8}
@@ -587,36 +611,40 @@ const UserProfileSection = () => {
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <div className="flex items-end mb-5">
                     <div className="text-2xl font-medium leading-none m-2">
-                    الأسهم
+                      الأسهم
                     </div>
                     {/* {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
                                         ) : "" } */}
-                    {originalSubscriptionDetails?.subscriptionType == "free" ?
-                    <DotBadgeUI
-                      title="الأسعار متأخرة 15 دقيقة"
-                      badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
-                      dotStyle="fill-yellowColor"
-                      isDot={true}
-                    /> : 
-                    <DotBadgeUI
-                      title="الأسعار مباشرة"
-                      badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
-                      dotStyle="fill-lightRedColor"
-                      isDot={true}
-                    />}
-                    {isOpen("10:00AM", "3:00PM", zone) == "open" ? 
-                    <DotBadgeUI
-                      title="السوق مفتوح"
-                      badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
-                      dotStyle="fill-primaryColor"
-                      isDot={false}
-                    /> : 
-                    <DotBadgeUI
-                      title="السوق مغلق"
-                      badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
-                      dotStyle="fill-lightRedColor"
-                      isDot={false}
-                    /> }
+                    {originalSubscriptionDetails?.subscriptionType == "free" ? (
+                      <DotBadgeUI
+                        title="الأسعار متأخرة 15 دقيقة"
+                        badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
+                        dotStyle="fill-yellowColor"
+                        isDot={true}
+                      />
+                    ) : (
+                      <DotBadgeUI
+                        title="الأسعار مباشرة"
+                        badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
+                        dotStyle="fill-lightRedColor"
+                        isDot={true}
+                      />
+                    )}
+                    {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
+                      <DotBadgeUI
+                        title="السوق مفتوح"
+                        badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
+                        dotStyle="fill-primaryColor"
+                        isDot={false}
+                      />
+                    ) : (
+                      <DotBadgeUI
+                        title="السوق مغلق"
+                        badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
+                        dotStyle="fill-lightRedColor"
+                        isDot={false}
+                      />
+                    )}
                   </div>
                   <UserProfileStatistics
                     setStockProfileData={setStockProfileData}
@@ -712,7 +740,7 @@ const UserProfileSection = () => {
                   // currentDuration={currentPlanDuration}
                   currentDuration={
                     subscriptionPeriodMap[
-                    originalSubscriptionDetails?.subscriptionPeriod
+                      originalSubscriptionDetails?.subscriptionPeriod
                     ] || frequencies[0]
                   }
                   setCurrentPlanDuration={setCurrentPlanDuration}

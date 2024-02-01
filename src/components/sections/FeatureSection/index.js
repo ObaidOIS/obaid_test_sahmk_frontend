@@ -158,13 +158,13 @@ const FeatureSection = () => {
             return activeTab === index ? (
               <div
                 key={index}
-                className="col-span-12 z-30 lg:hidden flex justify-center "
+                className="col-span-12 z-30 lg:hidden flex justify-center"
               >
                 <Image loading="eager"  
                   src={item.image}
                   width={750}
                   height={800}
-                  className="absolute top-64 sm:top-56"
+                  className="absolute top-64 sm:top-56 w-11/12"
                   alt="img"
                   priority
                 />
