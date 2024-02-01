@@ -474,10 +474,13 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     checkPhoneNumber();
+    // console.log(userData.phoneNumber, "cleaned")
     if (phoneNumberExists == false) {
       handleOpenOtpModal();
     }
   };
+
+  const [errorButton, setErrorButton] = useState("");
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -606,6 +609,9 @@ const RegisterForm = () => {
                 aria-hidden="true"
               />
             }
+            onClick={() => {setIsPricingModalOpen(true); setErrorAlert(false)}}
+            button={errorButton}
+            buttonStyle="text-redColor hover:text-redColor/80 focus:ring-redColor/80"
           />
         )}
         {warningAlert == true && (
@@ -807,6 +813,7 @@ const RegisterForm = () => {
                   setOriginalData={setOriginalData}
                   setErrorAlert={setErrorAlert}
                   setErrorMessage={setErrorMessage}
+                  setErrorButton={setErrorButton}
                 />
                 <p className="text-sm text-darkGreyColor">
                   {selectedOption === "الباقة المجانية"

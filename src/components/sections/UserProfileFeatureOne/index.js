@@ -141,6 +141,7 @@ const UserProfileFeatureOne = ({
           setErrorMessage(
             "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
           );
+          // setErrorButton("")
           isError = true;
         }
         if (

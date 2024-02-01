@@ -15,6 +15,7 @@ const MultiSelectSearchInput = ({
   setOriginalData,
   setErrorAlert,
   setErrorMessage,
+  setErrorButton,
 }) => {
 
   const dropdownRef = useRef(null);
@@ -52,7 +53,7 @@ const MultiSelectSearchInput = ({
   const toggleSelection = (itemId) => {
     if (selectedOption === "الباقة المتقدمة") {
       if(!(selectedItems.includes(itemId))){
-      selectedItems.length < 50 ? "" : setErrorAlert(true); setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+      selectedItems.length < 50 ? "" : setErrorAlert(true); setErrorMessage("لا يمكن إضافة المزيد من الشركات."); setErrorButton("خطة التغيير");
       }
       setSelectedItems((prevSelected) =>
         prevSelected.includes(itemId)
@@ -64,7 +65,7 @@ const MultiSelectSearchInput = ({
     }
     if (selectedOption === "باقة بريميوم") {
       if(!(selectedItems.includes(itemId))){
-      selectedItems.length < 10 ? "" : setErrorAlert(true); setErrorMessage("لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة.");}
+      selectedItems.length < 10 ? "" : setErrorAlert(true); setErrorMessage("لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."); setErrorButton("خطة التغيير");}
       setSelectedItems((prevSelected) =>
         prevSelected.includes(itemId)
           ? prevSelected.filter((id) => id !== itemId)
@@ -122,6 +123,7 @@ const MultiSelectSearchInput = ({
     if (originalSubscriptionDetails?.subscriptionType == "free") {
       setErrorAlert(true);
       setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+      setErrorButton("خطة التغيير")
       isError = true;
     }
     if (
@@ -132,6 +134,7 @@ const MultiSelectSearchInput = ({
       setErrorMessage(
         "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
       );
+      setErrorButton("خطة التغيير")
       isError = true;
     }
     if (
@@ -140,6 +143,7 @@ const MultiSelectSearchInput = ({
     ) {
       setErrorAlert(true);
       setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+      setErrorButton("خطة التغيير")
       isError = true;
     }
   }
@@ -184,7 +188,7 @@ const MultiSelectSearchInput = ({
                           }  hover:bg-lightGreyColor/40`}
                           onClick={() => {
                             toggleSelection(item.id);
-                            selectedOption === "الباقة المجانية" ? (setErrorAlert(true), setErrorMessage("الخطة المجانية لا يمكنها إضافة أي شركات.")) : "";
+                            selectedOption === "الباقة المجانية" ? (setErrorAlert(true), setErrorMessage("الخطة المجانية لا يمكنها إضافة أي شركات."), setErrorButton("خطة التغيير")) : "";
                             // setDropdownOpen(false);
                           }}
                         >

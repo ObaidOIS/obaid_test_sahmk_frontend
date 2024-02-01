@@ -276,8 +276,8 @@ const OtpModal = ({
       <div className="flex gap-4 my-5" dir="ltr">
         {Array.from({ length: 4 }, (_, index) => (
           <InputFieldUI
-            handleBeforeInput={(e)=>{handlePaste(e)}}
-            handleOnInput={(e)=>{handlePaste(e)}}
+            // handleBeforeInput={(e)=>{handlePaste(e)}}
+            // handleOnInput={(e)=>{handlePaste(e)}}
             key={index}
             // maxlength="1"
             autocomplete="one-time-code"

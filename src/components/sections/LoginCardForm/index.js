@@ -98,6 +98,7 @@ const LoginCardForm = () => {
   };
 
   const handleOpenOtpModal = async (e) => {
+  
     e.preventDefault();
     const cleanedPhoneNumber = cleanPhoneNumber(userData.phoneNumber);
     setUserData({
@@ -136,7 +137,7 @@ const LoginCardForm = () => {
   const cleanPhoneNumber = (phoneNumber) => {
     // Define the prefixes to check
     const prefixesToRemove = [
-      "0",
+      // "0",
       "966",
       "973",
       "965",
@@ -359,7 +360,7 @@ const LoginCardForm = () => {
                   <div>
                     <PrimaryButton
                       type="submit"
-                      onClick={(e) => {
+                      onClick={(e) => {                        
                         handleOpenOtpModal(e);
                       }}
                       // button="تسجيل الدخول"

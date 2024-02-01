@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
-const MessageAlert = ({setOpenModal, alertStyle, message, icon, title}) => {
+const MessageAlert = ({setOpenModal, alertStyle, message, icon, title, onClick, button, buttonStyle}) => {
 
     useEffect(() => {
         // Close the modal after 2000 milliseconds (2 seconds)
@@ -23,6 +23,10 @@ const MessageAlert = ({setOpenModal, alertStyle, message, icon, title}) => {
         <div className="mr-3">
           <p className="text-sm font-medium">{title}</p>
           <p className={` ${message ? "mt-2" : ""} text-sm opacity-80`} >{message}</p>
+          {button !==  undefined && button !== "" &&
+            <div onClick={onClick} className={` cursor-pointer mt-4 rounded-md bg-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 ${buttonStyle} `}>
+              {button}
+            </div>}
         </div>
         <div className="mr-auto pl-3">
           <div className="-mx-1.5 -my-1.5">
