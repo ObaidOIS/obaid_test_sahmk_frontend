@@ -32,7 +32,7 @@ export const metadata = {
   metadataBase: new URL('https://sahmk.sa'),
   title: 'سهمك | SAHMK',
   description: 'منصة سهمك, موثوق من تداول السعودية',
-  themeColor: 'white',
+  themeColor: '#09202D',
   icons: {
     icon: '/assets/images/icon.ico', 
   },
