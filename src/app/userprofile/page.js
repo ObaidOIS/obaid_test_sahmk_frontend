@@ -11,7 +11,7 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-export async function generateMetadata({ params }) {
+export function generateViewport({ params }) {
   return {
     themeColor: '#09202D',
   }
