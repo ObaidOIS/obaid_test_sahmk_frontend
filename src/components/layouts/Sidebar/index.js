@@ -21,6 +21,16 @@ const Sidebar = ({ toggleSidebar }) => {
     setIsAuthenticate(isAuthenticated());
   }, []);
 
+  const handleNavigationClick = (e, href) => {
+    e.preventDefault();
+  
+    // Add your logic to run before navigating, for example, closing the sidebar
+    toggleSidebar();
+  
+    // Now navigate to the specified href
+    window.location.href = href;
+  };
+
   return (
     <Dialog.Panel className="fixed inset-y-0 pointer-events-auto right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
       <div className="flex items-center justify-between">
@@ -41,13 +51,12 @@ const Sidebar = ({ toggleSidebar }) => {
         <div className="-my-6 divide-y divide-gray-500/10">
           <div className="space-y-2 py-6">
             {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              <div key={item.name}
+              onClick={(e) => handleNavigationClick(e, item.href)}
+              className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >
                 {item.name}
-              </a>
+              </div>
             ))}
           </div>
           {isAuthenticate != null && isAuthenticate == false ? (

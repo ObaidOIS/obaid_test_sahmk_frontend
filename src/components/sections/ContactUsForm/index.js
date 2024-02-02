@@ -138,7 +138,7 @@ const ContactUsForm = () => {
           <div className="mt-10">
             <div onClick={(e)=>handleSubmit(e)}>
             <PrimaryButton
-              button="إكمال الدفع"
+              button="اتصل بنا"
               buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor hover:!bg-primaryColor w-full justify-center mt-6"
             />
             </div>

@@ -258,7 +258,7 @@ const UserProfileStatistics = ({
                     <p className="text-2xl font-medium">
                       {Number(
                         parseFloat(selectedChartCurrentValue).toFixed(2)
-                      ).toLocaleString()}
+                      ).toLocaleString('en-US')}
                     </p>
                   </div>
                 </div>

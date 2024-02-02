@@ -51,7 +51,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
                 {stat.name}
               </dt>
               <dd className={`tracking-tight text-gray-900 font-medium ${stat.name == "نسبة التغيير" ? "text-primaryColor" : ""}`}>
-                {stat.value == "-" ? stat.value : isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString()}
+                {stat.value == "-" ? stat.value : isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString('en-US')}
               </dd>
             </div> */}
             </>
@@ -72,7 +72,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
   //             {stat.name}
   //           </dt>
   //           <dd className={`tracking-tight text-gray-900 font-medium ${stat.name == "نسبة التغيير" ? "text-primaryColor" : ""}`}>
-  //             {stat.value == "-" ? stat.value : isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString()}
+  //             {stat.value == "-" ? stat.value : isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString('en-US')}
   //           </dd>
   //         </div>
   //       ))}

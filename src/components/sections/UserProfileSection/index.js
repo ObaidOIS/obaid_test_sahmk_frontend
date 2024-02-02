@@ -529,11 +529,12 @@ const UserProfileSection = () => {
     const now = moment.tz(timezone);
 
     const currentDayOfWeek = now.day();
+    console.log(currentDayOfWeek, "hello day")
 
     if (currentDayOfWeek === 5 || currentDayOfWeek === 6) {
       return "closed";
     }
-    
+
     // Get the exact open and close times on that date in the given time zone
     // See https://github.com/moment/moment-timezone/issues/119
     const date = now.format("YYYY-MM-DD");

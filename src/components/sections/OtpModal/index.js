@@ -269,6 +269,8 @@ const OtpModal = ({
     
     otpInputElements.forEach((inputElement) => {
       // Change autocomplete attribute for each input with class 'otpInput'
+      // inputMode
+      inputElement.setAttribute('inputmode', 'numeric');
       inputElement.setAttribute('autocomplete', 'one-time-code');
     });
   }, []);
