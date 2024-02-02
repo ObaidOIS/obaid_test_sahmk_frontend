@@ -99,34 +99,19 @@ const OrderSummaryForm = (
     }, 3000);
   };
 
-  console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-  : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-  ? 
-  currentPlanDuration
-    ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-    : frequency?.value == "annually" ? "yearly" : frequency?.value
-  
-  : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-    ? 
-    currentPlanDuration
-      ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      : frequency?.value == "annually" ? "yearly" : frequency?.value
-    
-    : 
-    currentPlanDuration
-      ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      : frequency?.value == "annually" ? "yearly" : frequency?.value
-    , "userData");
+  // console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+  // : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", "userData");
 
   useEffect(() => {
-    // Verify payment when redirected back to this page
+    
+  // Verify payment when redirected back to this page
     const verifyPayment = async (paymentId) => {
       const result = await apiCall("/api/checkout/verify-payment/", "POST", 
-      pathname == "/auth/order" ? 
+      // pathname == "/auth/order" ? 
+      // {
+      //   id: paymentId,
+      //   ...userData,} : 
       {
-        id: paymentId,
-        ...userData,
-      } : {
         id: paymentId,
         // ...userData,
         name: userData.fullName,
@@ -156,6 +141,25 @@ const OrderSummaryForm = (
         expirationDate: userData.expirationDate,
       });
 
+      console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+      : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+      ?
+      currentPlanDuration
+        ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+        : frequency?.value == "annually" ? "yearly" : frequency?.value
+      
+      : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+        ? 
+        currentPlanDuration
+          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+          : frequency?.value == "annually" ? "yearly" : frequency?.value
+        
+        : 
+        currentPlanDuration
+          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+          : frequency?.value == "annually" ? "yearly" : frequency?.value
+        , "userData");
+
       if (result && result.result && result.result.check) {
         setIsAlertSuccessOpen(true);
         // router.push("/userprofile");
@@ -175,7 +179,7 @@ const OrderSummaryForm = (
       const paymentMessage = params.get("message");
 
       if (paymentId && paymentStatus && paymentMessage &&
-        userData.subscriptionPeriod && userData.subscriptionType) {
+        userData.subscriptionPeriod && userData.subscriptionType && currentPlan) {
         verifyPayment(paymentId);
       }
     }
@@ -187,12 +191,12 @@ const OrderSummaryForm = (
   const initMoyasar = (p) => {
     window.Moyasar.init({
       element: ".mysr-form",
-      // amount: (price || 1) * 100,
-      amount: p * 100,
+      amount: (price || 1) * 100,
+      // amount: p * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+      // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
