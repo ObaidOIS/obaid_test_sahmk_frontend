@@ -191,12 +191,12 @@ const OrderSummaryForm = (
   const initMoyasar = (p) => {
     window.Moyasar.init({
       element: ".mysr-form",
-      amount: (price || 1) * 100,
-      // amount: p * 100,
+      // amount: (price || 1) * 100,
+      amount: p * 100,
       currency: "SAR",
       description: "Sahmk Purchase",
-      // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
       callback_url: `${origin}/auth/order/`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
