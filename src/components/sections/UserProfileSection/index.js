@@ -23,6 +23,7 @@ import DotBadgeUI from "@/components/widgets/DotBadgeUI";
 import moment from "moment-timezone";
 import Loader from "@/components/widgets/Loader";
 import UserProfileSidebar from "../UserProfileSidebar";
+// import 'moment/locale/ar-sa'; // Import locale data for Saudi Arabia
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -54,6 +55,13 @@ const UserProfileSection = () => {
   }, []);
 
   const pathname = usePathname();
+
+  
+  // moment.locale('ar-sa'); // Set the locale to 'ar-sa'
+  const currentDay = moment().format('dddd');
+
+  console.log(currentDay, "currentDay")
+
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data

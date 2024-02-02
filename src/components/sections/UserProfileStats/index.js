@@ -33,12 +33,6 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
   }, [activeStatistics, selectedStockProfileCurrentValue ])
 
 
-  const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
-    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
-
-  }
-
   return (
     <div>
       <div className="mx-auto max-w-7xl">
@@ -63,16 +57,6 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
             </>
           ))}
         </dl>
-        <div className="mt-8 border-t border-mediumGreyColor">
-        <div onClick={handleOpenWhatsapp} className={` rounded-2xl mb-4 mt-8 shadow-xl hover:shadow-2xl group cursor-pointer px-6 py-4 border border-whiteColor hover:border hover:border-secondaryColor bg-whiteColor`}>
-        <div className="mx-auto inline-flex">
-                <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap"> 
-                <Image loading="eager" src="/assets/icons/whatsapp.svg" width={30} height={30} className="ml-5" alt="img" priority /> 
-                انتقل إلى محادثة النظام الذكي على الواتساب
-                </span>
-            </div>
-        </div>
-        </div>
       </div>
     </div>
   //   <div className="bg-white pt-8 pb-12 shadow-lg mb-5 rounded-3xl">

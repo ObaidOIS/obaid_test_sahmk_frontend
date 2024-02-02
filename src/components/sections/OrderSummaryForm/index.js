@@ -99,12 +99,61 @@ const OrderSummaryForm = (
     }, 3000);
   };
 
+  console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+  : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+  ? 
+  currentPlanDuration
+    ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+    : frequency?.value == "annually" ? "yearly" : frequency?.value
+  
+  : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+    ? 
+    currentPlanDuration
+      ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+      : frequency?.value == "annually" ? "yearly" : frequency?.value
+    
+    : 
+    currentPlanDuration
+      ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+      : frequency?.value == "annually" ? "yearly" : frequency?.value
+    , "userData");
+
   useEffect(() => {
     // Verify payment when redirected back to this page
     const verifyPayment = async (paymentId) => {
-      const result = await apiCall("/api/checkout/verify-payment/", "POST", {
+      const result = await apiCall("/api/checkout/verify-payment/", "POST", 
+      pathname == "/auth/order" ? 
+      {
         id: paymentId,
         ...userData,
+      } : {
+        id: paymentId,
+        // ...userData,
+        name: userData.fullName,
+        phoneNumber: userData.phoneNumber,
+        email: userData.email,
+        countryCode: userData.countryCode,
+        subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
+        // subscriptionPeriod: userData.subscriptionPeriod,
+        subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+        ?
+        currentPlanDuration
+          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+          : frequency?.value == "annually" ? "yearly" : frequency?.value
+        
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+          ? 
+          currentPlanDuration
+            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+            : frequency?.value == "annually" ? "yearly" : frequency?.value
+          
+          : 
+          currentPlanDuration
+            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+            : frequency?.value == "annually" ? "yearly" : frequency?.value
+          ,
+        expirationDate: userData.expirationDate,
       });
 
       if (result && result.result && result.result.check) {
@@ -506,7 +555,7 @@ const OrderSummaryForm = (
                   <div className="flex items-center font-medium text-2xl mx-5 my-6 justify-between">
                     <h3 className="leading-6 text-gray-900">الإجمالي</h3>
                     <h3 className="leading-6 text-gray-900">
-                      {price}
+                      {/* {price} */}
                       {(currentPlan?.title || currentPlan) == "الباقة المتقدمة"
                         ? pricing.pricing.companies[
                         currentPlanDuration

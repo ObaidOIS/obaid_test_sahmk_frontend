@@ -355,7 +355,7 @@ const UserProfileFeatureFour = ({
     );
     setFrequency(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]
+      frequencies[1]
     );
 
     setCurrentPlan(
@@ -365,7 +365,7 @@ const UserProfileFeatureFour = ({
 
     setCurrentPlanDuration(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[0]
+      frequencies[1]
     );
   }, [originalSubscriptionDetails]);
 
