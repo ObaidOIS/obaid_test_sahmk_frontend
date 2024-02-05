@@ -580,6 +580,17 @@ const RegisterForm = () => {
     setCurrentPlanDuration(frequencies[1]);
   }, []);
 
+
+  // const handleCheckBoxChange = async() => {
+  //     const response = await apiCall(
+  //       `/auth/api/user/update-user-preferences/?receive_opening_closing_prices=${fullPhoneNumber}&target_prices_enabled=${fullPhoneNumber}&weekly_report_enabled=${fullPhoneNumber}`,
+  //       "POST"
+  //     );
+  //     if (response && response.result && response.result.exists) {
+  //     } else {
+  //     }
+  //   }
+
   return (
     <>
       <div>
