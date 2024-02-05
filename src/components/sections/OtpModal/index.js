@@ -178,7 +178,7 @@ const OtpModal = ({
             (currentPlan.title ? currentPlan.title : selectedOption) ==
               "الباقة المجانية"
               ? router.push("/userprofile")
-              : router.push("/auth/order");
+              : router.push(`/auth/order?previousPage=${previousPage}`);
           } else if (previousPage === "signin") {
             router.push("/userprofile");
             if (localStorage.getItem("page")) {

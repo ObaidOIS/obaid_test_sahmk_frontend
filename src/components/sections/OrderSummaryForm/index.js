@@ -7,7 +7,7 @@ import AvatarWithText from "@/components/widgets/AvatarWithText";
 import apiCall from "@/components/common/api";
 import { pricing } from "@/components/common/pricing";
 import Loader from "@/components/widgets/Loader";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 
@@ -26,11 +26,14 @@ const OrderSummaryForm = (
   // setCurrentPlanDuration,
 ) => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [origin, setOrigin] = useState(
     "https://sahmk.sa"
+    // "http://localhost:3000"
+    
   );
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
@@ -48,6 +51,12 @@ const OrderSummaryForm = (
     expirationDate: null,
   });
 
+  const [callBackPathName, setCallBackPathName] = useState("")
+
+  useEffect(() => {
+  setCallBackPathName(pathname);
+  }, [])
+
   useEffect(() => {
     // Set the origin state to the current window location's origin
     const currentPlanRegister = localStorage.getItem("currentPlanRegister")
@@ -64,62 +73,85 @@ const OrderSummaryForm = (
     }
   }, []);
 
-  useEffect(() => {
-    // This effect runs once on component mount to fetch the user data
-    const fetchUserData = async () => {
-      const response = await apiCall("/auth/api/user/");
-      const userData = response.result;
-      if (userData) {
-        if (pathname == "/auth/order") {
-        setUserData({
-          name: userData.fullName,
-          phoneNumber: userData.phoneNumber,
-          email: userData.email,
-          countryCode: userData.countryCode,
-          subscriptionType: userData.subscriptionType,
-          subscriptionPeriod: userData.subscriptionPeriod,
-          expirationDate: userData.expirationDate,
-        });
-      }
-      if (pathname == "/userprofile") {
-        setUserData({
-          name: userData.fullName,
-          phoneNumber: userData.phoneNumber,
-          email: userData.email,
-          countryCode: userData.countryCode,
-          subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-          : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
-          // subscriptionPeriod: userData.subscriptionPeriod,
-          subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-          ?
+
+  const fetchUserData = async () => {
+    const response = await apiCall("/auth/api/user/");
+    const userData = response.result;
+    const search = searchParams.get('previousPage')
+    if (userData) {
+      if (search == "signup") {
+      setUserData({
+        name: userData.fullName,
+        phoneNumber: userData.phoneNumber,
+        email: userData.email,
+        countryCode: userData.countryCode,
+        subscriptionType: userData.subscriptionType,
+        subscriptionPeriod: userData.subscriptionPeriod,
+        expirationDate: userData.expirationDate,
+      });
+    } else{
+    // if (pathname == "/userprofile") {
+      console.log( (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+      : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", 
+      (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+        ?
+        currentPlanDuration
+          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+          : frequency?.value == "annually" ? "yearly" : frequency?.value
+        
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+          ? 
           currentPlanDuration
             ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
             : frequency?.value == "annually" ? "yearly" : frequency?.value
           
-          : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-            ? 
-            currentPlanDuration
-              ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-              : frequency?.value == "annually" ? "yearly" : frequency?.value
-            
-            : 
-            currentPlanDuration
-              ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-              : frequency?.value == "annually" ? "yearly" : frequency?.value
-            ,
-          expirationDate: userData.expirationDate,
-        });
+          : 
+          currentPlanDuration
+            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+            : frequency?.value == "annually" ? "yearly" : frequency?.value
+          ,
+      "userData")
+      setUserData({
+        name: userData.fullName,
+        phoneNumber: userData.phoneNumber,
+        email: userData.email,
+        countryCode: userData.countryCode,
+        subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
+        // subscriptionPeriod: userData.subscriptionPeriod,
+        subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+        ?
+        currentPlanDuration
+          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+          : frequency?.value == "annually" ? "yearly" : frequency?.value
+        
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+          ? 
+          currentPlanDuration
+            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+            : frequency?.value == "annually" ? "yearly" : frequency?.value
+          
+          : 
+          currentPlanDuration
+            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+            : frequency?.value == "annually" ? "yearly" : frequency?.value
+          ,
+        expirationDate: userData.expirationDate,
+      });
+    }
+      const calculatedPrice =
+        pricing["pricing"][userData.subscriptionType][
+        userData.subscriptionPeriod
+        ];
+      if (calculatedPrice) {
+        setPrice(calculatedPrice);
       }
-        const calculatedPrice =
-          pricing["pricing"][userData.subscriptionType][
-          userData.subscriptionPeriod
-          ];
-        if (calculatedPrice) {
-          setPrice(calculatedPrice);
-        }
-      }
-    };
+    }
+  };
 
+
+  useEffect(() => {
+    // This effect runs once on component mount to fetch the user data
     fetchUserData();
   }, [currentPlan, currentPlanDuration]);
 
@@ -135,6 +167,8 @@ const OrderSummaryForm = (
   useEffect(() => {
     
   // Verify payment when redirected back to this page
+  
+  // console.log(userData, "userData")
     const verifyPayment = async (paymentId) => {
       const result = await apiCall("/api/checkout/verify-payment/", "POST", 
       {
@@ -192,6 +226,7 @@ const OrderSummaryForm = (
       //   , "userData");
 
       if (result && result.result && result.result.check) {
+        console.log(result, userData, "userData");
         setIsAlertSuccessOpen(true);
         // router.push("/userprofile");
         navigateToAnotherPage();
@@ -228,7 +263,8 @@ const OrderSummaryForm = (
       description: "Sahmk Purchase",
       publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
       // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
-      callback_url: `${origin}/auth/order/`,
+      callback_url: `${origin}/auth/order?previousPage=${search}`,
+      // callback_url: `${origin}/userprofile`,
       methods: ["creditcard", "stcpay", "applepay"],
       apple_pay: {
         country: "SA",
@@ -262,8 +298,15 @@ const OrderSummaryForm = (
     });
   };
 
+  const search = searchParams.get('previousPage')
+
   useEffect(() => {
-    if (pathname == "/auth/order") {
+
+    const search = searchParams.get('previousPage')
+
+    console.log(search, "userData")
+    // if (pathname == "/auth/order") {
+      if (search == "signup") {
       const currentPlanJSON = localStorage.getItem("currentPlanRegister");
 
       if (currentPlanJSON) {
