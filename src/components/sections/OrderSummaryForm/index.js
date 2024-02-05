@@ -210,7 +210,7 @@ const OrderSummaryForm = (
       const paymentMessage = params.get("message");
 
       if (paymentId && paymentStatus && paymentMessage &&
-        userData.subscriptionPeriod && userData.subscriptionType && currentPlan) {
+        userData.subscriptionPeriod && userData.subscriptionType) {
         verifyPayment(paymentId);
       }
     }
