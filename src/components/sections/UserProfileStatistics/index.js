@@ -32,10 +32,10 @@ const UserProfileStatistics = ({
   lastUpdatedDates,
   setStockProfileData,
   stockProfileData,
+  selectedStatCurrentValue,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
-  const [selectedStatCurrentValue, setSelectedStatCurrentValue] = useState("");
   const [
     selectedStockProfileCurrentValue,
     setSelectedStockProfileCurrentValue,
@@ -48,17 +48,17 @@ const UserProfileStatistics = ({
   useEffect(() => {
     if (typeof window !== "undefined") {
       handleSelectedChartCurrentValue(chartData[chartData?.length - 1]?.uv);
-      handleSelectedStatCurrentValue(
-        tagsList[0]?.eod_data?.eod_data_list[1]?.value
-      );
+      // handleSelectedStatCurrentValue(
+      //   tagsList[0]?.eod_data?.eod_data_list[1]?.value
+      // );
       // console.log(chartData, "hello chart nan");
     }
   }, [chartData, tagsList]);
 
-  const handleSelectedStatCurrentValue = (statValue) => {
-    // setSelectedChartCurrentValue(selectedChartCurrentValue);
-    setSelectedStatCurrentValue(statValue);
-  };
+  // const handleSelectedStatCurrentValue = (statValue) => {
+  //   // setSelectedChartCurrentValue(selectedChartCurrentValue);
+  //   setSelectedStatCurrentValue(statValue);
+  // };
 
   console.log(
     chartTagsList[0].apiRange,
@@ -160,9 +160,9 @@ const UserProfileStatistics = ({
                         handleTagClick(apiRange, item.stock_company);
                         setActiveStat(item.stock_name || item.stock_company);
                         setSelectedSymbol(item.stock_company);
-                        handleSelectedStatCurrentValue(
-                          item.eod_data?.eod_data_list[1]?.value
-                        );
+                        // handleSelectedStatCurrentValue(
+                        //   item.eod_data?.eod_data_list[1]?.value
+                        // );
                       }}
                     >
                       {/* <PrimaryButton button={item.stock_name || item.stock_company}
@@ -191,9 +191,9 @@ const UserProfileStatistics = ({
                     handleTagClick(apiRange, item.stock_company);
                     setActiveStat(item.stock_name || item.stock_company);
                     setSelectedSymbol(item.stock_company);
-                    handleSelectedStatCurrentValue(
-                      item.eod_data?.eod_data_list[1]?.value
-                    );
+                    // handleSelectedStatCurrentValue(
+                    //   item.eod_data?.eod_data_list[1]?.value
+                    // );
                   }}
                 >
                   {
@@ -248,6 +248,7 @@ const UserProfileStatistics = ({
                           //   priority
                           // />
                         }
+                        dir="ltr"
                         badgeStyle={`${
                           chartData[0].uv < chartData[chartData.length - 1].uv
                             ? "text-primaryColor bg-primaryColor/10"

@@ -399,6 +399,9 @@ const UserProfileSection = () => {
 
   const [stockProfileData, setStockProfileData] = useState([]);
 
+  const [selectedStatCurrentValue, setSelectedStatCurrentValue] = useState("");
+
+
   const chartTagsList = [
     {
       id: 1,
@@ -446,6 +449,8 @@ const UserProfileSection = () => {
         if (response && response.result.results) {
           setLastUpdatedDates(response.result.last_updated_date);
           setTagsList(response.result.results); // Update state with the fetched data
+
+          console.log(response.result.results, "here is data")
         }
       } catch (error) {
         console.error("Error fetching user stocks:", error.message);
@@ -476,9 +481,32 @@ const UserProfileSection = () => {
         // Update your state with the new data
         console.log(
           response.result[response.result?.length - 1]?.uv,
+          response.result[0].uv,
+          "hello chart"
+        );
+        console.log(
+          response.result,
           "hello chart"
         );
 
+        // Find the first and last values
+        const firstValue = response.result[0].uv;
+        const lastValue = response.result[response.result?.length - 1]?.uv;
+
+        // Calculate the percentage change
+        const percentageChange = ((lastValue - firstValue) / firstValue) * 100;
+
+        // Determine if it's a positive or negative change
+        const changeSign = percentageChange >= 0 ? '' : '-';
+
+        // Add the sign to the percentage
+        const formattedPercentageChange = `${changeSign}${Math.abs(percentageChange).toFixed(2)}%`;
+
+        // Log the result
+        console.log(`Percentage Change: ${formattedPercentageChange}`);
+
+        setSelectedStatCurrentValue(formattedPercentageChange);
+        
         if (range == "1d") {
           let transformedData;
           if (response.result[0].uv == "0") {
@@ -663,6 +691,7 @@ const UserProfileSection = () => {
                     )}
                   </div>
                   <UserProfileStatistics
+                    selectedStatCurrentValue={selectedStatCurrentValue}
                     setStockProfileData={setStockProfileData}
                     stockProfileData={stockProfileData}
                     apiRange={apiRange}
