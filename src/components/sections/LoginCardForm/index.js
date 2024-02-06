@@ -325,6 +325,17 @@ const LoginCardForm = () => {
                   <div className="flex items-end gap-4">
                     <div className="flex-grow ">
                       <InputFieldUI
+                        handlePaste={()=>
+                            {
+                              if (/^\d*$/.test(e.clipboardData.getData('text/plain').trim())) {
+                                handleDataChange("phoneNumber", e.clipboardData.getData('text/plain').trim());
+                              }
+                              setValidate({
+                                ...validate,
+                                phone: value === null || value === "",
+                              });
+                              // setInputText(e.clipboardData.getData('text/plain').trim());
+                            }}
                         autoComplete="tel"
                         placeholder="5123456789"
                         dir="ltr"
