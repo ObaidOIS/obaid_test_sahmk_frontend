@@ -4,6 +4,8 @@ import SearchInput from "@/components/widgets/SearchInput";
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { CheckCircleIcon, CheckIcon } from "@heroicons/react/24/outline";
 import MessageAlert from "@/components/widgets/MessageAlert";
+import Image from "next/image";
+import { XCircleIcon } from "@heroicons/react/20/solid";
 
 const SelectUserCompaniesInput = ({
   dataList,
