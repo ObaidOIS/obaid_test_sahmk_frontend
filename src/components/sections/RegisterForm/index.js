@@ -645,6 +645,7 @@ const RegisterForm = () => {
       {/* OTP Modal Code */}
       {isOtpModalOpen && (
         <SimpleAlertModalUI
+          previousPage={"signup"}
           onClose={() => setIsOtpModalOpen(false)}
           isOpen={isOtpModalOpen}
           alertStyle="!max-h-fit"

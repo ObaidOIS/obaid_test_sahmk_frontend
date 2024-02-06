@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 
-const SimpleAlertModalUI = ({ content, onClose, isOpen, alertStyle }) => {
+const SimpleAlertModalUI = ({ content, onClose, isOpen, alertStyle, previousPage }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
     <Dialog as="div" className="fixed z-[22]" onClose={onClose}>
@@ -30,7 +30,7 @@ const SimpleAlertModalUI = ({ content, onClose, isOpen, alertStyle }) => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+            <Dialog.Panel className={`relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6 ${previousPage == "signup" ? "mt-44" : ""}`}>
               {content}
             </Dialog.Panel>
           </Transition.Child>
