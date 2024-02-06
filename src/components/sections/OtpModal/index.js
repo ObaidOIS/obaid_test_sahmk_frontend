@@ -89,6 +89,25 @@ const OtpModal = ({
     setTimerActive(true); // Start the timer
   };
 
+  useEffect(() => {
+    const handleFocus = () => {
+      window.scrollTo(0, 0);
+    };
+
+    // Assuming 'yourInput' is the ref to your input element
+    const inputElement = document.getElementById('otpmodal');
+
+    if (inputElement) {
+      inputElement.addEventListener('focus', handleFocus);
+    }
+
+    return () => {
+      if (inputElement) {
+        inputElement.removeEventListener('focus', handleFocus);
+      }
+    };
+  }, []);
+
   // const handleInputChange = (value, index) => {
   //   // Update the corresponding OTP digit
   //   let newOtp = [...otp];
@@ -302,7 +321,7 @@ const OtpModal = ({
           defaultValue=""
           containerStyle="!grid grid-cols-4 gap-4"
           // renderSeparator={<span> &nbsp;</span>}
-          renderInput={(props) => <input {...props} />}
+          renderInput={(props) => <input {...props} id="otpmodal" />}
           // renderInput={(props) => <input autocomplete="one-time-code" id="otpInput" {...props} />}
         />
         {/* {Array.from({ length: 4 }, (_, index) => (

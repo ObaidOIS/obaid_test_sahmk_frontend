@@ -207,6 +207,22 @@ const LoginCardForm = () => {
     <>
       {/* <button onClick={handleCopyClick} className="py-5 px-5 bg-white">Copy Text</button> */}
       <div>
+      <SimpleAlertModalUI
+          onClose={() => setIsOtpModalOpen(false)}
+          isOpen={isOtpModalOpen}
+          content={
+            <OtpModal
+              setErrorMessage={setErrorMessage}
+              setErrorAlert={setErrorAlert}
+              onClose={() => setIsOtpModalOpen(false)}
+              isOpen={isOtpModalOpen}
+              userData={userData}
+              previousPage={"signin"}
+              setSuccessAlert={setSuccessAlert}
+              setSuccessMessage={setSuccessMessage}
+            />
+          }
+        />
         {successAlert == true && (
           <MessageAlert
             setOpenModal={setSuccessAlert}
@@ -253,24 +269,9 @@ const LoginCardForm = () => {
           />
         )}
       </div>
-      <div>
-        <SimpleAlertModalUI
-          onClose={() => setIsOtpModalOpen(false)}
-          isOpen={isOtpModalOpen}
-          content={
-            <OtpModal
-              setErrorMessage={setErrorMessage}
-              setErrorAlert={setErrorAlert}
-              onClose={() => setIsOtpModalOpen(false)}
-              isOpen={isOtpModalOpen}
-              userData={userData}
-              previousPage={"signin"}
-              setSuccessAlert={setSuccessAlert}
-              setSuccessMessage={setSuccessMessage}
-            />
-          }
-        />
-      </div>
+      {/* <div> */}
+        
+      {/* </div> */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-4 sm:px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
           <div className="relative">

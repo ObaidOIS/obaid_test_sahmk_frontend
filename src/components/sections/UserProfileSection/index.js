@@ -23,6 +23,7 @@ import DotBadgeUI from "@/components/widgets/DotBadgeUI";
 import moment from "moment-timezone";
 import Loader from "@/components/widgets/Loader";
 import UserProfileSidebar from "../UserProfileSidebar";
+import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput";
 // import 'moment/locale/ar-sa'; // Import locale data for Saudi Arabia
 
 const UserProfileSection = () => {
@@ -401,6 +402,8 @@ const UserProfileSection = () => {
 
   const [selectedStatCurrentValue, setSelectedStatCurrentValue] = useState("");
 
+  const [searchInputShow, setSearchInputShow] = useState(false);
+
 
   const chartTagsList = [
     {
@@ -653,6 +656,7 @@ const UserProfileSection = () => {
                   })}
                 </div>
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                  <div className="flex">
                   <div className="flex items-end mb-5">
                     <div className="text-2xl font-medium leading-none m-2">
                       الأسهم
@@ -689,6 +693,26 @@ const UserProfileSection = () => {
                         isDot={false}
                       />
                     )}
+                  </div>
+                  <div className="flex items-center justify-end flex-1">
+                    <div
+                    onClick={()=>{setSearchInputShow(!searchInputShow)}}
+                     className={`${searchInputShow ? "bg-secondaryColor" : "bg-white" } shadow-xl rounded-lg p-2 cursor-pointer`}>
+                    <Image loading="eager"  
+                        src={searchInputShow ? "/assets/icons/white-search.svg" : "/assets/icons/search.svg"}
+                        width={20}
+                        height={20}
+                        className=""
+                        alt="Logo"
+                        priority
+                      />
+                    </div>
+                  </div>
+                  </div>
+                  <div>
+                  {searchInputShow ? 
+                  <MultiSelectSearchInput />
+                  : ""}
                   </div>
                   <UserProfileStatistics
                     selectedStatCurrentValue={selectedStatCurrentValue}
