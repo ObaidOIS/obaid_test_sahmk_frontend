@@ -3,7 +3,7 @@ import AddList from "@/components/widgets/AddList";
 import SearchInput from "@/components/widgets/SearchInput";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
-const FeatureOneSearchModal = ({
+const FeatureOneSearchModal = ({ 
   dataList,
   toggleSelection,
   isOpen,
@@ -21,6 +21,7 @@ const FeatureOneSearchModal = ({
       <div className="mt-3 w-full h-[45vh]">
         <div>
           <SearchInput 
+              placeholder="بحث باسم الشركة"
               searchQuery={searchQuery}
               handleSearch={handleSearch} />
         </div>

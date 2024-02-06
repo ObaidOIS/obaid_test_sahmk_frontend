@@ -12,7 +12,7 @@ import { getUniqueStocksBySymbol } from "@/components/common/utils";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 const UserProfileFeatureOne = ({
-  isNotificationChecked,
+  isNotificationChecked, 
   handleNotificationSwitch,
   handleTvSwitch,
   isTvChecked,

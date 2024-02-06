@@ -14,7 +14,7 @@ import UserProfileFeatureFour from "../UserProfileFeatureFour";
 import OrderSummaryForm from "../OrderSummaryForm";
 import UserProfileFeatureThree from "../UserProfileFeatureThree";
 import apiCall from "@/components/common/api";
-import { extractCountryCodeFromPhoneNumber } from "@/components/common/utils";
+import { extractCountryCodeFromPhoneNumber, getUniqueStocksBySymbol } from "@/components/common/utils";
 import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
@@ -25,6 +25,9 @@ import Loader from "@/components/widgets/Loader";
 import UserProfileSidebar from "../UserProfileSidebar";
 import SelectUserCompaniesInput from "../SelectUserCompaniesInput";
 // import 'moment/locale/ar-sa'; // Import locale data for Saudi Arabia
+import { FiSearch } from "react-icons/fi";
+import { RxCross2 } from "react-icons/rx";
+
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -57,12 +60,10 @@ const UserProfileSection = () => {
 
   const pathname = usePathname();
 
-  
   // moment.locale('ar-sa'); // Set the locale to 'ar-sa'
-  const currentDay = moment().format('dddd');
+  const currentDay = moment().format("dddd");
 
-  console.log(currentDay, "currentDay")
-
+  console.log(currentDay, "currentDay");
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -374,7 +375,7 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     handleUpgardPlanDuration(
-      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod]
       // || frequencies[0]
     );
     handleUpgradPlan(currentPlan);
@@ -403,7 +404,6 @@ const UserProfileSection = () => {
   const [selectedStatCurrentValue, setSelectedStatCurrentValue] = useState("");
 
   const [searchInputShow, setSearchInputShow] = useState(false);
-
 
   const chartTagsList = [
     {
@@ -453,7 +453,7 @@ const UserProfileSection = () => {
           setLastUpdatedDates(response.result.last_updated_date);
           setTagsList(response.result.results); // Update state with the fetched data
 
-          console.log(response.result.results, "here is data")
+          console.log(response.result.results, "here is data");
         }
       } catch (error) {
         console.error("Error fetching user stocks:", error.message);
@@ -487,10 +487,7 @@ const UserProfileSection = () => {
           response.result[0].uv,
           "hello chart"
         );
-        console.log(
-          response.result,
-          "hello chart"
-        );
+        console.log(response.result, "hello chart");
 
         // Find the first and last values
         const firstValue = response.result[0].uv;
@@ -500,16 +497,18 @@ const UserProfileSection = () => {
         const percentageChange = ((lastValue - firstValue) / firstValue) * 100;
 
         // Determine if it's a positive or negative change
-        const changeSign = percentageChange >= 0 ? '' : '-';
+        const changeSign = percentageChange >= 0 ? "" : "-";
 
         // Add the sign to the percentage
-        const formattedPercentageChange = `${changeSign}${Math.abs(percentageChange).toFixed(2)}%`;
+        const formattedPercentageChange = `${changeSign}${Math.abs(
+          percentageChange
+        ).toFixed(2)}%`;
 
         // Log the result
         console.log(`Percentage Change: ${formattedPercentageChange}`);
 
         setSelectedStatCurrentValue(formattedPercentageChange);
-        
+
         if (range == "1d") {
           let transformedData;
           if (response.result[0].uv == "0") {
@@ -561,7 +560,7 @@ const UserProfileSection = () => {
     const now = moment.tz(timezone);
 
     const currentDayOfWeek = now.day();
-    console.log(currentDayOfWeek, "hello day")
+    console.log(currentDayOfWeek, "hello day");
 
     if (currentDayOfWeek === 5 || currentDayOfWeek === 6) {
       return "closed";
@@ -597,6 +596,164 @@ const UserProfileSection = () => {
 
   console.log(chartData, "hello here");
 
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [originalData, setOriginalData] = useState([]);
+  const [filteredData, setFilteredData] = useState();
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successCompaniesAlert, setSuccessCompaniesAlert] = useState("");
+  const [successCompaniesMessage, setSuccessCompaniesMessage] = useState("");
+
+  // const [successMessage, setSuccessMessage] = useState("");
+
+  
+  // Fetch companies from API and set to both dataList and originalData
+  const fetchStocks = async () => {
+    const userStocksResponse = await apiCall("/api/stocks/");
+    if (userStocksResponse.status === 200 && userStocksResponse.result) {
+      const userStocks = userStocksResponse.result.stocks.map((stock) => ({
+        id: stock.id,
+        symbol: stock.symbol,
+        target_price: stock.target_price,
+        name: stock.stock_name,
+        stock_price: stock.stock_price,
+      }));
+      // const userStocks = userStocksResponse.result.stocks.map((stock) => ({id: stock.id}));
+      const uniqueUserStocks = getUniqueStocksBySymbol(userStocks);
+
+      setSelectedItems(uniqueUserStocks);
+    }
+
+    const response = await apiCall("/api/stocks/get-stocks-list/");
+    if (response.result) {
+      const formattedData = response.result.map(({ symbol, first_name }) => ({
+        id: symbol,
+        name: first_name,
+        symbol: symbol,
+        stock_name: first_name,
+      }));
+      setFilteredData(formattedData);
+      setOriginalData(formattedData); // Set original data here
+    }
+  };
+
+  useEffect(() => {
+    // Fetch user's stocks and available stocks
+    fetchStocks();
+  }, []);
+
+  const handlePopupSave = async (stocksArray) => {
+    // Define the endpoint for updating stocks
+    const endpoint = "/api/stocks/bulk-update/";
+
+    // Create the data object to send in the request
+    // const requestData = {
+    //   stocks: popupStocks,
+    // };
+    const requestData = {
+      stocks: stocksArray,
+    };
+
+    // Send a POST request using your custom apiCall function
+    const response = await apiCall(endpoint, "POST", requestData);
+
+    if (response.status === 200) {
+      // Handle successful response
+      setSuccessCompaniesAlert(true);
+      setSuccessCompaniesMessage(response.result.result);
+
+      // Update formPayload.stocks by merging with popupStocks
+      fetchStocks();
+    } else {
+      // Handle error response
+      setErrorAlert(true);
+      setErrorMessage(response.error);
+    }
+  };
+
+  
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = originalData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.id.toString().toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
+  const toggleSelection = (itemId, itemName, itemSymbol) => {
+    setSelectedItems((prevSelectedItems) => {
+      const isAlreadySelected = prevSelectedItems.some(
+        (item) => item.symbol === itemSymbol
+      );
+      //   const isAlreadySelected = prevSelectedItems.some(
+      //     (item) => item === itemObject
+      // );
+
+      let newSelectedItems;
+
+      if (isAlreadySelected) {
+        // Remove the item if it's already selected
+        newSelectedItems = prevSelectedItems.filter(
+          (item) => item.symbol !== itemSymbol
+        );
+
+        // Update popupStocks similarly as selectedItems
+        // setPopupStocks(newSelectedItems);
+        handlePopupSave(newSelectedItems);
+      } else {
+        // Add the new item
+        let isError = false;
+        if (originalSubscriptionDetails?.subscriptionType == "free") {
+          setErrorAlert(true);
+          setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+          isError = true;
+        }
+        if (
+          originalSubscriptionDetails?.subscriptionType == "premium" &&
+          selectedItems.length + 1 > 10
+        ) {
+          setErrorAlert(true);
+          setErrorMessage(
+            "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
+          );
+          // setErrorButton("")
+          isError = true;
+        }
+        if (
+          originalSubscriptionDetails?.subscriptionType == "companies" &&
+          selectedItems.length + 1 > 50
+        ) {
+          setErrorAlert(true);
+          setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+          isError = true;
+        }
+        if (!isError) {
+          newSelectedItems = [
+            ...prevSelectedItems,
+            { id: itemId, name: itemName, symbol: itemSymbol },
+          ];
+          // Update popupStocks similarly as selectedItems
+          // setPopupStocks(newSelectedItems);
+          handlePopupSave(newSelectedItems);
+        } else {
+          newSelectedItems = [
+            ...prevSelectedItems,
+            // { id: itemId, name: itemName, symbol: itemSymbol },
+          ];
+        }
+      }
+
+      // // Update popupStocks similarly as selectedItems
+      // setPopupStocks(newSelectedItems);
+      // handlePopupSave(newSelectedItems);
+
+      return newSelectedItems;
+    });
+  };
+
   return (
     <div>
       {typeof window == "undefined" && userData.name == "" ? (
@@ -605,6 +762,7 @@ const UserProfileSection = () => {
         <>
           <DarkNavOverlay
             successAlert={successAlert}
+            // successMessage={successMessage}
             setSuccessAlert={setSuccessAlert}
             deactivateAlert={deactivateAlert}
             setDeactivateAlert={setDeactivateAlert}
@@ -657,62 +815,106 @@ const UserProfileSection = () => {
                 </div>
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <div className="flex">
-                  <div className="flex items-end mb-5">
-                    <div className="text-2xl font-medium leading-none m-2">
-                      الأسهم
-                    </div>
-                    {/* {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
+                    <div className="flex items-end mb-5">
+                      <div className="text-2xl font-medium leading-none m-2">
+                        الأسهم
+                      </div>
+                      {/* {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
                                         ) : "" } */}
-                    {originalSubscriptionDetails?.subscriptionType == "free" ? (
-                      <DotBadgeUI
-                        title="الأسعار متأخرة 15 دقيقة"
-                        badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
-                        dotStyle="fill-yellowColor"
-                        isDot={true}
-                      />
-                    ) : (
-                      <DotBadgeUI
-                        title="الأسعار مباشرة"
-                        badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
-                        dotStyle="fill-lightRedColor"
-                        isDot={true}
-                      />
-                    )}
-                    {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
-                      <DotBadgeUI
-                        title="السوق مفتوح"
-                        badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
-                        dotStyle="fill-primaryColor"
-                        isDot={false}
-                      />
-                    ) : (
-                      <DotBadgeUI
-                        title="السوق مغلق"
-                        badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
-                        dotStyle="fill-lightRedColor"
-                        isDot={false}
-                      />
-                    )}
-                  </div>
-                  <div className="flex items-center justify-end flex-1">
-                    <div
-                    onClick={()=>{setSearchInputShow(!searchInputShow)}}
-                     className={`${searchInputShow ? "bg-secondaryColor" : "bg-white" } shadow-xl rounded-lg p-2 cursor-pointer`}>
-                    <Image loading="eager"  
-                        src={searchInputShow ? "/assets/icons/white-search.svg" : "/assets/icons/search.svg"}
-                        width={20}
-                        height={20}
-                        className=""
-                        alt="Logo"
-                        priority
-                      />
+                      {originalSubscriptionDetails?.subscriptionType ==
+                      "free" ? (
+                        <DotBadgeUI
+                          title="الأسعار متأخرة 15 دقيقة"
+                          badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
+                          dotStyle="fill-yellowColor"
+                          isDot={true}
+                        />
+                      ) : (
+                        <DotBadgeUI
+                          title="الأسعار مباشرة"
+                          badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
+                          dotStyle="fill-lightRedColor"
+                          isDot={true}
+                        />
+                      )}
+                      {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
+                        <DotBadgeUI
+                          title="السوق مفتوح"
+                          badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
+                          dotStyle="fill-primaryColor"
+                          isDot={false}
+                        />
+                      ) : (
+                        <DotBadgeUI
+                          title="السوق مغلق"
+                          badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
+                          dotStyle="fill-lightRedColor"
+                          isDot={false}
+                        />
+                      )}
                     </div>
-                  </div>
+                    <div className="flex items-center justify-end flex-1">
+                      <div
+                        onClick={() => {
+                          setSearchInputShow(!searchInputShow);
+                        }}
+                        className={`bg-secondaryColor shadow-xl rounded-lg p-2 cursor-pointer`}
+                      >
+                        {searchInputShow ? <RxCross2 size={24} className="text-whiteColor" /> : <FiSearch size={24} className="text-whiteColor" /> }
+                        {/* <Image
+                          loading="eager"
+                          src={
+                            searchInputShow
+                              ? "/assets/icons/white-search.svg"
+                              : "/assets/icons/search.svg"
+                          }
+                          width={20}
+                          height={20}
+                          className=""
+                          alt="Logo"
+                          priority
+                        /> */}
+                      </div>
+                    </div>
                   </div>
                   <div>
-                  {searchInputShow ? 
-                  <SelectUserCompaniesInput />
-                  : ""}
+                    {searchInputShow ? (
+                      <>
+                        {/* <FeatureOneSearchModal
+                originalSubscriptionDetails={originalSubscriptionDetails}
+                originalData={originalData}
+                searchQuery={searchQuery}
+                handleSearch={handleSearch}
+                filteredData={filteredData}
+                isOpen={isPricingAddPanelOpen}
+                dataList={filteredData}
+                toggleSelection={toggleSelection}
+                setSelectedItems={setSelectedItems}
+                selectedItems={selectedItems}
+                setErrorAlert={setErrorAlert}
+                setErrorMessage={setErrorMessage}
+              /> */}
+                        <SelectUserCompaniesInput
+                            originalSubscriptionDetails={originalSubscriptionDetails}
+                            searchQuery={searchQuery}
+                            handleSearch={handleSearch}
+                            filteredData={filteredData}
+                            dataList={filteredData}
+                            toggleSelection={toggleSelection}
+                            setSelectedItems={setSelectedItems}
+                            selectedItems={selectedItems}
+                            setErrorAlert={setErrorAlert}
+                            setErrorMessage={setErrorMessage} 
+                            errorAlert={errorAlert}
+                            errorMessage={errorMessage}
+                            successCompaniesAlert={successCompaniesAlert}
+                            successCompaniesMessage={successCompaniesMessage}
+                            setSuccessCompaniesAlert={setSuccessCompaniesAlert}
+                            />
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <UserProfileStatistics
                     selectedStatCurrentValue={selectedStatCurrentValue}

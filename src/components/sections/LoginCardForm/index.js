@@ -15,15 +15,20 @@ import apiCall from "@/components/common/api";
 import { getFullPhoneNumber, debounce } from "@/components/common/utils";
 import NotificationAlert from "@/components/widgets/NotificationAlert";
 
-const LoginCardForm = () => {
-  const [errorAlert, setErrorAlert] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("error");
-
-  const [warningAlert, setWarningAlert] = useState(false);
-  const [warningMessage, setWarningMessage] = useState("warning");
-
-  const [successAlert, setSuccessAlert] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("success");
+const LoginCardForm = ({
+  successMessage, 
+  setSuccessMessage,
+  successAlert,
+  setSuccessAlert,
+  warningMessage, 
+  setWarningMessage,
+  errorAlert, 
+  setErrorAlert,
+  errorMessage,
+  setErrorMessage,
+  warningAlert,
+  setWarningAlert,
+}) => {
 
   const [phoneNumberNotExists, setPhoneNumberNotExists] = useState(false);
   // const [isAuthenticate, setIsAuthenticate] = useState(false)
@@ -223,51 +228,6 @@ const LoginCardForm = () => {
             />
           }
         />
-        {successAlert == true && (
-          <MessageAlert
-            setOpenModal={setSuccessAlert}
-            title="نجاح"
-            message={successMessage}
-            alertStyle="fixed top-5 !z-50 right-2 text-primaryColor bg-teal-50 "
-            icon={
-              <CheckCircleIcon
-                className="h-5 w-5 text-primaryColor"
-                aria-hidden="true"
-              />
-            }
-          />
-        )}
-        {errorAlert == true && (
-          <MessageAlert
-            setOpenModal={setErrorAlert}
-            title="خطأ"
-            message={errorMessage}
-            alertStyle="fixed top-5 !z-50 right-2 text-redColor bg-red-50 "
-            icon={
-              <XCircleIcon
-                className="h-5 w-5 text-redColor"
-                aria-hidden="true"
-              />
-            }
-          />
-        )}
-        {warningAlert == true && (
-          <NotificationAlert
-            isOpen={warningAlert}
-            // isOpen={true}
-            setOpenModal={setWarningAlert}
-            title="خطأ"
-            message={warningMessage}
-            alertStyle="fixed top-5 right-2 "
-            icon={
-              <XCircleIcon
-                className="h-5 w-5 text-mediumGreyColor"
-                aria-hidden="true"
-              />
-            }
-            button={{ name: "اذهب إلى التسجيل", href: "/auth/register" }}
-          />
-        )}
       </div>
       {/* <div> */}
         
