@@ -783,6 +783,7 @@ const RegisterForm = () => {
                 />
                 <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
                   <PhoneNumberUI
+                    autoComplete="on"
                     title="رقم الجوال"
                     dataList={countryCodes}
                     activeItem={activeItem}

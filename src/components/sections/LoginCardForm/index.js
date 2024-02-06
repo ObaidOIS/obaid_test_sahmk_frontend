@@ -325,6 +325,7 @@ const LoginCardForm = () => {
                   <div className="flex items-end gap-4">
                     <div className="flex-grow ">
                       <InputFieldUI
+                        autoComplete="on"
                         placeholder="5123456789"
                         dir="ltr"
                         label="رقم الجوال"
