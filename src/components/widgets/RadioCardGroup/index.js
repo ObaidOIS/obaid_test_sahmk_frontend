@@ -9,29 +9,41 @@ const RadioCardGroup = ({
   frequency,
   currentPlan,
   currentPlanDuration,
+  originalSubscriptionDetails,
+  subscriptionTypeMap,
 }) => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+  console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "hello data")
   return (
     <>
       {dataList.map((link) => (
         <label
           key={link.title}
-          className={`relative flex cursor-pointer rounded-lg border bg-white p-3 shadow-sm focus:outline-none ${currentPlan
+          className={`relative flex rounded-lg border p-3 shadow-sm focus:outline-none ${
+            (currentPlan
               ? currentPlan.title == undefined
                 ? currentPlan
                 : currentPlan.title
-              : selectedOption === link.title
-                ? "border-primaryColor ring-2 ring-primaryColor"
-                : "border-gray-300"
-            }`}
+              : selectedOption) === link.title
+              ? "border-primaryColor ring-2 ring-primaryColor bg-white cursor-pointer"
+              : ((subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "الباقة المتقدمة" || subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "باقة بريميوم") && (link.title == "الباقة المجانية"))
+              ? "border-gray-300 !bg-lightGreyColor/30"
+              : "border-gray-300 cursor-pointer bg-white"
+          }`}
         >
           <input
             type="radio"
             name="subscription-plan"
             value={link.title}
             className="sr-only"
+            disabled={
+            (subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "الباقة المتقدمة" ||
+            subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "باقة بريميوم") &&
+              link.title == "الباقة المجانية"
+            }
             checked={
               (currentPlan
                 ? currentPlan.title == undefined
@@ -61,10 +73,10 @@ const RadioCardGroup = ({
                 {link.card == "free"
                   ? pricing.pricing.free[frequency.value]
                   : link.card == "premium"
-                    ? pricing.pricing.premium[frequency.value]
-                    : link.card == "advance"
-                      ? pricing.pricing.companies[frequency.value]
-                      : ""}{" "}
+                  ? pricing.pricing.premium[frequency.value]
+                  : link.card == "advance"
+                  ? pricing.pricing.companies[frequency.value]
+                  : ""}{" "}
                 ريال
                 {/* {link.card == "free" ? pricing.pricing.free[currentPlanDuration ? currentPlanDuration.value : frequency.value] : link.card == "premium" ? pricing.pricing.premium[currentPlanDuration ? currentPlanDuration.value : frequency?.value] : link.card == "advance" ? pricing.pricing.companies[currentPlanDuration ? currentPlanDuration.value : frequency?.value] : "" } ريال */}
               </span>
@@ -84,14 +96,15 @@ const RadioCardGroup = ({
             aria-hidden="true"
           />
           <span
-            className={`pointer-events-none absolute -inset-px rounded-lg ${(currentPlan
+            className={`pointer-events-none absolute -inset-px rounded-lg ${
+              (currentPlan
                 ? currentPlan.title == undefined
                   ? currentPlan
                   : currentPlan.title
                 : selectedOption) === link.title
                 ? "border-2 border-primaryColor"
                 : "border-transparent"
-              }`}
+            }`}
             aria-hidden="true"
           ></span>
         </label>

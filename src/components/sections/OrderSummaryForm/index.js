@@ -387,12 +387,30 @@ const OrderSummaryForm = (
                 : frequency?.value
               ]
         );
+
+        console.log((currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+        ? pricing.pricing.companies[
+        currentPlanDuration
+          ? currentPlanDuration?.value
+          : frequency?.value
+        ]
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+          ? pricing.pricing.premium[
+          currentPlanDuration
+            ? currentPlanDuration?.value
+            : frequency?.value
+          ]
+          : pricing.pricing.free[
+          currentPlanDuration
+            ? currentPlanDuration?.value
+            : frequency?.value
+          ], "userData")
         // Initialize Moyasar after setting the button price
         initMoyasar(
           (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
             ? pricing.pricing.companies[
             currentPlanDuration
-              ? currentPlanDuration?.value
+              ? currentPlanDuration?.value 
               : frequency?.value
             ]
             : (currentPlan?.title || currentPlan) == "باقة بريميوم"

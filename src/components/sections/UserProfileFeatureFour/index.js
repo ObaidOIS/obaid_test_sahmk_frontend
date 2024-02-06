@@ -348,6 +348,7 @@ const UserProfileFeatureFour = ({
   };
 
   useEffect(() => {
+    
     // Update the states whenever the original subscription details change
     setSelectedOption(
       subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
@@ -367,6 +368,16 @@ const UserProfileFeatureFour = ({
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
       frequencies[1]
     );
+    
+    console.log(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod],subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "userData" )
+    handleUpgardPlanDuration(
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+    );
+    handleUpgradPlan(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]);
+    // handleUpgradPlan(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "free" ? {title: "الباقة المجانية"} 
+    // : subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "premium" ? {title: "باقة بريميوم"} :
+    // subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "companies" ? {title: "الباقة المتقدمة"} : currentPlan)
+    
   }, [originalSubscriptionDetails]);
 
   return (
@@ -422,6 +433,8 @@ const UserProfileFeatureFour = ({
                 currentPlan={currentPlan}
                 handleUpgardPlanDuration={handleUpgardPlanDuration}
                 currentPlanDuration={currentPlanDuration}
+                originalSubscriptionDetails={originalSubscriptionDetails}
+                subscriptionTypeMap={subscriptionTypeMap}
               />
             }
           />
@@ -573,7 +586,7 @@ const UserProfileFeatureFour = ({
                     subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod].value || frequencies[0].value
                     )) && ( */}
                 {((currentPlan !== "الباقة المجانية" &&
-                  (currentPlan.title && currentPlan.title) !==
+                  (currentPlan?.title && currentPlan?.title) !==
                   "الباقة المجانية" &&
                   (currentPlanDuration
                     ? currentPlanDuration?.value

@@ -5,7 +5,7 @@ import Image from "next/image";
 import RadioCardGroup from "@/components/widgets/RadioCardGroup";
 import { useRouter } from "next/navigation";
 
-const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio, setSelectedItems, handleUpgradPlan, currentPlan, currentPlanDuration, handleUpgardPlanDuration}) => {
+const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, frequency, setFrequency, pricingRadio, setSelectedItems, handleUpgradPlan, currentPlan, currentPlanDuration, handleUpgardPlanDuration, originalSubscriptionDetails, subscriptionTypeMap}) => {
 
   const router = useRouter();
   const handleOptionChange = (value, allData) => {
@@ -38,6 +38,8 @@ const RegisterPricingModal = ({ selectedOption, setSelectedOption, frequencies, 
                 handleOptionChange={handleOptionChange}
                 currentPlan={currentPlan}
                 currentPlanDuration={currentPlanDuration}
+                originalSubscriptionDetails={originalSubscriptionDetails}
+                subscriptionTypeMap={subscriptionTypeMap}
               />
             </div>
           </fieldset>

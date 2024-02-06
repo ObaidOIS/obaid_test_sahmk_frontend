@@ -334,6 +334,7 @@ const UserProfileSection = () => {
     // Use JSON.stringify with the circularReferenceReplacer
     const serializedData = JSON.stringify(data, circularReferenceReplacer());
 
+    console.log(serializedData, "userData");
     // Save the serialized data to localStorage
     localStorage.setItem("currentPlan", serializedData);
     setCurrentPlan(data);
@@ -372,8 +373,8 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     handleUpgardPlanDuration(
-      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-        frequencies[0]
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+      // || frequencies[0]
     );
     handleUpgradPlan(currentPlan);
   }, [originalSubscriptionDetails]);
