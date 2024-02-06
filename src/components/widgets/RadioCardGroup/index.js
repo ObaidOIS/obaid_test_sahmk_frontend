@@ -29,7 +29,9 @@ const RadioCardGroup = ({
                 : currentPlan.title
               : selectedOption) === link.title
               ? "border-primaryColor ring-2 ring-primaryColor bg-white cursor-pointer"
-              : ((subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "الباقة المتقدمة" || subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "باقة بريميوم") && (link.title == "الباقة المجانية"))
+              : 
+              // ((subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "الباقة المتقدمة" || subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "باقة بريميوم") &&
+              (link.title == "الباقة المجانية")
               ? "border-gray-300 !bg-lightGreyColor/30"
               : "border-gray-300 cursor-pointer bg-white"
           }`}
@@ -40,8 +42,8 @@ const RadioCardGroup = ({
             value={link.title}
             className="sr-only"
             disabled={
-            (subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "الباقة المتقدمة" ||
-            subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "باقة بريميوم") &&
+            // (subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "الباقة المتقدمة" ||
+            // subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "باقة بريميوم") &&
               link.title == "الباقة المجانية"
             }
             checked={
