@@ -23,7 +23,7 @@ import DotBadgeUI from "@/components/widgets/DotBadgeUI";
 import moment from "moment-timezone";
 import Loader from "@/components/widgets/Loader";
 import UserProfileSidebar from "../UserProfileSidebar";
-import MultiSelectSearchInput from "@/components/widgets/MultiSelectSearchInput";
+import SelectUserCompaniesInput from "../SelectUserCompaniesInput";
 // import 'moment/locale/ar-sa'; // Import locale data for Saudi Arabia
 
 const UserProfileSection = () => {
@@ -711,7 +711,7 @@ const UserProfileSection = () => {
                   </div>
                   <div>
                   {searchInputShow ? 
-                  <MultiSelectSearchInput />
+                  <SelectUserCompaniesInput />
                   : ""}
                   </div>
                   <UserProfileStatistics

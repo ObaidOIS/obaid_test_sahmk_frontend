@@ -647,6 +647,7 @@ const RegisterForm = () => {
         <SimpleAlertModalUI
           onClose={() => setIsOtpModalOpen(false)}
           isOpen={isOtpModalOpen}
+          alertStyle="!max-h-fit"
           content={
             <OtpModal
               currentPlan={currentPlan}

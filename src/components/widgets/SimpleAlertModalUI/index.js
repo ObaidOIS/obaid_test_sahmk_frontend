@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 
-const SimpleAlertModalUI = ({ content, onClose, isOpen }) => {
+const SimpleAlertModalUI = ({ content, onClose, isOpen, alertStyle }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
     <Dialog as="div" className="fixed z-[20]" onClose={onClose}>
@@ -19,7 +19,7 @@ const SimpleAlertModalUI = ({ content, onClose, isOpen }) => {
       </Transition.Child>
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-      <div className="flex h-screen items-center justify-center p-4 text-center sm:items-center sm:p-0">
+      <div className={`flex items-center justify-center p-4 text-center sm:items-center sm:p-0 ${alertStyle}`}>
         {/* <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0"> */}
           <Transition.Child
             as={Fragment}
