@@ -33,7 +33,6 @@ const OrderSummaryForm = (
   const [origin, setOrigin] = useState(
     "https://sahmk.sa"
     // "http://localhost:3000"
-    
   );
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
@@ -51,15 +50,15 @@ const OrderSummaryForm = (
     expirationDate: null,
   });
 
-  const [callBackPathName, setCallBackPathName] = useState("")
+  const [callBackPathName, setCallBackPathName] = useState("");
 
   useEffect(() => {
-  setCallBackPathName(pathname);
-  }, [])
+    setCallBackPathName(pathname);
+  }, []);
 
   useEffect(() => {
     // Set the origin state to the current window location's origin
-    const currentPlanRegister = localStorage.getItem("currentPlanRegister")
+    const currentPlanRegister = localStorage.getItem("currentPlanRegister");
     if (currentPlanRegister == "الباقة المجانية") {
       if (isAuthenticated()) {
         router.push("/userprofile");
@@ -73,82 +72,102 @@ const OrderSummaryForm = (
     }
   }, []);
 
-
   const fetchUserData = async () => {
     const response = await apiCall("/auth/api/user/");
     const userData = response.result;
-    const search = searchParams.get('previousPage')
+    const search = searchParams.get("previousPage");
     if (userData) {
       if (search == "signup") {
-      setUserData({
-        name: userData.fullName,
-        phoneNumber: userData.phoneNumber,
-        email: userData.email,
-        countryCode: userData.countryCode,
-        subscriptionType: userData.subscriptionType,
-        subscriptionPeriod: userData.subscriptionPeriod,
-        expirationDate: userData.expirationDate,
-      });
-    } else{
-    // if (pathname == "/userprofile") {
-      console.log( (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-      : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", 
-      (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-        ?
-        currentPlanDuration
-          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-          : frequency?.value == "annually" ? "yearly" : frequency?.value
-        
-        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-          ? 
-          currentPlanDuration
-            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-            : frequency?.value == "annually" ? "yearly" : frequency?.value
-          
-          : 
-          currentPlanDuration
-            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-            : frequency?.value == "annually" ? "yearly" : frequency?.value
-          ,
-      "userData")
-      setUserData({
-        name: userData.fullName,
-        phoneNumber: userData.phoneNumber,
-        email: userData.email,
-        countryCode: userData.countryCode,
-        subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-        : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
-        // subscriptionPeriod: userData.subscriptionPeriod,
-        subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-        ?
-        currentPlanDuration
-          ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-          : frequency?.value == "annually" ? "yearly" : frequency?.value
-        
-        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-          ? 
-          currentPlanDuration
-            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-            : frequency?.value == "annually" ? "yearly" : frequency?.value
-          
-          : 
-          currentPlanDuration
-            ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-            : frequency?.value == "annually" ? "yearly" : frequency?.value
-          ,
-        expirationDate: userData.expirationDate,
-      });
-    }
+        setUserData({
+          name: userData.fullName,
+          phoneNumber: userData.phoneNumber,
+          email: userData.email,
+          countryCode: userData.countryCode,
+          subscriptionType: userData.subscriptionType,
+          subscriptionPeriod: userData.subscriptionPeriod,
+          expirationDate: userData.expirationDate,
+        });
+      } else {
+        // if (pathname == "/userprofile") {
+        console.log(
+          (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+            ? "companies"
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+            ? "premium"
+            : "free",
+          (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+            ? currentPlanDuration
+              ? currentPlanDuration?.value == "annually"
+                ? "yearly"
+                : currentPlanDuration?.value
+              : frequency?.value == "annually"
+              ? "yearly"
+              : frequency?.value
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+            ? currentPlanDuration
+              ? currentPlanDuration?.value == "annually"
+                ? "yearly"
+                : currentPlanDuration?.value
+              : frequency?.value == "annually"
+              ? "yearly"
+              : frequency?.value
+            : currentPlanDuration
+            ? currentPlanDuration?.value == "annually"
+              ? "yearly"
+              : currentPlanDuration?.value
+            : frequency?.value == "annually"
+            ? "yearly"
+            : frequency?.value,
+          "userData"
+        );
+        setUserData({
+          name: userData.fullName,
+          phoneNumber: userData.phoneNumber,
+          email: userData.email,
+          countryCode: userData.countryCode,
+          subscriptionType:
+            (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+              ? "companies"
+              : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+              ? "premium"
+              : "free",
+          // subscriptionPeriod: userData.subscriptionPeriod,
+          subscriptionPeriod:
+            (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+              ? currentPlanDuration
+                ? currentPlanDuration?.value == "annually"
+                  ? "yearly"
+                  : currentPlanDuration?.value
+                : frequency?.value == "annually"
+                ? "yearly"
+                : frequency?.value
+              : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+              ? currentPlanDuration
+                ? currentPlanDuration?.value == "annually"
+                  ? "yearly"
+                  : currentPlanDuration?.value
+                : frequency?.value == "annually"
+                ? "yearly"
+                : frequency?.value
+              : currentPlanDuration
+              ? currentPlanDuration?.value == "annually"
+                ? "yearly"
+                : currentPlanDuration?.value
+              : frequency?.value == "annually"
+              ? "yearly"
+              : frequency?.value,
+          expirationDate: userData.expirationDate,
+        });
+      }
       const calculatedPrice =
         pricing["pricing"][userData.subscriptionType][
-        userData.subscriptionPeriod
+          userData.subscriptionPeriod
         ];
       if (calculatedPrice) {
         setPrice(calculatedPrice);
       }
     }
   };
-
 
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
@@ -165,45 +184,46 @@ const OrderSummaryForm = (
   // : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", "userData");
 
   useEffect(() => {
-    
-  // Verify payment when redirected back to this page
-  
-  // console.log(userData, "userData")
+    // Verify payment when redirected back to this page
+
+    // console.log(userData, "userData")
     const verifyPayment = async (paymentId) => {
-      const result = await apiCall("/api/checkout/verify-payment/", "POST", 
-      {
-        id: paymentId,
-        ...userData,
-      } 
-      // {
-      //   id: paymentId,
-      //   // ...userData,
-      //   name: userData.fullName,
-      //   phoneNumber: userData.phoneNumber,
-      //   email: userData.email,
-      //   countryCode: userData.countryCode,
-      //   subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-      //   : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
-      //   // subscriptionPeriod: userData.subscriptionPeriod,
-      //   subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-      //   ?
-      //   currentPlanDuration
-      //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      //     : frequency?.value == "annually" ? "yearly" : frequency?.value
-        
-      //   : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-      //     ? 
-      //     currentPlanDuration
-      //       ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      //       : frequency?.value == "annually" ? "yearly" : frequency?.value
-          
-      //     : 
-      //     currentPlanDuration
-      //       ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      //       : frequency?.value == "annually" ? "yearly" : frequency?.value
-      //     ,
-      //   expirationDate: userData.expirationDate,
-      // }
+      const result = await apiCall(
+        "/api/checkout/verify-payment/",
+        "POST",
+        {
+          id: paymentId,
+          ...userData,
+        }
+        // {
+        //   id: paymentId,
+        //   // ...userData,
+        //   name: userData.fullName,
+        //   phoneNumber: userData.phoneNumber,
+        //   email: userData.email,
+        //   countryCode: userData.countryCode,
+        //   subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
+        //   : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
+        //   // subscriptionPeriod: userData.subscriptionPeriod,
+        //   subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+        //   ?
+        //   currentPlanDuration
+        //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+        //     : frequency?.value == "annually" ? "yearly" : frequency?.value
+
+        //   : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+        //     ?
+        //     currentPlanDuration
+        //       ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+        //       : frequency?.value == "annually" ? "yearly" : frequency?.value
+
+        //     :
+        //     currentPlanDuration
+        //       ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
+        //       : frequency?.value == "annually" ? "yearly" : frequency?.value
+        //     ,
+        //   expirationDate: userData.expirationDate,
+        // }
       );
 
       // console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
@@ -212,14 +232,14 @@ const OrderSummaryForm = (
       // currentPlanDuration
       //   ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
       //   : frequency?.value == "annually" ? "yearly" : frequency?.value
-      
+
       // : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-      //   ? 
+      //   ?
       //   currentPlanDuration
       //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
       //     : frequency?.value == "annually" ? "yearly" : frequency?.value
-        
-      //   : 
+
+      //   :
       //   currentPlanDuration
       //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
       //     : frequency?.value == "annually" ? "yearly" : frequency?.value
@@ -244,8 +264,13 @@ const OrderSummaryForm = (
       const paymentStatus = params.get("status");
       const paymentMessage = params.get("message");
 
-      if (paymentId && paymentStatus && paymentMessage &&
-        userData.subscriptionPeriod && userData.subscriptionType) {
+      if (
+        paymentId &&
+        paymentStatus &&
+        paymentMessage &&
+        userData.subscriptionPeriod &&
+        userData.subscriptionType
+      ) {
         verifyPayment(paymentId);
       }
     }
@@ -255,58 +280,64 @@ const OrderSummaryForm = (
 
   // const buttonPrice = Number.isInteger(20);
   const initMoyasar = (p) => {
-    window.Moyasar.init({
-      element: ".mysr-form",
-      // amount: (price || 1) * 100,
-      amount: p * 100,
-      currency: "SAR",
-      description: "Sahmk Purchase",
-      publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-      // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
-      callback_url: `${origin}/auth/order?previousPage=${search}`,
-      // callback_url: `${origin}/userprofile`,
-      methods: ["creditcard", "stcpay", "applepay"],
-      apple_pay: {
-        country: "SA",
-        label: "Sahmk",
-        validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
-      },
-      credit_card: {
-        save_card: true,
-      },
-      on_completed: function (payment) {
-        return new Promise(async function (resolve, reject) {
-          const result = await apiCall("/api/checkout/save-payment/", "POST", {
-            ...payment,
-            token: payment.source.token,
-          });
+    // console.log(p, "price");
+    if (p !== undefined) {
+      window.Moyasar.init({
+        element: ".mysr-form",
+        // amount: (price || 1) * 100,
+        amount: p * 100,
+        currency: "SAR",
+        description: "Sahmk Purchase",
+        publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+        // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+        callback_url: `${origin}/auth/order?previousPage=${search}`,
+        // callback_url: `${origin}/userprofile`,
+        methods: ["creditcard", "stcpay", "applepay"],
+        apple_pay: {
+          country: "SA",
+          label: "Sahmk",
+          validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+        },
+        credit_card: {
+          save_card: true,
+        },
+        on_completed: function (payment) {
+          return new Promise(async function (resolve, reject) {
+            const result = await apiCall(
+              "/api/checkout/save-payment/",
+              "POST",
+              {
+                ...payment,
+                token: payment.source.token,
+              }
+            );
 
-          if (result && result.result && result.result.check) {
-            resolve({});
-            setIsAlertSuccessOpen(true);
-            // setSuccessMessage("success");
-            if (isAlertSuccessOpen == false) {
-              console.log(isAlertSuccessOpen, "hello payment");
+            if (result && result.result && result.result.check) {
+              resolve({});
+              setIsAlertSuccessOpen(true);
+              // setSuccessMessage("success");
+              if (isAlertSuccessOpen == false) {
+                console.log(isAlertSuccessOpen, "hello payment");
+              }
+            } else {
+              reject();
+              setIsAlertErrorOpen(true);
+              // setErrorMessage("error");
             }
-          } else {
-            reject();
-            setIsAlertErrorOpen(true);
-            // setErrorMessage("error");
-          }
-        });
-      },
-    });
+          });
+        },
+      });
+    }
   };
 
-  const search = searchParams.get('previousPage')
+  const search = searchParams.get("previousPage");
 
   useEffect(() => {
+    const search = searchParams.get("previousPage");
 
-    const search = searchParams.get('previousPage')
-
-    console.log(search, "userData")
+    console.log(search, "userData");
     // if (pathname == "/auth/order") {
-      if (search == "signup") {
+    if (search == "signup") {
       const currentPlanJSON = localStorage.getItem("currentPlanRegister");
 
       if (currentPlanJSON) {
@@ -336,14 +367,14 @@ const OrderSummaryForm = (
     setButtonPrice(
       (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
         ? pricing.pricing.companies[
-        currentPlanDuration ? currentPlanDuration?.value : frequency?.value
-        ]
-        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-          ? pricing.pricing.premium[
-          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
-          : pricing.pricing.free[
-          currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+        ? pricing.pricing.premium[
+            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
+          ]
+        : pricing.pricing.free[
+            currentPlanDuration ? currentPlanDuration?.value : frequency?.value
           ]
     );
   }, [buttonPrice]);
@@ -371,58 +402,61 @@ const OrderSummaryForm = (
         setButtonPrice(
           (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
             ? pricing.pricing.companies[
-            currentPlanDuration
-              ? currentPlanDuration?.value
-              : frequency?.value
-            ]
-            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-              ? pricing.pricing.premium[
-              currentPlanDuration
-                ? currentPlanDuration?.value
-                : frequency?.value
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
               ]
-              : pricing.pricing.free[
-              currentPlanDuration
-                ? currentPlanDuration?.value
-                : frequency?.value
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+            ? pricing.pricing.premium[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+            : pricing.pricing.free[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
               ]
         );
 
-        console.log((currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-        ? pricing.pricing.companies[
-        currentPlanDuration
-          ? currentPlanDuration?.value
-          : frequency?.value
-        ]
-        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-          ? pricing.pricing.premium[
-          currentPlanDuration
-            ? currentPlanDuration?.value
-            : frequency?.value
-          ]
-          : pricing.pricing.free[
-          currentPlanDuration
-            ? currentPlanDuration?.value
-            : frequency?.value
-          ], "userData")
+        console.log(
+          (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+            ? pricing.pricing.companies[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+            ? pricing.pricing.premium[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+            : pricing.pricing.free[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ],
+          "userData"
+        );
         // Initialize Moyasar after setting the button price
         initMoyasar(
           (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
             ? pricing.pricing.companies[
-            currentPlanDuration
-              ? currentPlanDuration?.value 
-              : frequency?.value
-            ]
-            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-              ? pricing.pricing.premium[
-              currentPlanDuration
-                ? currentPlanDuration?.value
-                : frequency?.value
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
               ]
-              : pricing.pricing.free[
-              currentPlanDuration
-                ? currentPlanDuration?.value
-                : frequency?.value
+            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+            ? pricing.pricing.premium[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
+              ]
+            : pricing.pricing.free[
+                currentPlanDuration
+                  ? currentPlanDuration?.value
+                  : frequency?.value
               ]
         );
       }
@@ -463,7 +497,7 @@ const OrderSummaryForm = (
   // });
   // }, [])
 
-  console.log(currentPlan, "hello current plan")
+  console.log(currentPlan, "hello current plan");
 
   return (
     <>
@@ -479,7 +513,8 @@ const OrderSummaryForm = (
               title="تم الاشتراك بنجاح"
               buttonOne="إدارة حسابي"
               image={
-                <Image loading="eager"
+                <Image
+                  loading="eager"
                   src="/assets/icons/alert-payment-success.svg"
                   height={220}
                   width={220}
@@ -491,7 +526,8 @@ const OrderSummaryForm = (
               messageDesc="يمكنك الاستفادة من جميع خدمات سهمك"
               buttonTwo="ابدأ بمراسلة النظام الذكي"
               buttonIcon={
-                <Image loading="eager"
+                <Image
+                  loading="eager"
                   src="/assets/icons/green-right-arrow.svg"
                   height={15}
                   width={15}
@@ -513,7 +549,8 @@ const OrderSummaryForm = (
               title="فشلت عملية الدفع!"
               buttonOne="حاولة مرة أخرى"
               image={
-                <Image loading="eager"
+                <Image
+                  loading="eager"
                   src="/assets/icons/alert-payment-error.svg"
                   height={220}
                   width={220}
@@ -565,42 +602,51 @@ const OrderSummaryForm = (
                                   : currentPlan
                                 : ""
                             }
-                            desc={` ${(currentPlan?.title || currentPlan)  == "الباقة المتقدمة"
+                            desc={` ${
+                              (currentPlan?.title || currentPlan) ==
+                              "الباقة المتقدمة"
                                 ? pricing.pricing.companies[
-                                currentPlanDuration
-                                  ? currentPlanDuration.value
-                                  : frequency?.value
-                                ]
-                                : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-                                  ? pricing.pricing.premium[
-                                  currentPlanDuration
-                                    ? currentPlanDuration.value
-                                    : frequency?.value
+                                    currentPlanDuration
+                                      ? currentPlanDuration.value
+                                      : frequency?.value
                                   ]
-                                  : pricing.pricing.free[
-                                  currentPlanDuration
-                                    ? currentPlanDuration.value
-                                    : frequency?.value
+                                : (currentPlan?.title || currentPlan) ==
+                                  "باقة بريميوم"
+                                ? pricing.pricing.premium[
+                                    currentPlanDuration
+                                      ? currentPlanDuration.value
+                                      : frequency?.value
                                   ]
-                              } / ${currentPlanDuration
+                                : pricing.pricing.free[
+                                    currentPlanDuration
+                                      ? currentPlanDuration.value
+                                      : frequency?.value
+                                  ]
+                            } / ${
+                              currentPlanDuration
                                 ? currentPlanDuration?.label
                                 : frequency?.label
-                              } `}
+                            } `}
                             descStyle={
-                              (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+                              (currentPlan?.title || currentPlan) ==
+                              "الباقة المتقدمة"
                                 ? "!text-yellowColor"
-                                : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-                                  ? "!text-purpleColor"
-                                  : "!text-blueColor"
+                                : (currentPlan?.title || currentPlan) ==
+                                  "باقة بريميوم"
+                                ? "!text-purpleColor"
+                                : "!text-blueColor"
                             }
                             image={
-                              <Image loading="eager"
+                              <Image
+                                loading="eager"
                                 src={
-                                  (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+                                  (currentPlan?.title || currentPlan) ==
+                                  "الباقة المتقدمة"
                                     ? "/assets/icons/yellow-check.svg"
-                                    : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-                                      ? "/assets/icons/purple-check-icon.svg"
-                                      : "/assets/icons/blue-check.svg"
+                                    : (currentPlan?.title || currentPlan) ==
+                                      "باقة بريميوم"
+                                    ? "/assets/icons/purple-check-icon.svg"
+                                    : "/assets/icons/blue-check.svg"
                                 }
                                 height={30}
                                 width={30}
@@ -624,22 +670,24 @@ const OrderSummaryForm = (
                         </h3>
                         <h3 className="text-base font-semibold leading-6 text-gray-900">
                           {/* {price}  */}
-                          {(currentPlan?.title || currentPlan) == "الباقة المتقدمة"
+                          {(currentPlan?.title || currentPlan) ==
+                          "الباقة المتقدمة"
                             ? pricing.pricing.companies[
-                            currentPlanDuration
-                              ? currentPlanDuration?.value
-                              : frequency?.value
-                            ]
-                            : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-                              ? pricing.pricing.premium[
-                              currentPlanDuration
-                                ? currentPlanDuration?.value
-                                : frequency?.value
+                                currentPlanDuration
+                                  ? currentPlanDuration?.value
+                                  : frequency?.value
                               ]
-                              : pricing.pricing.free[
-                              currentPlanDuration
-                                ? currentPlanDuration?.value
-                                : frequency?.value
+                            : (currentPlan?.title || currentPlan) ==
+                              "باقة بريميوم"
+                            ? pricing.pricing.premium[
+                                currentPlanDuration
+                                  ? currentPlanDuration?.value
+                                  : frequency?.value
+                              ]
+                            : pricing.pricing.free[
+                                currentPlanDuration
+                                  ? currentPlanDuration?.value
+                                  : frequency?.value
                               ]}{" "}
                           ريال
                         </h3>
@@ -654,20 +702,20 @@ const OrderSummaryForm = (
                       {/* {price} */}
                       {(currentPlan?.title || currentPlan) == "الباقة المتقدمة"
                         ? pricing.pricing.companies[
-                        currentPlanDuration
-                          ? currentPlanDuration?.value
-                          : frequency?.value
-                        ]
-                        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-                          ? pricing.pricing.premium[
-                          currentPlanDuration
-                            ? currentPlanDuration?.value
-                            : frequency?.value
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
                           ]
-                          : pricing.pricing.free[
-                          currentPlanDuration
-                            ? currentPlanDuration?.value
-                            : frequency?.value
+                        : (currentPlan?.title || currentPlan) == "باقة بريميوم"
+                        ? pricing.pricing.premium[
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
+                          ]
+                        : pricing.pricing.free[
+                            currentPlanDuration
+                              ? currentPlanDuration?.value
+                              : frequency?.value
                           ]}
                       ريال
                     </h3>
@@ -689,7 +737,8 @@ const OrderSummaryForm = (
                   </div>
                 </div>
               </div>
-              <Image loading="eager"
+              <Image
+                loading="eager"
                 src="/assets/images/gradient-bottom.svg"
                 width={170}
                 height={170}
