@@ -116,11 +116,10 @@ const SelectUserCompaniesInput = ({
           ""
         )}
     </div> */}
-      <div className="w-full relative">
+      <div className="w-full relative" ref={dropdownRef}>
         <div>
           <SearchInput
-            ref={dropdownRef}
-            onFocus={() => dropdownOpen == false ? setDropdownOpen(!dropdownOpen) : ""}
+            onFocus={(e) => { e.preventDefault(); dropdownOpen == false ? setDropdownOpen(!dropdownOpen) : ""}}
             onClick={() => dropdownOpen == false ? setDropdownOpen(true) : ""}
             // onBlur={() => setDropdownOpen(false)}
             // inputContainerStyle="relative"

@@ -11,7 +11,7 @@ const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle, icon, 
         </div>
       {/* )} */}
         <input
-          ref={ref}
+          // ref={ref}
           type="text"
           defaultValue=""
           onFocus={onFocus} onClick={onClick} onBlur={onBlur}
