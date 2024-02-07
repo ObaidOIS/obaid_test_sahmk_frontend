@@ -33,13 +33,14 @@ const UserProfileStatistics = ({
   setStockProfileData,
   stockProfileData,
   selectedStatCurrentValue,
+  selectedStockProfileCurrentValue,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
-  const [
-    selectedStockProfileCurrentValue,
-    setSelectedStockProfileCurrentValue,
-  ] = useState({});
+  // const [
+  //   selectedStockProfileCurrentValue,
+  //   setSelectedStockProfileCurrentValue,
+  // ] = useState({});
 
   const handleSelectedChartCurrentValue = (value) => {
     setSelectedChartCurrentValue(value);
@@ -70,23 +71,23 @@ const UserProfileStatistics = ({
   );
   const [filterExpand, setFilterExpand] = useState(false);
 
-  useEffect(() => {
-    if (stockProfileData[selectedSymbol]) {
-      console.log(
-        stockProfileData[selectedSymbol],
-        stockProfileData,
-        "user-stock-profile"
-      );
-      setSelectedStockProfileCurrentValue(stockProfileData[selectedSymbol]);
-    }
-    // else{
-    //   if(selectedSymbol == "TASI" || selectedSymbol == "NOMUC" ){
+  // useEffect(() => {
+  //   if (stockProfileData[selectedSymbol]) {
+  //     console.log(
+  //       stockProfileData[selectedSymbol],
+  //       stockProfileData,
+  //       "user-stock-profile"
+  //     );
+  //     setSelectedStockProfileCurrentValue(stockProfileData[selectedSymbol]);
+  //   }
+  //   // else{
+  //   //   if(selectedSymbol == "TASI" || selectedSymbol == "NOMUC" ){
 
-    //   }else{
-    //     console.log("can find that symbol in user-stock-profile")
-    //   }
-    // }
-  }, [selectedSymbol]);
+  //   //   }else{
+  //   //     console.log("can find that symbol in user-stock-profile")
+  //   //   }
+  //   // }
+  // }, [selectedSymbol]);
 
   // console.log(chartData, "hello chart nan")
 
@@ -160,6 +161,7 @@ const UserProfileStatistics = ({
                         handleTagClick(apiRange, item.stock_company);
                         setActiveStat(item.stock_name || item.stock_company);
                         setSelectedSymbol(item.stock_company);
+                        console.log(item.stock_company, "stock_company from item")
                         // handleSelectedStatCurrentValue(
                         //   item.eod_data?.eod_data_list[1]?.value
                         // );
@@ -191,6 +193,7 @@ const UserProfileStatistics = ({
                     handleTagClick(apiRange, item.stock_company);
                     setActiveStat(item.stock_name || item.stock_company);
                     setSelectedSymbol(item.stock_company);
+                    console.log(item.stock_company, "stock_company from item")
                     // handleSelectedStatCurrentValue(
                     //   item.eod_data?.eod_data_list[1]?.value
                     // );

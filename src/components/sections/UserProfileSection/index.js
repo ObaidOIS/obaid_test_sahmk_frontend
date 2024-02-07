@@ -14,7 +14,10 @@ import UserProfileFeatureFour from "../UserProfileFeatureFour";
 import OrderSummaryForm from "../OrderSummaryForm";
 import UserProfileFeatureThree from "../UserProfileFeatureThree";
 import apiCall from "@/components/common/api";
-import { extractCountryCodeFromPhoneNumber, getUniqueStocksBySymbol } from "@/components/common/utils";
+import {
+  extractCountryCodeFromPhoneNumber,
+  getUniqueStocksBySymbol,
+} from "@/components/common/utils";
 import { isAuthenticated } from "@/components/common/utils";
 import { useRouter } from "next/navigation";
 import UserProfileStatistics from "../UserProfileStatistics";
@@ -27,7 +30,6 @@ import SelectUserCompaniesInput from "../SelectUserCompaniesInput";
 // import 'moment/locale/ar-sa'; // Import locale data for Saudi Arabia
 import { FiSearch } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
-
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -443,33 +445,59 @@ const UserProfileSection = () => {
     },
   ];
 
+  const [
+    selectedStockProfileCurrentValue,
+    setSelectedStockProfileCurrentValue,
+  ] = useState({});
+
   useEffect(() => {
-    // Function to fetch user stocks data
-    const fetchUserStocks = async () => {
-      try {
-        const response = await apiCall("/api/stocks/user-stocks/");
-        console.log(response.result, "hello stock");
-        if (response && response.result.results) {
-          setLastUpdatedDates(response.result.last_updated_date);
-          setTagsList(response.result.results); // Update state with the fetched data
+    // console.log(stockProfileData, selectedSymbol, "user-stock-profile-see")
+    // if(typeof window !== 'undefined'){
+    if (stockProfileData[selectedSymbol]) {
+      console.log(
+        stockProfileData[selectedSymbol],
+        stockProfileData,
+        "user-stock-profile"
+      );
+      setSelectedStockProfileCurrentValue(stockProfileData[selectedSymbol]);
+    // }
+  }
+    // else{
+    //   if(selectedSymbol == "TASI" || selectedSymbol == "NOMUC" ){
 
-          console.log(response.result.results, "here is data");
-        }
-      } catch (error) {
-        console.error("Error fetching user stocks:", error.message);
-      }
-      try {
-        const response = await apiCall("/api/stocks/user-stocks-profile/");
-        // console.log(response, "hello stock")
-        if (response && response.result) {
-          console.log(response, "hello api too");
-          setStockProfileData(response.result);
-        }
-      } catch (error) {
-        console.error("Error fetching user stocks:", error.message);
-      }
-    };
+    //   }else{
+    //     console.log("can find that symbol in user-stock-profile")
+    //   }
+    // }
+  }, [selectedSymbol]);
 
+  // Function to fetch user stocks data
+  const fetchUserStocks = async () => {
+    try {
+      const response = await apiCall("/api/stocks/user-stocks/");
+      console.log(response.result, "hello stock");
+      if (response && response.result.results) {
+        setLastUpdatedDates(response.result.last_updated_date);
+        setTagsList(response.result.results); // Update state with the fetched data
+
+        console.log(response.result.results, "here is data");
+      }
+    } catch (error) {
+      console.error("Error fetching user stocks:", error.message);
+    }
+    try {
+      const response = await apiCall("/api/stocks/user-stocks-profile/");
+      // console.log(response, "hello stock")
+      if (response && response.result) {
+        console.log(response, "hello api too");
+        setStockProfileData(response.result);
+      }
+    } catch (error) {
+      console.error("Error fetching user stocks:", error.message);
+    }
+  };
+
+  useEffect(() => {    
     fetchUserStocks();
     handleTagClick(apiRange, activeStat);
   }, []);
@@ -607,7 +635,6 @@ const UserProfileSection = () => {
 
   // const [successMessage, setSuccessMessage] = useState("");
 
-  
   // Fetch companies from API and set to both dataList and originalData
   const fetchStocks = async () => {
     const userStocksResponse = await apiCall("/api/stocks/");
@@ -672,7 +699,6 @@ const UserProfileSection = () => {
     }
   };
 
-  
   const handleSearch = (query) => {
     setSearchQuery(query);
     const filtered = originalData.filter(
@@ -683,7 +709,9 @@ const UserProfileSection = () => {
     setFilteredData(filtered);
   };
 
-  const toggleSelection = (itemId, itemName, itemSymbol) => {
+  const AddCompanySelection = (itemId, itemName, itemSymbol) => {
+    console.log(itemName, "itemName");
+
     setSelectedItems((prevSelectedItems) => {
       const isAlreadySelected = prevSelectedItems.some(
         (item) => item.symbol === itemSymbol
@@ -695,14 +723,16 @@ const UserProfileSection = () => {
       let newSelectedItems;
 
       if (isAlreadySelected) {
+        // fetchUserStocks();
+        return prevSelectedItems;
         // Remove the item if it's already selected
-        newSelectedItems = prevSelectedItems.filter(
-          (item) => item.symbol !== itemSymbol
-        );
+        // newSelectedItems = prevSelectedItems.filter(
+        //   (item) => item.symbol !== itemSymbol
+        // );
 
-        // Update popupStocks similarly as selectedItems
-        // setPopupStocks(newSelectedItems);
-        handlePopupSave(newSelectedItems);
+        // // Update popupStocks similarly as selectedItems
+        // // setPopupStocks(newSelectedItems);
+        // handlePopupSave(newSelectedItems);
       } else {
         // Add the new item
         let isError = false;
@@ -738,11 +768,25 @@ const UserProfileSection = () => {
           // Update popupStocks similarly as selectedItems
           // setPopupStocks(newSelectedItems);
           handlePopupSave(newSelectedItems);
+          fetchUserStocks();
+          // console.log("hello", "user-stock-profile")
+          // setSelectedSymbol(itemSymbol);
+          // if (stockProfileData[itemSymbol]) {
+          //   console.log(
+          //     stockProfileData[itemSymbol],
+          //     stockProfileData,
+          //     "user-stock-profile"
+          //   );
+          //   setSelectedStockProfileCurrentValue(stockProfileData[itemSymbol]);
+          // }
         } else {
           newSelectedItems = [
             ...prevSelectedItems,
             // { id: itemId, name: itemName, symbol: itemSymbol },
           ];
+          // fetchUserStocks();
+          // setSelectedSymbol(itemSymbol);
+          // handlePopupSave(newSelectedItems);
         }
       }
 
@@ -752,6 +796,7 @@ const UserProfileSection = () => {
 
       return newSelectedItems;
     });
+    
   };
 
   return (
@@ -860,7 +905,11 @@ const UserProfileSection = () => {
                         }}
                         className={`bg-secondaryColor shadow-xl rounded-lg p-2 cursor-pointer`}
                       >
-                        {searchInputShow ? <RxCross2 size={24} className="text-whiteColor" /> : <FiSearch size={24} className="text-whiteColor" /> }
+                        {searchInputShow ? (
+                          <RxCross2 size={24} className="text-whiteColor" />
+                        ) : (
+                          <FiSearch size={24} className="text-whiteColor" />
+                        )}
                         {/* <Image
                           loading="eager"
                           src={
@@ -894,29 +943,43 @@ const UserProfileSection = () => {
                 setErrorAlert={setErrorAlert}
                 setErrorMessage={setErrorMessage}
               /> */}
+                        {/* handleTagClick(apiRange, item.stock_company);
+                        setActiveStat(item.stock_name || item.stock_company);
+                        setSelectedSymbol(item.stock_company); */}
+
                         <SelectUserCompaniesInput
-                            originalSubscriptionDetails={originalSubscriptionDetails}
-                            searchQuery={searchQuery}
-                            handleSearch={handleSearch}
-                            filteredData={filteredData}
-                            dataList={filteredData}
-                            toggleSelection={toggleSelection}
-                            setSelectedItems={setSelectedItems}
-                            selectedItems={selectedItems}
-                            setErrorAlert={setErrorAlert}
-                            setErrorMessage={setErrorMessage} 
-                            errorAlert={errorAlert}
-                            errorMessage={errorMessage}
-                            successCompaniesAlert={successCompaniesAlert}
-                            successCompaniesMessage={successCompaniesMessage}
-                            setSuccessCompaniesAlert={setSuccessCompaniesAlert}
-                            />
+                          handleTagClick={handleTagClick}
+                          setActiveStat={setActiveStat}
+                          setSelectedSymbol={setSelectedSymbol}
+                          apiRange={apiRange}
+                          originalSubscriptionDetails={
+                            originalSubscriptionDetails
+                          }
+                          searchQuery={searchQuery}
+                          handleSearch={handleSearch}
+                          filteredData={filteredData}
+                          dataList={filteredData}
+                          AddCompanySelection={AddCompanySelection}
+                          setSelectedItems={setSelectedItems}
+                          selectedItems={selectedItems}
+                          setErrorAlert={setErrorAlert}
+                          setErrorMessage={setErrorMessage}
+                          errorAlert={errorAlert}
+                          errorMessage={errorMessage}
+                          successCompaniesAlert={successCompaniesAlert}
+                          successCompaniesMessage={successCompaniesMessage}
+                          setSuccessCompaniesAlert={setSuccessCompaniesAlert}
+                          selectedSymbol={setSelectedStockProfileCurrentValue}
+                          stockProfileData={setSelectedStockProfileCurrentValue}
+                          setSelectedStockProfileCurrentValue={setSelectedStockProfileCurrentValue}
+                        />
                       </>
                     ) : (
                       ""
                     )}
                   </div>
                   <UserProfileStatistics
+                    selectedStockProfileCurrentValue={selectedStockProfileCurrentValue}
                     selectedStatCurrentValue={selectedStatCurrentValue}
                     setStockProfileData={setStockProfileData}
                     stockProfileData={stockProfileData}

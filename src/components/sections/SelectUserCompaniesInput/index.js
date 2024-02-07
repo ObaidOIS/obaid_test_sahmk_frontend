@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect, useRef } from "react";
 import AddList from "@/components/widgets/AddList";
 import SearchInput from "@/components/widgets/SearchInput";
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid";
@@ -6,10 +7,11 @@ import { CheckCircleIcon, CheckIcon } from "@heroicons/react/24/outline";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import Image from "next/image";
 import { XCircleIcon } from "@heroicons/react/20/solid";
+import { FiSearch } from "react-icons/fi";
 
 const SelectUserCompaniesInput = ({
   dataList,
-  toggleSelection,
+  AddCompanySelection,
   // isOpen,
   selectedItems,
   searchQuery,
@@ -24,9 +26,34 @@ const SelectUserCompaniesInput = ({
   successCompaniesAlert,
   setSuccessCompaniesAlert,
   successCompaniesMessage,
+  handleTagClick,
+  setActiveStat,
+  setSelectedSymbol,
+  apiRange,
+  selectedSymbol,
+  stockProfileData,
+  setSelectedStockProfileCurrentValue,
 }) => {
 
-  console.log(filteredData?.length, "hello filter")
+  const dropdownRef = useRef(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentSelectedValue, setCurrentSelectedValue] = useState("");
+
+  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
     <div>
       <div>
@@ -89,45 +116,67 @@ const SelectUserCompaniesInput = ({
           ""
         )}
     </div> */}
-      <div className="mt-3 w-full relative h-[48vh]">
+      <div className="mt-3 w-full relative placeholder:" ref={dropdownRef}>
         <div>
           <SearchInput
-            inputStyle="bg-white shadow-xl relative !ring-0 py-3 focus:!ring-1 focus:!ring-primaryColor "
+            onFocus={() => dropdownOpen == false ? setDropdownOpen(!dropdownOpen) : ""}
+            onClick={() => dropdownOpen == false ? setDropdownOpen(true) : ""}
+            // onBlur={() => setDropdownOpen(false)}
+            inputContainerStyle="relative"
+            inputStyle={`bg-white shadow-xl relative !ring-0 py-3 focus:!ring-1 focus:!ring-primaryColor ${currentSelectedValue != "" && dropdownOpen == false ? "placeholder:text-primaryColor" : ""} `}
             placeholder={
-              selectedItems?.length > 0
-                ? `قائمة الشركات تم تحديد ( ${selectedItems?.length} )`
-                : "بحث عن اسم السهم  أو رقم السهم"
+              // selectedItems?.length > 0
+              // ? `قائمة الشركات تم تحديد ( ${selectedItems?.length} )`:
+              currentSelectedValue != "" && dropdownOpen == false ?
+              currentSelectedValue :
+              "بحث عن اسم السهم  أو رقم السهم"
             }
+            icon={<FiSearch size={24} className="text-mediumGreyColor" />}
             searchQuery={searchQuery}
             handleSearch={handleSearch}
           />
         </div>
-        <div className="h-[37vh] absolute mt-1 mb-20 overflow-y-scroll bg-white rounded-xl shadow-xl">
-          <div className="">
+        {dropdownOpen && (
+                  <div
+                    // ref={dropdownRef}
+                    className="absolute top-[53px] bg-white z-40 w-full left-0 rounded-xl shadow-xl max-h-select overflow-y-auto svelte-5uyqqj"
+                  >
+                    <div className=" max-h-52 overflow-y-auto flex flex-col w-full">
+        {/* <div className="h-[37vh] absolute mt-1 mb-20 overflow-y-scroll bg-white rounded-xl shadow-xl"> */}
+          {/* <div className=""> */}
             <ul role="list" className="grid grid-cols-1 bg-white">
               {filteredData?.length !== 0 &&
                 filteredData?.map((person) => (
-                  <li key={person.id}>
+                  <li key={person.id}    
+                  
+                  onClick={() => {setDropdownOpen(false); setCurrentSelectedValue(person.name)}}
+                  >
                     <button
                       type="button"
                       onClick={() => {
-                        toggleSelection !== undefined
-                          ? toggleSelection(
+                        AddCompanySelection !== undefined
+                          ? (AddCompanySelection(
                               person.id,
                               person.name,
                               person.symbol,
                               person,
                               selectedItems
-                            )
-                          : null;
+                            ),
+                            handleTagClick(apiRange, person.symbol),
+                            setActiveStat(person.symbol),
+                            setSelectedSymbol(person.symbol),
+                            console.log(person.symbol, "stock_company from search"))
+                            
+                          : // ,setName(person.name))
+                            null;
                       }}
                       className={`group flex w-full items-center justify-between space-x-3 border ${
-                        selectedItems?.some(
-                          (item) => item.symbol === person.symbol
-                        )
-                          ? "border-primaryColor cursor-pointer"
-                          // ? "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"
-                          : `border-gray-300 cursor-pointer `
+                        // selectedItems?.some(
+                        //   (item) => item.symbol === person.symbol
+                        // )
+                        // ? "border-primaryColor cursor-pointer"
+                        // ? "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"
+                        `border-gray-300 cursor-pointer `
                       } p-1 text-left shadow-sm hover:bg-gray-50 focus:outline-none `}
                     >
                       <span className="flex min-w-0 flex-1 items-center space-x-3">
@@ -159,11 +208,12 @@ const SelectUserCompaniesInput = ({
                         {selectedItems?.some(
                           (item) => item.symbol === person.symbol
                         ) ? (
-                          <CheckIcon
-                            className="h-6 w-5 flex-none text-primaryColor"
-                            aria-hidden="true"
-                          />
+                          ""
                         ) : (
+                          // <CheckIcon
+                          //   className="h-6 w-5 flex-none text-primaryColor"
+                          //   aria-hidden="true"
+                          // />
                           <div>
                             <PlusCircleIcon
                               className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
@@ -177,7 +227,8 @@ const SelectUserCompaniesInput = ({
                 ))}
             </ul>
           </div>
-        </div>
+        {/* </div> */}
+        </div>)}
       </div>
     </div>
   );

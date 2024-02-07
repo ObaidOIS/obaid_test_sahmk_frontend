@@ -1,13 +1,19 @@
 import React from 'react'
 
-const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle}) => {
+const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle, icon, inputContainerStyle, onFocus, onClick, onBlur}) => {
   return (
     <div>
       <div>
-      <div className="mt-2">
+      <div className={`mt-2 ${inputContainerStyle}`}>
+      {/* {icon && ( */}
+        <div className="absolute inset-y-0 left-0 flex z-30 items-center pl-2">
+          {icon}
+        </div>
+      {/* )} */}
         <input
           type="text"
           defaultValue=""
+          onFocus={onFocus} onClick={onClick} onBlur={onBlur}
           value={searchQuery}
           autoComplete="off"
           onChange={(e) => handleSearch(e.target.value)}
