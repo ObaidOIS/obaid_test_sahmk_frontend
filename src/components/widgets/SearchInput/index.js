@@ -18,7 +18,7 @@ const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle, icon, 
           value={searchQuery}
           autoComplete="off"
           onChange={(e) => handleSearch(e.target.value)}
-          className={`block w-full appearance-none bg-bgColor rounded-md border-0 py-2.5 px-4 text-gray-900 outline-none shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primaryColor !text-lg focus:!text-lg sm:leading-6 ${inputStyle} `}
+          className={`block w-full appearance-none bg-bgColor rounded-md border-0 py-2.5 px-4 text-gray-900 outline-none shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primaryColor !text-base focus:!text-base sm:leading-6 ${inputStyle} `}
           placeholder={placeholder}
         />
       </div>
