@@ -116,14 +116,16 @@ const SelectUserCompaniesInput = ({
           ""
         )}
     </div> */}
-      <div className="w-full relative" ref={dropdownRef}>
+      <div className="w-full relative">
         <div>
           <SearchInput
+            ref={dropdownRef}
             onFocus={() => dropdownOpen == false ? setDropdownOpen(!dropdownOpen) : ""}
             onClick={() => dropdownOpen == false ? setDropdownOpen(true) : ""}
             // onBlur={() => setDropdownOpen(false)}
-            inputContainerStyle="relative"
-            inputStyle={`bg-white rounded-md relative ring-brightGreyColor py-3 focus:!ring-2 focus:!ring-primaryColor`}
+            // inputContainerStyle="relative"
+            inputStyle="bg-white"
+            // inputStyle={`bg-white rounded-md relative ring-brightGreyColor py-3 focus:!ring-2 focus:!ring-primaryColor`}
             placeholder={
               // selectedItems?.length > 0
               // ? `قائمة الشركات تم تحديد ( ${selectedItems?.length} )`:

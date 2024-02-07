@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle, icon, inputContainerStyle, onFocus, onClick, onBlur}) => {
+const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle, icon, inputContainerStyle, onFocus, onClick, onBlur, ref}) => {
   return (
     <div>
       <div>
@@ -11,6 +11,7 @@ const SearchInput = ({searchQuery, handleSearch, placeholder, inputStyle, icon, 
         </div>
       {/* )} */}
         <input
+          ref={ref}
           type="text"
           defaultValue=""
           onFocus={onFocus} onClick={onClick} onBlur={onBlur}
