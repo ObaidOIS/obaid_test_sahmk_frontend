@@ -23,6 +23,7 @@ const OtpModal = ({
   setSuccessMessage,
   currentPlan,
   selectedOption,
+  handleSubmitCheckboxes,
 }) => {
   const router = useRouter();
   const [timer, setTimer] = useState(
@@ -193,11 +194,13 @@ const OtpModal = ({
 
           // Redirect based on the previousPage
           if (previousPage === "signup") {
+            handleSubmitCheckboxes();
             currentPlan == "الباقة المجانية" ||
             (currentPlan.title ? currentPlan.title : selectedOption) ==
               "الباقة المجانية"
               ? router.push("/userprofile")
-              : router.push(`/auth/order?previousPage=${previousPage}`);
+              : router.push(`/auth/order?previousPage=${previousPage}`
+              );
           } else if (previousPage === "signin") {
             router.push("/userprofile");
             if (localStorage.getItem("page")) {

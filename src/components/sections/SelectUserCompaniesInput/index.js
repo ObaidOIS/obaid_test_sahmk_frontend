@@ -116,14 +116,14 @@ const SelectUserCompaniesInput = ({
           ""
         )}
     </div> */}
-      <div className="mt-3 w-full relative placeholder:" ref={dropdownRef}>
+      <div className="w-full relative" ref={dropdownRef}>
         <div>
           <SearchInput
             onFocus={() => dropdownOpen == false ? setDropdownOpen(!dropdownOpen) : ""}
             onClick={() => dropdownOpen == false ? setDropdownOpen(true) : ""}
             // onBlur={() => setDropdownOpen(false)}
             inputContainerStyle="relative"
-            inputStyle={`bg-white shadow-xl relative !ring-0 py-3 focus:!ring-1 focus:!ring-primaryColor ${currentSelectedValue != "" && dropdownOpen == false ? "placeholder:text-primaryColor" : ""} `}
+            inputStyle={`bg-white rounded-md relative ring-brightGreyColor py-3 focus:!ring-2 focus:!ring-primaryColor`}
             placeholder={
               // selectedItems?.length > 0
               // ? `قائمة الشركات تم تحديد ( ${selectedItems?.length} )`:
@@ -163,7 +163,8 @@ const SelectUserCompaniesInput = ({
                               selectedItems
                             ),
                             handleTagClick(apiRange, person.symbol),
-                            setActiveStat(person.symbol),
+                            // setActiveStat(person.symbol),
+                            setActiveStat(person.name),
                             setSelectedSymbol(person.symbol),
                             console.log(person.symbol, "stock_company from search"))
                             
@@ -209,17 +210,17 @@ const SelectUserCompaniesInput = ({
                           (item) => item.symbol === person.symbol
                         ) ? (
                           ""
-                        ) : (
+                        ) : (""
                           // <CheckIcon
                           //   className="h-6 w-5 flex-none text-primaryColor"
                           //   aria-hidden="true"
                           // />
-                          <div>
-                            <PlusCircleIcon
-                              className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                              aria-hidden="true"
-                            />
-                          </div>
+                          // <div>
+                          //   <PlusCircleIcon
+                          //     className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                          //     aria-hidden="true"
+                          //   />
+                          // </div>
                         )}
                       </span>
                     </button>

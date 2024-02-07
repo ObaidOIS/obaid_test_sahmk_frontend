@@ -34,6 +34,10 @@ const RegisterForm = () => {
 
   const [isFormValid, setIsFormValid] = useState(false);
   // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+  const [receiveOpeningClosingPrices, setReceiveOpeningClosingPrices] =
+    useState(false);
+  const [targetPricesEnabled, setTargetPricesEnabled] = useState(false);
+  const [weeklyReportEnabled, setWeeklyReportEnabled] = useState(false);
 
   const checkboxes = [
     {
@@ -69,7 +73,8 @@ const RegisterForm = () => {
       name: "Saudi Arabia",
       dial_code: "+966",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/saudi-arabia-flag.png"
           width="24"
           height="24"
@@ -177,7 +182,8 @@ const RegisterForm = () => {
     {
       title: "الباقة المجانية",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/blue-check.svg"
           width={25}
           height={25}
@@ -248,7 +254,8 @@ const RegisterForm = () => {
     {
       title: "باقة بريميوم",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/purple-check-icon.svg"
           width={25}
           height={25}
@@ -316,7 +323,8 @@ const RegisterForm = () => {
     {
       title: "الباقة المتقدمة",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/yellow-check.svg"
           width={25}
           height={25}
@@ -391,9 +399,9 @@ const RegisterForm = () => {
     // Validate each field and update the overall form validity
     setIsFormValid(
       isValidFirstName(userData.firstName) &&
-      isValidLastName(userData.lastName) &&
-      isValidEmail(userData.email) &&
-      isValidPhoneNumber(userData.phoneNumber)
+        isValidLastName(userData.lastName) &&
+        isValidEmail(userData.email) &&
+        isValidPhoneNumber(userData.phoneNumber)
       // &&
       // selectedCheckboxes.length > 0
     );
@@ -481,6 +489,38 @@ const RegisterForm = () => {
   };
 
   const [errorButton, setErrorButton] = useState("");
+
+  const handleCheckChange = (value, isChecked) => {
+    if (value === "استقبال أسعار الافتتاح والاغلاق لأسهمي") {
+      setReceiveOpeningClosingPrices(isChecked.target.checked);
+    } else if (value === "تفعيل ميزة الأسعار المستهدفة") {
+      setTargetPricesEnabled(isChecked.target.checked);
+    } else if (value === "استلام تقرير اسبوعي لأداء أسهمك") {
+      setWeeklyReportEnabled(isChecked.target.checked);
+    }
+  };
+
+  const handleSubmitCheckboxes = async () => {
+    console.log(
+      receiveOpeningClosingPrices,
+      targetPricesEnabled,
+      weeklyReportEnabled,
+      "checkbox"
+    );
+    const response = await apiCall(
+      `/auth/api/user/update-user-preferences/`,
+      "POST",
+      {
+        receive_opening_closing_prices: receiveOpeningClosingPrices,
+        target_prices_enabled: targetPricesEnabled,
+        weekly_report_enabled: weeklyReportEnabled,
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "checkbox");
+    } else {
+    }
+  };
 
   const handleUpgradPlan = (data) => {
     // Create a replacer function for handling circular references
@@ -576,20 +616,9 @@ const RegisterForm = () => {
     localStorage.setItem("currentPlanRegister", serializedPlanData);
     localStorage.setItem("currentPlanDurationRegister", serializedDurationData);
     // Update the states whenever the original subscription details change
-    setCurrentPlan("باقة بريميوم")
+    setCurrentPlan("باقة بريميوم");
     setCurrentPlanDuration(frequencies[1]);
   }, []);
-
-
-  // const handleCheckBoxChange = async() => {
-  //     const response = await apiCall(
-  //       `/auth/api/user/update-user-preferences/?receive_opening_closing_prices=${fullPhoneNumber}&target_prices_enabled=${fullPhoneNumber}&weekly_report_enabled=${fullPhoneNumber}`,
-  //       "POST"
-  //     );
-  //     if (response && response.result && response.result.exists) {
-  //     } else {
-  //     }
-  //   }
 
   return (
     <>
@@ -620,7 +649,10 @@ const RegisterForm = () => {
                 aria-hidden="true"
               />
             }
-            onClick={() => {setIsPricingModalOpen(true); setErrorAlert(false)}}
+            onClick={() => {
+              setIsPricingModalOpen(true);
+              setErrorAlert(false);
+            }}
             button={errorButton}
             buttonStyle="text-redColor hover:text-redColor/80 focus:ring-redColor/80"
           />
@@ -651,6 +683,7 @@ const RegisterForm = () => {
           alertStyle="!max-h-fit"
           content={
             <OtpModal
+              handleSubmitCheckboxes={handleSubmitCheckboxes}
               currentPlan={currentPlan}
               isOpen={isOtpModalOpen}
               userData={userData}
@@ -707,8 +740,8 @@ const RegisterForm = () => {
                 selectedOption == "الباقة المتقدمة"
                   ? pricingRadio[2].features[frequency.value]
                   : selectedOption == "باقة بريميوم"
-                    ? pricingRadio[1].features[frequency.value]
-                    : pricingRadio[0].features[frequency.value]
+                  ? pricingRadio[1].features[frequency.value]
+                  : pricingRadio[0].features[frequency.value]
               }
             />
           }
@@ -735,8 +768,8 @@ const RegisterForm = () => {
                     selectedOption == "الباقة المتقدمة"
                       ? pricingRadio[2].features[frequency.value]
                       : selectedOption == "باقة بريميوم"
-                        ? pricingRadio[1].features[frequency.value]
-                        : pricingRadio[0].features[frequency.value]
+                      ? pricingRadio[1].features[frequency.value]
+                      : pricingRadio[0].features[frequency.value]
                   }
                 />
               </div>
@@ -785,13 +818,19 @@ const RegisterForm = () => {
                 />
                 <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
                   <PhoneNumberUI
-                    handlePaste={()=>
-                      {
-                        if (/^\d*$/.test(e.clipboardData.getData('text/plain').trim())) {
-                          handleDataChange("phoneNumber", e.clipboardData.getData('text/plain').trim());
-                        }
-                        // setInputText(e.clipboardData.getData('text/plain').trim());
-                      }}
+                    handlePaste={() => {
+                      if (
+                        /^\d*$/.test(
+                          e.clipboardData.getData("text/plain").trim()
+                        )
+                      ) {
+                        handleDataChange(
+                          "phoneNumber",
+                          e.clipboardData.getData("text/plain").trim()
+                        );
+                      }
+                      // setInputText(e.clipboardData.getData('text/plain').trim());
+                    }}
                     autoComplete="tel"
                     title="رقم الجوال"
                     dataList={countryCodes}
@@ -856,9 +895,9 @@ const RegisterForm = () => {
                         title={item.title}
                         desc={item.desc}
                         badge={item.badge}
-                      // handleChange={(isChecked) =>
-                      //   handleCheckboxChange(item.title, isChecked)
-                      // }
+                        onChange={(isChecked) =>
+                          handleCheckChange(item.title, isChecked)
+                        }
                       />
                     </div>
                   );
@@ -867,13 +906,15 @@ const RegisterForm = () => {
             </div>
             <PrimaryButton
               onClick={(e) => {
+                // handleSubmitCheckboxes()
                 validateForm();
                 handleSubmit(e);
               }}
               button="تسجيل"
               buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
             />
-            <Image loading="eager"  
+            <Image
+              loading="eager"
               src="/assets/images/gradient-bottom.svg"
               width={170}
               height={170}

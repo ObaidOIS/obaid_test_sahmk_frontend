@@ -67,6 +67,28 @@ const UserProfileSection = () => {
 
   console.log(currentDay, "currentDay");
 
+  const handleSubmitCheckboxes = async (receiveOpeningClosingPricesToggle, targetPriceToggle, weeklyReportToggle) => {
+    console.log(
+      receiveOpeningClosingPricesToggle,
+      targetPriceToggle,
+      weeklyReportToggle,
+      "checkbox"
+    );
+    const response = await apiCall(
+      `/auth/api/user/update-user-preferences/`,
+      "POST",
+      {
+        receive_opening_closing_prices: receiveOpeningClosingPricesToggle,
+        target_prices_enabled: targetPriceToggle,
+        weekly_report_enabled: weeklyReportToggle,
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "checkbox");
+    } else {
+    }
+  };
+
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
     const fetchUserData = async () => {
@@ -83,6 +105,9 @@ const UserProfileSection = () => {
           countryCode: countryCode,
           expirationDate: data.expirationDate || null,
         });
+        setIsNotificationChecked(data.receive_opening_closing_prices);
+        setIsTvChecked(data.weekly_report_enabled);
+        setIsPricesChecked(data.target_prices_enabled);
         console.log(response.result, "hello data");
         setOriginalSubscriptionDetails({
           subscriptionType: data.subscriptionType || "free",
@@ -182,14 +207,24 @@ const UserProfileSection = () => {
   }
 
   const handleNotificationSwitch = () => {
-    setIsNotificationChecked((prevChecked) => !prevChecked);
+
+    setIsNotificationChecked((prevChecked) => {
+      const receiveOpeningClosingPricesToggle = !prevChecked;
+      handleSubmitCheckboxes(receiveOpeningClosingPricesToggle ,isPricesChecked, isTvChecked);
+      return receiveOpeningClosingPricesToggle;
+    });
+
     isNotificationChecked == false
       ? setSuccessAlert(true)
       : setDeactivateAlert(true);
   };
 
   const handleTvSwitch = () => {
-    setIsTvChecked((prevChecked) => !prevChecked);
+    setIsTvChecked((prevChecked) => {
+      const weeklyReportToggle = !prevChecked;
+      handleSubmitCheckboxes(isNotificationChecked ,isPricesChecked, weeklyReportToggle);
+      return weeklyReportToggle;
+    });
     isTvChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
   };
 
@@ -266,7 +301,11 @@ const UserProfileSection = () => {
   };
 
   const handlePricesSwitch = () => {
-    setIsPricesChecked((prevChecked) => !prevChecked);
+    setIsPricesChecked((prevChecked) => {
+      const targetPriceToggle = !prevChecked;
+      handleSubmitCheckboxes(isNotificationChecked ,targetPriceToggle, isTvChecked);
+      return targetPriceToggle;
+    });
     isPricesChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
   };
 
@@ -460,8 +499,8 @@ const UserProfileSection = () => {
         "user-stock-profile"
       );
       setSelectedStockProfileCurrentValue(stockProfileData[selectedSymbol]);
-    // }
-  }
+      // }
+    }
     // else{
     //   if(selectedSymbol == "TASI" || selectedSymbol == "NOMUC" ){
 
@@ -497,7 +536,7 @@ const UserProfileSection = () => {
     }
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     fetchUserStocks();
     handleTagClick(apiRange, activeStat);
   }, []);
@@ -796,7 +835,6 @@ const UserProfileSection = () => {
 
       return newSelectedItems;
     });
-    
   };
 
   return (
@@ -860,7 +898,7 @@ const UserProfileSection = () => {
                 </div>
                 <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                   <div className="flex">
-                    <div className="flex items-end mb-5">
+                    <div className="flex items-end mb-3">
                       <div className="text-2xl font-medium leading-none m-2">
                         الأسهم
                       </div>
@@ -903,12 +941,19 @@ const UserProfileSection = () => {
                         onClick={() => {
                           setSearchInputShow(!searchInputShow);
                         }}
-                        className={`bg-secondaryColor shadow-xl rounded-lg p-2 cursor-pointer`}
+                        // className={` `}
                       >
                         {searchInputShow ? (
-                          <RxCross2 size={24} className="text-whiteColor" />
+                          <div className="bg-secondaryColor shadow-xl rounded-lg  cursor-pointer p-2">
+                            <RxCross2 size={22} className=" text-whiteColor " />
+                          </div>
                         ) : (
-                          <FiSearch size={24} className="text-whiteColor" />
+                          <div className="bg-whiteColor shadow-xl rounded-lg  cursor-pointer p-2">
+                            <FiSearch
+                              size={22}
+                              className="text-secondaryColor"
+                            />
+                          </div>
                         )}
                         {/* <Image
                           loading="eager"
@@ -926,7 +971,7 @@ const UserProfileSection = () => {
                       </div>
                     </div>
                   </div>
-                  <div>
+                  <div className="!m-0">
                     {searchInputShow ? (
                       <>
                         {/* <FeatureOneSearchModal
@@ -971,7 +1016,9 @@ const UserProfileSection = () => {
                           setSuccessCompaniesAlert={setSuccessCompaniesAlert}
                           selectedSymbol={setSelectedStockProfileCurrentValue}
                           stockProfileData={setSelectedStockProfileCurrentValue}
-                          setSelectedStockProfileCurrentValue={setSelectedStockProfileCurrentValue}
+                          setSelectedStockProfileCurrentValue={
+                            setSelectedStockProfileCurrentValue
+                          }
                         />
                       </>
                     ) : (
@@ -979,7 +1026,9 @@ const UserProfileSection = () => {
                     )}
                   </div>
                   <UserProfileStatistics
-                    selectedStockProfileCurrentValue={selectedStockProfileCurrentValue}
+                    selectedStockProfileCurrentValue={
+                      selectedStockProfileCurrentValue
+                    }
                     selectedStatCurrentValue={selectedStatCurrentValue}
                     setStockProfileData={setStockProfileData}
                     stockProfileData={stockProfileData}
