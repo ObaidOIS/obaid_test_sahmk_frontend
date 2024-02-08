@@ -574,8 +574,8 @@ const OrderSummaryForm = (
                   priority
                 />
               }
-              messageTitle="فشلت عملية الدفع "
-              messageDesc="يمكنك  الاستفادة من جميع خدمات سهمك"
+              messageTitle="فشلت عملية الدفع"
+              messageDesc="لم تتم عملية الدفع بنجاح. يرجى التحقق من معلومات الدفع الخاصة بك والمحاولة مرة أخرى."
               actionButton={false}
               messageType="error"
             />
