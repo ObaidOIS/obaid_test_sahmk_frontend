@@ -211,7 +211,7 @@ const SelectUserCompaniesInput = ({
                           (item) => item.symbol === person.symbol
                         ) ? (
                           ""
-                        ) : (""
+                        ) : ( ""
                           // <CheckIcon
                           //   className="h-6 w-5 flex-none text-primaryColor"
                           //   aria-hidden="true"
