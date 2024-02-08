@@ -132,7 +132,7 @@ const ContactUsForm = () => {
               />
             </div>
             <div className="sm:col-span-2">
-              <TextAreaUI label="رسالة" name="message" handleChange={handleChange} />
+              <TextAreaUI label="الرسالة" name="message" handleChange={handleChange} />
             </div>
           </div>
           <div className="mt-10">
