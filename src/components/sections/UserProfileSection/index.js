@@ -1043,8 +1043,8 @@ const UserProfileSection = () => {
                           }
                           searchQuery={searchQuery}
                           handleSearch={handleSearch}
-                          // filteredData={filteredData}
-                          filteredData={selectedItems}
+                          filteredData={filteredData}
+                          // filteredData={selectedItems}
                           dataList={filteredData}
                           AddCompanySelection={AddCompanySelection}
                           setSelectedItems={setSelectedItems}
