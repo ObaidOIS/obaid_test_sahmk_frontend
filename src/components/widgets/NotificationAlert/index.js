@@ -90,7 +90,7 @@ const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, butt
                       }}
                       className="rounded-md bg-white text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primaryColor/80 focus:ring-offset-2"
                     >
-                      يغلق
+                      إغلاق
                     </button>
                   </div>
                 </div>

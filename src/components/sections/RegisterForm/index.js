@@ -730,7 +730,7 @@ const RegisterForm = () => {
           onClose={() => setIsAllFeaturesModalOpen(false)}
           isOpen={isAllFeaturesModalOpen}
           title="كل المميزات"
-          button="يغلق"
+          button="إغلاق"
           onClickHandle={() => setIsAllFeaturesModalOpen(false)}
           content={
             <AllFeaturesModal
