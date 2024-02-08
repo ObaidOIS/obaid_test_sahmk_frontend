@@ -8,9 +8,10 @@ import Loader from "@/components/widgets/Loader";
 
 const ProfileFooter = ({name}) => {
   const footerLinks = [
-    { name: "الرئيسية", href: '#features' },
+    { name: "الرئيسية", href: '/' },
     { name: "المميزات", href: '#' },
-    { name: "خدماتنا", href: '#services' },
+    // { name: "خدماتنا", href: '#services' },
+    { name: "خدماتنا", href: '/#features' },
     { name: "تجربة النظام", href: '#' },
     { name: "صفحة الخصوصية", href: '/privacypolicy' },
     { name: "حساب تعريفي", href: '/userprofile' },

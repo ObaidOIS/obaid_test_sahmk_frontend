@@ -94,7 +94,7 @@ const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, butt
                     </button>
                   </div>
                 </div>
-                <div className="ml-4 flex flex-shrink-0">
+                {/* <div className="ml-4 flex flex-shrink-0">
                   <button
                     type="button"
                     className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primaryColor/80 focus:ring-offset-2"
@@ -105,7 +105,7 @@ const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, butt
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-5 w-5" aria-hidden="true" />
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

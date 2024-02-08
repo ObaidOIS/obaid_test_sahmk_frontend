@@ -9,7 +9,8 @@ import {
 const Footer = () => {
   const footerLinks = [
     { name: "الرئيسية", href: '/' },
-    { name: "المميزات", href: '/#services' },
+    { name: "المميزات", href: '#' },
+    // { name: "خدماتنا", href: '/#services' },
     { name: "خدماتنا", href: '/#features' },
     { name: "تجربة النظام", href: '#' },
     { name: "صفحة الخصوصية", href: '/privacypolicy' },
