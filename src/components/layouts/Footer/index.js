@@ -20,7 +20,7 @@ const Footer = () => {
 
   
   const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
+    const encodedMessage = encodeURIComponent('سلام, ماهي خدماتك؟');
     window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
   }
 

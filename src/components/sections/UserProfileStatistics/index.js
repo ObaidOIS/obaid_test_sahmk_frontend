@@ -92,7 +92,7 @@ const UserProfileStatistics = ({
   // console.log(chartData, "hello chart nan")
 
   const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
+    const encodedMessage = encodeURIComponent('اعرضلي حسابي');
     window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
 
   }

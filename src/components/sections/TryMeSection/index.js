@@ -11,7 +11,7 @@ const TryMeSection = () => {
   };
   
   const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
+    const encodedMessage = encodeURIComponent('عطني سعر أرامكو');
     window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
   }
 

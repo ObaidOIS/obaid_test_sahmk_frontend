@@ -7,7 +7,7 @@ import Link from "next/link";
 const HeroSection = () => {
   
   const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
+    const encodedMessage = encodeURIComponent('عطني سعر الراجحي');
     window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
   }
 
