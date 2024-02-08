@@ -9,6 +9,7 @@ const UserProfileSidebar = ({ toggleSidebar, list, handlePageChange }) => {
     <div>
       <div className="px-4 sm:px-6">
         <div className=" pb-6 mt-4">
+          <Link href="/">
           <Image
             loading="eager"
             src="/assets/logos/logo.svg"
@@ -18,6 +19,7 @@ const UserProfileSidebar = ({ toggleSidebar, list, handlePageChange }) => {
             className="ms-4"
             priority
           />
+          </Link>
           <ul className="my-10 space-y-5 text-sm font-semibold">
             {list.map((item, index) => (
               <li

@@ -9,8 +9,7 @@ import { isAuthenticated } from "@/components/common/utils";
 const Header = ({ toggleSidebar }) => {
   const navLinks = [
     { name: "الرئيسية", link: "/#" },
-    // { name: "الخدمات", link: "/#services" },
-    { name: "الخدمات", link: "/#features" },
+    { name: "الخدمات", link: "/#services" },
     { name: "اشتراكاتنا", link: "/#pricing" },
     { name: "من نحن", link: "/#try-us" },
     { name: "تواصل معنا", link: "/contactus#" },
@@ -40,7 +39,7 @@ const Header = ({ toggleSidebar }) => {
           priority
         />
         <div className="lg:container flex items-center p-6 mx-auto flex-row">
-          <Link href="/" className="flex items-center">
+          <Link href="/#" className="flex items-center">
             <Image loading="eager"  
               src="/assets/logos/logo.svg"
               width={100}

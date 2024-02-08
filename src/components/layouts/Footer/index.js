@@ -9,7 +9,7 @@ import {
 const Footer = () => {
   const footerLinks = [
     { name: "الرئيسية", href: '/#' },
-    { name: "المميزات", href: '#features' },
+    { name: "المميزات", href: '/#features' },
     // { name: "خدماتنا", href: '/#services' },
     { name: "خدماتنا", href: '/#services' },
     { name: "تجربة النظام", href: '#' },
@@ -54,7 +54,7 @@ const Footer = () => {
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col items-center w-full my-20">
           <div className="sm:grid sm:grid-cols-2 flex align-middle items-center sm:gap-20 gap-8 px-3 my-8">
-            <Link href="#">
+            <Link href="/#">
             <Image loading="eager"  
               src="/assets/logos/logo.svg"
               width={100}
