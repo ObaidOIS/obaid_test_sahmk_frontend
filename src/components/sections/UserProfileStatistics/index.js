@@ -224,9 +224,6 @@ const UserProfileStatistics = ({
               <div>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col ms-3">
-                    <dt className="text-sm leading-7 text-gray-500/90 font-medium truncate">
-                      السهم
-                    </dt>
                     <dd className="tracking-tight text-gray-900 font-medium ">
                       {activeStat == "TASI" ? "تاسي" : activeStat == "NOMUC" ? "سوق نمو" : activeStat}
                     </dd>
