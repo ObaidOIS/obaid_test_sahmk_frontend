@@ -94,7 +94,7 @@ const ProfileFooter = ({name}) => {
               © جميع الحقوق محفوظة لمنصة سهمك{" "}
             </p>
             <p className="mt-2 text-center text-sm leading-6 text-slate-500">
-              سجل تجاري رقم 11234567890{" "}
+              سجل تجاري رقم 1010913507{" "}
             </p>
           </div>
         </div>
