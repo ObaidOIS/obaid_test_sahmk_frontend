@@ -7,36 +7,36 @@ import Link from 'next/link';
 
 const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, button, isOpen, onClick }) => {
 
-  const notificationRef = useRef(null);
+  // const notificationRef = useRef(null);
 
     // Close the notification when clicking outside it
-  const handleClickOutside = (e) => {
-    if (notificationRef.current && !notificationRef.current.contains(e.target)) {
-      setOpenModal(false)
-    }
-  }
+  // const handleClickOutside = (e) => {
+  //   if (notificationRef.current && !notificationRef.current.contains(e.target)) {
+  //     setOpenModal(false)
+  //   }
+  // }
 
   
-  useEffect(() => {
-    // Close the modal after 2000 milliseconds (2 seconds)
-    const timeoutId = setTimeout(() => {
-      setOpenModal(false);
-    }, 4000);
+  // useEffect(() => {
+  //   // Close the modal after 2000 milliseconds (2 seconds)
+  //   const timeoutId = setTimeout(() => {
+  //     setOpenModal(false);
+  //   }, 4000);
 
-    // Cleanup function to clear the timeout if the component unmounts
-    return () => clearTimeout(timeoutId);
-  }, []); 
+  //   // Cleanup function to clear the timeout if the component unmounts
+  //   return () => clearTimeout(timeoutId);
+  // }, []); 
 
 
-  useEffect(() => {
-    // Attach click event listener when the component mounts
-    document.addEventListener('mousedown', handleClickOutside)
+  // useEffect(() => {
+  //   // Attach click event listener when the component mounts
+  //   document.addEventListener('mousedown', handleClickOutside)
 
-    // Detach the event listener when the component unmounts
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
+  //   // Detach the event listener when the component unmounts
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside)
+  //   }
+  // }, [])
 
 
   return (
@@ -59,7 +59,7 @@ const NotificationAlert = ({setOpenModal, alertStyle, message, icon, title, butt
           leaveTo="opacity-0"
         >
           <div
-            ref={notificationRef}
+            // ref={notificationRef}
             className={`pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 ${alertStyle}`}
           >
             <div className="p-4">

@@ -16,7 +16,7 @@ const RadioCardGroup = ({
     return classes.filter(Boolean).join(" ");
   }
 
-  console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "hello data")
+  // console.log(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "hello data")
   return (
     <>
       {dataList.map((link) => (

@@ -571,6 +571,8 @@ const UserProfileSection = () => {
           percentageChange
         ).toFixed(2)}%`;
 
+        console.log(firstValue, lastValue, percentageChange, formattedPercentageChange, "firstdata")
+
         // Log the result
         console.log(`Percentage Change: ${formattedPercentageChange}`);
 

@@ -9,7 +9,9 @@ const CustomChartTooltip = ({ active, payload, label }) => {
           <div>
             {payload.map((pld, index) => (
               <div key={index} style={{ display: "inline-block", padding: 2 }}>
-                <div style={{ color: pld.fill }} dir='ltr'>{parseFloat(pld.value).toFixed(2)} SAR</div>
+                <div style={{ color: pld.fill }} dir='ltr'> 
+                  {/* {Math.floor(pld.value * 100) / 100 } &nbsp; */}
+                  {parseFloat(pld.value).toFixed(2)} SAR</div>
                 {/* <div>{pld.dataKey}</div> */}
               </div>
             ))}
