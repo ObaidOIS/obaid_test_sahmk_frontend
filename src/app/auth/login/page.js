@@ -8,10 +8,12 @@ import Image from "next/image";
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import MessageAlert from '@/components/widgets/MessageAlert';
 import NotificationAlert from '@/components/widgets/NotificationAlert';
+import Loader from '@/components/widgets/Loader';
 
 const Login = () => {
   
   const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(true);
   
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("error");
@@ -25,6 +27,7 @@ const Login = () => {
   
   useEffect(() => {
     const isAuthenticate = isAuthenticated(); 
+    setAuthenticated(isAuthenticate)
     if (isAuthenticate) {
       router.push('/userprofile'); 
     }
@@ -32,6 +35,10 @@ const Login = () => {
 
   return (
     <div>
+      {authenticated == true ? (
+        <Loader />
+      ) : (
+        <>
     {successAlert == true && (
       <MessageAlert
         setOpenModal={setSuccessAlert}
@@ -128,6 +135,7 @@ const Login = () => {
         </div>
       </div>
     </>
+    </>)}
     </div>
   )
 }

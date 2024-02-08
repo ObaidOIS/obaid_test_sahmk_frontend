@@ -146,22 +146,56 @@ const UserProfileSection = () => {
   // }, [storedPage]);
 
   useEffect(() => {
+    console.log(pathname, page.name, "pathname change")
+    // handlePageChange(
+
+    //   page.name == "payment"
+    //     ? { name: "my-account", value: "باقتي وحسابي" }
+    //     : {
+    //         name: "userprofile",
+    //         value: "الخدمات الرئىيسية",
+    //       }
+    // );
     handlePageChange(
-      page.name == "payment"
-        ? { name: "my-account", value: "باقتي وحسابي" }
-        : {
+      (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
+      page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
+      page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
+      page.name == "payment" && { name: "payment", value: "باقتي وحسابي" } ||
+      page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
+      page.name == "userprofile" && {
             name: "userprofile",
             value: "الخدمات الرئىيسية",
-          }
+          })
     );
-    addEventListener("popstate", () => {
-      const userprofilePage =
-        page.name == "payment"
-          ? { name: "my-account", value: "باقتي وحسابي" }
-          : {
-              name: "userprofile",
-              value: "الخدمات الرئىيسية",
-            };
+    // addEventListener("popstate", () => {
+    //   const userprofilePage =
+    //     page.name == "payment"
+    //       ? { name: "my-account", value: "باقتي وحسابي" }
+    //       : {
+    //           name: "userprofile",
+    //           value: "الخدمات الرئىيسية",
+    //         };
+    //   const cleanPage = cleanCircularReferences(userprofilePage);
+    //   const serializedPage = JSON.stringify(cleanPage);
+
+    //   if (pathname === "/userprofile") {
+    //     router.push("/userprofile");
+    //     localStorage.setItem("page", serializedPage);
+    //   }
+    // });
+    
+    window.addEventListener("popstate", (e) => {
+      e.preventDefault();
+
+      const userprofilePage = (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
+      page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
+      page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
+      page.name == "payment" && { name: "payment", value: "باقتي وحسابي" } ||
+      page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
+      page.name == "userprofile" && {
+            name: "userprofile",
+            value: "الخدمات الرئىيسية",
+          })
       const cleanPage = cleanCircularReferences(userprofilePage);
       const serializedPage = JSON.stringify(cleanPage);
 
@@ -170,7 +204,12 @@ const UserProfileSection = () => {
         localStorage.setItem("page", serializedPage);
       }
     });
-  }, [pathname]);
+
+    // return () => {
+    //   window.removeEventListener('popstate', handlePopstate);
+    // };
+
+  }, []);
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
