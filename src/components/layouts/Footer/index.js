@@ -8,9 +8,9 @@ import {
 
 const Footer = () => {
   const footerLinks = [
-    { name: "الرئيسية", href: '#features' },
-    { name: "المميزات", href: '#' },
-    { name: "خدماتنا", href: '#services' },
+    { name: "الرئيسية", href: '/' },
+    { name: "المميزات", href: '/#services' },
+    { name: "خدماتنا", href: '/#features' },
     { name: "تجربة النظام", href: '#' },
     { name: "صفحة الخصوصية", href: '/privacypolicy' },
     { name: "حساب تعريفي", href: '/userprofile' },
@@ -72,14 +72,14 @@ const Footer = () => {
             <div className="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
               {footerLinks.map((item, index) => {
                 return (
-                  <Link
+                  <a
                     href={item.href}
                     key={index}
                     onClick={(e)=>{if(item.href == "/userprofile" && localStorage.getItem('page')){localStorage.removeItem('page')}}}
                     className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 );
               })}
             </div>

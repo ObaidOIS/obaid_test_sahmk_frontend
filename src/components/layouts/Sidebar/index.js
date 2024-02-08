@@ -9,11 +9,12 @@ import { isAuthenticated } from "@/components/common/utils";
 
 const Sidebar = ({ toggleSidebar }) => {
   const navigation = [
-    { name: "الرئيسية", href: "#features", current: true },
-    { name: "الخدمات", href: "#services", current: false },
-    { name: "اشتراكاتنا", href: "#pricing", current: false },
-    { name: "من نحن", href: "#try-us", current: false },
-    { name: "تواصل معنا", href: "#", current: false },
+    { name: "الرئيسية", href: "/", current: true },
+    // { name: "الخدمات", href: "/#services", current: false },
+    { name: "الخدمات", href: "/#features", current: false },
+    { name: "اشتراكاتنا", href: "/#pricing", current: false },
+    { name: "من نحن", href: "/#try-us", current: false },
+    { name: "تواصل معنا", href: "/contactus", current: false },
   ];
 
   const [isAuthenticate, setIsAuthenticate] = useState(false);

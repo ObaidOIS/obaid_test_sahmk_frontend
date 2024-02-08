@@ -8,11 +8,11 @@ import { isAuthenticated } from "@/components/common/utils";
 
 const Header = ({ toggleSidebar }) => {
   const navLinks = [
-    { name: "الرئيسية", link: "#features" },
-    { name: "الخدمات", link: "#services" },
-    { name: "اشتراكاتنا", link: "#pricing" },
-    { name: "من نحن", link: "#try-us" },
-    { name: "تواصل معنا", link: "#" },
+    { name: "الرئيسية", link: "/#features" },
+    { name: "الخدمات", link: "/#services" },
+    { name: "اشتراكاتنا", link: "/#pricing" },
+    { name: "من نحن", link: "/#try-us" },
+    { name: "تواصل معنا", link: "/contactus" },
   ];
 
   const [activeTab, setActiveTab] = useState(0);
@@ -52,7 +52,8 @@ const Header = ({ toggleSidebar }) => {
           <nav className="lg:flex hidden items-center justify-center text-base md:ml-auto mr-5">
             {navLinks.map((item, index) => {
               return (
-                <Link
+                <a
+                  scroll={true}
                   href={item.link}
                   key={index}
                   className={`${
@@ -69,7 +70,7 @@ const Header = ({ toggleSidebar }) => {
                   >
                     {item.name}
                   </p>
-                </Link>
+                </a>
               );
             })}
           </nav>

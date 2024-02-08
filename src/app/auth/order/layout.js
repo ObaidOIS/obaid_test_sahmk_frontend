@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import AsideWithLogo from "@/components/sections/AsideWithLogo";
 
 const AuthLayout = ({children}) => {
+
   return (
     <div className="mx-auto gap-5">
     <div className="grid grid-cols-1 lg:grid-cols-12 ">

@@ -160,7 +160,7 @@ const UserProfileSection = () => {
       (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
       page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
       page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
-      page.name == "payment" && { name: "payment", value: "باقتي وحسابي" } ||
+      page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
       page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
       page.name == "userprofile" && {
             name: "userprofile",
@@ -190,7 +190,7 @@ const UserProfileSection = () => {
       const userprofilePage = (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
       page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
       page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
-      page.name == "payment" && { name: "payment", value: "باقتي وحسابي" } ||
+      page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
       page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
       page.name == "userprofile" && {
             name: "userprofile",
