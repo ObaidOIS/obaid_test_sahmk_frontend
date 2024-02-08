@@ -14,7 +14,7 @@ const ProfileFooter = ({name}) => {
     { name: "تجربة النظام", href: '#' },
     { name: "صفحة الخصوصية", href: '/privacypolicy#' },
     { name: "حساب تعريفي", href: '/userprofile' },
-    { name: "اتصل بنا", href: '/contactus#' },
+    { name: "تواصل معنا", href: '/contactus#' },
   ];
 
   

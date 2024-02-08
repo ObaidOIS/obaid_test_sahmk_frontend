@@ -101,7 +101,7 @@ const ContactUsForm = () => {
       <div className=" px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            اتصل بنا
+            تواصل معنا
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
             إذا كان لديك أي أسئلة، فلا تتردد في الاتصال بنا. نحن هنا لمساعدتك!
@@ -138,7 +138,7 @@ const ContactUsForm = () => {
           <div className="mt-10">
             <div onClick={(e)=>handleSubmit(e)}>
             <PrimaryButton
-              button="اتصل بنا"
+              button="إرسال"
               buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor hover:!bg-primaryColor w-full justify-center mt-6"
             />
             </div>
