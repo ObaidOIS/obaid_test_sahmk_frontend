@@ -8,15 +8,20 @@ import Loader from "@/components/widgets/Loader";
 
 const ProfileFooter = ({name}) => {
   const footerLinks = [
-    { name: "الرئيسية", href: '/' },
-    { name: "المميزات", href: '#' },
-    // { name: "خدماتنا", href: '#services' },
-    { name: "خدماتنا", href: '/#features' },
+    { name: "الرئيسية", href: '/#' },
+    { name: "المميزات", href: '#features' },
+    { name: "خدماتنا", href: '/#services' },
     { name: "تجربة النظام", href: '#' },
-    { name: "صفحة الخصوصية", href: '/privacypolicy' },
+    { name: "صفحة الخصوصية", href: '/privacypolicy#' },
     { name: "حساب تعريفي", href: '/userprofile' },
-    { name: "اتصل بنا", href: '/contactus' },
+    { name: "اتصل بنا", href: '/contactus#' },
   ];
+
+  
+  const handleOpenWhatsapp = () => {
+    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃👋');
+    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
+  }
 
   const socialIncons = [
     {
@@ -55,14 +60,22 @@ const ProfileFooter = ({name}) => {
             <div className="flex flex-wrap items-center justify-center gap-10 lg:gap-20 gap-y-3 lg:flex-nowrap text-dark-grey-900">
               {footerLinks.map((item, index) => {
                 return (
-                  <Link
+                  item.name == "تجربة النظام" ? 
+                  <div 
+                  key={index}
+                  onClick={handleOpenWhatsapp}
+                  className="text-sm cursor-pointer leading-6 text-gray-600 hover:text-gray-900"
+                  >
+                    {item.name}
+                  </div> : 
+                  <a
                     href={item.href}
                     key={index}
                     className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                     // onClick={(e)=>{if(item.href == "/userprofile" && localStorage.getItem('page')){localStorage.removeItem('page')}}}
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 );
               })}
             </div>

@@ -8,12 +8,12 @@ import { isAuthenticated } from "@/components/common/utils";
 
 const Header = ({ toggleSidebar }) => {
   const navLinks = [
-    { name: "الرئيسية", link: "/" },
+    { name: "الرئيسية", link: "/#" },
     // { name: "الخدمات", link: "/#services" },
     { name: "الخدمات", link: "/#features" },
     { name: "اشتراكاتنا", link: "/#pricing" },
     { name: "من نحن", link: "/#try-us" },
-    { name: "تواصل معنا", link: "/contactus" },
+    { name: "تواصل معنا", link: "/contactus#" },
   ];
 
   const [activeTab, setActiveTab] = useState(0);

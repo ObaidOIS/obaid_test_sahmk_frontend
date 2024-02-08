@@ -140,7 +140,7 @@ const SelectUserCompaniesInput = ({
         {dropdownOpen && (
                   <div
                     // ref={dropdownRef}
-                    className="absolute top-[53px] bg-white z-40 w-full left-0 rounded-xl shadow-xl max-h-select overflow-y-auto svelte-5uyqqj"
+                    className="absolute top-[53px] bg-white z-40 w-full left-0 rounded-xl border shadow-xl max-h-select overflow-y-auto svelte-5uyqqj"
                   >
                     <div className=" max-h-52 overflow-y-auto flex flex-col w-full">
         {/* <div className="h-[37vh] absolute mt-1 mb-20 overflow-y-scroll bg-white rounded-xl shadow-xl"> */}
@@ -178,7 +178,7 @@ const SelectUserCompaniesInput = ({
                         // )
                         // ? "border-primaryColor cursor-pointer"
                         // ? "border-primaryColor focus:ring-2 focus:ring-primaryColor focus:ring-offset-2 cursor-pointer"
-                        `border-gray-300 cursor-pointer `
+                        ` cursor-pointer `
                       } p-1 text-left shadow-sm hover:bg-gray-50 focus:outline-none `}
                     >
                       <span className="flex min-w-0 flex-1 items-center space-x-3">

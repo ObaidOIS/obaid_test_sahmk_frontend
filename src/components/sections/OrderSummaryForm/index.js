@@ -78,13 +78,29 @@ const OrderSummaryForm = (
     const search = searchParams.get("previousPage");
     if (userData) {
       if (search == "signup") {
+        console.log(
+          userData.subscriptionType,
+          userData.subscriptionPeriod,  currentPlanDuration
+          ? currentPlanDuration?.value == "annually"
+            ? "yearly"
+            : currentPlanDuration?.value
+          : frequency?.value == "annually"
+          ? "yearly"
+          : frequency?.value, "subscription")
         setUserData({
           name: userData.fullName,
           phoneNumber: userData.phoneNumber,
           email: userData.email,
           countryCode: userData.countryCode,
           subscriptionType: userData.subscriptionType,
-          subscriptionPeriod: userData.subscriptionPeriod,
+          // subscriptionPeriod: userData.subscriptionPeriod,
+          subscriptionPeriod: currentPlanDuration
+          ? currentPlanDuration?.value == "annually"
+            ? "yearly"
+            : currentPlanDuration?.value
+          : frequency?.value == "annually"
+          ? "yearly"
+          : frequency?.value, 
           expirationDate: userData.expirationDate,
         });
       } else {
@@ -288,8 +304,8 @@ const OrderSummaryForm = (
         amount: p * 100,
         currency: "SAR",
         description: "Sahmk Purchase",
-        publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-        // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+        // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+        publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
         callback_url: `${origin}/auth/order?previousPage=${search}`,
         // callback_url: `${origin}/userprofile`,
         methods: ["creditcard", "stcpay", "applepay"],

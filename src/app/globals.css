@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    min-height: 100vh;
+}
 .bg-custome {
     background-color: #081F2C !important;
 }
