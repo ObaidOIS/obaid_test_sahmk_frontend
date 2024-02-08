@@ -91,7 +91,7 @@ const ProfileFooter = ({name}) => {
           </div>
           <div className="">
             <p className="mt-1 text-center text-sm leading-6 text-slate-500">
-              © جميع الحقوق محفوظة لمنصة سهمك{" "}
+              © 2024 جميع الحقوق محفوظة لمنصة سهمك{" "}
             </p>
             <p className="mt-2 text-center text-sm leading-6 text-slate-500">
               سجل تجاري رقم 1010913507{" "}
