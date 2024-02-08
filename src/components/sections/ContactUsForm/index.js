@@ -116,14 +116,14 @@ const ContactUsForm = () => {
               <InputFieldUI label="اسم العائلة" name="lastname" handleChange={handleChange} />
             </div>
             <div className="sm:col-span-2">
-              <InputFieldUI label="شركة" name="company" handleChange={handleChange} />
+              <InputFieldUI label="الشركة" name="company" handleChange={handleChange} />
             </div>
             <div className="sm:col-span-2">
-              <InputFieldUI label="بريد إلكتروني" name="email" handleChange={handleChange} />
+              <InputFieldUI label="البريد إلكتروني" name="email" handleChange={handleChange} />
             </div>
             <div className="sm:col-span-2">
               <PhoneNumberUI
-                title="رقم التليفون"
+                title="رقم التواصل"
                 dataList={countryCodes}
                 activeItem={activeItem}
                 setActiveItem={setActiveItem}
