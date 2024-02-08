@@ -82,7 +82,7 @@ const ProfileFooter = ({name}) => {
             <div className="flex items-center gap-12 pt-6 pb-8 px-10">
               {socialIncons.map((item, index) => {
                 return (
-                  <Link href="#_" key={index}>
+                  <Link href={item.href} key={index}>
                     {item.icon}
                   </Link>
                 );
