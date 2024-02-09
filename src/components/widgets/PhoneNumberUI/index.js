@@ -3,6 +3,7 @@ import { SA } from "country-flag-icons/react/3x2";
 
 const PhoneNumberUI = ({
   title,
+  name,
   placeholder,
   dataList,
   activeItem,
@@ -45,7 +46,7 @@ const PhoneNumberUI = ({
         </div>
       <input
         type='text'
-        name="phone-number"
+        name={name}
         id="phone-number"
         onPaste={handlePaste}
         autoComplete={autoComplete}

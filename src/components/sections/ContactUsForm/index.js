@@ -8,9 +8,17 @@ import PhoneNumberUI from "@/components/widgets/PhoneNumberUI";
 import InputFieldUI from "@/components/widgets/InputFieldUI";
 import { BH, KW, OM, QA, SA, AE, PK } from 'country-flag-icons/react/3x2'
 import Image from "next/image";
-
+import apiCall from "@/components/common/api";
+import MessageAlert from "@/components/widgets/MessageAlert";
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 const ContactUsForm = () => {
+
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("error");
+
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("success");
 
   const countryCodes = [
     {
@@ -48,56 +56,123 @@ const ContactUsForm = () => {
   const [activeItem, setActiveItem] = useState(null);
   
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
     company: "",
     email: "",
     phone: "",  
     message: "",
+    country_code: activeItem || "+966",
   });
 
   
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const handleChange = (fieldName, value) => {
+    
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
 
-    console.log(name, value, "contactus");
-  };
+    console.log(fieldName, value, "contactus")
 
-  const handleSubmit = async () => {
-    console.log(formData)
+    // const { name, value } = e.target;
+    // setFormData((prevData) => ({ ...prevData, [name]: value }));
+
+    // console.log(name, value, "contactus");
   };
 
   // const handleSubmit = async () => {
-  //   if (
-  //     formData.target_price !== "" ||
-  //     formData.target_price !== "custom" ||
-  //     formData.target_price !== null
-  //   ) {
-  //     const endpoint = formData.id
-  //       ? "/api/stocks/update/"
-  //       : "/api/stocks/create/";
-  //     const method = formData.id ? "PUT" : "POST";
-  //     const response = await apiCall(endpoint, method, formData);
-  //     if (response.error) {
-  //       setErrorAlert(true);
-  //       setErrorMessage(response.error);
-  //     } else {
-  //       setSuccessAlert(true);
-  //       setSuccessMessage(response.result.message);
-
-  //       // Update formPayload after successful operation
-  //       if (formData.id) {
-  //         setTableData((prevPeople) => [...prevPeople, formData]);
-  //         // Update existing stock
-  //       }
-  //     }
-  //   }
+  //   console.log(formData)
   // };
+
+  const handleSubmitForm = async () => {
+    console.log(formData, "contactus");
+    if(formData.first_name == ""){
+      setErrorAlert(true);
+      setErrorMessage("يرجى ادخال الاسم الاول");
+    }
+    else if(formData.last_name == ""){
+      
+      setErrorAlert(true);
+      setErrorMessage("الرجاء إدخال اسمك الأخير");
+    }
+    else if(formData.email == ""){
+      setErrorAlert(true);
+      setErrorMessage("رجاءا أدخل بريدك الإلكتروني");
+    }
+    else if(formData.phone == ""){
+      setErrorAlert(true);
+      setErrorMessage("يرجى إدخال رقم الهاتف الخاص بك");
+    }
+    else if(formData.message == ""){
+      setErrorAlert(true);
+      setErrorMessage("يرجى كتابة رسالتك");
+    } 
+    else {
+      const response = await apiCall(
+        `/auth/api/user-contact-us/`,
+        "POST",
+        formData
+      );
+      if (response && response.result) {
+        setSuccessAlert(true);
+        setSuccessMessage(response.result.message);
+        console.log(formData, response, "contactus");
+        setFormData({
+          first_name: "",
+          last_name: "",
+          company: "",
+          email: "",
+          phone: "",  
+          message: "",
+          country_code: activeItem || "+966",
+        });
+
+      } else {
+        setErrorAlert(true);
+        setErrorMessage("حدث خطأ ما. أعد المحاولة من فضلك");
+        console.error("something went wrong");
+      }
+    }
+  };
+
+  
+  const handleMenuItemClick = (item) => {
+    handleChange("country_code", item);
+    setActiveItem(item);
+  };
 
 
   return (
     <div>
+      {successAlert == true && (
+        <MessageAlert
+          setOpenModal={setSuccessAlert}
+          title="نجاح"
+          message={successMessage}
+          alertStyle="fixed top-5 !z-50 right-2 text-primaryColor bg-teal-50 "
+          icon={
+            <CheckCircleIcon
+              className="h-5 w-5 text-primaryColor"
+              aria-hidden="true"
+            />
+          }
+        />
+      )}
+      {errorAlert == true && (
+        <MessageAlert
+          setOpenModal={setErrorAlert}
+          title="خطأ"
+          message={errorMessage}
+          alertStyle="fixed top-5 !z-50 right-2 text-redColor bg-red-50 "
+          icon={
+            <XCircleIcon
+              className="h-5 w-5 text-redColor"
+              aria-hidden="true"
+            />
+          }
+        />
+      )}
       <div className=" px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -107,43 +182,72 @@ const ContactUsForm = () => {
             إذا كان لديك أي أسئلة، فلا تتردد في الاتصال بنا. نحن هنا لمساعدتك!
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-xl sm:mt-20">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <div>
-              <InputFieldUI label="الاسم الأول" name="firstname" handleChange={handleChange} />
+        {/* <form> */}
+          <div className="mx-auto mt-16 max-w-xl sm:mt-20">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+              <div>
+                <InputFieldUI label="الاسم الأول" value={formData.first_name} required={true} name="first_name" type="text" handleChange={(e)=>handleChange("first_name", e.target.value)} />
+              </div>
+              <div>
+                <InputFieldUI label="اسم العائلة" value={formData.last_name} required={true} name="last_name" type="text"  handleChange={(e)=>handleChange("last_name", e.target.value)} />
+              </div>
+              <div className="sm:col-span-2">
+                <InputFieldUI label="الشركة" name="company" value={formData.company} type="text"  handleChange={(e)=>handleChange("company", e.target.value)} />
+              </div>
+              <div className="sm:col-span-2">
+                <InputFieldUI label="البريد إلكتروني" name="email" value={formData.email} required={true} type="email"  handleChange={(e)=>handleChange("email", e.target.value)} />
+              </div>
+              <div className="sm:col-span-2">
+                <PhoneNumberUI
+                  name="phone"
+                  value={formData.phone}
+                  handlePaste={() => {
+                    if (
+                      /^\d*$/.test(
+                        e.clipboardData.getData("text/plain").trim()
+                      )
+                    ) {
+                      handleChange(
+                        "phone",
+                        e.clipboardData.getData("text/plain").trim()
+                      );
+                    }
+                    // setInputText(e.clipboardData.getData('text/plain').trim());
+                  }}
+                  autoComplete="tel"
+                  title="رقم التواصل"
+                  dataList={countryCodes}
+                  activeItem={activeItem}
+                  setActiveItem={setActiveItem}
+                  inputmode="numeric"
+                  handleChange={(e) => {
+                    const value = e.target.value;
+                    // Check if the value is a number
+                    if (/^\d*$/.test(value)) {
+                      // handleChange(e);
+                      handleChange("phone", value);
+                    }
+                  }}
+                  required={true}
+                  handleMenuItemClick={handleMenuItemClick}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <TextAreaUI label="الرسالة" value={formData.message} name="message" handleChange={(e)=>handleChange("message", e.target.value)} />
+              </div>
             </div>
-            <div>
-              <InputFieldUI label="اسم العائلة" name="lastname" handleChange={handleChange} />
-            </div>
-            <div className="sm:col-span-2">
-              <InputFieldUI label="الشركة" name="company" handleChange={handleChange} />
-            </div>
-            <div className="sm:col-span-2">
-              <InputFieldUI label="البريد إلكتروني" name="email" handleChange={handleChange} />
-            </div>
-            <div className="sm:col-span-2">
-              <PhoneNumberUI
-                title="رقم التواصل"
-                dataList={countryCodes}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-                inputmode="numeric"
-                handleChange={handleChange}
+            <div className="mt-10">
+              <div>
+              <PrimaryButton
+                type="submit"
+                onClick={(e)=>handleSubmitForm(e)}
+                button="إرسال"
+                buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor hover:!bg-primaryColor w-full justify-center mt-6"
               />
-            </div>
-            <div className="sm:col-span-2">
-              <TextAreaUI label="الرسالة" name="message" handleChange={handleChange} />
+              </div>
             </div>
           </div>
-          <div className="mt-10">
-            <div onClick={(e)=>handleSubmit(e)}>
-            <PrimaryButton
-              button="إرسال"
-              buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor hover:!bg-primaryColor w-full justify-center mt-6"
-            />
-            </div>
-          </div>
-        </div>
+        {/* </form> */}
       </div>
     </div>
   );

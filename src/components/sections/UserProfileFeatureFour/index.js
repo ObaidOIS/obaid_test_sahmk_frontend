@@ -664,6 +664,7 @@ const UserProfileFeatureFour = ({
             <div className="px-6 sm:px-0">
               {/* <InputFieldUI type="text" name="" label="" placeholder="رمز التحقق CVC" /> */}
               <PhoneNumberUI
+                name="phone-number"
                 inputmode="numeric"
                 title="رقم الجوال"
                 dataList={[{ dial_code: userData.countryCode }]}

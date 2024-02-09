@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextAreaUI = ({label, name, handleChange}) => {
+const TextAreaUI = ({label, name, handleChange, value}) => {
   return (
     <div>
        <label htmlFor={name} className="block text-sm font-semibold leading-6 text-gray-900">
@@ -8,6 +8,7 @@ const TextAreaUI = ({label, name, handleChange}) => {
               </label>
               <div className="mt-2.5">
                 <textarea
+                  value={value}
                   name={name}
                   id={name}
                   rows={4}

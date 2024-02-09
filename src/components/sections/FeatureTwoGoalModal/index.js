@@ -41,6 +41,7 @@ const FeatureTwoGoalModal = ({
         defaultValue=""/>
         
       <InputFieldUI
+        type="text"
         value={formData.stock_price}
         handleChange={handleChange}
         label="السعر الحالي" 
@@ -60,6 +61,7 @@ const FeatureTwoGoalModal = ({
         />
       </div>
       <InputFieldUI
+        type="text"
         handleChange={handleChange}
         label="سعر مخصص"
         value={formData.target_price}
