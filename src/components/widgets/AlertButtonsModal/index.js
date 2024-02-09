@@ -1,11 +1,18 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { useRouter } from 'next/navigation';
 
-const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTitle, messageDesc, buttonOne, buttonTwo, buttonIcon, actionButton, messageType}) => {
+const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTitle, messageDesc, buttonOne, buttonTwo, buttonIcon, actionButton, messageType, action, url, navigateToAnotherPage, secondPaymentModal }) => {
+
+  // const handleClick = () => {
+  //   action({});
+  // }
+
+  const router = useRouter();
 
     return (
       <Transition.Root show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={onClose}>
+        <Dialog as="div" className="relative z-10" onClose={()=>{onClose(); action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -51,7 +58,7 @@ const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTit
                     <button
                       type="button"
                       className={`inline-flex w-full order-1 justify-center rounded-md bg-secondaryColor px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primaryColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primaryColor `}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {setIsOpen(false); action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}
                     >
                       {buttonOne}
                     </button>
@@ -59,7 +66,7 @@ const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTit
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full order-2 items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {setIsOpen(false); action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}
                     >
                       {buttonTwo} <div className='mr-3'>{buttonIcon}</div> 
                     </button>
