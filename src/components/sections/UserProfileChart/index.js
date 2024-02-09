@@ -155,6 +155,7 @@ console.log(xAxisTicks, result, "helllllll")
             </linearGradient>
           </defs>
           <Tooltip
+            active={true}
             content={<CustomChartTooltip />}
             cursor={{
               stroke:
@@ -179,6 +180,7 @@ console.log(xAxisTicks, result, "helllllll")
               fill: "#fff",
             }}
             strokeWidth={2}
+            // active={true}
             fill="url(#colorUv)"
           />
 

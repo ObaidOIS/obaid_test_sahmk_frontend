@@ -29,13 +29,17 @@ const OrderSummaryForm = (
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
+  const [isSavePayment, setIsSavePayment] = useState(false);
+  const [url, setUrl] = useState("")
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
+  const [secondPaymentModal, setSecondPaymentModal] = useState(false);
   const [origin, setOrigin] = useState(
     "https://sahmk.sa"
     // "http://localhost:3000"
   );
   const [price, setPrice] = useState("");
   const [currentPlan, setCurrentPlan] = useState("");
+  const [action, setAction] = useState("");
   const [currentPlanDuration, setCurrentPlanDuration] =
     useState(currentDuration);
   //   subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
@@ -193,7 +197,7 @@ const OrderSummaryForm = (
   const navigateToAnotherPage = () => {
     setTimeout(() => {
       router.push("/userprofile");
-    }, 3000);
+    }, 500);
   };
 
   // console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
@@ -264,10 +268,12 @@ const OrderSummaryForm = (
       if (result && result.result && result.result.check) {
         console.log(result, userData, "userData");
         setIsAlertSuccessOpen(true);
-        // router.push("/userprofile");
-        navigateToAnotherPage();
+        // setAction(navigateToAnotherPage())
+        // navigateToAnotherPage();
+        setSecondPaymentModal(true);
       } else {
         setIsAlertErrorOpen(true);
+        setSecondPaymentModal(true);
       }
     };
 
@@ -304,8 +310,8 @@ const OrderSummaryForm = (
         amount: p * 100,
         currency: "SAR",
         description: "Sahmk Purchase",
-        publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
-        // publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
+        // publishable_api_key: "pk_live_nhg2PWy2JCp1xNzXbRCuUWcQysA7u6K7kDt7sM3T",
+        publishable_api_key: "pk_test_r3B5JuvWzF5LG6bZUugRWgb5YqEQKwzYu4nu6qVB",
         callback_url: `${origin}/auth/order?previousPage=${search}`,
         // callback_url: `${origin}/userprofile`,
         methods: ["creditcard", "stcpay", "applepay"],
@@ -316,6 +322,9 @@ const OrderSummaryForm = (
         },
         credit_card: {
           save_card: true,
+        },
+        on_redirect: function (url) {
+          setUrl(url);
         },
         on_completed: function (payment) {
           return new Promise(async function (resolve, reject) {
@@ -329,7 +338,10 @@ const OrderSummaryForm = (
             );
 
             if (result && result.result && result.result.check) {
+              
+              console.log(result.result.check, "hello");
               resolve({});
+              setIsSavePayment(true);
               setIsAlertSuccessOpen(true);
               // setSuccessMessage("success");
               if (isAlertSuccessOpen == false) {
@@ -523,9 +535,13 @@ const OrderSummaryForm = (
         <>
           {isAlertSuccessOpen ? (
             <AlertButtonsModal
-              onClose={() => setIsAlertSuccessOpen(false)}
+              modal="success"
+              onClose={() => {setIsAlertSuccessOpen(false)}}
               isOpen={isAlertSuccessOpen}
               setIsOpen={setIsAlertSuccessOpen}
+              action={isSavePayment}
+              url={url}
+              navigateToAnotherPage={navigateToAnotherPage}
               title="تم الاشتراك بنجاح"
               buttonOne="إدارة حسابي"
               image={
@@ -559,11 +575,14 @@ const OrderSummaryForm = (
           )}
           {isAlertErrorOpen ? (
             <AlertButtonsModal
+              modal="error"
               onClose={() => setIsAlertErrorOpen(false)}
               isOpen={isAlertErrorOpen}
               setIsOpen={setIsAlertErrorOpen}
               title="فشلت عملية الدفع!"
               buttonOne="حاولة مرة أخرى"
+              secondPaymentModal={secondPaymentModal}
+              navigateToAnotherPage={navigateToAnotherPage}
               image={
                 <Image
                   loading="eager"
