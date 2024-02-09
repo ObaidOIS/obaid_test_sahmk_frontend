@@ -36,7 +36,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
   return (
     <div>
       <div className="mx-auto max-w-7xl">
-        <div className="text-2xl font-medium mb-5 ">{activeTab}</div>
+        {/* <div className="text-2xl font-medium mb-5 ">{activeTab}</div> */}
         <div className={` rounded-2xl mb-4 border border-mediumGreyColor px-3 py-5 bg-whiteColor ${activeStatistics == "trades_info" ? "" : "hidden"}`}>
           <ProgressBarUI precentageIn={precentageIn} precentageOut={precentageOut} />
         </div>

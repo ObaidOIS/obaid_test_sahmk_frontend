@@ -39,7 +39,7 @@ const SelectUserCompaniesInput = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [currentSelectedValue, setCurrentSelectedValue] = useState("");
 
-  
+  console.log(filteredData, "hello filter");
 
   useEffect(() => {
     const handleClickOutside = (event) => {

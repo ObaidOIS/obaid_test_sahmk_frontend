@@ -141,3 +141,11 @@ const Login = () => {
 }
 
 export default Login
+
+
+export function generateViewport({ params }) {
+  return {
+    themeColor: '#09202D',
+  }
+}
+

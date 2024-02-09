@@ -27,10 +27,10 @@ const TryMeSection = () => {
   return (
     <div
       id="try-us"
-      className="flex items-end w-full mb-32 min-h-screen bg-white"
+      className="flex items-end w-full mb-32 bg-white"
     >
       <div className="w-full text-gray-700 mx-6 body-font">
-        <div className="container flex flex-col flex-wrap py-24 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap">
+        <div className="container flex flex-col flex-wrap py-10 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap">
           <div className="flex-shrink-0 w-full lg:w-1/3 px-1 mx-auto md:mx-0">
             <div className="mb-3 mt-10 flex w-4/5">
               <div className="">

@@ -107,7 +107,7 @@ const PricingSection = () => {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div id="pricing" className=" bg-bgColor dark:bg-darkColor py-24 sm:py-32">
+    <div id="pricing" className=" bg-bgColor dark:bg-darkColor py-10 sm:py-14">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="mt-2 text-2xl font-bold tracking-tight text-darkColor dark:text-whiteColor  sm:text-4xl">
@@ -117,7 +117,7 @@ const PricingSection = () => {
         <p className="mx-auto mt-6 max-w-2xl text-center text-l leading-8 text-darkColor/50 dark:text-gray-300">
         بإمكانك مع نظام سهمك الذكي الاستفسار بشكل سهل وسريع عبر الواتساب عن الأسهم وسيعطيك وسريع عبر الواتساب عن الأسهم وسيعطيك إجابات دقيقة 
         </p>
-        <div className="mt-16 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <RadioTabs frequencies={frequencies} setFrequency={setFrequency} frequency={frequency} />
         </div>
         <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
