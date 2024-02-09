@@ -88,7 +88,8 @@ const UserProfileFeatureFour = ({
     {
       title: "الباقة المجانية",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/blue-check.svg"
           width={25}
           height={25}
@@ -159,7 +160,8 @@ const UserProfileFeatureFour = ({
     {
       title: "باقة بريميوم",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/purple-check-icon.svg"
           width={25}
           height={25}
@@ -227,7 +229,8 @@ const UserProfileFeatureFour = ({
     {
       title: "الباقة المتقدمة",
       icon: (
-        <Image loading="eager"  
+        <Image
+          loading="eager"
           src="/assets/icons/yellow-check.svg"
           width={25}
           height={25}
@@ -348,36 +351,40 @@ const UserProfileFeatureFour = ({
   };
 
   useEffect(() => {
-    
     // Update the states whenever the original subscription details change
     setSelectedOption(
       subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-      subscriptionTypeMap.free
+        subscriptionTypeMap.free
     );
     setFrequency(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[1]
+        frequencies[1]
     );
 
     setCurrentPlan(
       subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] ||
-      subscriptionTypeMap.free
+        subscriptionTypeMap.free
     );
 
     setCurrentPlanDuration(
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] ||
-      frequencies[1]
+        frequencies[1]
     );
-    
-    console.log(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod],subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType], "userData" )
+
+    console.log(
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod],
+      subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType],
+      "userData"
+    );
     handleUpgardPlanDuration(
-      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod] 
+      subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod]
     );
-    handleUpgradPlan(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]);
-    // handleUpgradPlan(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "free" ? {title: "الباقة المجانية"} 
+    handleUpgradPlan(
+      subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]
+    );
+    // handleUpgradPlan(subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "free" ? {title: "الباقة المجانية"}
     // : subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "premium" ? {title: "باقة بريميوم"} :
     // subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "companies" ? {title: "الباقة المتقدمة"} : currentPlan)
-    
   }, [originalSubscriptionDetails]);
 
   return (
@@ -448,7 +455,8 @@ const UserProfileFeatureFour = ({
                 title="باقتي"
                 desc="تفاصيل ومعلومات باقتي"
                 image={
-                  <Image loading="eager"  
+                  <Image
+                    loading="eager"
                     src="/assets/icons/golden-doc.svg"
                     height={30}
                     width={30}
@@ -468,35 +476,37 @@ const UserProfileFeatureFour = ({
                         : currentPlan.title
                       : selectedOption
                   }
-                  desc={` ${(currentPlan
+                  desc={` ${
+                    (currentPlan
                       ? currentPlan.title == undefined
                         ? currentPlan
                         : currentPlan.title
                       : selectedOption) == "الباقة المتقدمة"
                       ? pricing.pricing.companies[
-                      currentPlanDuration
-                        ? currentPlanDuration?.value
-                        : frequency?.value
-                      ]
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency?.value
+                        ]
                       : (currentPlan
-                        ? currentPlan.title == undefined
-                          ? currentPlan
-                          : currentPlan.title
-                        : selectedOption) == "باقة بريميوم"
-                        ? pricing.pricing.premium[
-                        currentPlanDuration
-                          ? currentPlanDuration?.value
-                          : frequency?.value
+                          ? currentPlan.title == undefined
+                            ? currentPlan
+                            : currentPlan.title
+                          : selectedOption) == "باقة بريميوم"
+                      ? pricing.pricing.premium[
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency?.value
                         ]
-                        : pricing.pricing.free[
-                        currentPlanDuration
-                          ? currentPlanDuration?.value
-                          : frequency.value
+                      : pricing.pricing.free[
+                          currentPlanDuration
+                            ? currentPlanDuration?.value
+                            : frequency.value
                         ]
-                    } / ${currentPlanDuration
+                  } / ${
+                    currentPlanDuration
                       ? currentPlanDuration?.label
                       : frequency?.label
-                    } `}
+                  } `}
                   descStyle={
                     (currentPlan
                       ? currentPlan.title == undefined
@@ -505,15 +515,20 @@ const UserProfileFeatureFour = ({
                       : selectedOption) == "الباقة المتقدمة"
                       ? "!text-yellowColor"
                       : (currentPlan
-                        ? currentPlan.title == undefined
-                          ? currentPlan
-                          : currentPlan.title
-                        : selectedOption) == "باقة بريميوم"
-                        ? "!text-purpleColor"
-                        : "!text-blueColor"
+                          ? currentPlan.title == undefined
+                            ? currentPlan
+                            : currentPlan.title
+                          : selectedOption) == "باقة بريميوم"
+                      ? "!text-purpleColor"
+                      : "!text-blueColor"
+                  }
+                  subText={
+                    userData.expirationDate &&
+                    `تاريخ انتهاء الباقة: ${userData.expirationDate}`
                   }
                   image={
-                    <Image loading="eager"  
+                    <Image
+                      loading="eager"
                       src={
                         (currentPlan
                           ? currentPlan.title == undefined
@@ -522,12 +537,12 @@ const UserProfileFeatureFour = ({
                           : selectedOption) == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
                           : (currentPlan
-                            ? currentPlan.title == undefined
-                              ? currentPlan
-                              : currentPlan.title
-                            : selectedOption) == "باقة بريميوم"
-                            ? "/assets/icons/purple-check-icon.svg"
-                            : "/assets/icons/blue-check.svg"
+                              ? currentPlan.title == undefined
+                                ? currentPlan
+                                : currentPlan.title
+                              : selectedOption) == "باقة بريميوم"
+                          ? "/assets/icons/purple-check-icon.svg"
+                          : "/assets/icons/blue-check.svg"
                       }
                       height={30}
                       width={30}
@@ -587,38 +602,38 @@ const UserProfileFeatureFour = ({
                     )) && ( */}
                 {((currentPlan !== "الباقة المجانية" &&
                   (currentPlan?.title && currentPlan?.title) !==
-                  "الباقة المجانية" &&
+                    "الباقة المجانية" &&
                   (currentPlanDuration
                     ? currentPlanDuration?.value
                     : frequency?.value) !=
-                  subscriptionPeriodMap[
-                    originalSubscriptionDetails?.subscriptionPeriod
-                  ].value) ||
+                    subscriptionPeriodMap[
+                      originalSubscriptionDetails?.subscriptionPeriod
+                    ].value) ||
                   (currentPlan
                     ? currentPlan.title == undefined
                       ? currentPlan
                       : currentPlan.title
                     : selectedOption) !=
-                  subscriptionTypeMap[
-                  originalSubscriptionDetails?.subscriptionType
-                  ]) && (
-                    <div
-                      className="mt-3"
-                      onClick={() => {
-                        handlePageChange({
-                          name: "payment",
-                          value: "باقتي وحسابي",
-                        });
-                        // setSelectedOption();
-                        // handlePlanChange(selectedOption, frequency);
-                      }}
-                    >
-                      <PrimaryButton
-                        button="متابعة للدفع"
-                        buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
-                      />
-                    </div>
-                  )}
+                    subscriptionTypeMap[
+                      originalSubscriptionDetails?.subscriptionType
+                    ]) && (
+                  <div
+                    className="mt-3"
+                    onClick={() => {
+                      handlePageChange({
+                        name: "payment",
+                        value: "باقتي وحسابي",
+                      });
+                      // setSelectedOption();
+                      // handlePlanChange(selectedOption, frequency);
+                    }}
+                  >
+                    <PrimaryButton
+                      button="متابعة للدفع"
+                      buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                    />
+                  </div>
+                )}
               </div>
             }
           />
@@ -630,7 +645,8 @@ const UserProfileFeatureFour = ({
                 title="حسابي ومعلوماتي"
                 desc="تفاصيل حسابي وباقتي"
                 image={
-                  <Image loading="eager"  
+                  <Image
+                    loading="eager"
                     src="/assets/icons/outline-user.svg"
                     height={20}
                     width={20}
