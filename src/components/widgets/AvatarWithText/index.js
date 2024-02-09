@@ -1,21 +1,54 @@
-import React from 'react'
+// import React from 'react'
 
-const AvatarWithText = ({image, title, desc, descStyle }) => {
+// const AvatarWithText = ({image, title, desc, descStyle }) => {
+//   return (
+//     <div>
+//        <div href="#" className="group block flex-shrink-0">
+//       <div className="flex items-center">
+//         <div>
+//           {image}
+//         </div>
+//         <div className="mr-3 space-y-1">
+//           <p className=" font-medium text-gray-700 group-hover:text-gray-900">{title}</p>
+//           <p className={`text-xs font-medium text-gray-500 group-hover:text-gray-700 ${descStyle} `}>{desc}</p>
+//         </div>
+//       </div>
+//     </div>
+//     </div>
+//   )
+// }
+
+// export default AvatarWithText
+
+import React from "react";
+
+const AvatarWithText = ({ image, title, desc, descStyle, subText }) => {
   return (
     <div>
-       <div href="#" className="group block flex-shrink-0">
-      <div className="flex items-center">
-        <div>
-          {image}
-        </div>
-        <div className="mr-3 space-y-1">
-          <p className=" font-medium text-gray-700 group-hover:text-gray-900">{title}</p>
-          <p className={`text-xs font-medium text-gray-500 group-hover:text-gray-700 ${descStyle} `}>{desc}</p>
+      <div href="#" className="group block flex-shrink-0">
+        <div className="flex items-center">
+          <div>{image}</div>
+          <div className="space-y-1">
+            <div className="mr-3 space-y-1">
+              <p className="font-medium text-gray-700 group-hover:text-gray-900">
+                {title}
+              </p>
+              <p
+                className={`text-xs font-medium text-gray-500 group-hover:text-gray-700 ${descStyle}`}
+              >
+                {desc}
+              </p>
+            </div>
+            {subText && (
+              <div className="mr-3">
+                <p className="text-xs font-medium text-gray-500">{subText}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default AvatarWithText
+export default AvatarWithText;
