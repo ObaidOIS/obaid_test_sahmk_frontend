@@ -30,7 +30,7 @@ const OrderSummaryForm = (
   const router = useRouter();
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState(false);
   const [isSavePayment, setIsSavePayment] = useState(false);
-  const [url, setUrl] = useState("")
+  const [url, setUrl] = useState("");
   const [isAlertErrorOpen, setIsAlertErrorOpen] = useState(false);
   const [secondPaymentModal, setSecondPaymentModal] = useState(false);
   const [origin, setOrigin] = useState(
@@ -84,13 +84,16 @@ const OrderSummaryForm = (
       if (search == "signup") {
         console.log(
           userData.subscriptionType,
-          userData.subscriptionPeriod,  currentPlanDuration
-          ? currentPlanDuration?.value == "annually"
+          userData.subscriptionPeriod,
+          currentPlanDuration
+            ? currentPlanDuration?.value == "annually"
+              ? "yearly"
+              : currentPlanDuration?.value
+            : frequency?.value == "annually"
             ? "yearly"
-            : currentPlanDuration?.value
-          : frequency?.value == "annually"
-          ? "yearly"
-          : frequency?.value, "subscription")
+            : frequency?.value,
+          "subscription"
+        );
         setUserData({
           name: userData.fullName,
           phoneNumber: userData.phoneNumber,
@@ -99,12 +102,12 @@ const OrderSummaryForm = (
           subscriptionType: userData.subscriptionType,
           // subscriptionPeriod: userData.subscriptionPeriod,
           subscriptionPeriod: currentPlanDuration
-          ? currentPlanDuration?.value == "annually"
+            ? currentPlanDuration?.value == "annually"
+              ? "yearly"
+              : currentPlanDuration?.value
+            : frequency?.value == "annually"
             ? "yearly"
-            : currentPlanDuration?.value
-          : frequency?.value == "annually"
-          ? "yearly"
-          : frequency?.value, 
+            : frequency?.value,
           expirationDate: userData.expirationDate,
         });
       } else {
@@ -325,6 +328,7 @@ const OrderSummaryForm = (
         },
         on_redirect: function (url) {
           setUrl(url);
+          window.location.href = url;
         },
         on_completed: function (payment) {
           return new Promise(async function (resolve, reject) {
@@ -336,9 +340,7 @@ const OrderSummaryForm = (
                 token: payment.source.token,
               }
             );
-
             if (result && result.result && result.result.check) {
-              
               console.log(result.result.check, "hello");
               resolve({});
               setIsSavePayment(true);
@@ -536,7 +538,9 @@ const OrderSummaryForm = (
           {isAlertSuccessOpen ? (
             <AlertButtonsModal
               modal="success"
-              onClose={() => {setIsAlertSuccessOpen(false)}}
+              onClose={() => {
+                setIsAlertSuccessOpen(false);
+              }}
               isOpen={isAlertSuccessOpen}
               setIsOpen={setIsAlertSuccessOpen}
               action={isSavePayment}
