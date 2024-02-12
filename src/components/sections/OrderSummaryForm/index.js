@@ -270,13 +270,13 @@ const OrderSummaryForm = (
 
       if (result && result.result && result.result.check) {
         console.log(result, userData, "userData");
+        setSecondPaymentModal(true);
         setIsAlertSuccessOpen(true);
         // setAction(navigateToAnotherPage())
         // navigateToAnotherPage();
-        setSecondPaymentModal(true);
       } else {
-        setIsAlertErrorOpen(true);
         setSecondPaymentModal(true);
+        setIsAlertErrorOpen(true);
       }
     };
 
@@ -544,6 +544,7 @@ const OrderSummaryForm = (
               isOpen={isAlertSuccessOpen}
               setIsOpen={setIsAlertSuccessOpen}
               action={isSavePayment}
+              secondPaymentModal={secondPaymentModal}
               url={url}
               navigateToAnotherPage={navigateToAnotherPage}
               title="تم الاشتراك بنجاح"

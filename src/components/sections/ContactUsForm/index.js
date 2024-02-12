@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "@/components/layouts/Footer";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
 import SwitchUI from "@/components/widgets/SwitchUI";
@@ -11,6 +11,7 @@ import Image from "next/image";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactUsForm = () => {
 
@@ -19,6 +20,18 @@ const ContactUsForm = () => {
 
   const [successAlert, setSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState("success");
+
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
+
+  useEffect(() => {
+    // Set window.recaptchaOptions when the component mounts
+    window.recaptchaOptions = {
+      enterprise: true,
+    };
+
+    // Clean up when the component unmounts
+    return () => {};
+  }, []);
 
   const countryCodes = [
     {
@@ -81,11 +94,20 @@ const ContactUsForm = () => {
     // console.log(name, value, "contactus");
   };
 
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+  };
+
   // const handleSubmit = async () => {
   //   console.log(formData)
   // };
 
   const handleSubmitForm = async () => {
+    if (!recaptchaValue) {
+      setErrorAlert(true);
+      setErrorMessage("يرجى التحقق باستخدام reCAPTCHA");
+      return;
+    }
     console.log(formData, "contactus");
     if(formData.first_name == ""){
       setErrorAlert(true);
@@ -237,6 +259,12 @@ const ContactUsForm = () => {
               </div>
             </div>
             <div className="mt-10">
+              {/* <div className="mb-10">
+              <ReCAPTCHA
+                sitekey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
+                onChange={handleRecaptchaChange}
+              />
+              </div> */}
               <div>
               <PrimaryButton
                 type="submit"
