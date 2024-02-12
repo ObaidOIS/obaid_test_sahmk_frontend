@@ -146,7 +146,8 @@ const UserProfileSection = () => {
   // }, [storedPage]);
 
   useEffect(() => {
-    console.log(pathname, page.name, "pathname change")
+    console.log(pathname, page.name, "pathname change");
+
     // handlePageChange(
 
     //   page.name == "payment"
@@ -156,17 +157,7 @@ const UserProfileSection = () => {
     //         value: "الخدمات الرئىيسية",
     //       }
     // );
-    handlePageChange(
-      (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
-      page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
-      page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
-      page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
-      page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
-      page.name == "userprofile" && {
-            name: "userprofile",
-            value: "الخدمات الرئىيسية",
-          })
-    );
+    
     // addEventListener("popstate", () => {
     //   const userprofilePage =
     //     page.name == "payment"
@@ -183,19 +174,56 @@ const UserProfileSection = () => {
     //     localStorage.setItem("page", serializedPage);
     //   }
     // });
-    
-    window.addEventListener("popstate", (e) => {
-      e.preventDefault();
 
-      const userprofilePage = (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
-      page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
-      page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
-      page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
-      page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
-      page.name == "userprofile" && {
-            name: "userprofile",
-            value: "الخدمات الرئىيسية",
-          })
+    
+    
+    addEventListener("popstate", (e) => {
+      let userprofilePage = "";
+
+      if (!e.persisted) {
+        handlePageChange(
+            page.name == "payment"
+              ? { name: "my-account", value: "باقتي وحسابي" }
+              : {
+                  name: "userprofile",
+                  value: "الخدمات الرئىيسية",
+                }
+          );
+          
+        userprofilePage = (page.name == "payment"
+          ? { name: "my-account", value: "باقتي وحسابي" }
+          : {
+              name: "userprofile",
+              value: "الخدمات الرئىيسية",
+            });
+        // This is not a page refresh, handle your logic here
+        console.log("Not a page refresh");
+      } else {
+        handlePageChange(
+          (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
+          page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
+          page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
+          page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
+          page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
+          page.name == "userprofile" && {
+                name: "userprofile",
+                value: "الخدمات الرئىيسية",
+              })
+        );
+        userprofilePage = (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
+        page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
+        page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
+        page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
+        page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
+        page.name == "userprofile" && {
+              name: "userprofile",
+              value: "الخدمات الرئىيسية",
+            });
+        // This is a page refresh, you can skip handling or do something else
+        console.log("Page refresh");
+      }
+
+   
       const cleanPage = cleanCircularReferences(userprofilePage);
       const serializedPage = JSON.stringify(cleanPage);
 
@@ -205,11 +233,7 @@ const UserProfileSection = () => {
       }
     });
 
-    // return () => {
-    //   window.removeEventListener('popstate', handlePopstate);
-    // };
-
-  }, []);
+  }, [page.name]);
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
@@ -331,6 +355,7 @@ const UserProfileSection = () => {
   ];
 
   const handlePageChange = (newPage) => {
+    console.log(newPage, "pathname change in change function")
     const { name, value } = newPage;
     setPage({ name, value });
   };
@@ -1030,10 +1055,6 @@ const UserProfileSection = () => {
                 setErrorAlert={setErrorAlert}
                 setErrorMessage={setErrorMessage}
               /> */}
-                        {/* handleTagClick(apiRange, item.stock_company);
-                        setActiveStat(item.stock_name || item.stock_company);
-                        setSelectedSymbol(item.stock_company); */}
-
                         <SelectUserCompaniesInput
                           handleTagClick={handleTagClick}
                           setActiveStat={setActiveStat}
@@ -1093,6 +1114,10 @@ const UserProfileSection = () => {
                     setActiveStatistics={setActiveStatistics}
                     activeStatistics={activeStatistics}
                   />
+
+                </div>
+                <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+
                 </div>
               </div>
             ) : page.name == "stock-notification" ? (

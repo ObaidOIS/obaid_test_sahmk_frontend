@@ -344,14 +344,14 @@ const OrderSummaryForm = (
               console.log(result.result.check, "hello");
               resolve({});
               setIsSavePayment(true);
-              setIsAlertSuccessOpen(true);
+              // setIsAlertSuccessOpen(true);
               // setSuccessMessage("success");
               if (isAlertSuccessOpen == false) {
                 console.log(isAlertSuccessOpen, "hello payment");
               }
             } else {
               reject();
-              setIsAlertErrorOpen(true);
+              // setIsAlertErrorOpen(true);
               // setErrorMessage("error");
             }
           });
