@@ -70,7 +70,6 @@ const LoginContainer = () => {
       {warningAlert == true && (
         <NotificationAlert
           isOpen={warningAlert}
-          // isOpen={true}
           setOpenModal={setWarningAlert}
           title="خطأ"
           message={warningMessage}

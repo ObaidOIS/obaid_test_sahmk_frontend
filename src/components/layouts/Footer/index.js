@@ -10,7 +10,6 @@ const Footer = () => {
   const footerLinks = [
     { name: "الرئيسية", href: '/#' },
     { name: "المميزات", href: '/#features' },
-    // { name: "خدماتنا", href: '/#services' },
     { name: "خدماتنا", href: '/#services' },
     { name: "تجربة النظام", href: '#' },
     { name: "صفحة الخصوصية", href: '/privacypolicy#' },

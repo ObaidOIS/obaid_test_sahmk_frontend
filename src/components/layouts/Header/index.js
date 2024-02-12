@@ -21,7 +21,6 @@ const Header = ({ toggleSidebar }) => {
     setActiveTab(tabNumber);
   };
 
-  // let isAuthenticate = false 
   const [isAuthenticate, setIsAuthenticate] = useState(null)
   useEffect(() => {
     setIsAuthenticate(isAuthenticated());

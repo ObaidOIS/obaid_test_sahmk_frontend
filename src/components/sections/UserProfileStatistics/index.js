@@ -91,12 +91,6 @@ const UserProfileStatistics = ({
 
   // console.log(chartData, "hello chart nan")
 
-  const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('اعرضلي حسابي');
-    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
-
-  }
-
   return (
     <div>
       <div className="mt-0 mb-2 pb-2 pt-2">
@@ -224,6 +218,7 @@ const UserProfileStatistics = ({
               <div>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col ms-3">
+                    <div className="text-darkGreyColor">السهم</div>
                     <dd className="tracking-tight text-gray-900 font-medium text-2xl">
                       {activeStat == "TASI" ? "تاسي" : activeStat == "NOMUC" ? "سوق نمو" : activeStat}
                     </dd>
@@ -451,22 +446,6 @@ const UserProfileStatistics = ({
           );
         })} */}
       <div>
-      <div className="mt-6 border-t border-mediumGreyColor">
-        <div onClick={handleOpenWhatsapp} className={` rounded-2xl mb-4 mt-6 shadow-xl hover:shadow-2xl group cursor-pointer px-6 py-4 border border-whiteColor hover:border hover:border-secondaryColor bg-whiteColor`}>
-        <div className="mx-auto inline-flex">
-                <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap"> 
-                <Image loading="eager" src="/assets/icons/whatsapp.svg" width={30} height={30} className="ml-5" alt="img" priority /> 
-                انتقل إلى محادثة النظام الذكي على الواتساب
-                </span>
-            </div>
-        </div>
-        </div>
-        <div className="font-medium text-right leading-none m-2  mt-14 mb-8">
-          تحديث البيانات{" "}
-          <span className="font-normal text-gray-500/80">
-            اليوم الساعة {lastUpdatedDates}
-          </span>
-        </div>
       </div>
     </div>
   );

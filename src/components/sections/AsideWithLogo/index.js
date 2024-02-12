@@ -5,13 +5,11 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation'
 
 const AsideWithLogo = () => {
-  // const width= calc(~"100% - 3px");
   const pathname = usePathname();
 
   return (
     <div className="relative flex-1">
       <Image loading="eager"  
-        // src={pathname == "/auth/login" ? "/assets/images/login-dark.svg" : "/assets/images/dark-rectangle.png"}
         src="/assets/images/dark-rectangle.png"
         width={300}
         height={200}
@@ -21,7 +19,6 @@ const AsideWithLogo = () => {
         priority
       />
       <Image loading="eager"  
-        // src={pathname == "/auth/login" ? "/assets/images/login-gradient.svg" : "/assets/images/gradient-rectangle.png"}
         src="/assets/images/gradient-rectangle.png"
         layout="fill"
         className="z-[-9999]"

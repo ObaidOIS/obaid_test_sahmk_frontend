@@ -123,7 +123,7 @@ const DarkNavOverlay = ({
           </header>
         </div>
 
-        <main className="-mt-32 relative">
+        <main className={`${page.name !== "userprofile" ? "-mt-32" : "-mt-[5.5rem]"} relative`}>
           <div className="mx-auto xl:w-6/12 lg:w-8/12 max-w-7xl pb-12 sm:px-6 lg:px-8">
             <div className="rounded-lg text-sm px-3 py-6 sm:px-6">
               {page.name !== "userprofile" ? (

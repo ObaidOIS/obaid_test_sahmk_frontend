@@ -67,9 +67,6 @@ const OtpModal = ({
 
       setOtpId(response.result.id);
       console.log(response, "hello");
-      // setErrorAlert(true);
-      // setErrorMessage("phone no correct karo");
-      // onClose();
       setSuccessAlert(true);
       setSuccessMessage(
         resend !== undefined && resend == true
@@ -109,52 +106,11 @@ const OtpModal = ({
     };
   }, []);
 
-  // const handleInputChange = (value, index) => {
-  //   // Update the corresponding OTP digit
-  //   let newOtp = [...otp];
-  //   newOtp[index] = value;
-  //   setOtp(newOtp);
-
-  //   if (value === "") {
-  //     // If the first digit is removed, focus on the same input
-  //     document.getElementById(`code-${index - 1}`)?.focus();
-  //   }
-  //   console.log(otp, newOtp[index], value,  newOtp,   "hello id its me")
-
-  //   if (index == 3 && value !== "") {
-  //     // if (newOtp.length == 4 && value !== "") {
-  //     // const code = (otp + value).replace(/,/g, '');
-  //     const code = newOtp.join("");
-  //     // console.log(otp, "hello id its me")
-  //     handleSubmit(code);
-  //   }
-  // };
 
   const resendText = ` ${timer.minutes()}:${timer.seconds()}`;
 
-  // const focusNextInput = (e, prevId, nextId, index) => {
-  //   const value = e.target?.value ? e.target.value : e;
-
-  //   // Ensure input is numeric
-  //   if (!value || isNaN(value)) {
-  //     return; // early return if not a number
-  //   }
-
-  //   // Update OTP
-  //   handleInputChange(value, index);
-
-  //   const inputLength = value.length;
-  //   if (inputLength === 1) {
-  //     document.getElementById(nextId)?.focus();
-  //   } else if (inputLength === 0) {
-  //     document.getElementById(prevId)?.focus();
-  //     handleInputChange("", index - 1);
-  //   }
-  // };
-
   const handleSubmit = async (value) => {
     // Combine OTP digits into a single variable
-    // const enteredOTP = otp.join("");
     const enteredOTP = value == "undefined" ? otp.join("") : value;
 
     console.log(enteredOTP, "hello id");
@@ -212,61 +168,6 @@ const OtpModal = ({
     }
   };
 
-  // const handleKeyUp = (e, prevId, nextId, index) => {
-  //   // Handle backspace
-  //   if ((e.code === "Backspace" || e.keyCode === 46 || e.key === 'Backspace' ) && index > 0) {
-  //     // document.getElementById(prevId)?.setAttribute("id", `code-${index - 1}`);
-  //     document.getElementById(prevId)?.focus();
-  //     handleInputChange("", index);
-  //     return;
-  //   }
-  // };
-
-  // const [copied, setCopied] = useState(false);
-
-  // const handleCopyClick = () => {
-  //   const textarea = document.createElement('textarea');
-  //   textarea.value = "hello";
-  //   document.body.appendChild(textarea);
-
-  //   textarea.select();
-  //   document.execCommand('copy');
-
-  //   document.body.removeChild(textarea);
-
-  //   setCopied(true);
-  // };
-
-  // useEffect(() => {
-  //   if (copied) {
-  //     // Display any additional UI/notification for the user
-  //     alert('Text copied to clipboard!');
-  //     setCopied(false); // Reset copied state
-  //   }
-  // }, [copied]);
-
-  // const handlePaste = (e) => {
-  //   e.preventDefault();
-  //   const pastedData = e.clipboardData.getData('text/plain').trim();
-  //   const otpInputs = Array.from({ length: 4 }, (_, index) => `code-${index}`);
-
-  //   let enteredOTP = Array(4).fill(""); // Initialize enteredOTP as an array of empty strings
-
-  //   otpInputs.forEach((inputId, index) => {
-  //     const inputElement = document.getElementById(inputId);
-  //     if (inputElement) {
-  //       const newValue = pastedData[index] || ''; // Use pasted digit or empty string
-  //       inputElement.value = newValue;
-  //       enteredOTP[index] = newValue; // Update the corresponding index in enteredOTP
-  //       focusNextInput(
-  //         newValue,
-  //         `code-${index - 3}`, // Previous ID
-  //         `code-${index + 3}`, // Next ID
-  //         index // Current index for OTP
-  //       );
-  //     }
-  //   });
-
   useEffect(() => {
     console.log(otp, "otp value");
     if(otp.length == 4){
@@ -274,17 +175,6 @@ const OtpModal = ({
     }
   
   }, [otp])
-
-  //   // Now enteredOTP is an array with four digits
-  //   console.log(enteredOTP, "hello id its me");
-  //   const enteredOTPArray = enteredOTP.join("");
-  //   // You can optionally call the handleSubmit function here passing the enteredOTP
-  //   handleSubmit(enteredOTPArray);
-  //   // Or update the state if needed
-  //   // setOtp(enteredOTP); // Update the state with the enteredOTP array
-  //   // focusNextInput(...); // Focus on the next input if needed
-  // };
-
 
     useEffect(() => {
     const otpInputElements = document.querySelectorAll('.otpInput');
@@ -325,37 +215,7 @@ const OtpModal = ({
           containerStyle="!grid grid-cols-4 gap-4"
           // renderSeparator={<span> &nbsp;</span>}
           renderInput={(props) => <input {...props} id="otpmodal" />}
-          // renderInput={(props) => <input autocomplete="one-time-code" id="otpInput" {...props} />}
         />
-        {/* {Array.from({ length: 4 }, (_, index) => (
-          <InputFieldUI
-            // handleBeforeInput={(e)=>{handlePaste(e)}}
-            // handleOnInput={(e)=>{handlePaste(e)}}
-            key={index}
-            // maxlength="1"
-            autocomplete="one-time-code"
-            handleChange={(e) => {
-              focusNextInput(
-                e,
-                `code-${index - 1}`, // Previous ID
-                `code-${index + 1}`, // Next ID
-                index // Current index for OTP
-              );
-            }}
-            id={`code-${index}`}
-            buttonStyle="text-center"
-            inputmode="numeric"
-            handlePaste={(e)=>{handlePaste(e)}}
-            handleKeyUp={(e) => {
-              handleKeyUp(
-                e,
-                `code-${index - 1}`, // Previous ID
-                `code-${index + 1}`, // Next ID
-                index
-              );
-            }}
-          />
-        ))} */}
       </div>
       <div>
         <p
@@ -372,7 +232,6 @@ const OtpModal = ({
             ? ` إعادة ارسال الرمز بعد ${resendText} `
             : `إعادة إرسال OTP مرة أخرى`}{" "}
         </p>
-        {/* <p className='text-sm font-medium text-right'>  22:00</p> */}
       </div>
       <div>
         <PrimaryButton

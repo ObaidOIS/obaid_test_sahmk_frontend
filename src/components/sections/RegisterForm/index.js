@@ -15,7 +15,6 @@ import SimpleAlertModalUI from "@/components/widgets/SimpleAlertModalUI";
 import OtpModal from "../OtpModal";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-// import XCircleIcon from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 import { useSearchParams } from "next/navigation";
 import apiCall from "@/components/common/api";
@@ -385,16 +384,6 @@ const RegisterForm = () => {
     },
   ];
 
-  // const handleCheckboxChange = (value, isChecked) => {
-  //   setSelectedCheckboxes((prevCheckboxes) => {
-  //     if (isChecked) {
-  //       return prevCheckboxes.filter((checkbox) => checkbox !== value);
-  //     } else {
-  //       return [...prevCheckboxes, value];
-  //     }
-  //   });
-  // };
-
   const validateForm = () => {
     // Validate each field and update the overall form validity
     setIsFormValid(
@@ -472,12 +461,6 @@ const RegisterForm = () => {
       debouncedCheckPhoneNumber();
     }
   }, [userData.phoneNumber, debouncedCheckPhoneNumber]);
-
-  // useEffect(() => {
-  //   if (phoneNumberExists) {
-  //     alert("هذا الرقم موجود بالفعل، يرجى تسجيل الدخول." + " " + userData.countryCode + " " + userData.phoneNumber);
-  //   }
-  // }, [phoneNumberExists]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

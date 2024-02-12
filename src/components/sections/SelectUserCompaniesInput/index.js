@@ -123,7 +123,7 @@ const SelectUserCompaniesInput = ({
             onClick={() => dropdownOpen == false ? setDropdownOpen(true) : ""}
             // onBlur={() => setDropdownOpen(false)}
             // inputContainerStyle="relative"
-            inputStyle="bg-white"
+            inputStyle="bg-white rounded-xl shadow-md py-3"
             // inputStyle={`bg-white rounded-md relative ring-brightGreyColor py-3 focus:!ring-2 focus:!ring-primaryColor`}
             placeholder={
               // selectedItems?.length > 0
@@ -132,7 +132,7 @@ const SelectUserCompaniesInput = ({
               currentSelectedValue :
               "بحث عن اسم السهم  أو رقم السهم"
             }
-            icon={<FiSearch size={24} className="text-mediumGreyColor" />}
+            icon={<FiSearch size={24} className="text-darkGreyColor/60" />}
             searchQuery={searchQuery}
             handleSearch={handleSearch}
           />

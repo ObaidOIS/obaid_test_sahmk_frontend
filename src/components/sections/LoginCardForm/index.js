@@ -31,7 +31,6 @@ const LoginCardForm = ({
 }) => {
 
   const [phoneNumberNotExists, setPhoneNumberNotExists] = useState(false);
-  // const [isAuthenticate, setIsAuthenticate] = useState(false)
 
   const countryCodes = [
     {
@@ -112,7 +111,6 @@ const LoginCardForm = ({
     });
     const phoneNumberExists = await checkPhoneNumber();
 
-    // if (userData.phoneNumber) {
     if (phoneNumberExists) {
       if (cleanedPhoneNumber) {
         setIsOtpModalOpen(true);
@@ -185,32 +183,8 @@ const LoginCardForm = ({
     }
   };
 
-
-  const [copied, setCopied] = useState(false);
-  
-  const handleCopyClick = () => {
-    const textarea = document.createElement('textarea');
-    textarea.value = "pika pika";
-    document.body.appendChild(textarea);
-
-    textarea.select();
-    document.execCommand('copy');
-
-    document.body.removeChild(textarea);
-
-    setCopied(true);
-  };
-
-  useEffect(() => {
-    if (copied) {
-      // Display any additional UI/notification for the user
-      setCopied(false); // Reset copied state
-    }
-  }, [copied]);
-
   return (
     <>
-      {/* <button onClick={handleCopyClick} className="py-5 px-5 bg-white">Copy Text</button> */}
       <div>
       <SimpleAlertModalUI
           onClose={() => setIsOtpModalOpen(false)}
@@ -229,9 +203,6 @@ const LoginCardForm = ({
           }
         />
       </div>
-      {/* <div> */}
-        
-      {/* </div> */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-4 sm:px-8">
         <div className=" sm:mt-0 mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
           <div className="relative">
@@ -239,8 +210,6 @@ const LoginCardForm = ({
               src="/assets/images/mask-left-corner-login.svg"
               width={600}
               height={600}
-              // layout="fill"
-              // className="absolute sm:block -bottom-32 -left-4 sm:-left-12 md:-left-16 lg:-left-44 z-[-2] h-full w-full"
               className="absolute -bottom-32 -left-44 z-[-2] md:h-full md:w-full"
               alt="img"
               priority
@@ -250,7 +219,6 @@ const LoginCardForm = ({
               width={600}
               height={600}
               className="absolute sm:-top-32 -top-36 left-36 z-[-2]  md:h-full md:w-full"
-              // className="absolute sm:block -top-32 -right-8 sm:-right-12 md:-right-16 lg:-right-36 z-[-2]  md:h-full md:w-full"
               alt="img"
               priority
             />
@@ -294,7 +262,6 @@ const LoginCardForm = ({
                                 ...validate,
                                 phone: value === null || value === "",
                               });
-                              // setInputText(e.clipboardData.getData('text/plain').trim());
                             }}
                         autoComplete="tel"
                         placeholder="5123456789"
@@ -336,7 +303,6 @@ const LoginCardForm = ({
                       onClick={(e) => {                        
                         handleOpenOtpModal(e);
                       }}
-                      // button="تسجيل الدخول"
                       button="دخول"
                       buttonStyle="py-3 rounded-xl !font-normal text-lg w-full justify-center mt-6 !bg-mediumGreenColor"
                     />

@@ -1,12 +1,5 @@
 import './globals.css';
 import localFont from 'next/font/local';
-
-// import { Viewport } from 'next'
- 
-// export const viewport: Viewport = {
-//   themeColor: 'black',
-// }
-
  
 // Font files can be colocated inside of `pages`
 const myFont = localFont({
@@ -42,7 +35,6 @@ export const metadata = {
   metadataBase: new URL('https://sahmk.sa'),
   title: 'سهمك | SAHMK',
   description: 'منصة سهمك, موثوق من تداول السعودية',
-  // themeColor: '#09202D',
   icons: {
     icon: '/assets/images/icon.ico', 
   },

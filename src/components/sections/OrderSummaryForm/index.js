@@ -218,56 +218,8 @@ const OrderSummaryForm = (
           id: paymentId,
           ...userData,
         }
-        // {
-        //   id: paymentId,
-        //   // ...userData,
-        //   name: userData.fullName,
-        //   phoneNumber: userData.phoneNumber,
-        //   email: userData.email,
-        //   countryCode: userData.countryCode,
-        //   subscriptionType: (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-        //   : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free",
-        //   // subscriptionPeriod: userData.subscriptionPeriod,
-        //   subscriptionPeriod: (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-        //   ?
-        //   currentPlanDuration
-        //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-        //     : frequency?.value == "annually" ? "yearly" : frequency?.value
-
-        //   : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-        //     ?
-        //     currentPlanDuration
-        //       ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-        //       : frequency?.value == "annually" ? "yearly" : frequency?.value
-
-        //     :
-        //     currentPlanDuration
-        //       ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-        //       : frequency?.value == "annually" ? "yearly" : frequency?.value
-        //     ,
-        //   expirationDate: userData.expirationDate,
-        // }
       );
-
-      // console.log(userData, (currentPlan?.title || currentPlan) == "الباقة المتقدمة" ? "companies"
-      // : (currentPlan?.title || currentPlan) == "باقة بريميوم" ? "premium" : "free", (currentPlan?.title || currentPlan) == "الباقة المتقدمة"
-      // ?
-      // currentPlanDuration
-      //   ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      //   : frequency?.value == "annually" ? "yearly" : frequency?.value
-
-      // : (currentPlan?.title || currentPlan) == "باقة بريميوم"
-      //   ?
-      //   currentPlanDuration
-      //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      //     : frequency?.value == "annually" ? "yearly" : frequency?.value
-
-      //   :
-      //   currentPlanDuration
-      //     ? currentPlanDuration?.value == "annually" ? "yearly" : currentPlanDuration?.value
-      //     : frequency?.value == "annually" ? "yearly" : frequency?.value
-      //   , "userData");
-
+      
       if (result && result.result && result.result.check) {
         console.log(result, userData, "userData");
         setSecondPaymentModal(true);

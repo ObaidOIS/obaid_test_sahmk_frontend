@@ -121,10 +121,6 @@ const handleClick = () => {
           type="text"
           value={ dropdownOpen == true ? searchQuery : placeholderText }
           onBlur={handleBlur}
-          // value={placeholderText}
-          // value={searchQuery}
-          // readOnly={!preventKeyboard.current}
-          // readOnly={!isFocused}
           readOnly={!showKeyboard}
           inputMode={showKeyboard == true ? "none" : "text"}
           name={name}

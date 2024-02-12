@@ -30,6 +30,7 @@ import SelectUserCompaniesInput from "../SelectUserCompaniesInput";
 // import 'moment/locale/ar-sa'; // Import locale data for Saudi Arabia
 import { FiSearch } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
+import HighLowStocksTables from "../HighLowStocksTables";
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -67,7 +68,11 @@ const UserProfileSection = () => {
 
   console.log(currentDay, "currentDay");
 
-  const handleSubmitCheckboxes = async (receiveOpeningClosingPricesToggle, targetPriceToggle, weeklyReportToggle) => {
+  const handleSubmitCheckboxes = async (
+    receiveOpeningClosingPricesToggle,
+    targetPriceToggle,
+    weeklyReportToggle
+  ) => {
     console.log(
       receiveOpeningClosingPricesToggle,
       targetPriceToggle,
@@ -157,7 +162,7 @@ const UserProfileSection = () => {
     //         value: "الخدمات الرئىيسية",
     //       }
     // );
-    
+
     // addEventListener("popstate", () => {
     //   const userprofilePage =
     //     page.name == "payment"
@@ -175,55 +180,84 @@ const UserProfileSection = () => {
     //   }
     // });
 
-    
-    
     addEventListener("popstate", (e) => {
       let userprofilePage = "";
 
       if (!e.persisted) {
         handlePageChange(
-            page.name == "payment"
-              ? { name: "my-account", value: "باقتي وحسابي" }
-              : {
-                  name: "userprofile",
-                  value: "الخدمات الرئىيسية",
-                }
-          );
-          
-        userprofilePage = (page.name == "payment"
-          ? { name: "my-account", value: "باقتي وحسابي" }
-          : {
-              name: "userprofile",
-              value: "الخدمات الرئىيسية",
-            });
+          page.name == "payment"
+            ? { name: "my-account", value: "باقتي وحسابي" }
+            : {
+                name: "userprofile",
+                value: "الخدمات الرئىيسية",
+              }
+        );
+
+        userprofilePage =
+          page.name == "payment"
+            ? { name: "my-account", value: "باقتي وحسابي" }
+            : {
+                name: "userprofile",
+                value: "الخدمات الرئىيسية",
+              };
         // This is not a page refresh, handle your logic here
         console.log("Not a page refresh");
       } else {
         handlePageChange(
-          (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
-          page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
-          page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
-          page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
-          page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
-          page.name == "userprofile" && {
-                name: "userprofile",
-                value: "الخدمات الرئىيسية",
-              })
-        );
-        userprofilePage = (page.name == "stock-notification" && { name: "stock-notification", value: "خدمة إشعارات الأسهم" } ||
-        page.name == "target-prices" && { name: "target-prices", value: "الأسعار المستهدفة للأسهم" } ||
-        page.name == "weekly-stock" && { name: "weekly-stock", value: "تقارير أسهمي الاسبوعية" } ||
-        page.name == "payment" && { name: "my-account", value: "باقتي وحسابي" } ||
-        page.name == "my-account" && { name: "my-account", value: "باقتي وحسابي" } ||
-        page.name == "userprofile" && {
+          (page.name == "stock-notification" && {
+            name: "stock-notification",
+            value: "خدمة إشعارات الأسهم",
+          }) ||
+            (page.name == "target-prices" && {
+              name: "target-prices",
+              value: "الأسعار المستهدفة للأسهم",
+            }) ||
+            (page.name == "weekly-stock" && {
+              name: "weekly-stock",
+              value: "تقارير أسهمي الاسبوعية",
+            }) ||
+            (page.name == "payment" && {
+              name: "my-account",
+              value: "باقتي وحسابي",
+            }) ||
+            (page.name == "my-account" && {
+              name: "my-account",
+              value: "باقتي وحسابي",
+            }) ||
+            (page.name == "userprofile" && {
               name: "userprofile",
               value: "الخدمات الرئىيسية",
-            });
+            })
+        );
+        userprofilePage =
+          (page.name == "stock-notification" && {
+            name: "stock-notification",
+            value: "خدمة إشعارات الأسهم",
+          }) ||
+          (page.name == "target-prices" && {
+            name: "target-prices",
+            value: "الأسعار المستهدفة للأسهم",
+          }) ||
+          (page.name == "weekly-stock" && {
+            name: "weekly-stock",
+            value: "تقارير أسهمي الاسبوعية",
+          }) ||
+          (page.name == "payment" && {
+            name: "my-account",
+            value: "باقتي وحسابي",
+          }) ||
+          (page.name == "my-account" && {
+            name: "my-account",
+            value: "باقتي وحسابي",
+          }) ||
+          (page.name == "userprofile" && {
+            name: "userprofile",
+            value: "الخدمات الرئىيسية",
+          });
         // This is a page refresh, you can skip handling or do something else
         console.log("Page refresh");
       }
 
-   
       const cleanPage = cleanCircularReferences(userprofilePage);
       const serializedPage = JSON.stringify(cleanPage);
 
@@ -232,7 +266,6 @@ const UserProfileSection = () => {
         localStorage.setItem("page", serializedPage);
       }
     });
-
   }, [page.name]);
 
   useEffect(() => {
@@ -270,10 +303,13 @@ const UserProfileSection = () => {
   }
 
   const handleNotificationSwitch = () => {
-
     setIsNotificationChecked((prevChecked) => {
       const receiveOpeningClosingPricesToggle = !prevChecked;
-      handleSubmitCheckboxes(receiveOpeningClosingPricesToggle ,isPricesChecked, isTvChecked);
+      handleSubmitCheckboxes(
+        receiveOpeningClosingPricesToggle,
+        isPricesChecked,
+        isTvChecked
+      );
       return receiveOpeningClosingPricesToggle;
     });
 
@@ -285,7 +321,11 @@ const UserProfileSection = () => {
   const handleTvSwitch = () => {
     setIsTvChecked((prevChecked) => {
       const weeklyReportToggle = !prevChecked;
-      handleSubmitCheckboxes(isNotificationChecked ,isPricesChecked, weeklyReportToggle);
+      handleSubmitCheckboxes(
+        isNotificationChecked,
+        isPricesChecked,
+        weeklyReportToggle
+      );
       return weeklyReportToggle;
     });
     isTvChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
@@ -355,7 +395,7 @@ const UserProfileSection = () => {
   ];
 
   const handlePageChange = (newPage) => {
-    console.log(newPage, "pathname change in change function")
+    console.log(newPage, "pathname change in change function");
     const { name, value } = newPage;
     setPage({ name, value });
   };
@@ -367,7 +407,11 @@ const UserProfileSection = () => {
   const handlePricesSwitch = () => {
     setIsPricesChecked((prevChecked) => {
       const targetPriceToggle = !prevChecked;
-      handleSubmitCheckboxes(isNotificationChecked ,targetPriceToggle, isTvChecked);
+      handleSubmitCheckboxes(
+        isNotificationChecked,
+        targetPriceToggle,
+        isTvChecked
+      );
       return targetPriceToggle;
     });
     isPricesChecked == false ? setSuccessAlert(true) : setDeactivateAlert(true);
@@ -484,7 +528,9 @@ const UserProfileSection = () => {
       // || frequencies[0]
     );
     // handleUpgradPlan(currentPlan);
-    handleUpgradPlan(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]);
+    handleUpgradPlan(
+      subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]
+    );
   }, [originalSubscriptionDetails]);
 
   // const [activeStat, setActiveStat] = useState("TASI");
@@ -636,7 +682,13 @@ const UserProfileSection = () => {
           percentageChange
         ).toFixed(2)}%`;
 
-        console.log(firstValue, lastValue, percentageChange, formattedPercentageChange, "firstdata")
+        console.log(
+          firstValue,
+          lastValue,
+          percentageChange,
+          formattedPercentageChange,
+          "firstdata"
+        );
 
         // Log the result
         console.log(`Percentage Change: ${formattedPercentageChange}`);
@@ -903,6 +955,12 @@ const UserProfileSection = () => {
       return newSelectedItems;
     });
   };
+  
+  const handleOpenWhatsapp = () => {
+    const encodedMessage = encodeURIComponent('اعرضلي حسابي');
+    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
+
+  }
 
   return (
     <div>
@@ -934,76 +992,108 @@ const UserProfileSection = () => {
               }
             />
             {page.name == "userprofile" ? (
-              <div className="space-y-6 translation duration-500 ease-in-out">
-                <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                  {list.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => handlePageChange(item.page)}
-                      >
-                        <ArrowList
-                          leftIcon={
-                            <Image
-                              loading="eager"
-                              src="/assets/icons/arrow-right.svg"
-                              width={8}
-                              height={8}
-                              alt="img"
-                              className="group-hover:opacity-100 opacity-20 me-4"
-                              priority
-                            />
-                          }
-                          title={item.title}
-                          desc={item.desc}
-                          icon={item.icon}
-                          bgColor={item.bgColor}
-                        />
-                      </div>
-                    );
-                  })}
+              <>
+                <div className="!mt-0 mb-4">
+                  <>
+                    <SelectUserCompaniesInput
+                      handleTagClick={handleTagClick}
+                      setActiveStat={setActiveStat}
+                      setSelectedSymbol={setSelectedSymbol}
+                      apiRange={apiRange}
+                      originalSubscriptionDetails={originalSubscriptionDetails}
+                      searchQuery={searchQuery}
+                      handleSearch={handleSearch}
+                      filteredData={filteredData}
+                      // filteredData={selectedItems}
+                      dataList={filteredData}
+                      AddCompanySelection={AddCompanySelection}
+                      setSelectedItems={setSelectedItems}
+                      selectedItems={selectedItems}
+                      setErrorAlert={setErrorAlert}
+                      setErrorMessage={setErrorMessage}
+                      errorAlert={errorAlert}
+                      errorMessage={errorMessage}
+                      successCompaniesAlert={successCompaniesAlert}
+                      successCompaniesMessage={successCompaniesMessage}
+                      setSuccessCompaniesAlert={setSuccessCompaniesAlert}
+                      selectedSymbol={setSelectedStockProfileCurrentValue}
+                      stockProfileData={setSelectedStockProfileCurrentValue}
+                      setSelectedStockProfileCurrentValue={
+                        setSelectedStockProfileCurrentValue
+                      }
+                    />
+                  </>
                 </div>
-                <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-                  <div className="flex">
-                    <div className="flex items-end mb-3">
-                      <div className="text-2xl font-medium leading-none m-2">
-                        الأسهم
-                      </div>
-                      {/* {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
+                <div className="space-y-6 translation duration-500 ease-in-out">
+                  <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                    {list.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => handlePageChange(item.page)}
+                        >
+                          <ArrowList
+                            leftIcon={
+                              <Image
+                                loading="eager"
+                                src="/assets/icons/arrow-right.svg"
+                                width={8}
+                                height={8}
+                                alt="img"
+                                className="group-hover:opacity-100 opacity-20 me-4"
+                                priority
+                              />
+                            }
+                            title={item.title}
+                            desc={item.desc}
+                            icon={item.icon}
+                            bgColor={item.bgColor}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                    <div className="flex">
+                      <div className="flex items-end mb-3">
+                        <div className="text-2xl font-medium leading-none m-2">
+                          الأسهم
+                        </div>
+                        {/* {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
                                         ) : "" } */}
-                      {originalSubscriptionDetails?.subscriptionType ==
-                      "free" ? (
-                        <DotBadgeUI
-                          title="الأسعار متأخرة 15 دقيقة"
-                          badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
-                          dotStyle="fill-yellowColor"
-                          isDot={true}
-                        />
-                      ) : (
-                        <DotBadgeUI
-                          title="الأسعار مباشرة"
-                          badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
-                          dotStyle="fill-lightRedColor"
-                          isDot={true}
-                        />
-                      )}
-                      {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
-                        <DotBadgeUI
-                          title="السوق مفتوح"
-                          badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
-                          dotStyle="fill-primaryColor"
-                          isDot={false}
-                        />
-                      ) : (
-                        <DotBadgeUI
-                          title="السوق مغلق"
-                          badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
-                          dotStyle="fill-lightRedColor"
-                          isDot={false}
-                        />
-                      )}
-                    </div>
-                    <div className="flex items-center justify-end flex-1">
+                        {originalSubscriptionDetails?.subscriptionType ==
+                        "free" ? (
+                          <DotBadgeUI
+                            title="الأسعار متأخرة 15 دقيقة"
+                            badgeStyle="bg-whiteColor shadow-xl text-yellowColor"
+                            dotStyle="fill-yellowColor"
+                            isDot={true}
+                          />
+                        ) : (
+                          <DotBadgeUI
+                            title="الأسعار مباشرة"
+                            badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
+                            dotStyle="fill-lightRedColor"
+                            isDot={true}
+                          />
+                        )}
+                        {isOpen("10:00AM", "3:00PM", zone) == "open" ? (
+                          <DotBadgeUI
+                            title="السوق مفتوح"
+                            badgeStyle="bg-whiteColor mr-2 shadow-xl text-primaryColor"
+                            dotStyle="fill-primaryColor"
+                            isDot={false}
+                          />
+                        ) : (
+                          <DotBadgeUI
+                            title="السوق مغلق"
+                            badgeStyle="bg-whiteColor mr-2 shadow-xl text-lightRedColor"
+                            dotStyle="fill-lightRedColor"
+                            isDot={false}
+                          />
+                        )}
+                      </div>
+                      {/* <div className="flex items-center justify-end flex-1">
                       <div
                         onClick={() => {
                           setSearchInputShow(!searchInputShow);
@@ -1022,39 +1112,11 @@ const UserProfileSection = () => {
                             />
                           </div>
                         )}
-                        {/* <Image
-                          loading="eager"
-                          src={
-                            searchInputShow
-                              ? "/assets/icons/white-search.svg"
-                              : "/assets/icons/search.svg"
-                          }
-                          width={20}
-                          height={20}
-                          className=""
-                          alt="Logo"
-                          priority
-                        /> */}
                       </div>
+                    </div> */}
                     </div>
-                  </div>
-                  <div className="!m-0">
-                    {searchInputShow ? (
+                    {/* <div className="!m-0">
                       <>
-                        {/* <FeatureOneSearchModal
-                originalSubscriptionDetails={originalSubscriptionDetails}
-                originalData={originalData}
-                searchQuery={searchQuery}
-                handleSearch={handleSearch}
-                filteredData={filteredData}
-                isOpen={isPricingAddPanelOpen}
-                dataList={filteredData}
-                toggleSelection={toggleSelection}
-                setSelectedItems={setSelectedItems}
-                selectedItems={selectedItems}
-                setErrorAlert={setErrorAlert}
-                setErrorMessage={setErrorMessage}
-              /> */}
                         <SelectUserCompaniesInput
                           handleTagClick={handleTagClick}
                           setActiveStat={setActiveStat}
@@ -1085,41 +1147,66 @@ const UserProfileSection = () => {
                           }
                         />
                       </>
-                    ) : (
-                      ""
-                    )}
+                  </div> */}
+                    <UserProfileStatistics
+                      selectedStockProfileCurrentValue={
+                        selectedStockProfileCurrentValue
+                      }
+                      selectedStatCurrentValue={selectedStatCurrentValue}
+                      setStockProfileData={setStockProfileData}
+                      stockProfileData={stockProfileData}
+                      apiRange={apiRange}
+                      setApiRange={setApiRange}
+                      chartLoading={chartLoading}
+                      statisticsData={statisticsData}
+                      tagsList={tagsList}
+                      chartTagsList={chartTagsList}
+                      lastUpdatedDates={lastUpdatedDates}
+                      chartData={chartData}
+                      setSelectedSymbol={setSelectedSymbol}
+                      setActiveStat={setActiveStat}
+                      activeStat={activeStat}
+                      selectedSymbol={selectedSymbol}
+                      activeChartTag={activeChartTag}
+                      setActiveChartTag={setActiveChartTag}
+                      handleTagClick={handleTagClick}
+                      setActiveStatistics={setActiveStatistics}
+                      activeStatistics={activeStatistics}
+                    />
                   </div>
-                  <UserProfileStatistics
-                    selectedStockProfileCurrentValue={
-                      selectedStockProfileCurrentValue
-                    }
-                    selectedStatCurrentValue={selectedStatCurrentValue}
-                    setStockProfileData={setStockProfileData}
-                    stockProfileData={stockProfileData}
-                    apiRange={apiRange}
-                    setApiRange={setApiRange}
-                    chartLoading={chartLoading}
-                    statisticsData={statisticsData}
-                    tagsList={tagsList}
-                    chartTagsList={chartTagsList}
-                    lastUpdatedDates={lastUpdatedDates}
-                    chartData={chartData}
-                    setSelectedSymbol={setSelectedSymbol}
-                    setActiveStat={setActiveStat}
-                    activeStat={activeStat}
-                    selectedSymbol={selectedSymbol}
-                    activeChartTag={activeChartTag}
-                    setActiveChartTag={setActiveChartTag}
-                    handleTagClick={handleTagClick}
-                    setActiveStatistics={setActiveStatistics}
-                    activeStatistics={activeStatistics}
-                  />
-
+                  <div className="!mt-0">
+                    <HighLowStocksTables />
+                  </div>
+                  <div className="w-full bg-[#F5F7F9] py-6 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
+                    {/* <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300"> */}
+                        <div
+                          onClick={handleOpenWhatsapp}
+                          className={` rounded-2xl mb-4 shadow-xl hover:shadow-2xl group cursor-pointer px-6 py-4 border border-whiteColor hover:border hover:border-secondaryColor bg-whiteColor`}
+                        >
+                          <div className="mx-auto inline-flex">
+                            <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap">
+                              <Image
+                                loading="eager"
+                                src="/assets/icons/whatsapp.svg"
+                                width={30}
+                                height={30}
+                                className="ml-5"
+                                alt="img"
+                                priority
+                              />
+                              انتقل إلى محادثة النظام الذكي على الواتساب
+                            </span>
+                          </div>
+                        </div>
+                      <div className="font-medium text-right leading-none mx-2 my-12 ">
+                        تحديث البيانات{" "}
+                        <span className="font-normal text-gray-500/80">
+                          اليوم الساعة {lastUpdatedDates}
+                        </span>
+                      </div>
+                    </div>
                 </div>
-                <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
-
-                </div>
-              </div>
+              </>
             ) : page.name == "stock-notification" ? (
               <UserProfileFeatureOne
                 originalSubscriptionDetails={originalSubscriptionDetails}

@@ -121,7 +121,7 @@ console.log(xAxisTicks, result, "helllllll")
   return (
     <div>
       {/* {cursorValue !== null && <p>Cursor Value: {cursorValue}</p>} */}
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={220}>
         <AreaChart
           style={{ direction: "rtl" }}
           width={600}
@@ -243,7 +243,8 @@ console.log(xAxisTicks, result, "helllllll")
             // }}
             orientation="right"
             axisLine={false}
-            dx={20}
+            // dx={20}
+            textAnchor="end"
             tickLine={false}
             className="text-xs text-black"
             // domain={["22", 'dataMax']}

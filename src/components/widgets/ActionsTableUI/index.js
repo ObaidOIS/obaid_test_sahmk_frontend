@@ -1,7 +1,7 @@
 "use client";
 import React, {useState} from "react";
 
-const BasicTableUI = ({
+const ActionsTableUI = ({
   tableTitles,
   tableData,
   setIsSecondFeatureModalOpen,
@@ -86,4 +86,4 @@ const BasicTableUI = ({
   );
 };
 
-export default BasicTableUI;
+export default ActionsTableUI;

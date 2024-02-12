@@ -101,7 +101,6 @@ const FeatureSection = () => {
                       <div
                         key={index}
                         className={`absolute lg:top-[8.7rem] top-[3.8rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
-                        // className={`absolute sm:top-[8.7rem] top-[12.7rem] text-center md:!w-[750px] text-white inset-0 transition-all mx-auto duration-500 ease-in-out ${
                           index == activeTab
                             ? "visible opacity-100"
                             : "opacity-0 invisible"

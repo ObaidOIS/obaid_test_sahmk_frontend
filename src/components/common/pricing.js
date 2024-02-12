@@ -17,18 +17,4 @@ export const pricing = {
             annually: 1
         },
     },
-    // pricing: {1
-    //     free: {
-    //         monthly: 1,
-    //         yearly: 1
-    //     },
-    //     premium: {
-    //         monthly: 1,
-    //         yearly: 1
-    //     },
-    //     companies: {
-    //         monthly: 1,
-    //         yearly: 1
-    //     },
-    // },
 };

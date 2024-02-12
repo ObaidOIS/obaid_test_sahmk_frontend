@@ -3,7 +3,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import Feedback from "../Feedback";
 import Image from "next/image";
 import AddList from "../AddList";
-import BasicTableUI from "../BasicTableUI";
+import ActionsTableUI from "../ActionsTableUI";
 import IconButtonUI from "../IconButtonUI";
 
 const PricingAddPanel = ({
@@ -73,7 +73,7 @@ const PricingAddPanel = ({
             ""
           )}
           {feature == "second" && selectedItems?.length !== 0 ? (
-            <BasicTableUI
+            <ActionsTableUI
               setWarningAlert={setWarningAlert}
               setWarningMessage={setWarningMessage}
               setIsSecondFeatureModalOpen={setIsSecondFeatureModalOpen}
