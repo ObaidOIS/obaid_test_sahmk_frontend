@@ -1,2 +1,6 @@
 // next.config.js
-module.exports = {};
+module.exports = {
+    images: {
+        dangerouslyAllowSVG: true,
+      },
+};

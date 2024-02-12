@@ -458,7 +458,8 @@ const UserProfileSection = () => {
       subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionPeriod]
       // || frequencies[0]
     );
-    handleUpgradPlan(currentPlan);
+    // handleUpgradPlan(currentPlan);
+    handleUpgradPlan(subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType]);
   }, [originalSubscriptionDetails]);
 
   // const [activeStat, setActiveStat] = useState("TASI");

@@ -587,7 +587,7 @@ const UserProfileFeatureFour = ({
                   onClick={() => {
                     setIsPricingModalOpen(true);
                   }}
-                >
+                > 
                   <PrimaryButton
                     button="ترقية باقتي"
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
