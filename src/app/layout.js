@@ -1,6 +1,9 @@
 import './globals.css';
 import localFont from 'next/font/local';
- 
+import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from 'next/script';
+import Head from 'next/head';
+
 // Font files can be colocated inside of `pages`
 const myFont = localFont({
   src: [
@@ -69,9 +72,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
+     <Head>
+     <Script>
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-L7QL65VWZ9'); `}
+        </Script>
+     </Head>
     <html lang="en" dir='rtl'>
       <body className={myFont.className}>
         {children}</body>
+        <GoogleAnalytics gaId="G-L7QL65VWZ9" />
     </html>
     </>
   )
