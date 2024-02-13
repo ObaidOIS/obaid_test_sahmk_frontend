@@ -197,9 +197,33 @@ const OrderSummaryForm = (
     fetchUserData();
   }, [currentPlan, currentPlanDuration]);
 
+  function cleanCircularReferences(obj) {
+    const seen = new WeakSet();
+    return JSON.parse(
+      JSON.stringify(obj, (key, value) => {
+        // Skip React components
+        if (React.isValidElement(value)) {
+          return undefined;
+        }
+
+        if (typeof value === "object" && value !== null) {
+          if (seen.has(value)) {
+            return undefined; // Exclude circular references
+          }
+          seen.add(value);
+        }
+        return value;
+      })
+    );
+  }
+
   const navigateToAnotherPage = () => {
+    
+    const cleanPage = cleanCircularReferences({ name: "my-account", value: "باقتي وحسابي" });
+    const serializedPage = JSON.stringify(cleanPage);
     setTimeout(() => {
       router.push("/userprofile");
+      localStorage.setItem("page", serializedPage);
     }, 500);
   };
 
@@ -219,7 +243,7 @@ const OrderSummaryForm = (
           ...userData,
         }
       );
-      
+
       if (result && result.result && result.result.check) {
         console.log(result, userData, "userData");
         setSecondPaymentModal(true);
@@ -227,6 +251,7 @@ const OrderSummaryForm = (
         // setAction(navigateToAnotherPage())
         // navigateToAnotherPage();
       } else {
+        
         setSecondPaymentModal(true);
         setIsAlertErrorOpen(true);
       }
@@ -481,6 +506,13 @@ const OrderSummaryForm = (
 
   console.log(currentPlan, "hello current plan");
 
+  
+  const handleOpenWhatsapp = () => {
+    const encodedMessage = encodeURIComponent('مرحبًا! كيف يمكنني مساعدتك اليوم؟ 😃');
+    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
+  }
+
+
   return (
     <>
       {currentPlan == undefined ? (
@@ -490,15 +522,17 @@ const OrderSummaryForm = (
           {isAlertSuccessOpen ? (
             <AlertButtonsModal
               modal="success"
-              onClose={() => {
-                setIsAlertSuccessOpen(false);
-              }}
+              onClose={()=>{}}
+              // onClose={() => {
+              //   setIsAlertSuccessOpen(false);
+              // }}
               isOpen={isAlertSuccessOpen}
               setIsOpen={setIsAlertSuccessOpen}
               action={isSavePayment}
               secondPaymentModal={secondPaymentModal}
               url={url}
               navigateToAnotherPage={navigateToAnotherPage}
+              onClickSecondButton={handleOpenWhatsapp}
               title="تم الاشتراك بنجاح"
               buttonOne="إدارة حسابي"
               image={
@@ -533,7 +567,8 @@ const OrderSummaryForm = (
           {isAlertErrorOpen ? (
             <AlertButtonsModal
               modal="error"
-              onClose={() => setIsAlertErrorOpen(false)}
+              // onClose={() => setIsAlertErrorOpen(false)}
+              onClose={()=>{}}
               isOpen={isAlertErrorOpen}
               setIsOpen={setIsAlertErrorOpen}
               title="فشلت عملية الدفع!"

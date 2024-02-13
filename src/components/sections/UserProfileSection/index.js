@@ -358,6 +358,10 @@ const UserProfileSection = () => {
           height={85}
           alt="img"
           priority
+          // quality={75}
+          // blurDataURL="/assets/icons/point-glow-icon.svg"
+          // placeholder="blur"
+
         />
       ),
       page: { name: "target-prices", value: "الأسعار المستهدفة للأسهم" },
@@ -995,7 +999,7 @@ const UserProfileSection = () => {
             />
             {page.name == "userprofile" ? (
               <>
-                <div className="!mt-0 mb-4">
+                {/* <div className="!mt-0 mb-4">
                   <>
                     <SelectUserCompaniesInput
                       handleTagClick={handleTagClick}
@@ -1025,7 +1029,7 @@ const UserProfileSection = () => {
                       }
                     />
                   </>
-                </div>
+                </div> */}
                 <div className="space-y-6 translation duration-500 ease-in-out">
                   <div className="w-full bg-[#F5F7F9] py-4 px-4 rounded-3xl space-y-4 border border-gray-300">
                     {list.map((item, index) => {
@@ -1095,7 +1099,7 @@ const UserProfileSection = () => {
                           />
                         )}
                       </div>
-                      {/* <div className="flex items-center justify-end flex-1">
+                      <div className="flex items-center justify-end flex-1">
                       <div
                         onClick={() => {
                           setSearchInputShow(!searchInputShow);
@@ -1115,9 +1119,10 @@ const UserProfileSection = () => {
                           </div>
                         )}
                       </div>
-                    </div> */}
                     </div>
-                    {/* <div className="!m-0">
+                    </div>
+                    {searchInputShow == true ?
+                    <div className="!m-0">
                       <>
                         <SelectUserCompaniesInput
                           handleTagClick={handleTagClick}
@@ -1149,7 +1154,7 @@ const UserProfileSection = () => {
                           }
                         />
                       </>
-                  </div> */}
+                  </div> : ""}
                     <UserProfileStatistics
                       selectedStockProfileCurrentValue={
                         selectedStockProfileCurrentValue

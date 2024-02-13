@@ -72,19 +72,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
-     <Head>
-     <Script>
+    <html lang="en" dir='rtl'>
+      <body className={myFont.className}>
+        {children}</body>
+        <GoogleAnalytics gaId="G-L7QL65VWZ9" />
+        <Script id='google-analytics-code' >
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-L7QL65VWZ9'); `}
         </Script>
-     </Head>
-    <html lang="en" dir='rtl'>
-      <body className={myFont.className}>
-        {children}</body>
-        <GoogleAnalytics gaId="G-L7QL65VWZ9" />
+        {/* <Script id='google-analytics' src="https://www.google.com/recaptcha/enterprise.js?render=6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou">
+        </Script> */}
     </html>
     </>
   )

@@ -235,7 +235,7 @@ const UserProfileFeatureTwo = ({
                 aria-hidden="true"
               />
             }
-            onClick={()=>confirmDelete(companyToBeDeteled)}
+            onClick={()=>{confirmDelete(companyToBeDeteled); setWarningAlert(false);}}
             button={{ name: "يمسح"}}
           />
         )}

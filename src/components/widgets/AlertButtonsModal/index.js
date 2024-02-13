@@ -2,7 +2,7 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useRouter } from 'next/navigation';
 
-const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTitle, messageDesc, buttonOne, buttonTwo, buttonIcon, actionButton, messageType, action, url, navigateToAnotherPage, secondPaymentModal }) => {
+const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTitle, messageDesc, buttonOne, buttonTwo, buttonIcon, actionButton, messageType, action, url, navigateToAnotherPage, secondPaymentModal, onClickSecondButton }) => {
 
   // const handleClick = () => {
   //   action({});
@@ -12,7 +12,9 @@ const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTit
 
     return (
       <Transition.Root show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={()=>{onClose(); action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}>
+        <Dialog as="div" className="relative z-10" 
+        onClose={()=>{onClose()}} >
+         {/* action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}> */}
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -66,7 +68,8 @@ const AlertButtonsModal = ({onClose, setIsOpen, isOpen, image, title, messageTit
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full order-2 items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
-                      onClick={() => {setIsOpen(false); action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}
+                      // onClick={() => {setIsOpen(false); action == true ? router.replace(url) : secondPaymentModal ? navigateToAnotherPage() : ""}}
+                      onClick={() => {action == true ? (router.replace(url), setIsOpen(false)) : secondPaymentModal ? onClickSecondButton() : ""}}
                     >
                       {buttonTwo} <div className='mr-3'>{buttonIcon}</div> 
                     </button>
