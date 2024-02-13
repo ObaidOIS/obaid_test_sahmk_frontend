@@ -260,11 +260,11 @@ const ContactUsForm = () => {
             </div>
             <div className="mt-10">
               <div className="mb-10">
-              {/* <GoogleReCaptchaProvider
+              <GoogleReCaptchaProvider
                 reCaptchaKey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
                 useEnterprise={true}
                 onChange={handleRecaptchaChange}
-              /> */}
+              />
               </div>
               <div>
               <PrimaryButton
