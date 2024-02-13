@@ -358,9 +358,9 @@ const UserProfileSection = () => {
           height={85}
           alt="img"
           priority
-          quality={75}
-          blurDataURL="/assets/icons/point-glow-icon.svg"
-          placeholder="blur"
+          // quality={75}
+          // blurDataURL="/assets/icons/point-glow-icon.svg"
+          // placeholder="blur"
 
         />
       ),
