@@ -410,6 +410,12 @@ const UserProfileFeatureFour = ({
         } else {
           setIsCheckout(false);
         }
+      } else if (originalSubscriptionDetails?.subscriptionPeriod == "yearly") {
+        if (selectedOption == "الباقة المتقدمة") {
+          setIsCheckout(true);
+        } else {
+          setIsCheckout(false);
+        }
       }
     } else if (
       originalSubscriptionDetails?.subscriptionType == "companies" &&
@@ -447,7 +453,6 @@ const UserProfileFeatureFour = ({
       subscriptionPeriod: frequency?.value,
     };
     const result = await apiCall(endpoint, method, data);
-    console.log(result, "result");
     if (result.error) {
       setErrorAlert(true);
       setErrorMessage(result.error);
@@ -460,8 +465,6 @@ const UserProfileFeatureFour = ({
   };
 
   const handleDowngradePlanChange = async (selectedOption, frequency) => {
-    console.log(selectedOption, frequency, "selectedOption, frequency");
-    console.log("plan chnaged sucessfully");
     updateSubscription();
   };
 
