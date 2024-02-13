@@ -251,6 +251,7 @@ const OrderSummaryForm = (
         // setAction(navigateToAnotherPage())
         // navigateToAnotherPage();
       } else {
+        
         setSecondPaymentModal(true);
         setIsAlertErrorOpen(true);
       }

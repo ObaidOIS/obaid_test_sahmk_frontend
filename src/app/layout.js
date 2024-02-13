@@ -83,8 +83,8 @@ export default function RootLayout({ children }) {
 
           gtag('config', 'G-L7QL65VWZ9'); `}
         </Script>
-        <Script id='google-analytics' src="https://www.google.com/recaptcha/enterprise.js?render=6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou">
-        </Script>
+        {/* <Script id='google-analytics' src="https://www.google.com/recaptcha/enterprise.js?render=6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou">
+        </Script> */}
     </html>
     </>
   )
