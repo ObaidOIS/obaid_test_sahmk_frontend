@@ -19,6 +19,7 @@ const UserProfileFeatureFour = ({
   setUserData,
   originalSubscriptionDetails,
   setOriginalSubscriptionDetails,
+  fetchUserData,
   handlePlanChange,
   selectedOption,
   setSelectedOption,
@@ -387,6 +388,83 @@ const UserProfileFeatureFour = ({
     // subscriptionPeriodMap[originalSubscriptionDetails?.subscriptionType] == "companies" ? {title: "الباقة المتقدمة"} : currentPlan)
   }, [originalSubscriptionDetails]);
 
+  const [isCheckout, setIsCheckout] = useState(false);
+
+  useEffect(() => {
+    if (originalSubscriptionDetails?.subscriptionType == "free") {
+      if (
+        selectedOption == "باقة بريميوم" ||
+        selectedOption == "الباقة المتقدمة"
+      ) {
+        setIsCheckout(true);
+      } else {
+        setIsCheckout(false);
+      }
+    } else if (originalSubscriptionDetails?.subscriptionType == "premium") {
+      if (originalSubscriptionDetails?.subscriptionPeriod == "monthly") {
+        if (
+          selectedOption == "الباقة المتقدمة" ||
+          (selectedOption == "باقة بريميوم" && frequency?.value == "annually")
+        ) {
+          setIsCheckout(true);
+        } else {
+          setIsCheckout(false);
+        }
+      }
+    } else if (
+      originalSubscriptionDetails?.subscriptionType == "companies" &&
+      originalSubscriptionDetails?.subscriptionPeriod == "monthly"
+    ) {
+      if (
+        (selectedOption == "الباقة المتقدمة" &&
+          frequency?.value == "annually") ||
+        (selectedOption == "باقة بريميوم" && frequency?.value == "annually")
+      ) {
+        setIsCheckout(true);
+      } else {
+        setIsCheckout(false);
+      }
+    } else {
+      setIsCheckout(false);
+    }
+
+    console.log(isCheckout, "isCheckout");
+  }, [currentPlan, currentPlanDuration, selectedOption, frequency]);
+
+  const updateSubscription = async () => {
+    const endpoint = "/api/checkout/downgrade-user-subscription/";
+    const method = "POST";
+    if (selectedOption == "الباقة المتقدمة") {
+      selectedOption = "companies";
+    } else if (selectedOption == "باقة بريميوم") {
+      selectedOption = "premium";
+    } else if (selectedOption == "الباقة المجانية") {
+      selectedOption = "free";
+    }
+
+    const data = {
+      subscriptionType: selectedOption,
+      subscriptionPeriod: frequency?.value,
+    };
+    const result = await apiCall(endpoint, method, data);
+    console.log(result, "result");
+    if (result.error) {
+      setErrorAlert(true);
+      setErrorMessage(result.error);
+    } else {
+      setSuccessAlert(true);
+      setSuccessMessage(result.message);
+      fetchUserData();
+      setIsCheckout(false);
+    }
+  };
+
+  const handleDowngradePlanChange = async (selectedOption, frequency) => {
+    console.log(selectedOption, frequency, "selectedOption, frequency");
+    console.log("plan chnaged sucessfully");
+    updateSubscription();
+  };
+
   return (
     <>
       <div>
@@ -587,7 +665,7 @@ const UserProfileFeatureFour = ({
                   onClick={() => {
                     setIsPricingModalOpen(true);
                   }}
-                > 
+                >
                   <PrimaryButton
                     button="ترقية باقتي"
                     buttonStyle="py-3 rounded-md !font-normal !bg-primaryColor/10 !text-primaryColor w-full justify-center mt-6"
@@ -616,24 +694,37 @@ const UserProfileFeatureFour = ({
                     : selectedOption) !=
                     subscriptionTypeMap[
                       originalSubscriptionDetails?.subscriptionType
-                    ]) && (
-                  <div
-                    className="mt-3"
-                    onClick={() => {
-                      handlePageChange({
-                        name: "payment",
-                        value: "باقتي وحسابي",
-                      });
-                      // setSelectedOption();
-                      // handlePlanChange(selectedOption, frequency);
-                    }}
-                  >
-                    <PrimaryButton
-                      button="متابعة للدفع"
-                      buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
-                    />
-                  </div>
-                )}
+                    ]) &&
+                  (isCheckout ? (
+                    <div
+                      className="mt-3"
+                      onClick={() => {
+                        handlePageChange({
+                          name: "payment",
+                          value: "باقتي وحسابي",
+                        });
+                        // setSelectedOption();
+                        // handlePlanChange(selectedOption, frequency);
+                      }}
+                    >
+                      <PrimaryButton
+                        button="متابعة للدفع"
+                        buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="mt-3"
+                      onClick={() => {
+                        handleDowngradePlanChange(selectedOption, frequency);
+                      }}
+                    >
+                      <PrimaryButton
+                        button="تأكيد"
+                        buttonStyle="py-3 rounded-md !font-normal !bg-secondaryColor w-full justify-center mt-6"
+                      />
+                    </div>
+                  ))}
               </div>
             }
           />

@@ -94,33 +94,33 @@ const UserProfileSection = () => {
     }
   };
 
+  const fetchUserData = async () => {
+    const response = await apiCall("/auth/api/user/");
+    const data = response.result;
+    if (data) {
+      const { countryCode, phoneNumber } = extractCountryCodeFromPhoneNumber(
+        data.phoneNumber
+      );
+      setUserData({
+        name: data.fullName || "",
+        phoneNumber: phoneNumber || "",
+        email: data.email || "",
+        countryCode: countryCode,
+        expirationDate: data.expirationDate || null,
+      });
+      setIsNotificationChecked(data.receive_opening_closing_prices);
+      setIsTvChecked(data.weekly_report_enabled);
+      setIsPricesChecked(data.target_prices_enabled);
+      console.log(response.result, "hello data");
+      setOriginalSubscriptionDetails({
+        subscriptionType: data.subscriptionType || "free",
+        subscriptionPeriod: data.subscriptionPeriod || "monthly",
+      });
+      setFirstType(data.subscriptionType);
+    }
+  };
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
-    const fetchUserData = async () => {
-      const response = await apiCall("/auth/api/user/");
-      const data = response.result;
-      if (data) {
-        const { countryCode, phoneNumber } = extractCountryCodeFromPhoneNumber(
-          data.phoneNumber
-        );
-        setUserData({
-          name: data.fullName || "",
-          phoneNumber: phoneNumber || "",
-          email: data.email || "",
-          countryCode: countryCode,
-          expirationDate: data.expirationDate || null,
-        });
-        setIsNotificationChecked(data.receive_opening_closing_prices);
-        setIsTvChecked(data.weekly_report_enabled);
-        setIsPricesChecked(data.target_prices_enabled);
-        console.log(response.result, "hello data");
-        setOriginalSubscriptionDetails({
-          subscriptionType: data.subscriptionType || "free",
-          subscriptionPeriod: data.subscriptionPeriod || "monthly",
-        });
-        setFirstType(data.subscriptionType);
-      }
-    };
 
     fetchUserData();
   }, []);
@@ -955,12 +955,14 @@ const UserProfileSection = () => {
       return newSelectedItems;
     });
   };
-  
-  const handleOpenWhatsapp = () => {
-    const encodedMessage = encodeURIComponent('اعرضلي حسابي');
-    window.open(`https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`, '_blank');
 
-  }
+  const handleOpenWhatsapp = () => {
+    const encodedMessage = encodeURIComponent("اعرضلي حسابي");
+    window.open(
+      `https://api.whatsapp.com/send/?phone=+966591254924&text=${encodedMessage}`,
+      "_blank"
+    );
+  };
 
   return (
     <div>
@@ -1179,32 +1181,32 @@ const UserProfileSection = () => {
                   </div>
                   <div className="w-full bg-[#F5F7F9] py-6 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
                     {/* <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300"> */}
-                        <div
-                          onClick={handleOpenWhatsapp}
-                          className={` rounded-2xl mb-4 shadow-xl hover:shadow-2xl group cursor-pointer px-6 py-4 border border-whiteColor hover:border hover:border-secondaryColor bg-whiteColor`}
-                        >
-                          <div className="mx-auto inline-flex">
-                            <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap">
-                              <Image
-                                loading="eager"
-                                src="/assets/icons/whatsapp.svg"
-                                width={30}
-                                height={30}
-                                className="ml-5"
-                                alt="img"
-                                priority
-                              />
-                              انتقل إلى محادثة النظام الذكي على الواتساب
-                            </span>
-                          </div>
-                        </div>
-                      <div className="font-medium text-right leading-none mx-2 my-12 ">
-                        تحديث البيانات{" "}
-                        <span className="font-normal text-gray-500/80">
-                          اليوم الساعة {lastUpdatedDates}
+                    <div
+                      onClick={handleOpenWhatsapp}
+                      className={` rounded-2xl mb-4 shadow-xl hover:shadow-2xl group cursor-pointer px-6 py-4 border border-whiteColor hover:border hover:border-secondaryColor bg-whiteColor`}
+                    >
+                      <div className="mx-auto inline-flex">
+                        <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap">
+                          <Image
+                            loading="eager"
+                            src="/assets/icons/whatsapp.svg"
+                            width={30}
+                            height={30}
+                            className="ml-5"
+                            alt="img"
+                            priority
+                          />
+                          انتقل إلى محادثة النظام الذكي على الواتساب
                         </span>
                       </div>
                     </div>
+                    <div className="font-medium text-right leading-none mx-2 my-12 ">
+                      تحديث البيانات{" "}
+                      <span className="font-normal text-gray-500/80">
+                        اليوم الساعة {lastUpdatedDates}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </>
             ) : page.name == "stock-notification" ? (
@@ -1240,6 +1242,7 @@ const UserProfileSection = () => {
                     setOriginalSubscriptionDetails={
                       setOriginalSubscriptionDetails
                     }
+                    fetchUserData={fetchUserData}
                     originalSubscriptionDetails={originalSubscriptionDetails}
                     selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}
