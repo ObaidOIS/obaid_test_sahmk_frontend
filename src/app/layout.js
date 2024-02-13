@@ -80,6 +80,8 @@ export default function RootLayout({ children }) {
 
           gtag('config', 'G-L7QL65VWZ9'); `}
         </Script>
+        <Script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou">
+        </Script>
      </Head>
     <html lang="en" dir='rtl'>
       <body className={myFont.className}>

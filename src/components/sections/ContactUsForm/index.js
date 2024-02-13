@@ -11,7 +11,7 @@ import Image from "next/image";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import ReCAPTCHA from "react-google-recaptcha";
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 const ContactUsForm = () => {
 
@@ -259,12 +259,13 @@ const ContactUsForm = () => {
               </div>
             </div>
             <div className="mt-10">
-              {/* <div className="mb-10">
-              <ReCAPTCHA
-                sitekey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
+              <div className="mb-10">
+              {/* <GoogleReCaptchaProvider
+                reCaptchaKey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
+                useEnterprise={true}
                 onChange={handleRecaptchaChange}
-              />
-              </div> */}
+              /> */}
+              </div>
               <div>
               <PrimaryButton
                 type="submit"
