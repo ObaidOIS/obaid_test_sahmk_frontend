@@ -19,7 +19,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, 
                 desc={` ${selectedOption == "الباقة المتقدمة" ? pricing.pricing.companies[frequency?.value] : selectedOption == "باقة بريميوم" ? pricing.pricing.premium[frequency?.value] : pricing.pricing.free[frequency.value]} / ${frequency.label} `}
                 descStyle={selectedOption == "الباقة المتقدمة" ? "!text-yellowColor" : selectedOption == "باقة بريميوم" ? "!text-purpleColor" : "!text-blueColor"}
                 image={
-                  <Image loading="eager"  
+                  <Image unoptimized={true}  loading="eager"  
                     src={selectedOption == "الباقة المتقدمة" ? "/assets/icons/yellow-check.svg" : selectedOption == "باقة بريميوم" ? "/assets/icons/purple-check-icon.svg" : "/assets/icons/blue-check.svg"}
                     height={30}
                     width={30}
@@ -33,7 +33,7 @@ const PrimaryPackageCard = ({ setIsPricingModalOpen, setIsAllFeaturesModalOpen, 
                 desc="199 ريال/سنة"
                 descStyle="text-purpleColor"
                 image={
-                  <Image loading="eager"  
+                  <Image unoptimized={true}  loading="eager"  
                     src="/assets/icons/purple-check-icon.svg"
                     height={30}
                     width={30}

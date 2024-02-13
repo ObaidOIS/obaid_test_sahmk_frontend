@@ -10,7 +10,7 @@ const LinkText = ({message, link}) => {
         <div className="text-xl group-hover:underline flex items-center text-primaryColor font-medium mb-5 leading-none">
         <span>{link}</span>
         <span>
-        <Image loading="eager"   src="/assets/icons/green-right-arrow.svg" width={16} height={16} className="mr-5" alt="img" priority />
+        <Image unoptimized={true}  loading="eager"   src="/assets/icons/green-right-arrow.svg" width={16} height={16} className="mr-5" alt="img" priority />
         </span>
         </div>
     </div>

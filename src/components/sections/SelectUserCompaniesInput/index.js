@@ -97,7 +97,7 @@ const SelectUserCompaniesInput = ({
               setIsPricingAddPanelOpen(false);
             }}
             image={
-              <Image
+              <Image unoptimized={true} 
                 loading="eager"
                 src="/assets/icons/success-new-icon.svg"
                 width={400}
@@ -184,7 +184,7 @@ const SelectUserCompaniesInput = ({
                       <span className="flex min-w-0 flex-1 items-center space-x-3">
                         {person.imageUrl ? (
                           <span className="block flex-shrink-0">
-                            <Image
+                            <Image unoptimized={true} 
                               loading="eager"
                               width={20}
                               heiight={20}

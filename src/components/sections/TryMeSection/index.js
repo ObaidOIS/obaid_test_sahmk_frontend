@@ -72,7 +72,7 @@ const TryMeSection = () => {
               <span className="text-teal-500 flex mr-2  font-bold">
                 {" "}
                 عيش التجربة
-                <Image loading="eager"  
+                <Image unoptimized={true}  loading="eager"  
                   src="/assets/icons/green-right-arrow.svg"
                   width={16}
                   height={16}

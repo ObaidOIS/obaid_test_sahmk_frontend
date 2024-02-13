@@ -191,7 +191,7 @@ const OtpModal = ({
     <div>
       {/* <button onClick={handleCopyClick}>Copy Text</button> */}
       <div className="flex justify-center">
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/mail-fast.svg"
           width={32}

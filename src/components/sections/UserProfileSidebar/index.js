@@ -10,7 +10,7 @@ const UserProfileSidebar = ({ toggleSidebar, list, handlePageChange }) => {
       <div className="px-4 sm:px-6">
         <div className=" pb-6 mt-4">
           <Link href="/">
-          <Image
+          <Image unoptimized={true} 
             loading="eager"
             src="/assets/logos/logo.svg"
             width={150}
@@ -45,7 +45,7 @@ const UserProfileSidebar = ({ toggleSidebar, list, handlePageChange }) => {
             <IconButtonUI
               button="EN"
               icon={
-                <Image
+                <Image unoptimized={true} 
                   loading="eager"
                   src="/assets/icons/globe.svg"
                   width={20}
@@ -62,7 +62,7 @@ const UserProfileSidebar = ({ toggleSidebar, list, handlePageChange }) => {
                 <IconButtonUI
                   button="تسجيل الخروج"
                   icon={
-                    <Image
+                    <Image unoptimized={true} 
                       loading="eager"
                       src="/assets/icons/logout.svg"
                       width={20}

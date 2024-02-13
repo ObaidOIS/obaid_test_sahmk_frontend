@@ -14,7 +14,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
           aria-expanded={isOpen}
           aria-haspopup="true"
         >
-          <Image loading="eager"  
+          <Image unoptimized={true}  loading="eager"  
             src="/assets/icons/arrow-right.svg"
             height={5}
             width={5}
@@ -22,7 +22,7 @@ const DropdownUI = ({title, dataList, isOpen, handleMenuItemClick, handleToggleD
             alt="image"
             priority
           />
-          {activeItem ? <> <span dir="ltr" >{activeItem.dial_code}</span> {activeItem.icon} </>: <> <span dir="ltr" >+966 </span> <Image loading="eager"   src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-5 h-5" alt="Saudi Arabia" priority /> </>}
+          {activeItem ? <> <span dir="ltr" >{activeItem.dial_code}</span> {activeItem.icon} </>: <> <span dir="ltr" >+966 </span> <Image unoptimized={true}  loading="eager"   src="/assets/icons/saudi-arabia-flag.png" width="24" height="24" className="w-5 h-5" alt="Saudi Arabia" priority /> </>}
         </button>
       </div>
 

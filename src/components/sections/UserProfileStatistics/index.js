@@ -234,7 +234,7 @@ const UserProfileStatistics = ({
                           ) : (
                             <TiArrowSortedDown className="text-redColor" />
                           )
-                          // <Image loading="eager"
+                          // <Image unoptimized={true}  loading="eager"
                           //   src="/assets/icons/success-arrow.svg"
                           //   width={8}
                           //   height={8}
@@ -278,7 +278,7 @@ const UserProfileStatistics = ({
           ) : (
             <div className="animate-pulse">
               <div class="h-80 align-middle pt-12 text-center mr-3 mt-2">
-                <Image
+                <Image unoptimized={true} 
                   loading="eager"
                   src="/assets/icons/chart-loader.gif"
                   width={160}

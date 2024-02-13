@@ -84,7 +84,7 @@ const LoginContainer = () => {
         />
       )}
           <>
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/images/login-layer-design.svg"
           layout="fill"
@@ -92,7 +92,7 @@ const LoginContainer = () => {
           alt="Background Image"
           priority
         />
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/images/login-layer-design.png"
           layout="fill"
@@ -102,7 +102,7 @@ const LoginContainer = () => {
         />
         <div className="h-screen flex bg-darkNavyColor overflow-clip items-center">
           <div className="mx-auto gap-5 ">
-            <Image
+            <Image unoptimized={true} 
               loading="eager"
               src="/assets/images/login-layer-design.svg"
               layout="fill"
@@ -110,7 +110,7 @@ const LoginContainer = () => {
               alt="Background Image"
               priority
             />
-            <Image
+            <Image unoptimized={true} 
               loading="eager"
               src="/assets/images/login-layer-design.png"
               layout="fill"

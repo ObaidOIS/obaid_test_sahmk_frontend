@@ -72,7 +72,7 @@ const RegisterForm = () => {
       name: "Saudi Arabia",
       dial_code: "+966",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/saudi-arabia-flag.png"
           width="24"
@@ -181,7 +181,7 @@ const RegisterForm = () => {
     {
       title: "الباقة المجانية",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/blue-check.svg"
           width={25}
@@ -253,7 +253,7 @@ const RegisterForm = () => {
     {
       title: "باقة بريميوم",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/purple-check-icon.svg"
           width={25}
@@ -322,7 +322,7 @@ const RegisterForm = () => {
     {
       title: "الباقة المتقدمة",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/yellow-check.svg"
           width={25}
@@ -897,7 +897,7 @@ const RegisterForm = () => {
               button="تسجيل"
               buttonStyle="py-5 rounded-md !font-normal w-full justify-center mt-6"
             />
-            <Image
+            <Image unoptimized={true} 
               loading="eager"
               src="/assets/images/gradient-bottom.svg"
               width={170}

@@ -42,7 +42,7 @@ const Footer = () => {
 
   return (
     <footer className="relative w-full border-t">
-      <Image loading="eager"  
+      <Image unoptimized={true}  loading="eager"  
         src="/assets/images/beam-bg-top.png"
         width={92}
         height={33} 
@@ -54,7 +54,7 @@ const Footer = () => {
         <div className="flex flex-col items-center w-full my-20">
           <div className="sm:grid sm:grid-cols-2 flex align-middle items-center sm:gap-20 gap-8 px-3 my-8">
             <Link href="/#">
-            <Image loading="eager"  
+            <Image unoptimized={true}  loading="eager"  
               src="/assets/logos/logo.svg"
               width={100}
               height={100} 
@@ -66,7 +66,7 @@ const Footer = () => {
           <div className="mx-auto">
             <p className="text-gray-500 sm:text-xl">مرخص و موثوق من</p>
             <Link href="#" className="flex justify-center mt-5">
-            <Image loading="eager"   src="/assets/images/tadawul.svg"
+            <Image unoptimized={true}  loading="eager"   src="/assets/images/tadawul.svg"
              width={100}
              height={100}  
              className="cursor-pointer" alt="img"

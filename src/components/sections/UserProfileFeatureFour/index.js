@@ -89,7 +89,7 @@ const UserProfileFeatureFour = ({
     {
       title: "الباقة المجانية",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/blue-check.svg"
           width={25}
@@ -161,7 +161,7 @@ const UserProfileFeatureFour = ({
     {
       title: "باقة بريميوم",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/purple-check-icon.svg"
           width={25}
@@ -230,7 +230,7 @@ const UserProfileFeatureFour = ({
     {
       title: "الباقة المتقدمة",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/yellow-check.svg"
           width={25}
@@ -533,7 +533,7 @@ const UserProfileFeatureFour = ({
                 title="باقتي"
                 desc="تفاصيل ومعلومات باقتي"
                 image={
-                  <Image
+                  <Image unoptimized={true} 
                     loading="eager"
                     src="/assets/icons/golden-doc.svg"
                     height={30}
@@ -605,7 +605,7 @@ const UserProfileFeatureFour = ({
                     `تاريخ انتهاء الباقة: ${userData.expirationDate}`
                   }
                   image={
-                    <Image
+                    <Image unoptimized={true} 
                       loading="eager"
                       src={
                         (currentPlan
@@ -645,7 +645,7 @@ const UserProfileFeatureFour = ({
                         : "!text-blueColor"
                   }
                   image={
-                    <Image loading="eager"  
+                    <Image unoptimized={true}  loading="eager"  
                       src={
                         selectedOption == "الباقة المتقدمة"
                           ? "/assets/icons/yellow-check.svg"
@@ -736,7 +736,7 @@ const UserProfileFeatureFour = ({
                 title="حسابي ومعلوماتي"
                 desc="تفاصيل حسابي وباقتي"
                 image={
-                  <Image
+                  <Image unoptimized={true} 
                     loading="eager"
                     src="/assets/icons/outline-user.svg"
                     height={20}

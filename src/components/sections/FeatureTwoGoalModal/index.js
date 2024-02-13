@@ -21,7 +21,7 @@ const FeatureTwoGoalModal = ({
         <RememberNoteUI
           text="يمكنك إضافة هدف جديد للأسهم وستصلم تنبيه في حال وصول السهم للهدف المضاف"
           icon={
-            <Image loading="eager"  
+            <Image unoptimized={true}  loading="eager"  
               src="/assets/icons/hotspot-icon.svg"
               width={35}
               height={35}

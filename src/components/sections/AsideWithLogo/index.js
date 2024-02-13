@@ -9,7 +9,7 @@ const AsideWithLogo = () => {
 
   return (
     <div className="relative flex-1">
-      <Image loading="eager"  
+      <Image unoptimized={true}  loading="eager"  
         src="/assets/images/dark-rectangle.png"
         width={300}
         height={200}
@@ -18,7 +18,7 @@ const AsideWithLogo = () => {
         alt="image"
         priority
       />
-      <Image loading="eager"  
+      <Image unoptimized={true}  loading="eager"  
         src="/assets/images/gradient-rectangle.png"
         layout="fill"
         className="z-[-9999]"
@@ -28,7 +28,7 @@ const AsideWithLogo = () => {
       />
       <div className="absolute top-0 w-full">
         <div className="relative">
-          <Image loading="eager"  
+          <Image unoptimized={true}  loading="eager"  
             src="/assets/images/layer-design.png"
             className="absolute top-8 right-0 w-full"
             width={800}
@@ -40,7 +40,7 @@ const AsideWithLogo = () => {
         <div className="grid grid-cols-1 mt-32 ml-24">
           <div className="ms-auto text-center z-50">
             <Link href="/" className="w-full flex justify-center">
-            <Image loading="eager"  
+            <Image unoptimized={true}  loading="eager"  
               src="/assets/logos/logo-accent.svg"
               height={150}
               width={150}

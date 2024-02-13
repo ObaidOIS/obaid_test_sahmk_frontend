@@ -336,7 +336,7 @@ const UserProfileSection = () => {
       title: "خدمة إشعارات الأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/message-glow-icon.svg"
           width={85}
@@ -351,7 +351,7 @@ const UserProfileSection = () => {
       title: " الأسعار المستهدفة للأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/point-glow-icon.svg"
           width={85}
@@ -370,7 +370,7 @@ const UserProfileSection = () => {
       title: "تقارير أسهمي الاسبوعية",
       desc: "مشاهدة التقرير الاسبوعي لأسهمي",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/progress-glow-icon.svg"
           width={85}
@@ -385,7 +385,7 @@ const UserProfileSection = () => {
       title: "باقتي وحسابي",
       desc: "تفاصيل باقتك والحساب الخاص بك",
       icon: (
-        <Image
+        <Image unoptimized={true} 
           loading="eager"
           src="/assets/icons/profile-glow-icon.svg"
           width={85}
@@ -1040,7 +1040,7 @@ const UserProfileSection = () => {
                         >
                           <ArrowList
                             leftIcon={
-                              <Image
+                              <Image unoptimized={true} 
                                 loading="eager"
                                 src="/assets/icons/arrow-right.svg"
                                 width={8}
@@ -1192,7 +1192,7 @@ const UserProfileSection = () => {
                     >
                       <div className="mx-auto inline-flex">
                         <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap">
-                          <Image
+                          <Image unoptimized={true} 
                             loading="eager"
                             src="/assets/icons/whatsapp.svg"
                             width={30}

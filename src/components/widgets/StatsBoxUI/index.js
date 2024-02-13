@@ -15,7 +15,7 @@ const StatsBoxUI = ({ stat }) => {
         </div>
         <div>
           {stat.name == "أدنى سعر" && (
-            <Image
+            <Image unoptimized={true} 
               loading="eager"
               src="/assets/icons/red-arrow-up-rectangle.svg"
               width={24}
@@ -25,7 +25,7 @@ const StatsBoxUI = ({ stat }) => {
             />
           )}
           {stat.name == "أعلى سعر" && (
-            <Image
+            <Image unoptimized={true} 
               loading="eager"
               src="/assets/icons/green-arrow-up-rectangle.svg"
               width={24}

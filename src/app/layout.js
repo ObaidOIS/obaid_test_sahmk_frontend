@@ -76,14 +76,14 @@ export default function RootLayout({ children }) {
       <body className={myFont.className}>
         {children}</body>
         <GoogleAnalytics gaId="G-L7QL65VWZ9" />
-        <Script id='google-analytics-code' >
+        <Script id='google-analytics' >
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-L7QL65VWZ9'); `}
         </Script>
-        {/* <Script id='google-analytics' src="https://www.google.com/recaptcha/enterprise.js?render=6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou">
+        {/* <Script id='google-recaptcha-enterprise' src="https://www.google.com/recaptcha/enterprise.js?render=6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou">
         </Script> */}
     </html>
     </>
