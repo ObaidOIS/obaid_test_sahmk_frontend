@@ -253,8 +253,9 @@ const LoginCardForm = ({
                   <div className="flex items-end gap-4">
                     <div className="flex-grow ">
                       <InputFieldUI
-                        handlePaste={()=>
+                        handlePaste={(e)=>
                             {
+                              const value = e.clipboardData.getData('text/plain').trim();
                               if (/^\d*$/.test(e.clipboardData.getData('text/plain').trim())) {
                                 handleDataChange("phoneNumber", e.clipboardData.getData('text/plain').trim());
                               }

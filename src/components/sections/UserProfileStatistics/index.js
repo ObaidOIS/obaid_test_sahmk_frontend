@@ -34,6 +34,8 @@ const UserProfileStatistics = ({
   stockProfileData,
   selectedStatCurrentValue,
   selectedStockProfileCurrentValue,
+  currentPlan,
+  fakeStatsData,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
@@ -89,7 +91,7 @@ const UserProfileStatistics = ({
   //   // }
   // }, [selectedSymbol]);
 
-  // console.log(chartData, "hello chart nan")
+  console.log(selectedStockProfileCurrentValue, stockProfileData[selectedSymbol], "hello chart nan")
 
   return (
     <div>
@@ -406,13 +408,19 @@ const UserProfileStatistics = ({
       )}
       {selectedStockProfileCurrentValue != {} &&
         stockProfileData[selectedSymbol] && (
-          <div>
+          <div className="relative">
+          <div className="realtive" >
+          {(currentPlan !== "الباقة المجانية" &&
+              (currentPlan?.title && currentPlan?.title) !==
+                "الباقة المجانية") ? "" : <div className="absolute inset-0 rounded-xl bg-white/30 backdrop-blur-sm"></div>}
             {/* {activeStat == (item.stock_name || item.stock_company) ? ( */}
             <UserProfileStats
               selectedStockProfileCurrentValue={
                 selectedStockProfileCurrentValue
               }
-              stats={selectedStockProfileCurrentValue[activeStatistics]}
+              stats={(currentPlan !== "الباقة المجانية" &&
+              (currentPlan?.title && currentPlan?.title) !==
+                "الباقة المجانية") ?  selectedStockProfileCurrentValue[activeStatistics] : fakeStatsData[activeStatistics]}
               activeStatistics={activeStatistics}
               activeTab={
                 activeStatistics == "general_view"
@@ -429,6 +437,7 @@ const UserProfileStatistics = ({
             {/* ) : (
                 ""
               )} */}
+          </div>
           </div>
         )}
       {/* {tagsList &&

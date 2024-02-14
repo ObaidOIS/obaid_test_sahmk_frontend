@@ -11,6 +11,7 @@ const RadioCardGroup = ({
   currentPlanDuration,
   originalSubscriptionDetails,
   subscriptionTypeMap,
+  previousPage,
 }) => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -31,7 +32,7 @@ const RadioCardGroup = ({
               ? "border-primaryColor ring-2 ring-primaryColor bg-white cursor-pointer"
               : 
               // ((subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "الباقة المتقدمة" || subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] == "باقة بريميوم") &&
-              (link.title == "الباقة المجانية")
+              (previousPage !=="signup" && link.title == "الباقة المجانية")
               ? "border-gray-300 !bg-lightGreyColor/30"
               : "border-gray-300 cursor-pointer bg-white"
           }`}
@@ -44,7 +45,7 @@ const RadioCardGroup = ({
             disabled={
             // (subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "الباقة المتقدمة" ||
             // subscriptionTypeMap[originalSubscriptionDetails?.subscriptionType] === "باقة بريميوم") &&
-              link.title == "الباقة المجانية"
+              previousPage == "signup" ? false : link.title == "الباقة المجانية"
             }
             checked={
               (currentPlan

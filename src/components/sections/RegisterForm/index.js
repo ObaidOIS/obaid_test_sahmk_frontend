@@ -696,6 +696,7 @@ const RegisterForm = () => {
               frequency={frequency}
               setFrequency={setFrequency}
               pricingRadio={pricingRadio}
+              previousPage={"signup"}
               setSelectedItems={setSelectedItems}
               handleUpgradPlan={handleUpgradPlan}
               // currentPlan={currentPlan}

@@ -21,7 +21,9 @@ const OrderSummaryForm = (
   subscriptionPeriodMap,
   subscriptionPeriod,
   frequencies,
-  currentDuration
+  currentDuration,
+  page,
+  handlePageChange,
   // currentPlanDuration,
   // setCurrentPlanDuration,
 ) => {
@@ -196,6 +198,30 @@ const OrderSummaryForm = (
     // This effect runs once on component mount to fetch the user data
     fetchUserData();
   }, [currentPlan, currentPlanDuration]);
+
+
+  useEffect(() => {
+
+    let userprofilePage = "";
+
+    if(page && page?.name !== "payment" && currentPlan !== "الباقة المجانية" &&
+    (currentPlan?.title && currentPlan?.title) !==
+      "الباقة المجانية"){}
+      else{
+        if(page && page?.name == "payment"){
+        handlePageChange({ name: "my-account", value: "باقتي وحسابي" });
+        userprofilePage = { name: "my-account", value: "باقتي وحسابي" };
+      const cleanPage = cleanCircularReferences(userprofilePage);
+      const serializedPage = JSON.stringify(cleanPage);
+
+      if (pathname === "/userprofile") {
+        router.push("/userprofile");
+        localStorage.setItem("page", serializedPage);
+      }
+    }
+      }
+
+  }, []);
 
   function cleanCircularReferences(obj) {
     const seen = new WeakSet();

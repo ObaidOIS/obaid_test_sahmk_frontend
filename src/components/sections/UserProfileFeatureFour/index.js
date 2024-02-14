@@ -689,7 +689,7 @@ const UserProfileFeatureFour = ({
                     : frequency?.value) !=
                     subscriptionPeriodMap[
                       originalSubscriptionDetails?.subscriptionPeriod
-                    ].value) ||
+                    ]?.value) ||
                   (currentPlan
                     ? currentPlan.title == undefined
                       ? currentPlan

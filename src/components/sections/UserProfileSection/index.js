@@ -125,6 +125,41 @@ const UserProfileSection = () => {
     fetchUserData();
   }, []);
 
+
+  const fakeStatsData = {
+    financials: [
+      { name: 'صافي الدخل', value: 99 },
+      { name: 'إجمالي الإيرادات', value: 99 },
+      { name: 'الربح الإجمالي', value: 99 },
+      { name: 'إجمالي الصرف', value: 99 },
+    ],
+    fundamental_info: [
+      { name: 'القيمة السوقية', value: 99 },
+      { name: 'السعر الحالي', value: '52.10' },
+      { name: 'معدل التوزيع السنوي', value: 99 },
+      { name: 'نسبة السعر إلى الأرباح', value: '35.36' },
+      { name: 'نسبة السعر إلى القيمة الدفترية', value: 99 },
+      { name: 'تاريخ آخر توزيع', value: 99 },
+    ],
+    general_view: [
+      { name: 'سعر الافتتاح', value: '51.90' },
+      { name: 'نسبة التغير اليومي', value: '0.97' },
+      { name: 'أعلى سعر', value: '52.30' },
+      { name: 'أدنى سعر', value: '51.70' },
+      { name: 'حجم التداول', value: '2171' },
+      { name: 'القيمة السوقية', value: 99 },
+    ],
+    trades_info: [
+      { name: 'عدد الصفقات الداخلة', value: '28.00' },
+      { name: 'كمية التداولات الداخلة', value: '1587.00' },
+      { name: 'قيمة التداولات الداخلة', value: '82509.00' },
+      { name: 'عدد الصفقات الخارجة', value: '19.00' },
+      { name: 'كمية التداولات الخارجة', value: '584.00' },
+      { name: 'قيمة التداولات الخارجة', value: '30367.50' },
+      { name: 'متوسط عدد الصفقات لآخر خمسة أيام', value: 99 },
+    ],
+  };
+  
   // let [page, setPage] = useState({
   //   name: "userprofile",
   //   value: "الخدمات الرئىيسية",
@@ -153,37 +188,19 @@ const UserProfileSection = () => {
   useEffect(() => {
     console.log(pathname, page.name, "pathname change");
 
-    // handlePageChange(
+    let userprofilePage = "";
+    
 
-    //   page.name == "payment"
-    //     ? { name: "my-account", value: "باقتي وحسابي" }
-    //     : {
-    //         name: "userprofile",
-    //         value: "الخدمات الرئىيسية",
-    //       }
-    // );
-
-    // addEventListener("popstate", () => {
-    //   const userprofilePage =
-    //     page.name == "payment"
-    //       ? { name: "my-account", value: "باقتي وحسابي" }
-    //       : {
-    //           name: "userprofile",
-    //           value: "الخدمات الرئىيسية",
-    //         };
-    //   const cleanPage = cleanCircularReferences(userprofilePage);
-    //   const serializedPage = JSON.stringify(cleanPage);
-
-    //   if (pathname === "/userprofile") {
-    //     router.push("/userprofile");
-    //     localStorage.setItem("page", serializedPage);
-    //   }
-    // });
-
-    addEventListener("popstate", (e) => {
+    window.addEventListener("popstate", (e) => {
       let userprofilePage = "";
+      console.log(e, "pathname")
+      
+      if(page.name == "payment"){
+      handlePageChange({ name: "my-account", value: "باقتي وحسابي" });
+      userprofilePage = { name: "my-account", value: "باقتي وحسابي" }
+      }
 
-      if (!e.persisted) {
+      if (!e.persisted) {        
         handlePageChange(
           page.name == "payment"
             ? { name: "my-account", value: "باقتي وحسابي" }
@@ -202,7 +219,7 @@ const UserProfileSection = () => {
               };
         // This is not a page refresh, handle your logic here
         console.log("Not a page refresh");
-      } else {
+      } else {        
         handlePageChange(
           (page.name == "stock-notification" && {
             name: "stock-notification",
@@ -266,7 +283,7 @@ const UserProfileSection = () => {
         localStorage.setItem("page", serializedPage);
       }
     });
-  }, [page.name]);
+  }, [pathname]);
 
   useEffect(() => {
     const cleanPage = cleanCircularReferences(page);
@@ -898,30 +915,30 @@ const UserProfileSection = () => {
       } else {
         // Add the new item
         let isError = false;
-        if (originalSubscriptionDetails?.subscriptionType == "free") {
-          setErrorAlert(true);
-          setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
-          isError = true;
-        }
-        if (
-          originalSubscriptionDetails?.subscriptionType == "premium" &&
-          selectedItems.length + 1 > 10
-        ) {
-          setErrorAlert(true);
-          setErrorMessage(
-            "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
-          );
-          // setErrorButton("")
-          isError = true;
-        }
-        if (
-          originalSubscriptionDetails?.subscriptionType == "companies" &&
-          selectedItems.length + 1 > 50
-        ) {
-          setErrorAlert(true);
-          setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
-          isError = true;
-        }
+        // if (originalSubscriptionDetails?.subscriptionType == "free") {
+        //   setErrorAlert(true);
+        //   setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+        //   isError = true;
+        // }
+        // if (
+        //   originalSubscriptionDetails?.subscriptionType == "premium" &&
+        //   selectedItems.length + 1 > 10
+        // ) {
+        //   setErrorAlert(true);
+        //   setErrorMessage(
+        //     "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
+        //   );
+        //   // setErrorButton("")
+        //   isError = true;
+        // }
+        // if (
+        //   originalSubscriptionDetails?.subscriptionType == "companies" &&
+        //   selectedItems.length + 1 > 50
+        // ) {
+        //   setErrorAlert(true);
+        //   setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+        //   isError = true;
+        // }
         if (!isError) {
           newSelectedItems = [
             ...prevSelectedItems,
@@ -1059,7 +1076,7 @@ const UserProfileSection = () => {
                       );
                     })}
                   </div>
-                  <div className="w-full bg-[#F5F7F9] pt-4 px-4 rounded-3xl space-y-4 border border-gray-300">
+                  <div className="w-full bg-[#F5F7F9] pt-4 pb-8 px-4 rounded-3xl space-y-4 border border-gray-300">
                     <div className="flex">
                       <div className="flex items-end mb-3">
                         <div className="text-2xl font-medium leading-none m-2">
@@ -1156,6 +1173,8 @@ const UserProfileSection = () => {
                       </>
                   </div> : ""}
                     <UserProfileStatistics
+                      fakeStatsData={fakeStatsData}
+                      currentPlan={currentPlan}
                       selectedStockProfileCurrentValue={
                         selectedStockProfileCurrentValue
                       }
@@ -1182,7 +1201,9 @@ const UserProfileSection = () => {
                     />
                   </div>
                   <div className="!mt-0">
-                    <HighLowStocksTables />
+                    <HighLowStocksTables
+                    currentPlan={currentPlan}
+                     />
                   </div>
                   <div className="w-full bg-[#F5F7F9] py-6 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
                     {/* <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300"> */}
@@ -1270,6 +1291,7 @@ const UserProfileSection = () => {
                   handlePageChange={handlePageChange}
                   handlePlanChange={handlePlanChange}
                   plan={plan}
+                  page={page}
                   userData={userData}
                   setUserData={setUserData}
                   setOriginalSubscriptionDetails={
