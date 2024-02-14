@@ -90,6 +90,8 @@ const UserProfileFeatureTwo = ({
     // Retrieve current price as a number
     const currentPrice = parseFloat(formData.stock_price);
 
+    console.log(formData.stock_price, "currentPrice")
+
     if (!isNaN(currentPrice)) {
       // Check if the button clicked is a percentage button
       if (value.includes("%")) {

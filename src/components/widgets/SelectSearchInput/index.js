@@ -130,7 +130,7 @@ const handleClick = () => {
           onFocus={() => {setDropdownOpen(!dropdownOpen); handleFocus();}}
           onClick={() => {setDropdownOpen(true); setSearchQuery(""); setFilteredData(options); handleClick()}}
           placeholder={placeholderText}
-          className="relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
+          className="block appearance-none relative w-full text-primaryColor cursor-default placeholder:text-primaryColor rounded-md bg-white py-2 pr-3 pl-10 ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor sm:text-sm sm:leading-6"
         />
         {dropdownOpen && (
           <ul
