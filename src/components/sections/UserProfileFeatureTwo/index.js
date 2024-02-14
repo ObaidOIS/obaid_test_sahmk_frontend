@@ -62,6 +62,8 @@ const UserProfileFeatureTwo = ({
     }
 
     const response = await apiCall("/api/stocks/get-stocks-list?price=yes");
+    // const response = await apiCall("/api/stocks/get-stocks-list");
+    // console.log(response.result, "hello stocks")
     if (response.result) {
       const formattedData = response.result.map(
         ({ symbol, first_name, current_price }) => ({
@@ -71,6 +73,7 @@ const UserProfileFeatureTwo = ({
           stock_price: current_price,
         })
       );
+      console.log(formattedData, "hello stocks")
       setOptions(formattedData); // Set original data here
     }
   };
@@ -297,8 +300,8 @@ const UserProfileFeatureTwo = ({
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 formData={formData}
-                // options={options}
-                options={selectedItems}
+                options={options}
+                // options={selectedItems}
                 buttonTabs={buttonTabs}
                 activeButton={activeButton}
                 handleMemoryChange={handleMemoryChange}
