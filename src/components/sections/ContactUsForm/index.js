@@ -164,7 +164,10 @@ const ContactUsForm = () => {
     setActiveItem(item);
   };
 
+  const [token, setToken] = useState();
 
+
+  console.log(token, "token hello");
   return (
     <div>
       {successAlert == true && (
@@ -195,6 +198,11 @@ const ContactUsForm = () => {
           }
         />
       )}
+      <GoogleReCaptchaProvider
+          reCaptchaKey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
+          useEnterprise={true}
+          // onChange={handleRecaptchaChange}
+          >
       <div className=" px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -260,11 +268,16 @@ const ContactUsForm = () => {
             </div>
             <div className="mt-10">
               <div className="mb-10">
-              <GoogleReCaptchaProvider
+              {/* <GoogleReCaptchaProvider
                 reCaptchaKey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
                 useEnterprise={true}
                 onChange={handleRecaptchaChange}
-              />
+              /> */}
+              <GoogleReCaptcha
+                onVerify={(reCaptchaToken) => {
+                    setToken(reCaptchaToken);
+                }}
+            />
               </div>
               <div>
               <PrimaryButton
@@ -278,6 +291,7 @@ const ContactUsForm = () => {
           </div>
         {/* </form> */}
       </div>
+      </GoogleReCaptchaProvider>
     </div>
   );
 };
