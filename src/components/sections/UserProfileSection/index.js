@@ -43,6 +43,8 @@ const UserProfileSection = () => {
     useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
+  const [highStocksData, setHighStocksData] = useState("");
+  const [lowStocksData, setLowStocksData] = useState("");
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
@@ -987,6 +989,46 @@ const UserProfileSection = () => {
     );
   };
 
+
+  const handleHighStocksData = async() => {
+    
+    const response = await apiCall(
+      `/api/stocks/get-top-gainers/`,
+      "POST",
+      {
+        index : "TASI", // market_id
+        sector: "All"
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "high stock data");
+      setHighStocksData(response.result)
+    } else {
+      console.log("high stock data error")
+    }
+  }
+  const handleLowStocksData = async() => {
+    const response = await apiCall(
+      `/api/stocks/get-top-losers/`,
+      "POST",
+      {
+        index : "TASI", // market_id
+        sector: "All"
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "low stock data");
+      setLowStocksData(response.result)
+    } else {
+      console.log("low stock data error")
+    }
+  }
+
+  useEffect(() => {
+    handleHighStocksData();
+    handleLowStocksData();
+  }, [])
+
   return (
     <div>
       {typeof window == "undefined" && userData.name == "" ? (
@@ -1205,6 +1247,8 @@ const UserProfileSection = () => {
                   </div>
                   <div className="!mt-0">
                     <HighLowStocksTables
+                     highStocksData={highStocksData}
+                     lowStocksData={lowStocksData}
                      handlePageChange={handlePageChange} 
                      page={{ name: "my-account", value: "باقتي وحسابي" }}
                      currentPlan={currentPlan}

@@ -9,7 +9,8 @@ const StatsBoxUI = ({ stat }) => {
       <div key={stat.name} className={`flex items-start overflow-hidden rounded-2xl px-4 py-5 sm:p-6 ${stat.name == "نسبة التغير اليومي" ? stat.value >= 0 ? "bg-brightGreenColor " : "bg-brightRedColor" : "border border-brightGreyColor bg-whiteColor"}`}>
         <div className="flex-1 ml-2 overflow-x-hidden overflow-y-hidden">
           <dd className={`text-xl font-medium tracking-tight ${stat.name == "نسبة التغير اليومي" ? stat.value >= 0 ? "text-lightGreenColor " : "text-lightRedColor" : "text-darkColor"}`}>
-            {stat.value == "-" ? stat.value : isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString('en-US')}
+            {stat.value == "-" ? stat.value : stat.value}
+             {/* isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString('en-US')} */}
           </dd>
           <dt className="whitespace-nowrap truncate text-sm font-medium text-gray-500">{stat.name}</dt>
         </div>

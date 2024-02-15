@@ -2,7 +2,7 @@ import React from "react";
 import BasicStocksTableUI from "@/components/widgets/BasicStocksTableUI";
 import TableBlurEffect from "@/components/widgets/TablesBlurEffect";
 
-const HighLowStocksTables = ({currentPlan, handlePageChange, page}) => {
+const HighLowStocksTables = ({currentPlan, handlePageChange, page, highStocksData, lowStocksData}) => {
   const tableTitles = [
     { title: "الرمز" },
     { title: "الشركة" },
@@ -14,44 +14,44 @@ const HighLowStocksTables = ({currentPlan, handlePageChange, page}) => {
 
   const fakeTableData = [
     {
-        symbol: "2993",
+        stock_symbol: "2993",
         name: "مصرف الراجحي",
-        price: "92",
+        trade_price: "92",
         change: "3.2",
-        change_percentage: "0.3%",
-        stock_size: "2949922",
+        pct_change: "0.3%",
+        volume: "2949922",
       },
       {
-        symbol: "2993",
+        stock_symbol: "2993",
         name: "مصرف الراجحي",
-        price: "92",
+        trade_price: "92",
         change: "3.2",
-        change_percentage: "0.3%",
-        stock_size: "2949922",
+        pct_change: "0.3%",
+        volume: "2949922",
       },
       {
-        symbol: "2993",
+        stock_symbol: "2993",
         name: "مصرف الراجحي",
-        price: "92",
+        trade_price: "92",
         change: "3.2",
-        change_percentage: "0.3%",
-        stock_size: "2949922",
+        pct_change: "0.3%",
+        volume: "2949922",
       },
       {
-        symbol: "2993",
+        stock_symbol: "2993",
         name: "مصرف الراجحي",
-        price: "92",
+        trade_price: "92",
         change: "3.2",
-        change_percentage: "0.3%",
-        stock_size: "2949922",
+        pct_change: "0.3%",
+        volume: "2949922",
       },
       {
-        symbol: "2993",
+        stock_symbol: "2993",
         name: "مصرف الراجحي",
-        price: "92",
+        trade_price: "92",
         change: "3.2",
-        change_percentage: "0.3%",
-        stock_size: "2949922",
+        pct_change: "0.3%",
+        volume: "2949922",
       },
   ];
 
@@ -61,7 +61,7 @@ const HighLowStocksTables = ({currentPlan, handlePageChange, page}) => {
       <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
         {/* <p className="text-lg font-medium ps-4">الأكثر ارتفاعا</p> */}
        <div className="relative bg-whiteColor pt-3 shadow-lg border rounded-3xl ">
-          <p className="px-4 mt-2">الأكثر ارتفاعا</p>
+          <p className="px-4 mt-2 ">الأكثر ارتفاعا</p>
           <div className="relative">
           {(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
@@ -70,7 +70,7 @@ const HighLowStocksTables = ({currentPlan, handlePageChange, page}) => {
                 }
           <BasicStocksTableUI currentPlan={currentPlan} tableTitles={tableTitles} tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? fakeTableData : fakeTableData} />
+                "الباقة المجانية") ? highStocksData : fakeTableData} />
         </div>
       </div>
       </div>
@@ -86,7 +86,7 @@ const HighLowStocksTables = ({currentPlan, handlePageChange, page}) => {
                 }
           <BasicStocksTableUI tableTitles={tableTitles}  tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? fakeTableData : fakeTableData} />
+                "الباقة المجانية") ? lowStocksData : fakeTableData} />
         </div>
         </div>
       </div>

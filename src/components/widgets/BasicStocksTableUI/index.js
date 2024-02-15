@@ -26,22 +26,22 @@ const BasicStocksTableUI = ({tableTitles, tableData}) => {
                 {tableData.map((item, index) => (
                   <tr key={index} className={index === 0 ? "bg-brightRedColor" : index === 2 ? "bg-brightGreenColor" : ""}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8">
-                      {item.symbol}
+                      {item.stock_symbol}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm">
                       {item.name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm">
-                      {item.price || "-"}
+                      {item.trade_price || "-"}
                     </td>
                     <td className={`${index === 2 ? "text-lightGreenColor" :"text-lightRedColor" } whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}>
                       {item.change}
                     </td>
                     <td className={`${index === 2 ? "text-lightGreenColor" :"text-lightRedColor" } whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}>
-                      {item.change_percentage}
+                      {item.pct_change}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm">
-                      {item.stock_size}
+                      {item.volume}
                     </td>
                   </tr>
                 ))}
