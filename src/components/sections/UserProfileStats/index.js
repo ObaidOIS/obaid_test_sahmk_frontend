@@ -9,6 +9,23 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
   const [precentageIn, setPrecentageIn] = useState("");
   const [precentageOut, setPrecentageOut] = useState("");
 
+  function separateArabicAndDigits(input) {
+    // const arabicRegex = /[\u0600-\u06FF]/; // Range for Arabic Unicode characters
+    const digitRegex = /\d/;
+  
+    let digits = '';
+
+  
+for (let i = 0; i < input.length; i++) {  
+  const char = input[i];    
+  if (digitRegex.test(char)) {
+        digits += char;
+      }
+    }
+  
+    return digits ;
+  }
+
   useEffect(() => {
     if(activeStatistics == "trades_info"){
       const filterNames = ["عدد الصفقات الداخلة", "عدد الصفقات الخارجة"];
@@ -16,9 +33,14 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
       const values = filteredData?.map((item) => item.value);
       console.log(values, "values")
       if(values !== undefined){
-      const inValue = Number(values[0]);
-      const outValue = Number(values[1]);
+      const inValueWithArabic = values[0];
+      const outValueWithArabic = values[1];
   
+      const inValue = separateArabicAndDigits(inValueWithArabic);
+      const outValue = separateArabicAndDigits(outValueWithArabic);
+
+      console.log(inValue, outValue, inValueWithArabic, outValueWithArabic, "inValue")
+
       // Calculate the total value
       const totalValue = inValue + outValue;
       

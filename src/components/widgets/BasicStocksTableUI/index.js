@@ -24,7 +24,8 @@ const BasicStocksTableUI = ({tableTitles, tableData}) => {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {tableData?.map((item, index) => (
-                  <tr key={index} className={index === 0 ? "bg-brightRedColor" : index === 2 ? "bg-brightGreenColor" : ""}>
+                  <tr key={index} >
+                   {/* <tr key={index} className={index === 0 ? "bg-brightRedColor" : index === 2 ? "bg-brightGreenColor" : ""}> */}
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8">
                       {item.stock_symbol}
                     </td>
@@ -34,10 +35,12 @@ const BasicStocksTableUI = ({tableTitles, tableData}) => {
                     <td className="whitespace-nowrap px-3 py-4 text-sm">
                       {item.trade_price || "-"}
                     </td>
-                    <td className={`${index === 2 ? "text-lightGreenColor" :"text-lightRedColor" } whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}>
+                    <td className={` whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}>
+                    {/* <td className={`${index === 2 ? "text-lightGreenColor" :"text-lightRedColor" } whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}> */}
                       {item.change}
                     </td>
-                    <td className={`${index === 2 ? "text-lightGreenColor" :"text-lightRedColor" } whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}>
+                    <td className={` whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}>
+                    {/* <td className={`${index === 2 ? "text-lightGreenColor" :"text-lightRedColor" } whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8`}> */}
                       {item.pct_change}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm">
