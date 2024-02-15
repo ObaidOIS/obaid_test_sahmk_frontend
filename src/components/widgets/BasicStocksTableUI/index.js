@@ -23,7 +23,7 @@ const BasicStocksTableUI = ({tableTitles, tableData}) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {tableData.map((item, index) => (
+                {tableData?.map((item, index) => (
                   <tr key={index} className={index === 0 ? "bg-brightRedColor" : index === 2 ? "bg-brightGreenColor" : ""}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 lg:pl-8">
                       {item.stock_symbol}

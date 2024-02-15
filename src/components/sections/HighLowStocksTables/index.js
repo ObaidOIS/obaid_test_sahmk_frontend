@@ -70,7 +70,7 @@ const HighLowStocksTables = ({currentPlan, handlePageChange, page, highStocksDat
                 }
           <BasicStocksTableUI currentPlan={currentPlan} tableTitles={tableTitles} tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? highStocksData : fakeTableData} />
+                "الباقة المجانية") ? highStocksData ? highStocksData : [] : fakeTableData} />
         </div>
       </div>
       </div>
@@ -86,7 +86,7 @@ const HighLowStocksTables = ({currentPlan, handlePageChange, page, highStocksDat
                 }
           <BasicStocksTableUI tableTitles={tableTitles}  tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? lowStocksData : fakeTableData} />
+                "الباقة المجانية") ? lowStocksData ? lowStocksData : [] : fakeTableData} />
         </div>
         </div>
       </div>

@@ -33,6 +33,7 @@ const SelectUserCompaniesInput = ({
   selectedSymbol,
   stockProfileData,
   setSelectedStockProfileCurrentValue,
+  handleGlobalSearch,
 }) => {
 
   const dropdownRef = useRef(null);
@@ -154,24 +155,25 @@ const SelectUserCompaniesInput = ({
                   >
                     <button
                       type="button"
-                      onClick={() => {
-                        AddCompanySelection !== undefined
-                          ? (AddCompanySelection(
-                              person.id,
-                              person.name,
-                              person.symbol,
-                              person,
-                              selectedItems
-                            ),
-                            handleTagClick(apiRange, person.symbol),
-                            // setActiveStat(person.symbol),
-                            setActiveStat(person.name),
-                            setSelectedSymbol(person.symbol),
-                            console.log(person.symbol, "stock_company from search"))
+                      onClick={()=>{handleGlobalSearch(person.name)}}
+                      // onClick={() => {
+                      //   AddCompanySelection !== undefined
+                      //     ? (AddCompanySelection(
+                      //         person.id,
+                      //         person.name,
+                      //         person.symbol,
+                      //         person,
+                      //         selectedItems
+                      //       ),
+                      //       handleTagClick(apiRange, person.symbol),
+                      //       // setActiveStat(person.symbol),
+                      //       setActiveStat(person.name),
+                      //       setSelectedSymbol(person.symbol),
+                      //       console.log(person.symbol, "stock_company from search"))
                             
-                          : // ,setName(person.name))
-                            null;
-                      }}
+                      //     : // ,setName(person.name))
+                      //       null;
+                      // }}
                       className={`group flex w-full items-center justify-between space-x-3 border ${
                         // selectedItems?.some(
                         //   (item) => item.symbol === person.symbol

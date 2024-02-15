@@ -1029,6 +1029,24 @@ const UserProfileSection = () => {
     handleLowStocksData();
   }, [])
 
+
+  const handleGlobalSearch = async(name) => {
+    
+    const response = await apiCall(
+      `/api/stocks/search-stock/`,
+      "POST",
+      {
+        search_query : name, 
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "search stock data");
+      // setHighStocksData(response.result)
+    } else {
+      console.log("high stock data error")
+    }
+  }
+
   return (
     <div>
       {typeof window == "undefined" && userData.name == "" ? (
@@ -1186,6 +1204,7 @@ const UserProfileSection = () => {
                     <div className="!m-0">
                       <>
                         <SelectUserCompaniesInput
+                          handleGlobalSearch={handleGlobalSearch}
                           handleTagClick={handleTagClick}
                           setActiveStat={setActiveStat}
                           setSelectedSymbol={setSelectedSymbol}
