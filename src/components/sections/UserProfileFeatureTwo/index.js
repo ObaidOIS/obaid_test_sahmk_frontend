@@ -16,6 +16,9 @@ const UserProfileFeatureTwo = ({
   handlePricesSwitch,
   setIsSecondFeatureModalOpen,
   isSecondFeatureModalOpen,
+  originalSubscriptionDetails,
+  // subscriptionType,
+  // selectedItems,
 }) => {
   const [openSucessModal, setOpenSucessModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -145,6 +148,32 @@ const UserProfileFeatureTwo = ({
   };
 
   const handleSubmit = async () => {
+    let isError = false;
+        if (originalSubscriptionDetails?.subscriptionType == "free") {
+          setErrorAlert(true);
+          setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+          isError = true;
+        }
+        if (
+          originalSubscriptionDetails?.subscriptionType == "premium" &&
+          selectedItems.length + 1 > 10
+        ) {
+          setErrorAlert(true);
+          setErrorMessage(
+            "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
+          );
+          // setErrorButton("")
+          isError = true;
+        }
+        if (
+          originalSubscriptionDetails?.subscriptionType == "companies" &&
+          selectedItems.length + 1 > 50
+        ) {
+          setErrorAlert(true);
+          setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+          isError = true;
+        }
+        if (!isError) {
     if (
       formData.target_price !== "" ||
       formData.target_price !== "custom" ||
@@ -160,6 +189,8 @@ const UserProfileFeatureTwo = ({
         setErrorAlert(true);
         setErrorMessage(response.error);
       } else {
+        setOpenSucessModal(true);
+        AddSelection(formData.symbol, formData.name, formData.symbol);
         setSuccessAlert(true);
         setSuccessMessage(response.result.message);
         setTableData((prevPeople) => {
@@ -185,6 +216,7 @@ const UserProfileFeatureTwo = ({
         // }
       }
     }
+  }
   };
 
   const tableTitles = [ 
@@ -207,6 +239,79 @@ const UserProfileFeatureTwo = ({
       setErrorMessage(response.error);
     }
     fetchCompanies();
+  };
+
+  const AddSelection = (itemId, itemName, itemSymbol) => {
+    setSelectedItems((prevSelectedItems) => {
+      
+      let newSelectedItems;
+      
+        // Add the new item
+        // let isError = false;
+        // if (originalSubscriptionDetails?.subscriptionType == "free") {
+        //   setErrorAlert(true);
+        //   setErrorMessage("يرجى ترقية خطتك لإضافة الشركات");
+        //   isError = true;
+        // }
+        // if (
+        //   originalSubscriptionDetails?.subscriptionType == "premium" &&
+        //   selectedItems.length + 1 > 10
+        // ) {
+        //   setErrorAlert(true);
+        //   setErrorMessage(
+        //     "لا يمكن إضافة المزيد، يرجى ترقية خطتك لإضافة 50 شركة."
+        //   );
+        //   // setErrorButton("")
+        //   isError = true;
+        // }
+        // if (
+        //   originalSubscriptionDetails?.subscriptionType == "companies" &&
+        //   selectedItems.length + 1 > 50
+        // ) {
+        //   setErrorAlert(true);
+        //   setErrorMessage("لا يمكن إضافة المزيد من الشركات.");
+        //   isError = true;
+        // }
+        // if (!isError) {
+          newSelectedItems = [
+            ...prevSelectedItems,
+            { id: itemId, name: itemName, symbol: itemSymbol },
+          ];
+          // Update popupStocks similarly as selectedItems
+          // setPopupStocks(newSelectedItems);
+          handlePopupSave(newSelectedItems);
+      // }
+
+      // // Update popupStocks similarly as selectedItems
+      // setPopupStocks(newSelectedItems);
+      // handlePopupSave(newSelectedItems);
+
+      return newSelectedItems;
+    });
+  };
+
+  const handlePopupSave = async (stocksArray) => {
+    // Define the endpoint for updating stocks
+    const endpoint = "/api/stocks/bulk-update/";
+    const requestData = {
+      stocks: stocksArray,
+    };
+
+    // Send a POST request using your custom apiCall function
+    const response = await apiCall(endpoint, "POST", requestData);
+
+    if (response.status === 200) {
+      // Handle successful response
+      // setSuccessAlert(true);
+      // setSuccessMessage(response.result.result);
+
+      // Update formPayload.stocks by merging with popupStocks
+      // fetchStocks();
+    } else {
+      // Handle error response
+      setErrorAlert(true);
+      setErrorMessage(response.error);
+    }
   };
 
   return (
@@ -288,15 +393,17 @@ const UserProfileFeatureTwo = ({
         {isSecondFeatureModalOpen ? (
           <ModalUI
             onClickHandle={() => {
-              setOpenSucessModal(true);
               handleSubmit();
+              // AddSelection(formData.symbol, formData.name, formData.symbol);
+              // console.log(formData.id, formData, options, "hello formData")
             }}
             onClose={() => setIsSecondFeatureModalOpen(false)}
+            // onClose={()=>{}}
             isOpen={isSecondFeatureModalOpen}
             title="إضافة هدف جديد"
             button="إضافة هدف جديد"
             content={
-              <FeatureTwoGoalModal
+              <FeatureTwoGoalModal 
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 formData={formData}

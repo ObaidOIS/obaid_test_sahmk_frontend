@@ -423,7 +423,7 @@ const UserProfileStatistics = ({
                 "الباقة المجانية") ? "" : 
                 <div className="absolute inset-0 rounded-xl bg-cover bg-[url('/assets/images/free-stats-bg.png')] bg-white/80 backdrop-blur-md">
                 <div className="flex justify-center text-whiteColor ">
-                  <div className=" w-48 flex gap-4 px-4 py-3 rounded-b-3xl text-center bg-gradient-to-br from-lightAmberColor to-darkAmberColor/60">
+                  <div className=" w-48 flex gap-2 px-4 py-3 rounded-b-3xl text-center bg-gradient-to-br from-lightAmberColor to-darkAmberColor/60">
                     <Image
                       unoptimized={true}
                       loading="eager"

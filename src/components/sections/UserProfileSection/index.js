@@ -121,7 +121,6 @@ const UserProfileSection = () => {
   };
   useEffect(() => {
     // This effect runs once on component mount to fetch the user data
-
     fetchUserData();
   }, []);
 
@@ -671,7 +670,7 @@ const UserProfileSection = () => {
   useEffect(() => {
     fetchUserStocks();
     handleTagClick(apiRange, activeStat);
-  }, []);
+  }, [page]);
 
   const handleTagClick = async (range, symbol) => {
     if (symbol) {
@@ -846,8 +845,11 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     // Fetch user's stocks and available stocks
+    console.log(page, "hello refresh")
+    if(page.name == "userprofile"){
     fetchStocks();
-  }, []);
+    }
+  }, [page.name]);
 
   const handlePopupSave = async (stocksArray) => {
     // Define the endpoint for updating stocks
@@ -1252,6 +1254,9 @@ const UserProfileSection = () => {
                 isSecondFeatureModalOpen={isSecondFeatureModalOpen}
                 handlePricesSwitch={handlePricesSwitch}
                 isPricesChecked={isPricesChecked}
+                originalSubscriptionDetails={originalSubscriptionDetails}
+                // subscriptionType={subscriptionType}
+                // selectedItems={selectedItems}
               />
             ) : page.name == "weekly-stock" ? (
               <div className="space-y-6">
