@@ -1,7 +1,8 @@
 import React from "react";
 import BasicStocksTableUI from "@/components/widgets/BasicStocksTableUI";
+import TableBlurEffect from "@/components/widgets/TablesBlurEffect";
 
-const HighLowStocksTables = ({currentPlan}) => {
+const HighLowStocksTables = ({currentPlan, handlePageChange, page}) => {
   const tableTitles = [
     { title: "الرمز" },
     { title: "الشركة" },
@@ -57,28 +58,36 @@ const HighLowStocksTables = ({currentPlan}) => {
 
   return (
     <div>      
-      <div className="w-full relative bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
+      <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
         {/* <p className="text-lg font-medium ps-4">الأكثر ارتفاعا</p> */}
-       <div className="relative bg-whiteColor py-3 px-3 shadow-lg border rounded-3xl ">
-       {(currentPlan !== "الباقة المجانية" &&
-              (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? "" : <div className="absolute inset-0 rounded-3xl bg-white/30 backdrop-blur-sm"></div>}
+       <div className="relative bg-whiteColor pt-3 shadow-lg border rounded-3xl ">
           <p className="px-4 mt-2">الأكثر ارتفاعا</p>
+          <div className="relative">
+          {(currentPlan !== "الباقة المجانية" &&
+              (currentPlan?.title && currentPlan?.title) !==
+                "الباقة المجانية") ? "" : 
+                <TableBlurEffect handlePageChange={handlePageChange} page={page} />
+                }
           <BasicStocksTableUI currentPlan={currentPlan} tableTitles={tableTitles} tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
                 "الباقة المجانية") ? fakeTableData : fakeTableData} />
         </div>
       </div>
-      <div className="w-full relative bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
+      </div>
+      <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
         {/* <p className="text-lg font-medium ps-4">الأكثر  انخفاضا</p> */}
-        <div className="bg-whiteColor relative py-3 px-3 shadow-lg border rounded-3xl ">
-        {(currentPlan !== "الباقة المجانية" &&
-              (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? "" : <div className="absolute inset-0 rounded-3xl bg-white/30 backdrop-blur-sm"></div>}
+        <div className="bg-whiteColor relative pt-3 shadow-lg border rounded-3xl ">
           <p className="px-4 mt-2">الأكثر  انخفاضا</p>
+          <div className="relative">
+          {(currentPlan !== "الباقة المجانية" &&
+              (currentPlan?.title && currentPlan?.title) !==
+                "الباقة المجانية") ? "" : 
+                <TableBlurEffect handlePageChange={handlePageChange} page={page} />
+                }
           <BasicStocksTableUI tableTitles={tableTitles}  tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
                 "الباقة المجانية") ? fakeTableData : fakeTableData} />
+        </div>
         </div>
       </div>
     </div>

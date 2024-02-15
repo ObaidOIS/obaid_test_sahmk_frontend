@@ -36,6 +36,7 @@ const UserProfileStatistics = ({
   selectedStockProfileCurrentValue,
   currentPlan,
   fakeStatsData,
+  handlePageChange,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
@@ -62,6 +63,13 @@ const UserProfileStatistics = ({
   //   // setSelectedChartCurrentValue(selectedChartCurrentValue);
   //   setSelectedStatCurrentValue(statValue);
   // };
+
+    const handleScrollToTop = () => {
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0 });
+
+    };
+  
 
   console.log(
     chartTagsList[0].apiRange,
@@ -412,7 +420,43 @@ const UserProfileStatistics = ({
           <div className="realtive" >
           {(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ? "" : <div className="absolute inset-0 rounded-xl bg-white/30 backdrop-blur-sm"></div>}
+                "الباقة المجانية") ? "" : 
+                <div className="absolute inset-0 rounded-xl bg-cover bg-[url('/assets/images/free-stats-bg.png')] bg-white/80 backdrop-blur-md">
+                <div className="flex justify-center text-whiteColor ">
+                  <div className=" w-48 flex gap-4 px-4 py-3 rounded-b-3xl text-center bg-gradient-to-br from-lightAmberColor to-darkAmberColor/60">
+                    <Image
+                      unoptimized={true}
+                      loading="eager"
+                      src="/assets/icons/lock.svg"
+                      width={16}
+                      height={16}
+                      alt="Image"
+                      priority
+                    />
+                    <p className="text-sm">قم بترقية باقتك لتطلع على تفاصيل السهم</p>
+                  </div>
+                </div>
+                <div className="flex justify-center mt-4">
+                  <Image
+                    unoptimized={true}
+                    loading="eager"
+                    src="/assets/icons/free-stats-icon.svg"
+                    width={210}
+                    height={210}
+                    alt="Image"
+                    priority
+                  />
+                </div>
+                <div className="flex justify-center">
+                  <PrimaryButton
+                    button="الترقية الآن"
+                    buttonStyle="py-2 !px-10 rounded-xl bg-mediumGreenColor !font-normal justify-center mt-3"
+                    onClick={()=>{handlePageChange({ name: "my-account", value: "باقتي وحسابي" }); handleScrollToTop()}}
+                  />
+                </div>
+              </div>
+                // <div className="absolute inset-0 rounded-xl bg-cover bg-[url('/assets/images/free-stats-bg.png')] bg-white/70 backdrop-blur-md"></div>
+                }
             {/* {activeStat == (item.stock_name || item.stock_company) ? ( */}
             <UserProfileStats
               selectedStockProfileCurrentValue={

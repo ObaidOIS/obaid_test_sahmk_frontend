@@ -28,6 +28,8 @@ module.exports = {
         brightGreenColor: '#dcf2e1',
         brightGreyColor: '#e2e6ea',
         brightRedColor: '#ffeaea',
+        darkAmberColor: '#C9A037',
+        lightAmberColor: '#F5C54A',
     },
   },
   },

@@ -2,9 +2,9 @@ import React from 'react'
 
 const BasicStocksTableUI = ({tableTitles, tableData}) => {
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
-      <div className="mt-2 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div className="px-4 sm:px-6 lg:px-8 rounded-3xl">
+      <div className="mt-2 flow-root rounded-3xl">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 rounded-3xl">
           <div className="inline-block min-w-full py-2 align-middle">
             <table className="min-w-full divide-y divide-gray-300">
               <thead>

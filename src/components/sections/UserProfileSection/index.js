@@ -1198,11 +1198,14 @@ const UserProfileSection = () => {
                       handleTagClick={handleTagClick}
                       setActiveStatistics={setActiveStatistics}
                       activeStatistics={activeStatistics}
+                      handlePageChange={handlePageChange}
                     />
                   </div>
                   <div className="!mt-0">
                     <HighLowStocksTables
-                    currentPlan={currentPlan}
+                     handlePageChange={handlePageChange} 
+                     page={{ name: "my-account", value: "باقتي وحسابي" }}
+                     currentPlan={currentPlan}
                      />
                   </div>
                   <div className="w-full bg-[#F5F7F9] py-6 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
