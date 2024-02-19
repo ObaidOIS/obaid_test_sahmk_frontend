@@ -24,7 +24,7 @@ const TableBlurEffect = ({handlePageChange, page}) => {
           <p className="text-sm">قم بترقية باقتك لتطلع على تفاصيل السهم</p>
         </div>
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-14">
         <Image
           unoptimized={true}
           loading="eager"

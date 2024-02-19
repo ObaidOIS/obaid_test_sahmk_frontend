@@ -1387,6 +1387,9 @@ const UserProfileSection = () => {
                   </div>
                   <div className="!mt-0">
                     <HighLowStocksTables
+                     handleHighStocksData={handleHighStocksData}
+                     handleLowStocksData={handleLowStocksData}
+                     handleStocksByValueAndQuantity={handleStocksByValueAndQuantity}
                      sectorsMarketNames={sectorsMarketNames}
                      setSelectedMarketSectorName={setSelectedMarketSectorName}
                      selectedMarketSectorName={selectedMarketSectorName}

@@ -40,6 +40,7 @@ const SelectUserCompaniesInput = ({
 
   const dropdownRef = useRef(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("")
 
   console.log(filteredData, "hello filter");
 
@@ -123,6 +124,7 @@ const SelectUserCompaniesInput = ({
           <SearchInput
             onFocus={(e) => { e.preventDefault(); dropdownOpen == false ? setDropdownOpen(!dropdownOpen) : ""}}
             onClick={() => dropdownOpen == false ? setDropdownOpen(true) : ""}
+            // value={(dropdownOpen == false && currentSelectedValue != "") ? "" : searchValue}
             // onBlur={() => setDropdownOpen(false)}
             // inputContainerStyle="relative"
             inputStyle="bg-white rounded-xl shadow-md py-3"
@@ -136,7 +138,7 @@ const SelectUserCompaniesInput = ({
             }
             icon={<FiSearch size={24} className="text-darkGreyColor/60" />}
             searchQuery={searchQuery}
-            handleSearch={handleSearch}
+            handleSearch={(e)=>{handleSearch(e); setSearchValue(e.target?.value)}}
           />
         </div>
         {dropdownOpen && (
