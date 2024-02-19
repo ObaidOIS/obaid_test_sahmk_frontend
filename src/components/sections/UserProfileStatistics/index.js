@@ -37,6 +37,7 @@ const UserProfileStatistics = ({
   currentPlan,
   fakeStatsData,
   handlePageChange,
+  handleStatisticsChange,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
@@ -99,7 +100,7 @@ const UserProfileStatistics = ({
   //   // }
   // }, [selectedSymbol]);
 
-  console.log(selectedStockProfileCurrentValue, stockProfileData[selectedSymbol], "hello chart nan")
+  // console.log(selectedStockProfileCurrentValue, stockProfileData[selectedSymbol], "hello chart nan")
 
   return (
     <div>
@@ -163,6 +164,7 @@ const UserProfileStatistics = ({
                       key={index}
                       onClick={() => {
                         handleTagClick(apiRange, item.stock_company);
+                        handleStatisticsChange(item.stock_company);
                         setActiveStat(item.stock_name || item.stock_company);
                         setSelectedSymbol(item.stock_company);
                         console.log(item.stock_company, "stock_company from item")
@@ -195,6 +197,7 @@ const UserProfileStatistics = ({
                   key={index}
                   onClick={() => {
                     handleTagClick(apiRange, item.stock_company);
+                    handleStatisticsChange(item.stock_company);
                     setActiveStat(item.stock_name || item.stock_company);
                     setSelectedSymbol(item.stock_company);
                     console.log(item.stock_company, "stock_company from item")
@@ -464,7 +467,7 @@ const UserProfileStatistics = ({
               }
               stats={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
-                "الباقة المجانية") ?  selectedStockProfileCurrentValue[activeStatistics] : fakeStatsData[activeStatistics]}
+                "الباقة المجانية") ?  selectedStockProfileCurrentValue && selectedStockProfileCurrentValue[activeStatistics] : fakeStatsData[activeStatistics]}
               activeStatistics={activeStatistics}
               activeTab={
                 activeStatistics == "general_view"

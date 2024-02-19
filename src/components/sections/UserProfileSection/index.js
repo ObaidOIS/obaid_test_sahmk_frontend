@@ -354,15 +354,15 @@ const UserProfileSection = () => {
       title: "خدمة إشعارات الأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image 
+        <img
         // unoptimized={true} 
-          // loading="eager"
+          loading="eager"
           // src="/assets/icons/message-glow-icon.svg"
           src="/assets/icons/message-glow-icon.png"
           width={85}
           height={85}
           alt="img"
-          // priority
+          priority
         />
       ),
       page: { name: "stock-notification", value: "خدمة إشعارات الأسهم" },
@@ -753,6 +753,22 @@ const UserProfileSection = () => {
     }
   };
 
+  const handleStatisticsChange = async(symbol) => {
+      const response = await apiCall("/api/stocks/user-stocks-profile/");
+      // console.log(response, "hello stock")
+      if (response && response.result) {
+        console.log(response, symbol, "hello api too");
+        setSelectedSymbol(symbol);
+        // setSelectedSymbol(Object.keys(response.result)[0]);
+        setStockProfileData(response.result);
+        // setSelectedStockProfileCurrentValue(response.result[selectedSymbol]);
+
+      }
+    else {
+      console.log("Error fetching user stocks:");
+    }
+  }
+
   const statisticsData = [
     "نظرة عامة",
     "الصفقات",
@@ -1044,14 +1060,20 @@ const UserProfileSection = () => {
     );
     if (response && response.result) {
       console.log(response, "search stock data");
-      handleTagClick(apiRange, response.result[0]?.symbol || response.result[0]?.name)
-      
+      handleTagClick(apiRange, response.result[0]?.symbol)
       // handleTagClick(apiRange, item.stock_company);
       setActiveStat(response.result[0]?.name || response.result[0]?.symbol);
-      setSelectedSymbol(response.result[0]?.symbol || response.result[0]?.name);
+      setSelectedSymbol(response.result[0]?.symbol);
+      setStockProfileData({[response.result[0]?.symbol]: 
+        {
+          general_view: response.result[0]?.general_view || {},
+          trades_info: response.result[0]?.trades_info || {},
+          financials: response.result[0]?.financials || {},
+          fundamental_info: response.result[0]?.fundamental_info || {},
+        }});
       // setHighStocksData(response.result)
     } else {
-      console.log("high stock data error")
+      console.log(response);
     }
   }
 
@@ -1244,6 +1266,7 @@ const UserProfileSection = () => {
                       </>
                   </div> : ""}
                     <UserProfileStatistics
+                      handleStatisticsChange={handleStatisticsChange}
                       fakeStatsData={fakeStatsData}
                       currentPlan={currentPlan}
                       selectedStockProfileCurrentValue={
