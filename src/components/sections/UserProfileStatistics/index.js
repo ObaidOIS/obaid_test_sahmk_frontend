@@ -38,6 +38,7 @@ const UserProfileStatistics = ({
   fakeStatsData,
   handlePageChange,
   handleStatisticsChange,
+  setCurrentSelectedValue,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
@@ -163,6 +164,7 @@ const UserProfileStatistics = ({
                       // className="flex-none group w-[calc(36.2%-1rem)] max-w-[calc(36.2%-1rem)] sm:w-[calc(34.9%-1rem)] sm:max-w-[calc(34.9%-1rem)] relative"
                       key={index}
                       onClick={() => {
+                        setCurrentSelectedValue("")
                         handleTagClick(apiRange, item.stock_company);
                         handleStatisticsChange(item.stock_company);
                         setActiveStat(item.stock_name || item.stock_company);
@@ -196,6 +198,7 @@ const UserProfileStatistics = ({
                 <span
                   key={index}
                   onClick={() => {
+                    setCurrentSelectedValue("")
                     handleTagClick(apiRange, item.stock_company);
                     handleStatisticsChange(item.stock_company);
                     setActiveStat(item.stock_name || item.stock_company);

@@ -34,11 +34,12 @@ const SelectUserCompaniesInput = ({
   stockProfileData,
   setSelectedStockProfileCurrentValue,
   handleGlobalSearch,
+  currentSelectedValue,
+  setCurrentSelectedValue,
 }) => {
 
   const dropdownRef = useRef(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [currentSelectedValue, setCurrentSelectedValue] = useState("");
 
   console.log(filteredData, "hello filter");
 
