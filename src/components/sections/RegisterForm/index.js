@@ -818,6 +818,8 @@ const RegisterForm = () => {
                       // setInputText(e.clipboardData.getData('text/plain').trim());
                     }}
                     autoComplete="tel"
+                    placeholder="5########"
+                    dir="ltr"
                     title="رقم الجوال"
                     dataList={countryCodes}
                     activeItem={activeItem}

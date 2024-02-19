@@ -266,7 +266,7 @@ const LoginCardForm = ({
                               });
                             }}
                         autoComplete="tel"
-                        placeholder="5123456789"
+                        placeholder="5########"
                         dir="ltr"
                         label="رقم الجوال"
                         inputmode="numeric"

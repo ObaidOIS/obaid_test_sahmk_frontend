@@ -134,7 +134,7 @@ const SelectUserCompaniesInput = ({
               // ? `قائمة الشركات تم تحديد ( ${selectedItems?.length} )`:
               currentSelectedValue != "" && dropdownOpen == false ?
               currentSelectedValue :
-              "بحث عن اسم السهم  أو رقم السهم"
+              "ابحث عن اسم السهم أو رقم السهم"
             }
             icon={<FiSearch size={24} className="text-darkGreyColor/60" />}
             searchQuery={searchQuery}

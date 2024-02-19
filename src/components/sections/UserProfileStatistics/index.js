@@ -235,7 +235,7 @@ const UserProfileStatistics = ({
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col ms-3">
                     <div className="text-darkGreyColor">السهم</div>
-                    <dd className="tracking-tight text-gray-900 font-medium text-2xl">
+                    <dd className="tracking-tight text-gray-900 font-medium text-1xl">
                       {activeStat == "TASI" ? "تاسي" : activeStat == "NOMUC" ? "سوق نمو" : activeStat}
                     </dd>
                   </div>

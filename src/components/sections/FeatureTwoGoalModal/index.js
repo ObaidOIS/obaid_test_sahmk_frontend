@@ -65,7 +65,7 @@ const FeatureTwoGoalModal = ({
         handleChange={handleChange}
         label="سعر مخصص"
         value={formData.target_price}
-        placeholder="23 SAR"
+        placeholder="50 ريال"
         name="target_price"
       />
     </div>

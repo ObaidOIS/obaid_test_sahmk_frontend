@@ -1273,8 +1273,8 @@ const UserProfileSection = () => {
                         ) : (
                           <DotBadgeUI
                             title="الأسعار مباشرة"
-                            badgeStyle="bg-whiteColor shadow-xl text-lightRedColor"
-                            dotStyle="fill-lightRedColor"
+                            badgeStyle="bg-whiteColor shadow-xl text-lightGreenColor"
+                            dotStyle="fill-lightGreenColor"
                             isDot={true}
                           />
                         )}

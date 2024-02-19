@@ -21,7 +21,7 @@ const FeatureOneSearchModal = ({
       <div className="mt-3 w-full h-[45vh]">
         <div>
           <SearchInput 
-              placeholder="بحث باسم الشركة"
+              placeholder="ابحث باسم الشركة"
               searchQuery={searchQuery}
               handleSearch={handleSearch} />
         </div>

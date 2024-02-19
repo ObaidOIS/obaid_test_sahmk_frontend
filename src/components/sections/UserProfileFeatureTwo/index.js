@@ -431,7 +431,7 @@ const UserProfileFeatureTwo = ({
                 }
                 cardStyle="p-5"
                 title="الأسعار المستهدفة للأسهم"
-                desc="تصلك على الواتساب رسائل بسعر الافتتاح والاغلاق يوميا"
+                desc="تصلك على الواتساب رسالة مباشرة في حال وصول السعر المتسهدف"
                 icon={
                   <Image unoptimized={true}  loading="eager"  
                     src="/assets/icons/target-price-icon.svg"
