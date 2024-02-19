@@ -354,13 +354,15 @@ const UserProfileSection = () => {
       title: "خدمة إشعارات الأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image unoptimized={true} 
-          loading="eager"
-          src="/assets/icons/message-glow-icon.svg"
+        <Image 
+        // unoptimized={true} 
+          // loading="eager"
+          // src="/assets/icons/message-glow-icon.svg"
+          src="/assets/icons/message-glow-icon.png"
           width={85}
           height={85}
           alt="img"
-          priority
+          // priority
         />
       ),
       page: { name: "stock-notification", value: "خدمة إشعارات الأسهم" },
@@ -1032,6 +1034,7 @@ const UserProfileSection = () => {
 
   const handleGlobalSearch = async(name) => {
     
+    console.log(name, "search stock data")
     const response = await apiCall(
       `/api/stocks/search-stock/`,
       "POST",
@@ -1041,6 +1044,11 @@ const UserProfileSection = () => {
     );
     if (response && response.result) {
       console.log(response, "search stock data");
+      handleTagClick(apiRange, response.result[0]?.symbol || response.result[0]?.name)
+      
+      // handleTagClick(apiRange, item.stock_company);
+      setActiveStat(response.result[0]?.name || response.result[0]?.symbol);
+      setSelectedSymbol(response.result[0]?.symbol || response.result[0]?.name);
       // setHighStocksData(response.result)
     } else {
       console.log("high stock data error")

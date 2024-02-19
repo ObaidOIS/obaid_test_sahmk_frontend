@@ -258,6 +258,7 @@ const LoginCardForm = ({
                               const value = e.clipboardData.getData('text/plain').trim();
                               if (/^\d*$/.test(e.clipboardData.getData('text/plain').trim())) {
                                 handleDataChange("phoneNumber", e.clipboardData.getData('text/plain').trim());
+                                e.preventDefault();
                               }
                               setValidate({
                                 ...validate,

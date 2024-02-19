@@ -803,7 +803,7 @@ const RegisterForm = () => {
                 <div className="border-t sm:border-t-0 pt-6 sm:pt-0 mt-2 sm:mt-0">
                   <PhoneNumberUI
                     name="phone-number"
-                    handlePaste={() => {
+                    handlePaste={(e) => {
                       if (
                         /^\d*$/.test(
                           e.clipboardData.getData("text/plain").trim()
@@ -813,6 +813,7 @@ const RegisterForm = () => {
                           "phoneNumber",
                           e.clipboardData.getData("text/plain").trim()
                         );
+                        e.preventDefault();
                       }
                       // setInputText(e.clipboardData.getData('text/plain').trim());
                     }}

@@ -166,8 +166,28 @@ const ContactUsForm = () => {
 
   const [token, setToken] = useState();
 
+  
+  const handleVerifyToken = async(token) => {
+    
+    // const response = await apiCall(
+    //   `/auth/api/create-captcha-assess/`,
+    //   "POST",
+    //   {
+    //     project_id: "",
+    //     recaptcha_key: "The reCAPTCHA key associated with the site/app",
+    //     token: token,
+    //     recaptcha_action: "Action name corresponding to the token"
+    //   }
+    // );
+    // if (response && response.result) {
+    //   console.log(response, "token data");
+    //   // setToken(response.result)
+    // } else {
+    //   console.log("token data error")
+    // }
+  }
 
-  console.log(token, "token hello");
+  // console.log(token, "token hello");
   return (
     <div>
       {successAlert == true && (
@@ -231,7 +251,7 @@ const ContactUsForm = () => {
                 <PhoneNumberUI
                   name="phone"
                   value={formData.phone}
-                  handlePaste={() => {
+                  handlePaste={(e) => {
                     if (
                       /^\d*$/.test(
                         e.clipboardData.getData("text/plain").trim()
@@ -241,6 +261,7 @@ const ContactUsForm = () => {
                         "phone",
                         e.clipboardData.getData("text/plain").trim()
                       );
+                      e.preventDefault()
                     }
                     // setInputText(e.clipboardData.getData('text/plain').trim());
                   }}
@@ -275,7 +296,8 @@ const ContactUsForm = () => {
               /> */}
               <GoogleReCaptcha
                 onVerify={(reCaptchaToken) => {
-                    setToken(reCaptchaToken);
+                    // setToken(reCaptchaToken);
+                    handleVerifyToken(reCaptchaToken);
                 }}
             />
               </div>
