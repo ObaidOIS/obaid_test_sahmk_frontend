@@ -12,7 +12,7 @@ const StockCardListUI = ({tableData, activeTab}) => {
     </div>
     <div class="shrink-0 flex flex-col items-end">
       <p class="text-sm leading-6 text-gray-900">{tableData.trade_price}</p>
-      <p class="mt-1 text-xs leading-5 text-lightGreenColor" dir='ltr'>{activeTab == "quantity" ? tableData?.volume : (tableData.pct_change != undefined && tableData.change != undefined) && `(${tableData.pct_change} %) ${tableData.change}`} </p>
+      <p class={`mt-1 text-xs leading-5 ${tableData?.change < 0 ? 'text-lightRedColor' : ' text-lightGreenColor'}`} dir='ltr'>{activeTab == "quantity" ? tableData?.volume : (tableData.pct_change != undefined && tableData.change != undefined) && `(${tableData.pct_change} %) ${tableData.change}`} </p>
     </div>
   </div>
     </div>

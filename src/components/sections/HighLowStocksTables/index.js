@@ -120,7 +120,7 @@ const HighLowStocksTables = ({
                   <span
                     key={index}
                     onClick={() => {
-                      console.log(activeFilter,item.name, item.type, "hello sector or market click" )
+                      console.log(activeFilter, item.name, item.type, "hello sector or market click" )
                       setSelectedMarketSectorName(item.name);
                       item.type == "sector" ?
                       setSelectedSector(item.name) : 
@@ -173,7 +173,7 @@ const HighLowStocksTables = ({
 
             {(currentPlan !== "الباقة المجانية" &&
             (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية"
-              ? activeData
+              ? activeData 
                 ? activeData
                 : []
               : fakeTableData

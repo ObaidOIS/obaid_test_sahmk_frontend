@@ -168,6 +168,8 @@ const ContactUsForm = () => {
 
   
   const handleVerifyToken = async(token) => {
+
+    console.log(token);
     
     // const response = await apiCall(
     //   `/auth/api/create-captcha-assess/`,
