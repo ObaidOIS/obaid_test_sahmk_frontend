@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import BasicStocksTableUI from "@/components/widgets/BasicStocksTableUI";
 import TableBlurEffect from "@/components/widgets/TablesBlurEffect";
 import PillTabsUI from "@/components/widgets/PillTabsUI";
@@ -9,16 +9,18 @@ const HighLowStocksTables = ({
   currentPlan,
   handlePageChange,
   page,
-  highStocksData,
-  lowStocksData,
+  // highStocksData,
+  // lowStocksData,
   sectorsMarketNames,
   selectedMarketSectorName,
   setSelectedMarketSectorName,
   handleHighStocksData,
   handleLowStocksData,
   handleStocksByValueAndQuantity,
+  activeData,
+  setSelectedSector,
+  setSelectedMarket,
 }) => {
-
   const [activeFilter, setActiveFilter] = useState("highest");
 
   const tableTitles = [
@@ -73,10 +75,22 @@ const HighLowStocksTables = ({
     },
   ];
 
-  
   const handleActiveFilterChange = (tab) => {
-    setActiveFilter(tab);
+    setActiveFilter(tab);    
+    checkActiveTab(tab);
   };
+
+  const checkActiveTab = (tab) => {
+    if (tab == "highest") {
+      handleHighStocksData();
+    } else if (tab == "lowest") {
+      handleLowStocksData();
+    } else if (tab == "quantity") {
+      handleStocksByValueAndQuantity(tab);
+    } else if (tab == "value") {
+      handleStocksByValueAndQuantity(tab);
+    }
+  }
 
   const tableTabs = [
     { name: "الأكثر ارتفاعا", value: "highest" },
@@ -87,7 +101,14 @@ const HighLowStocksTables = ({
 
   return (
     <div>
-      <div className={`w-full bg-[#F5F7F9] pt-4 !mt-3 ${(currentPlan !== "الباقة المجانية" && (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية") ? "pb-4" : "pb-0"} rounded-3xl space-y-4 border border-gray-300`}>
+      <div
+        className={`w-full bg-[#F5F7F9] pt-4 !mt-3 ${
+          currentPlan !== "الباقة المجانية" &&
+          (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية"
+            ? "pb-4"
+            : "pb-0"
+        } rounded-3xl space-y-4 border border-gray-300`}
+      >
         {/* <p className="text-lg font-medium ps-4">الأكثر ارتفاعا</p> */}
         <div className="px-4 ">
           <div className={`gap-x-3 overflow-x-auto flex pt-2 pb-2`}>
@@ -97,17 +118,11 @@ const HighLowStocksTables = ({
                   <span
                     key={index}
                     onClick={() => {
-                      // handleTagClick(apiRange, item.stock_company);
-                      // handleStatisticsChange(item.stock_company);
                       setSelectedMarketSectorName(item.name);
-                      // setSelectedSymbol(item.stock_company);
-                      console.log(
-                        item.stock_company,
-                        "stock_company from item"
-                      );
-                      // handleSelectedStatCurrentValue(
-                      //   item.eod_data?.eod_data_list[1]?.value
-                      // );
+                      item.type == "sector" ?
+                      setSelectedSector(item.name) : 
+                      setSelectedMarket(item.name);
+                      checkActiveTab(activeFilter);
                     }}
                   >
                     {
@@ -132,7 +147,11 @@ const HighLowStocksTables = ({
         <div className="relative bg-[#F5F7F9] mb-4 rounded-3xl">
           {/* <p className="px-4 mt-2 ">الأكثر ارتفاعا</p> */}
           <div className="w-full pt-3">
-            <UnderlineTabsUI tabs={tableTabs} activeTab={activeFilter} handleTabChange={handleActiveFilterChange} />
+            <UnderlineTabsUI
+              tabs={tableTabs}
+              activeTab={activeFilter}
+              handleTabChange={handleActiveFilterChange}
+            />
           </div>
           <div className="relative">
             {currentPlan !== "الباقة المجانية" &&
@@ -147,20 +166,21 @@ const HighLowStocksTables = ({
 
             {(currentPlan !== "الباقة المجانية" &&
             (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية"
-              ? highStocksData
-                ? highStocksData
+              ? activeData
+                ? activeData
                 : []
-              : fakeTableData)?.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <StockCardListUI
-                        currentPlan={currentPlan}
-                        tableTitles={tableTitles}
-                        tableData={item}
-                      />
-                    </div>
-                  );
-                })}
+              : fakeTableData
+            )?.map((item, index) => {
+              return (
+                <div key={index}>
+                  <StockCardListUI
+                    currentPlan={currentPlan}
+                    tableTitles={tableTitles}
+                    tableData={item}
+                  />
+                </div>
+              );
+            })}
             {/* <BasicStocksTableUI currentPlan={currentPlan} tableTitles={tableTitles} tableData={(currentPlan !== "الباقة المجانية" &&
               (currentPlan?.title && currentPlan?.title) !==
                 "الباقة المجانية") ? highStocksData ? highStocksData : [] : fakeTableData} /> */}

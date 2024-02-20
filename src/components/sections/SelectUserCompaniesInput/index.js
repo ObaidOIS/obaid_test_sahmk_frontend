@@ -36,6 +36,8 @@ const SelectUserCompaniesInput = ({
   handleGlobalSearch,
   currentSelectedValue,
   setCurrentSelectedValue,
+  setSearchQuery,
+  setFilteredData,
 }) => {
 
   const dropdownRef = useRef(null);
@@ -158,7 +160,8 @@ const SelectUserCompaniesInput = ({
                   >
                     <button
                       type="button"
-                      onClick={()=>{handleGlobalSearch(person.name)}}
+                      // onClick={()=>{handleGlobalSearch(person.name)}}
+                      onClick={()=>{handleGlobalSearch(person.name); setSearchQuery(""); setFilteredData(originalData)}}
                       // onClick={() => {
                       //   AddCompanySelection !== undefined
                       //     ? (AddCompanySelection(

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 const UnderlineTabsUI = ({tabs, activeTab, handleTabChange}) => {
 
+  console.log(activeTab, "activeTab");
+
   return (
     <div>
       <div className="block">

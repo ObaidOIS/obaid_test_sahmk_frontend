@@ -39,6 +39,9 @@ const UserProfileStatistics = ({
   handlePageChange,
   handleStatisticsChange,
   setCurrentSelectedValue,
+  setSearchQuery,
+  originalData,
+  setFilteredData,
 }) => {
   const [selectedChartCurrentValue, setSelectedChartCurrentValue] =
     useState("");
@@ -164,6 +167,8 @@ const UserProfileStatistics = ({
                       // className="flex-none group w-[calc(36.2%-1rem)] max-w-[calc(36.2%-1rem)] sm:w-[calc(34.9%-1rem)] sm:max-w-[calc(34.9%-1rem)] relative"
                       key={index}
                       onClick={() => {
+                        setSearchQuery("")
+                        setFilteredData(originalData)
                         setCurrentSelectedValue("")
                         handleTagClick(apiRange, item.stock_company);
                         handleStatisticsChange(item.stock_company);
@@ -198,6 +203,8 @@ const UserProfileStatistics = ({
                 <span
                   key={index}
                   onClick={() => {
+                    setSearchQuery("")
+                    setFilteredData(originalData)
                     setCurrentSelectedValue("")
                     handleTagClick(apiRange, item.stock_company);
                     handleStatisticsChange(item.stock_company);
@@ -293,7 +300,7 @@ const UserProfileStatistics = ({
             </>
           ) : (
             <div className="animate-pulse">
-              <div class="h-80 align-middle pt-12 text-center mr-3 mt-2">
+              <div class="h-[16.5rem] align-middle pt-12 text-center mr-3 mt-2">
                 <Image unoptimized={true} 
                   loading="eager"
                   src="/assets/icons/chart-loader.gif"

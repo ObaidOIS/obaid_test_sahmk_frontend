@@ -805,13 +805,12 @@ const RegisterForm = () => {
                     name="phone-number"
                     handlePaste={(e) => {
                       if (
-                        /^\d*$/.test(
-                          e.clipboardData.getData("text/plain").trim()
-                        )
+                        // /^\d*$/.test(
+                          e.clipboardData.getData("text/plain").replace(/[+\s]/g, '')
                       ) {
                         handleDataChange(
                           "phoneNumber",
-                          e.clipboardData.getData("text/plain").trim()
+                          e.clipboardData.getData("text/plain").replace(/[+\s]/g, '')
                         );
                         e.preventDefault();
                       }

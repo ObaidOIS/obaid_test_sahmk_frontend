@@ -141,13 +141,13 @@ const LoginCardForm = ({
     // Define the prefixes to check
     const prefixesToRemove = [
       // "0",
-      "966",
-      "973",
-      "965",
-      "968",
-      "974",
-      "971",
-      "92",
+      // "966",
+      // "973",
+      // "965",
+      // "968",
+      // "974",
+      // "971",
+      // "92",
     ];
 
     // Check if the entered phone number starts with any of the prefixes
@@ -255,9 +255,9 @@ const LoginCardForm = ({
                       <InputFieldUI
                         handlePaste={(e)=>
                             {
-                              const value = e.clipboardData.getData('text/plain').trim();
-                              if (/^\d*$/.test(e.clipboardData.getData('text/plain').trim())) {
-                                handleDataChange("phoneNumber", e.clipboardData.getData('text/plain').trim());
+                              const value = e.clipboardData.getData('text/plain').replace(/[+\s]/g, '');
+                              if (value) {
+                                handleDataChange("phoneNumber", value);
                                 e.preventDefault();
                               }
                               setValidate({

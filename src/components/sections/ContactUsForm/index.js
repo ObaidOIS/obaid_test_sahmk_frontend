@@ -103,11 +103,11 @@ const ContactUsForm = () => {
   // };
 
   const handleSubmitForm = async () => {
-    if (!recaptchaValue) {
-      setErrorAlert(true);
-      setErrorMessage("يرجى التحقق باستخدام reCAPTCHA");
-      return;
-    }
+    // if (!recaptchaValue) {
+    //   setErrorAlert(true);
+    //   setErrorMessage("يرجى التحقق باستخدام reCAPTCHA");
+    //   return;
+    // }
     console.log(formData, "contactus");
     if(formData.first_name == ""){
       setErrorAlert(true);
@@ -253,13 +253,12 @@ const ContactUsForm = () => {
                   value={formData.phone}
                   handlePaste={(e) => {
                     if (
-                      /^\d*$/.test(
-                        e.clipboardData.getData("text/plain").trim()
-                      )
+                      // /^\d*$/.test(
+                        e.clipboardData.getData("text/plain").replace(/[+\s]/g, '')
                     ) {
                       handleChange(
                         "phone",
-                        e.clipboardData.getData("text/plain").trim()
+                        e.clipboardData.getData("text/plain").replace(/[+\s]/g, '')
                       );
                       e.preventDefault()
                     }

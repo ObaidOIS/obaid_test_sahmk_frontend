@@ -43,7 +43,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
           <ProgressBarUI precentageIn={precentageIn} precentageOut={precentageOut} />
         </div>
         <dl className="grid grid-cols-2 gap-x-3 gap-y-3 ">
-          {stats && stats.map((stat) => (
+          {stats && stats?.map((stat) => (
             <>
             <div>
               <StatsBoxUI stat={stat} />

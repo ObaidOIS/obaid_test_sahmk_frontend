@@ -7,10 +7,10 @@ const StockCardListUI = ({tableData}) => {
     <div class="flex min-w-0 gap-x-4">
       <div class="min-w-0 flex-auto">
         <p class="text-sm font-semibold leading-6 text-gray-900">{tableData.name}</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">{tableData.stock_symbol}</p>
+        <p class="mt-1 truncate text-xs leading-5 text-gray-500">{tableData.index}</p>
       </div>
     </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+    <div class="shrink-0 flex flex-col items-end">
       <p class="text-sm leading-6 text-gray-900">{tableData.trade_price}</p>
       <p class="mt-1 text-xs leading-5 text-lightGreenColor" dir='ltr'>({tableData.pct_change} %) {tableData.change} </p>
     </div>

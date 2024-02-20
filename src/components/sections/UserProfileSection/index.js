@@ -43,10 +43,10 @@ const UserProfileSection = () => {
     useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
-  const [highStocksData, setHighStocksData] = useState("");
-  const [lowStocksData, setLowStocksData] = useState("");
-  const [stocksByValueAndQuantityData, setStocksByValueAndQuantityData] = useState("");
-  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("TASI");
+  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("Energy");
+  const [selectedSector, setSelectedSector] = useState("Energy");
+  const [selectedMarket, setSelectedMarket] = useState("TASI");
+  const [activeData, setActiveData] = useState([]);
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
@@ -571,7 +571,7 @@ const UserProfileSection = () => {
   const [yearsChartTag, setYearsChartTag] = useState(false);
   const [maxChartTag, setMaxChartTag] = useState(false);
   const [tagsList, setTagsList] = useState([]);
-  const [selectedSymbol, setSelectedSymbol] = useState("");
+  const [selectedSymbol, setSelectedSymbol] = useState("TASI");
   const [chartData, setChartData] = useState([]);
 
   const [chartLoading, setChartLoading] = useState(false);
@@ -1025,13 +1025,13 @@ const UserProfileSection = () => {
       `/api/stocks/get-top-gainers/`,
       "POST",
       {
-        index : "TASI", // market_id
-        sector: "All"
+        index : selectedMarket, // market_id
+        sector: selectedSector,
       }
     );
     if (response && response.result) {
       console.log(response, "high stock data");
-      setHighStocksData(response.result)
+      setActiveData(response.result);
     } else {
       console.log("high stock data error")
     }
@@ -1041,31 +1041,36 @@ const UserProfileSection = () => {
       `/api/stocks/get-top-losers/`,
       "POST",
       {
-        index : "TASI", // market_id
-        sector: "All"
+        index : selectedMarket, // market_id
+        sector: selectedSector,
       }
     );
     if (response && response.result) {
       console.log(response, "low stock data");
-      setLowStocksData(response.result)
+      setActiveData(response.result);
     } else {
       console.log("low stock data error")
     }
   }
 
-  const handleStocksByValueAndQuantity = async() => {
+  const handleStocksByValueAndQuantity = async(type) => {
     
     const response = await apiCall(
       `/api/stocks/get_top_volume_and_value_stocks/`,
       "POST",
       {
-        index : "TASI", // market_id
-        sector: "All"
+        index : selectedMarket, // market_id
+        sector: selectedSector,
       }
     );
     if (response && response.result) {
       console.log(response, "quantity stock data");
-      setStocksByValueAndQuantityData(response.result)
+      if(type == "quantity"){
+        setActiveData(response.result.volumes);
+      }
+      if(type == "value"){
+        setActiveData(response.result.values);
+      }
       // stocksByValueAndQuantityData
     } else {
       console.log("high stock data error")
@@ -1074,43 +1079,43 @@ const UserProfileSection = () => {
 
 
   const sectorsMarketNames = [
-      { name: "TASI", arabic_name: "تاسي", type: "market" },
-      { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
-      { name: "Sukuk", arabic_name: "صكوك", type: "market" },
-      { name: "Buy-In Equity Market", arabic_name: "سوق الأسهم بالشراء", type: "market" },
-      { name: "Buy-In Debt Market", arabic_name: "سوق الديون بالشراء", type: "market" },
-      { name: "Futures", arabic_name: "عقود الآجلة", type: "market" },
-      { name: "Options", arabic_name: "خيارات", type: "market" },
-      { name: "OTC Equity Securities", arabic_name: "الأوراق المالية خارج البورصة - الأسهم", type: "market" },
-      { name: "OTC Debt Securities", arabic_name: "الأوراق المالية خارج البورصة - الديون", type: "market" },
-      { name: "Retailing", arabic_name: "التجزئة", type: "sector" },
-      { name: "Real Estate Mgmt & Development", arabic_name: "إدارة وتطوير العقارات", type: "sector" },
-      { name: "Real Estate Investment Trust", arabic_name: "صندوق الاستثمار العقاري", type: "sector" },
-      { name: "Semiconductors & Semiconductor Equip", arabic_name: "شرائح النصف الموصلة ومعداتها", type: "sector" },
-      { name: "Software & Services", arabic_name: "البرمجيات والخدمات", type: "sector" },
-      { name: "Technology Hardware & Equip", arabic_name: "أجهزة التكنولوجيا والمعدات", type: "sector" },
-      { name: "Transportation", arabic_name: "النقل", type: "sector" },
-      { name: "Telecommunication Services", arabic_name: "خدمات الاتصالات", type: "sector" },
-      { name: "Utilities", arabic_name: "الخدمات العامة", type: "sector" },
-      { name: "Food & Beverages", arabic_name: "الطعام والمشروبات", type: "sector" },
-      { name: "Food & Staples Retailing", arabic_name: "تجزئة الطعام والسلع الأساسية", type: "sector" },
-      { name: "Health Care Equipment & Svc", arabic_name: "معدات الرعاية الصحية والخدمات", type: "sector" },
-      { name: "Household & Personal Products", arabic_name: "منتجات الأسرة والشخصية", type: "sector" },
-      { name: "Insurance", arabic_name: "التأمين", type: "sector" },
-      { name: "Media", arabic_name: "وسائل الإعلام", type: "sector" },
-      { name: "Materials", arabic_name: "المواد", type: "sector" },
-      { name: "PharmaBiotech & Life Science", arabic_name: "الصناعات الدوائية والتكنولوجيا الحيوية وعلوم الحياة", type: "sector" },
-      { name: "Automobiles & Components", arabic_name: "السيارات والمكونات", type: "sector" },
-      { name: "Banks", arabic_name: "البنوك", type: "sector" },
-      { name: "Capital Goods", arabic_name: "السلع الرأسمالية", type: "sector" },
-      { name: "Commercial & Professional Svc", arabic_name: "الخدمات التجارية والمهنية", type: "sector" },
-      { name: "Consumer Services", arabic_name: "خدمات المستهلك", type: "sector" },
-      { name: "Consumer Durables & Apparel", arabic_name: "المستهلكين المتينين والملابس", type: "sector" },
-      { name: "Diversified Financials", arabic_name: "خدمات مالية متنوعة", type: "sector" },
-      { name: "Energy", arabic_name: "الطاقة", type: "sector" },
-    ];
-  
-
+    { name: "Energy", arabic_name: "الطاقة", type: "sector" },
+       { name: "Diversified Financials", arabic_name: "خدمات مالية متنوعة", type: "sector" },
+       { name: "Consumer Durables & Apparel", arabic_name: "المستهلكين المتينين والملابس", type: "sector" },
+       { name: "Consumer Services", arabic_name: "خدمات المستهلك", type: "sector" },
+       { name: "Commercial & Professional Svc", arabic_name: "الخدمات التجارية والمهنية", type: "sector" },
+       { name: "Capital Goods", arabic_name: "السلع الرأسمالية", type: "sector" },
+       { name: "Banks", arabic_name: "البنوك", type: "sector" },
+       { name: "Automobiles & Components", arabic_name: "السيارات والمكونات", type: "sector" },
+       { name: "PharmaBiotech & Life Science", arabic_name: "الصناعات الدوائية والتكنولوجيا الحيوية وعلوم الحياة", type: "sector" },
+       { name: "Materials", arabic_name: "المواد", type: "sector" },
+       { name: "Media", arabic_name: "وسائل الإعلام", type: "sector" },
+       { name: "Insurance", arabic_name: "التأمين", type: "sector" },
+       { name: "Household & Personal Products", arabic_name: "منتجات الأسرة والشخصية", type: "sector" },
+       { name: "Health Care Equipment & Svc", arabic_name: "معدات الرعاية الصحية والخدمات", type: "sector" },
+       { name: "Food & Staples Retailing", arabic_name: "تجزئة الطعام والسلع الأساسية", type: "sector" },
+       { name: "Food & Beverages", arabic_name: "الطعام والمشروبات", type: "sector" },
+       { name: "Utilities", arabic_name: "الخدمات العامة", type: "sector" },
+       { name: "Telecommunication Services", arabic_name: "خدمات الاتصالات", type: "sector" },
+       { name: "Transportation", arabic_name: "النقل", type: "sector" },
+       { name: "Technology Hardware & Equip", arabic_name: "أجهزة التكنولوجيا والمعدات", type: "sector" },
+       { name: "Software & Services", arabic_name: "البرمجيات والخدمات", type: "sector" },
+       { name: "Semiconductors & Semiconductor Equip", arabic_name: "شرائح النصف الموصلة ومعداتها", type: "sector" },
+       { name: "Real Estate Investment Trust", arabic_name: "صندوق الاستثمار العقاري", type: "sector" },
+       { name: "Real Estate Mgmt & Development", arabic_name: "إدارة وتطوير العقارات", type: "sector" },
+       { name: "Retailing", arabic_name: "التجزئة", type: "sector" },
+       { name: "OTC Debt Securities", arabic_name: "الأوراق المالية خارج البورصة - الديون", type: "market" },
+       { name: "OTC Equity Securities", arabic_name: "الأوراق المالية خارج البورصة - الأسهم", type: "market" },
+       { name: "Options", arabic_name: "خيارات", type: "market" },
+       { name: "Futures", arabic_name: "عقود الآجلة", type: "market" },
+       { name: "Buy-In Debt Market", arabic_name: "سوق الديون بالشراء", type: "market" },
+       { name: "Buy-In Equity Market", arabic_name: "سوق الأسهم بالشراء", type: "market" },
+       { name: "Sukuk", arabic_name: "صكوك", type: "market" },
+       { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
+       { name: "TASI", arabic_name: "تاسي", type: "market" },
+     ];
+   
+   
   // const handleSectorsMarketNames = async() => {
     
   //   const response = await apiCall(
@@ -1128,8 +1133,8 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     handleHighStocksData();
-    handleLowStocksData();
-    handleStocksByValueAndQuantity();
+    // handleLowStocksData();
+    // handleStocksByValueAndQuantity();
     // handleSectorsMarketNames();
   }, [])
 
@@ -1320,6 +1325,9 @@ const UserProfileSection = () => {
                     <div className="!m-0">
                       <>
                         <SelectUserCompaniesInput
+                          originalData={originalData}
+                          setFilteredData={setFilteredData}
+                          setSearchQuery={setSearchQuery}
                           currentSelectedValue={currentSelectedValue}
                           setCurrentSelectedValue={setCurrentSelectedValue}
                           handleGlobalSearch={handleGlobalSearch}
@@ -1353,7 +1361,10 @@ const UserProfileSection = () => {
                         />
                       </>
                   </div> : ""}
-                    <UserProfileStatistics
+                    <UserProfileStatistics                      
+                      setFilteredData={setFilteredData}
+                      originalData={originalData}
+                      setSearchQuery={setSearchQuery}
                       // currentSelectedValue={currentSelectedValue}
                       setCurrentSelectedValue={setCurrentSelectedValue}
                       handleStatisticsChange={handleStatisticsChange}
@@ -1387,14 +1398,15 @@ const UserProfileSection = () => {
                   </div>
                   <div className="!mt-0">
                     <HighLowStocksTables
+                    activeData={activeData}
+                    setSelectedSector={setSelectedSector}
+                    setSelectedMarket={setSelectedMarket}
                      handleHighStocksData={handleHighStocksData}
                      handleLowStocksData={handleLowStocksData}
                      handleStocksByValueAndQuantity={handleStocksByValueAndQuantity}
                      sectorsMarketNames={sectorsMarketNames}
                      setSelectedMarketSectorName={setSelectedMarketSectorName}
                      selectedMarketSectorName={selectedMarketSectorName}
-                     highStocksData={highStocksData}
-                     lowStocksData={lowStocksData}
                      handlePageChange={handlePageChange} 
                      page={{ name: "my-account", value: "باقتي وحسابي" }}
                      currentPlan={currentPlan}
