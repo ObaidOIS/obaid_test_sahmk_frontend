@@ -7,7 +7,7 @@ const Register = () => {
   return (
     <div>
     <header className="w-full sm:ms-0 relative">
-          <Image unoptimized={true}  loading="eager"  
+          <Image loading="eager"  
             src="/assets/images/beam-2-bg.png"
             width={300}
             height={200}

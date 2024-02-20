@@ -5,7 +5,7 @@ import PillTabsUI from "@/components/widgets/PillTabsUI";
 import UnderlineTabsUI from "@/components/widgets/UnderlineTabsUI";
 import StockCardListUI from "../StockCardListUI";
 
-const HighLowStocksTables = ({
+const HighLowStocksTables = ({ 
   currentPlan,
   handlePageChange,
   page,
@@ -20,6 +20,8 @@ const HighLowStocksTables = ({
   activeData,
   setSelectedSector,
   setSelectedMarket,
+  selectedSector,
+  selectedMarket,
 }) => {
   const [activeFilter, setActiveFilter] = useState("highest");
 
@@ -80,15 +82,15 @@ const HighLowStocksTables = ({
     checkActiveTab(tab);
   };
 
-  const checkActiveTab = (tab) => {
+  const checkActiveTab = (tab, market, sector) => {
     if (tab == "highest") {
-      handleHighStocksData();
+      handleHighStocksData(market, sector);
     } else if (tab == "lowest") {
-      handleLowStocksData();
+      handleLowStocksData(market, sector);
     } else if (tab == "quantity") {
-      handleStocksByValueAndQuantity(tab);
+      handleStocksByValueAndQuantity(tab, market, sector);
     } else if (tab == "value") {
-      handleStocksByValueAndQuantity(tab);
+      handleStocksByValueAndQuantity(tab, market, sector);
     }
   }
 
@@ -118,11 +120,12 @@ const HighLowStocksTables = ({
                   <span
                     key={index}
                     onClick={() => {
+                      console.log(activeFilter,item.name, item.type, "hello sector or market click" )
                       setSelectedMarketSectorName(item.name);
                       item.type == "sector" ?
                       setSelectedSector(item.name) : 
                       setSelectedMarket(item.name);
-                      checkActiveTab(activeFilter);
+                      checkActiveTab(activeFilter, item.type == "market" ? item.name : selectedMarket, item.type == "sector" ? item.name : selectedSector );
                     }}
                   >
                     {

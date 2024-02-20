@@ -18,7 +18,7 @@ const AsideWithLogo = () => {
         alt="image"
         priority
       />
-      <Image unoptimized={true}  loading="eager"  
+      <Image loading="eager"  
         src="/assets/images/gradient-rectangle.png"
         layout="fill"
         className="z-[-9999]"

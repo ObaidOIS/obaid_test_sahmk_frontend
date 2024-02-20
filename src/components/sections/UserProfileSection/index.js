@@ -1019,14 +1019,14 @@ const UserProfileSection = () => {
   };
 
 
-  const handleHighStocksData = async() => {
+  const handleHighStocksData = async(market, sector) => {
     
     const response = await apiCall(
       `/api/stocks/get-top-gainers/`,
       "POST",
       {
-        index : selectedMarket, // market_id
-        sector: selectedSector,
+        index : market ? market : selectedMarket, // market_id
+        sector: sector ? sector : selectedSector,
       }
     );
     if (response && response.result) {
@@ -1036,13 +1036,13 @@ const UserProfileSection = () => {
       console.log("high stock data error")
     }
   }
-  const handleLowStocksData = async() => {
+  const handleLowStocksData = async(market, sector) => {
     const response = await apiCall(
       `/api/stocks/get-top-losers/`,
       "POST",
       {
-        index : selectedMarket, // market_id
-        sector: selectedSector,
+        index : market ? market : selectedMarket, // market_id
+        sector: sector ? sector : selectedSector,
       }
     );
     if (response && response.result) {
@@ -1053,14 +1053,14 @@ const UserProfileSection = () => {
     }
   }
 
-  const handleStocksByValueAndQuantity = async(type) => {
+  const handleStocksByValueAndQuantity = async(type, market, sector) => {
     
     const response = await apiCall(
       `/api/stocks/get_top_volume_and_value_stocks/`,
       "POST",
       {
-        index : selectedMarket, // market_id
-        sector: selectedSector,
+        index : market ? market : selectedMarket, // market_id
+        sector: sector ? sector : selectedSector,
       }
     );
     if (response && response.result) {
@@ -1079,7 +1079,9 @@ const UserProfileSection = () => {
 
 
   const sectorsMarketNames = [
-    { name: "Energy", arabic_name: "الطاقة", type: "sector" },
+       { name: "TASI", arabic_name: "تاسي", type: "market" },
+       { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
+       { name: "Energy", arabic_name: "الطاقة", type: "sector" },
        { name: "Diversified Financials", arabic_name: "خدمات مالية متنوعة", type: "sector" },
        { name: "Consumer Durables & Apparel", arabic_name: "المستهلكين المتينين والملابس", type: "sector" },
        { name: "Consumer Services", arabic_name: "خدمات المستهلك", type: "sector" },
@@ -1104,15 +1106,13 @@ const UserProfileSection = () => {
        { name: "Real Estate Investment Trust", arabic_name: "صندوق الاستثمار العقاري", type: "sector" },
        { name: "Real Estate Mgmt & Development", arabic_name: "إدارة وتطوير العقارات", type: "sector" },
        { name: "Retailing", arabic_name: "التجزئة", type: "sector" },
-       { name: "OTC Debt Securities", arabic_name: "الأوراق المالية خارج البورصة - الديون", type: "market" },
-       { name: "OTC Equity Securities", arabic_name: "الأوراق المالية خارج البورصة - الأسهم", type: "market" },
-       { name: "Options", arabic_name: "خيارات", type: "market" },
-       { name: "Futures", arabic_name: "عقود الآجلة", type: "market" },
-       { name: "Buy-In Debt Market", arabic_name: "سوق الديون بالشراء", type: "market" },
-       { name: "Buy-In Equity Market", arabic_name: "سوق الأسهم بالشراء", type: "market" },
-       { name: "Sukuk", arabic_name: "صكوك", type: "market" },
-       { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
-       { name: "TASI", arabic_name: "تاسي", type: "market" },
+      //  { name: "OTC Debt Securities", arabic_name: "الأوراق المالية خارج البورصة - الديون", type: "market" },
+      //  { name: "OTC Equity Securities", arabic_name: "الأوراق المالية خارج البورصة - الأسهم", type: "market" },
+      //  { name: "Options", arabic_name: "خيارات", type: "market" },
+      //  { name: "Futures", arabic_name: "عقود الآجلة", type: "market" },
+      //  { name: "Buy-In Debt Market", arabic_name: "سوق الديون بالشراء", type: "market" },
+      //  { name: "Buy-In Equity Market", arabic_name: "سوق الأسهم بالشراء", type: "market" },
+      //  { name: "Sukuk", arabic_name: "صكوك", type: "market" },
      ];
    
    
@@ -1132,7 +1132,7 @@ const UserProfileSection = () => {
   // }
 
   useEffect(() => {
-    handleHighStocksData();
+    handleHighStocksData(selectedMarket, selectedSector);
     // handleLowStocksData();
     // handleStocksByValueAndQuantity();
     // handleSectorsMarketNames();
@@ -1398,8 +1398,10 @@ const UserProfileSection = () => {
                       handlePageChange={handlePageChange}
                     />
                   </div>
-                  <div className="!mt-0">
+                  <div className="!mt-0"> 
                     <HighLowStocksTables
+                    selectedSector={selectedSector}
+                    selectedMarket={selectedMarket}
                     activeData={activeData}
                     setSelectedSector={setSelectedSector}
                     setSelectedMarket={setSelectedMarket}
