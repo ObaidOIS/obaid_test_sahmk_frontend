@@ -625,7 +625,7 @@ const UserProfileSection = () => {
   const [
     selectedStockProfileCurrentValue,
     setSelectedStockProfileCurrentValue,
-  ] = useState({});
+  ] = useState([]);
 
   useEffect(() => {
     // console.log(stockProfileData, selectedSymbol, "user-stock-profile-see")
@@ -1151,16 +1151,16 @@ const UserProfileSection = () => {
     );
     if (response && response.result) {
       console.log(response, "search stock data");
-      handleTagClick(apiRange, response.result[0]?.symbol)
+      handleTagClick(apiRange, response.result?.symbol)
       // handleTagClick(apiRange, item.stock_company);
-      setActiveStat(response.result[0]?.name || response.result[0]?.symbol);
-      setSelectedSymbol(response.result[0]?.symbol);
-      setStockProfileData({[response.result[0]?.symbol]: 
+      setActiveStat(response.result?.name || response.result?.symbol);
+      setSelectedSymbol(response.result?.symbol);
+      setStockProfileData({[response.result?.symbol]: 
         {
-          general_view: response.result[0]?.general_view || {},
-          trades_info: response.result[0]?.trades_info || {},
-          financials: response.result[0]?.financials || {},
-          fundamental_info: response.result[0]?.fundamental_info || {},
+          general_view: response.result?.general_view || {},
+          trades_info: response.result?.trades_info || {},
+          financials: response.result?.financials || {},
+          fundamental_info: response.result?.fundamental_info || {},
         }});
       // setHighStocksData(response.result)
     } else {
@@ -1353,8 +1353,10 @@ const UserProfileSection = () => {
                           successCompaniesAlert={successCompaniesAlert}
                           successCompaniesMessage={successCompaniesMessage}
                           setSuccessCompaniesAlert={setSuccessCompaniesAlert}
-                          selectedSymbol={setSelectedStockProfileCurrentValue}
-                          stockProfileData={setSelectedStockProfileCurrentValue}
+                          selectedSymbol={selectedSymbol}
+                          stockProfileData={stockProfileData}
+                          // selectedSymbol={setSelectedStockProfileCurrentValue}
+                          // stockProfileData={setSelectedStockProfileCurrentValue}
                           setSelectedStockProfileCurrentValue={
                             setSelectedStockProfileCurrentValue
                           }

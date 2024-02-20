@@ -34,6 +34,7 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
     }
   }, [activeStatistics, selectedStockProfileCurrentValue ])
 
+  console.log(stats, "hello stats")
 
   return (
     <div>
@@ -43,19 +44,11 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
           <ProgressBarUI precentageIn={precentageIn} precentageOut={precentageOut} />
         </div>
         <dl className="grid grid-cols-2 gap-x-3 gap-y-3 ">
-          {stats && stats?.map((stat) => (
+          {(stats && stats != {} && stats != undefined) && stats?.map((stat) => (
             <>
             <div>
               <StatsBoxUI stat={stat} />
             </div>
-            {/* <div key={stat.name} className=" flex flex-col">
-              <dt className="text-sm leading-7 text-gray-500/90 font-medium truncate">
-                {stat.name}
-              </dt>
-              <dd className={`tracking-tight text-gray-900 font-medium ${stat.name == "نسبة التغيير" ? "text-primaryColor" : ""}`}>
-                {stat.value == "-" ? stat.value : isNaN(stat.value) ? stat.value : Number(stat.value).toLocaleString('en-US')}
-              </dd>
-            </div> */}
             </>
           ))}
         </dl>

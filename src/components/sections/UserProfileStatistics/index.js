@@ -251,8 +251,8 @@ const UserProfileStatistics = ({
                       <MainBadge
                         title={selectedStatCurrentValue}
                         icon={
-                          chartData[0].uv <
-                          chartData[chartData.length - 1].uv ? (
+                          chartData[0]?.uv <
+                          chartData[chartData.length - 1]?.uv ? (
                             <TiArrowSortedUp className="text-primaryColor" />
                           ) : (
                             <TiArrowSortedDown className="text-redColor" />
@@ -268,7 +268,7 @@ const UserProfileStatistics = ({
                         }
                         dir="ltr"
                         badgeStyle={`${
-                          chartData[0].uv < chartData[chartData.length - 1].uv
+                          chartData[0]?.uv < chartData[chartData.length - 1]?.uv
                             ? "text-primaryColor bg-primaryColor/10"
                             : "text-redColor bg-redColor/10"
                         } hover:text-gray-700 truncate px-2 !text-xs justify-center py-1.5 ml-3 block cursor-pointer`}
