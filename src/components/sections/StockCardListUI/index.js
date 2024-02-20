@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StockCardListUI = ({tableData}) => {
+const StockCardListUI = ({tableData, activeTab}) => {
   return (
     <div>
       <div class="flex justify-between gap-x-6 mt-2 border bg-whiteColor py-4 px-4 mx-4 rounded-2xl">
@@ -12,7 +12,7 @@ const StockCardListUI = ({tableData}) => {
     </div>
     <div class="shrink-0 flex flex-col items-end">
       <p class="text-sm leading-6 text-gray-900">{tableData.trade_price}</p>
-      <p class="mt-1 text-xs leading-5 text-lightGreenColor" dir='ltr'>({tableData.pct_change} %) {tableData.change} </p>
+      <p class="mt-1 text-xs leading-5 text-lightGreenColor" dir='ltr'>{activeTab == "quantity" ? tableData?.volume : (tableData.pct_change != undefined && tableData.change != undefined) && `(${tableData.pct_change} %) ${tableData.change}`} </p>
     </div>
   </div>
     </div>

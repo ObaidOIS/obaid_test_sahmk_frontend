@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BasicStocksTableUI from "@/components/widgets/BasicStocksTableUI";
 import TableBlurEffect from "@/components/widgets/TablesBlurEffect";
-import PillTabsUI from "@/components/widgets/PillTabsUI";
+import DoublePillTabsUI from "@/components/widgets/DoublePillTabsUI";
 import UnderlineTabsUI from "@/components/widgets/UnderlineTabsUI";
 import StockCardListUI from "../StockCardListUI";
 
@@ -129,11 +129,15 @@ const HighLowStocksTables = ({
                     }}
                   >
                     {
-                      <PillTabsUI
+                      <DoublePillTabsUI
                         tab={item.arabic_name}
                         // index={index}
-                        active={selectedMarketSectorName}
-                        currentTab={item.name}
+                        // active={selectedMarketSectorName}
+                        // currentTab={item.name}
+                        activeOne={selectedMarket}
+                        activeTwo={selectedSector}
+                        currentTabOne={item.type == "market" && item.name}
+                        currentTabTwo={item.type == "sector" && item.name}
                         tabStyle={`transition-transform duration-300 transform translate-x-0`}
                         badgeStyle={`${
                           item.name == selectedMarketSectorName
@@ -177,6 +181,7 @@ const HighLowStocksTables = ({
               return (
                 <div key={index}>
                   <StockCardListUI
+                    activeTab={activeFilter}
                     currentPlan={currentPlan}
                     tableTitles={tableTitles}
                     tableData={item}
