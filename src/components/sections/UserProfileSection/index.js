@@ -1092,7 +1092,7 @@ const UserProfileSection = () => {
        { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
        { name: "Energy", arabic_name: "الطاقة", type: "sector" },
        { name: "Diversified Financials", arabic_name: "الخدمات المالية", type: "sector" },
-       { name: "Consumer Durables & Apparel", arabic_name: "السلع طويلةالأجل", type: "sector" },
+       { name: "Consumer Durables & Apparel", arabic_name: "السلع طويلة الأجل", type: "sector" },
        { name: "Consumer Services", arabic_name: "الخدمات الإستهلاكية", type: "sector" },
        { name: "Commercial & Professional Svc", arabic_name: "الخدمات التجارية والمهنية", type: "sector" },
        { name: "Capital Goods", arabic_name: "السلع الرأسمالية", type: "sector" },
