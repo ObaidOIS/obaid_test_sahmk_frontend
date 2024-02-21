@@ -125,11 +125,13 @@ const HighLowStocksTables = ({
                     key={index}
                     onClick={() => {
                       console.log(activeFilter, item.name, item.type, "hello sector or market click" )
-                      setSelectedMarketSectorName(item.name);
+                      // setSelectedMarketSectorName(item.name);
                       item.type == "sector" ?
                       setSelectedSector(item.name) : 
-                      setSelectedMarket(item.name);
-                      checkActiveTab(activeFilter, item.type == "market" ? item.name : selectedMarket, item.type == "sector" ? item.name : selectedSector );
+                      (setSelectedSector('All'),
+                      setSelectedMarket(item.name))
+                      checkActiveTab(activeFilter, item.type == "market" ? item.name : selectedMarket, item.type == "sector" ? item.name : 'All' );
+                      // checkActiveTab(activeFilter, item.type == "market" ? item.name : selectedMarket, item.type == "sector" ? item.name : selectedSector );
                     }}
                   >
                     {
@@ -143,11 +145,6 @@ const HighLowStocksTables = ({
                         currentTabOne={item.type == "market" && item.name}
                         currentTabTwo={item.type == "sector" && item.name}
                         tabStyle={`transition-transform duration-300 transform translate-x-0`}
-                        badgeStyle={`${
-                          item.name == selectedMarketSectorName
-                            ? "bg-darkColor text-whiteColor hover:bg-darkColor/80"
-                            : "bg-gray-200/80 text-darkColor hover:bg-mediumGreyColor"
-                        } truncate px-4 justify-center py-1.5 ml-3 min-w-[80px] block cursor-pointer`}
                       />
                     }
                   </span>

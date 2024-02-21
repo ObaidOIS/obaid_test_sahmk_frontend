@@ -43,8 +43,8 @@ const UserProfileSection = () => {
     useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
-  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("Energy");
-  const [selectedSector, setSelectedSector] = useState("Energy");
+  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("All");
+  const [selectedSector, setSelectedSector] = useState("All");
   const [selectedMarket, setSelectedMarket] = useState("TASI");
   const [activeData, setActiveData] = useState([]);
   const [lowStocksData, setLowStocksData] = useState([]);

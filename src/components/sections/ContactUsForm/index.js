@@ -185,11 +185,11 @@ const ContactUsForm = () => {
           `/auth/api/create-captcha-assess/`,
           "POST",
           {
-            project_id: localStorage.getItem('accessToken'),
+            project_id: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
             recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
             // recaptcha_key: "6LfemHopAAAAALyxmZ19-12MERLr2pExp1eHdMly",
             token: token,
-            recaptcha_action: "contactus"
+            recaptcha_action: "contact-us"
           }
         );
         if (response) {
