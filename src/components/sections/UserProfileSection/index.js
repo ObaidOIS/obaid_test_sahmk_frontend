@@ -47,6 +47,11 @@ const UserProfileSection = () => {
   const [selectedSector, setSelectedSector] = useState("Energy");
   const [selectedMarket, setSelectedMarket] = useState("TASI");
   const [activeData, setActiveData] = useState([]);
+  const [lowStocksData, setLowStocksData] = useState([]);
+  const [highStocksData, setHighStocksData] = useState([]);
+  const [stocksByValueData, setStocksByValueData] = useState([]);
+  const [stocksByQuantityData, setStocksByQuantityData] = useState([]);
+
   const [userData, setUserData] = useState({
     name: "",
     phoneNumber: "",
@@ -1032,6 +1037,7 @@ const UserProfileSection = () => {
     if (response && response.result) {
       console.log(response, "high stock data");
       setActiveData(response.result);
+      setHighStocksData(response.result);
     } else {
       console.log("high stock data error")
     }
@@ -1048,6 +1054,7 @@ const UserProfileSection = () => {
     if (response && response.result) {
       console.log(response, "low stock data");
       setActiveData(response.result);
+      setLowStocksData(response.result);
     } else {
       console.log("low stock data error")
     }
@@ -1067,9 +1074,11 @@ const UserProfileSection = () => {
       console.log(response, "quantity stock data");
       if(type == "quantity"){
         setActiveData(response.result.volumes);
+        setStocksByQuantityData(response.result.volumes);
       }
       if(type == "value"){
         setActiveData(response.result.values);
+        setStocksByValueData(response.result.values);
       }
       // stocksByValueAndQuantityData
     } else {
@@ -1167,6 +1176,32 @@ const UserProfileSection = () => {
       console.log(response);
     }
   }
+
+
+
+
+  useEffect(() => {
+    // Call the API initially
+    
+    // handleHighStocksData(selectedMarket, selectedSector);
+    // handleLowStocksData(selectedMarket, selectedSector);
+    // handleStocksByValueAndQuantity("quantity", selectedMarket, selectedSector);
+    // handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
+
+    // Set up an interval to call the API every one minute (60,000 milliseconds)
+    const intervalId = setInterval((e) => {
+      // console.log(e, "console time")
+      
+    handleHighStocksData(selectedMarket, selectedSector);
+    handleLowStocksData(selectedMarket, selectedSector);
+    handleStocksByValueAndQuantity("quantity", selectedMarket, selectedSector);
+    handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
+
+    }, 60000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div>
@@ -1403,6 +1438,10 @@ const UserProfileSection = () => {
                     selectedSector={selectedSector}
                     selectedMarket={selectedMarket}
                     activeData={activeData}
+                    highStocksData={highStocksData}
+                    lowStocksData={lowStocksData}
+                    stocksByQuantityData={stocksByQuantityData}
+                    stocksByValueData={stocksByValueData}
                     setSelectedSector={setSelectedSector}
                     setSelectedMarket={setSelectedMarket}
                      handleHighStocksData={handleHighStocksData}

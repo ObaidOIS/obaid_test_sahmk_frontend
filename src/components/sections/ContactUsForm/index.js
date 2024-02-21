@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Footer from "@/components/layouts/Footer";
 import PrimaryButton from "@/components/widgets/PrimaryButton";
 import SwitchUI from "@/components/widgets/SwitchUI";
@@ -166,28 +166,70 @@ const ContactUsForm = () => {
 
   const [token, setToken] = useState();
 
-  
   const handleVerifyToken = async(token) => {
-
-    console.log(token);
     
-    // const response = await apiCall(
-    //   `/auth/api/create-captcha-assess/`,
-    //   "POST",
-    //   {
-    //     project_id: "",
-    //     recaptcha_key: "The reCAPTCHA key associated with the site/app",
-    //     token: token,
-    //     recaptcha_action: "Action name corresponding to the token"
-    //   }
-    // );
-    // if (response && response.result) {
-    //   console.log(response, "token data");
-    //   // setToken(response.result)
-    // } else {
-    //   console.log("token data error")
-    // }
+    const response = await apiCall(
+      `/auth/api/create-captcha-assess/`,
+      "POST",
+      {
+        project_id: "",
+        recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
+        token: token,
+        recaptcha_action: "contactus"
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "token data");
+      // setToken(response.result)
+    } else {
+      console.log("token data error")
+    }
   }
+
+  
+  const onVerify = useCallback((token) => {
+    setToken(token);
+    // handleVerifyToken(token);
+    const response = apiCall(
+      `/auth/api/create-captcha-assess/`,
+      "POST",
+      {
+        project_id: localStorage.getItem('accessToken'),
+        recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
+        token: token,
+        recaptcha_action: "contactus"
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "token data");
+      // setToken(response.result)
+    } else {
+      console.log("token data error")
+    }
+    console.log(token);
+  });
+  
+  // const handleVerifyToken = async(token) => {
+
+  //   console.log(token);
+    
+  //   // const response = await apiCall(
+  //   //   `/auth/api/create-captcha-assess/`,
+  //   //   "POST",
+  //   //   {
+  //   //     project_id: "",
+  //   //     recaptcha_key: "The reCAPTCHA key associated with the site/app",
+  //   //     token: token,
+  //   //     recaptcha_action: "Action name corresponding to the token"
+  //   //   }
+  //   // );
+  //   // if (response && response.result) {
+  //   //   console.log(response, "token data");
+  //   //   // setToken(response.result)
+  //   // } else {
+  //   //   console.log("token data error")
+  //   // }
+  // }
 
   // console.log(token, "token hello");
   return (
@@ -296,10 +338,11 @@ const ContactUsForm = () => {
                 onChange={handleRecaptchaChange}
               /> */}
               <GoogleReCaptcha
-                onVerify={(reCaptchaToken) => {
-                    // setToken(reCaptchaToken);
-                    handleVerifyToken(reCaptchaToken);
-                }}
+                // onVerify={(reCaptchaToken) => {
+                //     // setToken(reCaptchaToken);
+                //     handleVerifyToken(reCaptchaToken);
+                // }}
+                onVerify={onVerify}
             />
               </div>
               <div>

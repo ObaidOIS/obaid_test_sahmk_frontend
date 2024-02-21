@@ -18,6 +18,10 @@ const HighLowStocksTables = ({
   handleLowStocksData,
   handleStocksByValueAndQuantity,
   activeData,
+  highStocksData,
+  lowStocksData,
+  stocksByQuantityData,
+  stocksByValueData,
   setSelectedSector,
   setSelectedMarket,
   selectedSector,
@@ -173,9 +177,8 @@ const HighLowStocksTables = ({
 
             {(currentPlan !== "الباقة المجانية" &&
             (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية"
-              ? activeData 
-                ? activeData
-                : []
+              ? 
+              (activeFilter == "highest" ? highStocksData : activeFilter == "lowest" ? lowStocksData : activeFilter == "quantity" ? stocksByQuantityData : activeFilter == "value" ? stocksByValueData : activeData)
               : fakeTableData
             )?.map((item, index) => {
               return (
