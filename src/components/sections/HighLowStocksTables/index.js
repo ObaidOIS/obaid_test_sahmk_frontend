@@ -26,8 +26,9 @@ const HighLowStocksTables = ({
   setSelectedMarket,
   selectedSector,
   selectedMarket,
+  activeFilter,
+  setActiveFilter,
 }) => {
-  const [activeFilter, setActiveFilter] = useState("highest");
 
   const tableTitles = [
     { title: "الرمز" },
@@ -105,6 +106,12 @@ const HighLowStocksTables = ({
     { name: "بالقيمة", value: "value" },
   ];
 
+
+  
+  // localStorage.setItem("highlowTableTab", activeFilter);
+  // localStorage.setItem("highlowCurrentSector", selectedSector);
+  // localStorage.setItem("highlowCurrentMarket", selectedMarket);
+
   return (
     <div>
       <div
@@ -127,10 +134,14 @@ const HighLowStocksTables = ({
                       console.log(activeFilter, item.name, item.type, "hello sector or market click" )
                       // setSelectedMarketSectorName(item.name);
                       item.type == "sector" ?
-                      setSelectedSector(item.name) : 
+                      (setSelectedSector(item.name),
+                      localStorage.setItem("highlowCurrentSector", item.name)) : 
                       (setSelectedSector('All'),
-                      setSelectedMarket(item.name))
+                      setSelectedMarket(item.name),
+                      localStorage.setItem("highlowCurrentSector", 'All'),
+                      localStorage.setItem("highlowCurrentMarket", item.name))
                       checkActiveTab(activeFilter, item.type == "market" ? item.name : selectedMarket, item.type == "sector" ? item.name : 'All' );
+                      // checkActiveTab(localStorage.getItem("highlowTableTab"), item.type == "market" ? item.name : localStorage.getItem("highlowCurrentMarket"), item.type == "sector" ? item.name : 'All' );
                       // checkActiveTab(activeFilter, item.type == "market" ? item.name : selectedMarket, item.type == "sector" ? item.name : selectedSector );
                     }}
                   >
@@ -152,9 +163,9 @@ const HighLowStocksTables = ({
               })}
           </div>
         </div>
-        <div className="relative bg-[#F5F7F9] mb-4 rounded-3xl">
+        <div className="relative bg-[#F5F7F9] mb-4 !mt-2 rounded-3xl">
           {/* <p className="px-4 mt-2 ">الأكثر ارتفاعا</p> */}
-          <div className="w-full pt-3">
+          <div className="w-full pt-0">
             <UnderlineTabsUI
               tabs={tableTabs}
               activeTab={activeFilter}
