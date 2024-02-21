@@ -43,7 +43,7 @@ const UserProfileSection = () => {
     useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
-  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("All");
+  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("Energy");
   const [selectedSector, setSelectedSector] = useState("All");
   const [selectedMarket, setSelectedMarket] = useState("TASI");
   const [activeData, setActiveData] = useState([]);
@@ -1140,8 +1140,14 @@ const UserProfileSection = () => {
   //   }
   // }
 
+  
+  const [activeFilter, setActiveFilter] = useState("highest");
+
   useEffect(() => {
     handleHighStocksData(selectedMarket, selectedSector);
+    localStorage.setItem("highlowTableTab", activeFilter);
+    localStorage.setItem("highlowCurrentSector", selectedSector);
+    localStorage.setItem("highlowCurrentMarket", selectedMarket);
     // handleLowStocksData();
     // handleStocksByValueAndQuantity();
     // handleSectorsMarketNames();
@@ -1187,21 +1193,23 @@ const UserProfileSection = () => {
     // handleLowStocksData(selectedMarket, selectedSector);
     // handleStocksByValueAndQuantity("quantity", selectedMarket, selectedSector);
     // handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
-
+    let intervalId = "";
     // Set up an interval to call the API every one minute (60,000 milliseconds)
-    const intervalId = setInterval((e) => {
-      // console.log(e, "console time")
+    if(isOpen("10:00AM", "3:00PM", zone) == "open") { 
+    intervalId = setInterval((e) => {
       
+    console.log(selectedMarket, selectedSector, selectedMarketSectorName, "hello current data");
+      // console.log(e, "console time")
     handleHighStocksData(selectedMarket, selectedSector);
     handleLowStocksData(selectedMarket, selectedSector);
     handleStocksByValueAndQuantity("quantity", selectedMarket, selectedSector);
     handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
 
-    }, 60000);
+    }, 60000)}
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
-  }, []);
+  }, [selectedMarket, selectedSector]);
 
   return (
     <div>
@@ -1435,6 +1443,8 @@ const UserProfileSection = () => {
                   </div>
                   <div className="!mt-0"> 
                     <HighLowStocksTables
+                    setActiveFilter={setActiveFilter}
+                    activeFilter={activeFilter}
                     selectedSector={selectedSector}
                     selectedMarket={selectedMarket}
                     activeData={activeData}
