@@ -11,7 +11,8 @@ import Image from "next/image";
 import apiCall from "@/components/common/api";
 import MessageAlert from "@/components/widgets/MessageAlert";
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { GoogleReCaptchaProvider, GoogleReCaptcha } from 'react-google-recaptcha-v3';
+// import { GoogleReCaptchaProvider, GoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { ReCaptchaProvider, ReCaptcha } from "next-recaptcha-v3";
 
 const ContactUsForm = () => {
 
@@ -24,10 +25,6 @@ const ContactUsForm = () => {
   const [recaptchaValue, setRecaptchaValue] = useState(null);
 
   useEffect(() => {
-    // Set window.recaptchaOptions when the component mounts
-    window.recaptchaOptions = {
-      enterprise: true,
-    };
 
     // Clean up when the component unmounts
     return () => {};
@@ -87,20 +84,8 @@ const ContactUsForm = () => {
     });
 
     console.log(fieldName, value, "contactus")
-
-    // const { name, value } = e.target;
-    // setFormData((prevData) => ({ ...prevData, [name]: value }));
-
-    // console.log(name, value, "contactus");
   };
 
-  const handleRecaptchaChange = (value) => {
-    setRecaptchaValue(value);
-  };
-
-  // const handleSubmit = async () => {
-  //   console.log(formData)
-  // };
 
   const handleSubmitForm = async () => {
     // if (!recaptchaValue) {
@@ -166,61 +151,19 @@ const ContactUsForm = () => {
 
   const [token, setToken] = useState();
 
-  const handleVerifyToken = async(token) => {
-    
-    const response = await apiCall(
-      `/auth/api/create-captcha-assess/`,
-      "POST",
-      {
-        project_id: "",
-        recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
-        token: token,
-        recaptcha_action: "contactus"
-      }
-    );
-    if (response && response.result) {
-      console.log(response, "token data");
-      // setToken(response.result)
-    } else {
-      console.log("token data error")
-    }
-  }
-
   
-  const onVerify = useCallback((token) => {
-    setToken(token);
-    // handleVerifyToken(token);
-    const response = apiCall(
-      `/auth/api/create-captcha-assess/`,
-      "POST",
-      {
-        project_id: localStorage.getItem('accessToken'),
-        recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
-        token: token,
-        recaptcha_action: "contactus"
-      }
-    );
-    if (response && response.result) {
-      console.log(response, "token data");
-      // setToken(response.result)
-    } else {
-      console.log("token data error")
-    }
-    console.log(token);
-  });
-  
-  // const handleVerifyToken = async(token) => {
-
-  //   console.log(token);
-    
-  //   // const response = await apiCall(
+  // const onVerify = useCallback((token) => {
+  //   setToken(token);
+  //   // handleVerifyToken(token);
+  //   // const response = apiCall(
   //   //   `/auth/api/create-captcha-assess/`,
   //   //   "POST",
   //   //   {
-  //   //     project_id: "",
-  //   //     recaptcha_key: "The reCAPTCHA key associated with the site/app",
+  //   //     project_id: localStorage.getItem('accessToken'),
+  //   //     // recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
+  //   //     recaptcha_key: "6LfemHopAAAAALyxmZ19-12MERLr2pExp1eHdMly",
   //   //     token: token,
-  //   //     recaptcha_action: "Action name corresponding to the token"
+  //   //     recaptcha_action: "contactus"
   //   //   }
   //   // );
   //   // if (response && response.result) {
@@ -229,9 +172,37 @@ const ContactUsForm = () => {
   //   // } else {
   //   //   console.log("token data error")
   //   // }
-  // }
+  //   console.log(token);
+  // });
 
-  // console.log(token, "token hello");
+
+  useEffect(() => {
+    if (token) {
+      console.log(token);
+      // Validate token and make some actions if it's a bot
+      // validateToken(token);
+      const response = apiCall(
+          `/auth/api/create-captcha-assess/`,
+          "POST",
+          {
+            project_id: localStorage.getItem('accessToken'),
+            recaptcha_key: "6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou",
+            // recaptcha_key: "6LfemHopAAAAALyxmZ19-12MERLr2pExp1eHdMly",
+            token: token,
+            recaptcha_action: "contactus"
+          }
+        );
+        if (response) {
+          console.log(response, "token data");
+          setRecaptchaValue(true);
+          // setToken(response.result)
+        } else {
+          console.log("token data error")
+          setRecaptchaValue(false);
+        }
+    }
+  }, [token]);
+
   return (
     <div>
       {successAlert == true && (
@@ -262,10 +233,10 @@ const ContactUsForm = () => {
           }
         />
       )}
-      <GoogleReCaptchaProvider
+      <ReCaptchaProvider
           reCaptchaKey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
+          // useEnterprise
           useEnterprise={true}
-          // onChange={handleRecaptchaChange}
           >
       <div className=" px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
@@ -276,7 +247,6 @@ const ContactUsForm = () => {
             إذا كان لديك أي أسئلة، فلا تتردد في الاتصال بنا. نحن هنا لمساعدتك!
           </p>
         </div>
-        {/* <form> */}
           <div className="mx-auto mt-16 max-w-xl sm:mt-20">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               <div>
@@ -306,7 +276,6 @@ const ContactUsForm = () => {
                       );
                       e.preventDefault()
                     }
-                    // setInputText(e.clipboardData.getData('text/plain').trim());
                   }}
                   autoComplete="tel"
                   title="رقم التواصل"
@@ -332,18 +301,7 @@ const ContactUsForm = () => {
             </div>
             <div className="mt-10">
               <div className="mb-10">
-              {/* <GoogleReCaptchaProvider
-                reCaptchaKey="6Lc0V2wpAAAAAKlSRbnE-wnSSyNS8lWZtLneBMou"
-                useEnterprise={true}
-                onChange={handleRecaptchaChange}
-              /> */}
-              <GoogleReCaptcha
-                // onVerify={(reCaptchaToken) => {
-                //     // setToken(reCaptchaToken);
-                //     handleVerifyToken(reCaptchaToken);
-                // }}
-                onVerify={onVerify}
-            />
+              <ReCaptcha onValidate={setToken} action="page_view" />
               </div>
               <div>
               <PrimaryButton
@@ -355,9 +313,8 @@ const ContactUsForm = () => {
               </div>
             </div>
           </div>
-        {/* </form> */}
       </div>
-      </GoogleReCaptchaProvider>
+      </ReCaptchaProvider>
     </div>
   );
 };
