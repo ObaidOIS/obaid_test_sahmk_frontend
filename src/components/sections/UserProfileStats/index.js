@@ -16,6 +16,8 @@ const UserProfileStats = ({ stats, activeTab, activeStatistics, selectedStockPro
       const filterNames = ["عدد الصفقات الداخلة", "عدد الصفقات الخارجة"];
       const filteredData = stats?.filter((item) => filterNames.includes(item.name));
       const values = filteredData?.map((item) => item.raw_value);
+
+      console.log(filteredData, "raw stats")
       // console.log(values, "values")
       if(values !== undefined){
       const inValue = Number(values[0]);

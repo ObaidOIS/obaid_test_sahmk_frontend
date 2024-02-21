@@ -62,9 +62,9 @@ const FeatureSection = () => {
   return (
     <section
       id="features"
-      className="relative h-full bg-gradient-to-tr from-teal-700 to-teal-500 via-teal-950 from-10% to-100% pt-20 pb-20"
+      className="relative h-full bg-gradient-to-tr 2xl:flex 2xl:justify-center from-teal-700 to-teal-500 via-teal-950 from-10% to-100% pt-20 pb-20"
     >
-      <div className="mx-auto h-[820px] sm:h-[1000px] md:h-[1100px] lg:h-[810px] xl:h-[785px] overflow-hidden relative">
+      <div className="mx-auto h-[820px] sm:h-[1000px] md:h-[1100px] lg:h-[810px] xl:h-[785px] 2xl:overflow-visible overflow-hidden relative">
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
           <div className="text-2xl font-semibold text-white mb-5 px-8 leading-none">
             كل بيانات الأسهم أصبحت أسرع وأقرب إليك
@@ -144,7 +144,7 @@ const FeatureSection = () => {
                   src={item.image}
                   width={700}
                   height={800}
-                  className="absolute xl:right-0 right-[-30] top-[0px]"
+                  className="absolute 2xl:rounded-3xl xl:right-0 right-[-30] top-[0px]"
                   alt="img"
                   priority
                 />
