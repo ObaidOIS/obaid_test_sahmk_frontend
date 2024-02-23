@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
 
 const GroupedRowsTable = ({tableData, tableHeadings}) => {
 
@@ -22,7 +23,7 @@ const locations = [
     },{
       name: {sector: 'Material', arabic_sector: "المواد الأساسية"},
       data: [
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+        { change: -0.3, name: "ينساب", pct_change: -0.77, trade_price:39.25, volume: 733978 },
         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
       ],
     },
@@ -78,10 +79,23 @@ const locations = [
                           {item.name}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">{Number(item.volume).toLocaleString('en-US')}</td>
-                        <td className={`whitespace-nowrap px-3 py-4 text-sm font-semibold ${item.change > 0 ? "text-lightGreenColor" : "text-lightRedColor"}`}>{item.change}</td>
+                        <td className={` whitespace-nowrap px-3 py-4 text-sm font-semibold ${item.change > 0 ? "text-lightGreenColor" : "text-lightRedColor"}`}>
+                          <div className='flex gap-2 items-center'>
+                        {item.change > 0 ?(
+                            <TiArrowSortedUp className="text-primaryColor" />
+                          ) : (
+                            <TiArrowSortedDown className="text-redColor" />
+                          )}
+                          {item.change} 
+                          </div>
+                          </td>
                         {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{item.role}</td> */}
-                        <td className={`relative whitespace-nowrap py-4 pl-3 font-semibold pr-4 ${item.change > 0 ? "text-lightGreenColor" : "text-lightRedColor"} text-right text-sm sm:pr-3`}>
-                          {item.pct_change}
+                        <td className={`flex gap-2 items-center relative whitespace-nowrap py-4 pl-3 font-semibold pr-4 ${item.change > 0 ? "text-lightGreenColor" : "text-lightRedColor"} text-right text-sm sm:pr-3`}>
+                        {item.change > 0 ?(
+                            <TiArrowSortedUp className="text-primaryColor" />
+                          ) : (
+                            <TiArrowSortedDown className="text-redColor" />
+                          )} % {item.pct_change}  
                         </td>
                       </tr>
                     ))}

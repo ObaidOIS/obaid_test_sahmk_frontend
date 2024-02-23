@@ -14,12 +14,14 @@ const StocksDetailsTable = ({list, handleStockTableDetail, activeStat, setStockD
   return (
     <div>
       <div
-        className={`w-full bg-[#F5F7F9] pt-4 !mt-3 ${
-          currentPlan !== "الباقة المجانية" &&
-          (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية"
-            ? "pb-4"
-            : "pb-0"
-        } rounded-3xl space-y-4 border border-gray-300`}
+        className={`w-full bg-[#F5F7F9] pt-4 pb-4 !mt-3 
+        // {
+        //   currentPlan !== "الباقة المجانية" &&
+        //   (currentPlan?.title && currentPlan?.title) !== "الباقة المجانية"
+        //     ? "pb-4"
+        //     : "pb-0"
+        // } 
+        rounded-3xl space-y-4 border border-gray-300`}
       >
         {/* <p className="text-lg font-medium ps-4">الأكثر ارتفاعا</p> */}
         <div className="px-4 ">
