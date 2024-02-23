@@ -6,36 +6,36 @@ const GroupedRowsTable = ({tableData, tableHeadings}) => {
 
   console.log(tableData, "stocks table data")
     
-const locations = [
-    {
-      name: {sector: 'Material', arabic_sector: "المواد الأساسية"},
-      data: [
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-      ],
-    },
-    {
-      name: {sector: "Capital Goods", arabic_sector: "السلع الرأسمالية"},
-      data: [
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-      ],
-    },{
-      name: {sector: 'Material', arabic_sector: "المواد الأساسية"},
-      data: [
-        { change: -0.3, name: "ينساب", pct_change: -0.77, trade_price:39.25, volume: 733978 },
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-      ],
-    },
-    {
-      name: {sector: "Capital Goods", arabic_sector: "السلع الرأسمالية"},
-      data: [
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-        { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
-      ],
-    },
-    // More people...
-  ]
+// const locations = [
+//     {
+//       name: {sector: 'Material', arabic_sector: "المواد الأساسية"},
+//       data: [
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//       ],
+//     },
+//     {
+//       name: {sector: "Capital Goods", arabic_sector: "السلع الرأسمالية"},
+//       data: [
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//       ],
+//     },{
+//       name: {sector: 'Material', arabic_sector: "المواد الأساسية"},
+//       data: [
+//         { change: -0.3, name: "ينساب", pct_change: -0.77, trade_price:39.25, volume: 733978 },
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//       ],
+//     },
+//     {
+//       name: {sector: "Capital Goods", arabic_sector: "السلع الرأسمالية"},
+//       data: [
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//         { change: 0.3, name: "ينساب", pct_change: 0.77, trade_price:39.25, volume: 733978 },
+//       ],
+//     },
+//     // More people...
+//   ]
   
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -59,23 +59,23 @@ const locations = [
                 </tr>
               </thead>
               <tbody className="max-h-[200px]  overflow-y-auto">
-                {locations.map((location) => (
-                  <Fragment  key={location.name}>
+                {tableData.map((data) => (
+                  <Fragment  key={data.name}>
                     <tr className="border border-gray-200">
                       <th
                         colSpan={5}
                         scope="colgroup"
                         className="bg-primaryColor/5 py-2 pl-4 pr-3 text-right text-sm font-semibold text-gray-900 sm:pl-3"
                       >
-                        {location.name.arabic_sector}
+                        {data.name.arabic_sector}
                       </th>
                     </tr>
-                    {location.data.map((item, index) => (
+                    {data.data.map((item, index) => (
                       <tr
                         key={item.name}
                         className={classNames(index === 0 ? 'border-gray-300' : 'border-gray-200', 'border-t')}
                       >
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                        <td className="max-w-32 overflow-x-auto whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
                           {item.name}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">{Number(item.volume).toLocaleString('en-US')}</td>
