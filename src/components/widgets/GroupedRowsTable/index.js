@@ -78,7 +78,7 @@ const GroupedRowsTable = ({tableData, tableHeadings}) => {
                         <td className="max-w-32 overflow-x-auto whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
                           {item.name}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">{Number(item.volume).toLocaleString('en-US')}</td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">{Number(item.trade_price).toLocaleString('en-US')}</td>
                         <td className={` whitespace-nowrap px-3 py-4 text-sm font-semibold ${item.change > 0 ? "text-lightGreenColor" : "text-lightRedColor"}`}>
                           <div className='flex gap-2 items-center'>
                         {item.change > 0 ?(
