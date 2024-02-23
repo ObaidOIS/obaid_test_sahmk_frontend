@@ -45,8 +45,8 @@ const GroupedRowsTable = ({tableData, tableHeadings}) => {
     <div className="px-4 ">
       <div className="mt-2 flow-root">
         <div className="overflow-y-auto overflow-x-auto rounded-3xl bg-white">
-          <div className="inline-block min-w-full max-h-[300px] py-2 align-middle bg-white rounded-3xl">
-            <table className="min-w-full max-h-[300px]">
+          <div className="inline-block min-w-full max-h-[600px] py-2 align-middle bg-white rounded-3xl">
+            <table className="min-w-full max-h-[600px]">
               <thead className="">
                 <tr className='rounded-3xl overflow-x-scroll'>
                 {tableHeadings.map((item, index) => {
