@@ -51,6 +51,7 @@ const UserProfileSection = () => {
   const [highStocksData, setHighStocksData] = useState([]);
   const [stocksByValueData, setStocksByValueData] = useState([]);
   const [stocksByQuantityData, setStocksByQuantityData] = useState([]);
+  const [stockDetailsSelectedMarket, setStockDetailsSelectedMarket] = useState('TASI');
 
   const [userData, setUserData] = useState({
     name: "",
@@ -107,6 +108,7 @@ const UserProfileSection = () => {
     const response = await apiCall("/auth/api/user/");
     const data = response.result;
     if (data) {
+      console.log(data, "hello data" )
       const { countryCode, phoneNumber } = extractCountryCodeFromPhoneNumber(
         data.phoneNumber
       );
@@ -120,7 +122,7 @@ const UserProfileSection = () => {
       setIsNotificationChecked(data.receive_opening_closing_prices);
       setIsTvChecked(data.weekly_report_enabled);
       setIsPricesChecked(data.target_prices_enabled);
-      console.log(response.result, "hello data");
+      console.log(data.subscriptionType, "hello data");
       setOriginalSubscriptionDetails({
         subscriptionType: data.subscriptionType || "free",
         subscriptionPeriod: data.subscriptionPeriod || "monthly",
@@ -682,13 +684,14 @@ const UserProfileSection = () => {
   useEffect(() => {
     fetchUserStocks();
     handleTagClick(apiRange, activeStat);
-  }, [page]);
+  }, [page, originalSubscriptionDetails?.subscriptionType]);
 
   const handleTagClick = async (range, symbol) => {
     if (symbol) {
       setChartLoading(true);
       const response = await apiCall(
-        `/api/stocks/historical_data/?symbol=${symbol}.SR&range=${range}`
+        `/api/stocks/historical_data/?symbol=${symbol}.SR&range=${range}&subscription_type=${originalSubscriptionDetails?.subscriptionType}`
+        // `/api/stocks/historical_data/?symbol=${symbol}.SR&range=${range}&subscription_type=${(currentPlan?.title ? currentPlan?.title : currentPlan == "الباقة المجانية" && "free") || (currentPlan?.title ? currentPlan?.title : currentPlan == "باقة بريميوم" && "premium") || (currentPlan?.title ? currentPlan?.title : currentPlan == "الباقة المتقدمة" && "companies") }`
       );
       if (response && response.result) {
         // Update your state with the new data
@@ -1143,8 +1146,31 @@ const UserProfileSection = () => {
   
   const [activeFilter, setActiveFilter] = useState("highest");
 
+
+  const handleStockTableDetail = async(market) => {
+    
+    const response = await apiCall(
+      `/api/stocks/get_stock_table_detail/`,
+      "POST",
+      {
+        index : market ? market : stockDetailsSelectedMarket, // market_id
+        subscription_type: currentPlan,
+      }
+    );
+    if (response && response.result) {
+      console.log(response, "high stock data");
+      setActiveData(response.result);
+      setStockDetailsSelectedMarket(response.result);
+    } else {
+      console.log("high stock data error")
+    }
+  }
+
   useEffect(() => {
+
+    console.log(currentPlan, "hello subscriptionType")
     handleHighStocksData(selectedMarket, selectedSector);
+    handleStockTableDetail(stockDetailsSelectedMarket)
     localStorage.setItem("highlowTableTab", activeFilter);
     localStorage.setItem("highlowCurrentSector", selectedSector);
     localStorage.setItem("highlowCurrentMarket", selectedMarket);

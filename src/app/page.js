@@ -8,6 +8,7 @@ import PricingSection from "@/components/sections/PricingSection";
 import ServiceSection from "@/components/sections/ServiceSection";
 import TryMeSection from "@/components/sections/TryMeSection";
 import MainSidebar from "@/components/widgets/MainSidebar";
+import TopBannerUI from "@/components/widgets/TopBannerUI";
 import React, { useState } from "react";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
 
   return (
     <>
+      <TopBannerUI />
       <Header toggleSidebar={toggleSidebar} />
       <div className={`w-96 z-[2147483647] flex lg:hidden`}>
         <MainSidebar

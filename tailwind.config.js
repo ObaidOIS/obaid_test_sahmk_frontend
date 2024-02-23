@@ -30,6 +30,8 @@ module.exports = {
         brightRedColor: '#ffeaea',
         darkAmberColor: '#C9A037',
         lightAmberColor: '#F5C54A',
+        goldColor: '#B9A36A',
+        navyColor: '#5046E5'
     },
   },
   },

@@ -64,9 +64,12 @@ const Footer = () => {
             />
             </Link>
           <div className="mx-auto">
-            <p className="text-gray-500 sm:text-xl">مرخص و موثوق من</p>
-            <Link href="#" className="flex justify-center mt-5">
-            <Image unoptimized={true}  loading="eager"   src="/assets/images/tadawul.svg"
+          <div className="flex justify-center">
+              <p className="text-gray-500">مرخص و موثوق من</p>
+              <p className="bg-goldColor px-5 pt-0.5 pb-1 text-whiteColor mr-3 rounded-2xl">قريبا</p>
+            </div>
+            <Link href="#" className="flex justify-center mt-5 blur-sm ">
+            <Image unoptimized={true}  loading="eager"  src="/assets/images/tadawul.svg"
              width={100}
              height={100}  
              className="cursor-pointer" alt="img"

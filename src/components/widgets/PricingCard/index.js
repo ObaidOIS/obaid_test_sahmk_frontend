@@ -38,7 +38,7 @@ const PricingCard = ({ tier, frequencies, frequency, setFrequency }) => {
             {tier.name}
           </h3>
           {tier.mostPopular ? (
-            <p className="rounded-full bg-primaryColor px-2.5 py-1 text-xs font-semibold leading-5 text-white">
+            <p className="rounded-full bg-navyColor px-6 pt-0.5 pb-1 text-xs font-medium leading-5 text-white">
               {tier.badge}
             </p>
           ) : null}

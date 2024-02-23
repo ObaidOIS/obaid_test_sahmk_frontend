@@ -11,8 +11,8 @@ const StockCardListUI = ({tableData, activeTab}) => {
       </div>
     </div>
     <div class="shrink-0 flex flex-col items-end">
-      <p class="text-sm leading-6 text-gray-900">{tableData.trade_price}</p>
-      <p class={`mt-1 text-xs leading-5 ${tableData?.change < 0 ? 'text-lightRedColor' : ' text-lightGreenColor'}`} dir='ltr'>{activeTab == "value" ? tableData?.turnover : activeTab == "quantity" ? tableData?.volume : (tableData.pct_change != undefined && tableData.change != undefined) && `(${tableData.pct_change} %) ${tableData.change}`} </p>
+      <p class="text-sm leading-6 text-gray-900 font-semibold">{tableData.trade_price}</p>
+      <p class={`mt-1 text-xs leading-5 font-semibold ${tableData?.change < 0 ? 'text-lightRedColor' : ' text-lightGreenColor'}`} dir='ltr'>{activeTab == "value" ? Number(tableData?.turnover).toLocaleString('en-US') : activeTab == "quantity" ? Number(tableData?.volume).toLocaleString('en-US') : (tableData.pct_change != undefined && tableData.change != undefined) && `(${tableData.pct_change} %) ${tableData.change}`} </p>
     </div>
   </div>
     </div>

@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="mt-20 lg:mt-36 lg:ml-16 w-full flex justify-center">
         <div className="lg:2/5 xl:w-2/3 text-center xs:mx-5 sm:mx-20">
         <div className="w-full text-center mb-10">
-            <div className="bg-green-100/60 px-6 py-3 mx-auto inline-flex rounded-full">
+            <div onClick={handleOpenWhatsapp} className=" cursor-pointer bg-green-100/60 px-6 py-3 mx-auto inline-flex rounded-full">
                 <span className="text-sm text-teal-800 font-small capitalize xl:text-center flex"> 
                 <Image unoptimized={true}  loading="eager"   src="/assets/icons/whatsapp.svg" width={20} height={20} className="ml-5" alt="img" priority /> 
                 عن طريق الواتساب توصلك كل معلومات الأسهم
@@ -52,16 +52,20 @@ const HeroSection = () => {
           </div>
           <div className="flex gap-y-2 justify-center mt-4 gap-x-4">
             <div onClick={handleOpenWhatsapp}>
-            <OutlineButton button="جرب الخدمة"  icon={<Image unoptimized={true}  loading="eager"   src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5 whitespace-nowrap" alt="img" priority />}/>
+            <OutlineButton button="جرب نظام سهمك"  icon={<Image unoptimized={true}  loading="eager"   src="/assets/icons/play-icon.svg" width={12} height={12} className="mr-5 whitespace-nowrap" alt="img" priority />}/>
             </div>
             <Link href="/auth/register">
-            <PrimaryButton button="شهر مجانا" buttonStyle="py-2.5 shadow-lg" icon={<Image unoptimized={true}  loading="eager"   src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5  whitespace-nowrap" alt="img" priority />}/>
+            <PrimaryButton button="اشترك الآن" buttonStyle="py-2.5 shadow-lg" icon={<Image unoptimized={true}  loading="eager"   src="/assets/icons/right-icon.svg" width={16} height={16} className="mr-5  whitespace-nowrap" alt="img" priority />}/>
             </Link>
           </div>
           <div className="mx-auto my-20">
-            <p className="text-gray-500 text-xl">مرخص و موثوق من</p>
-            <div className="flex justify-center mt-5">
-            <Image unoptimized={true}  loading="eager"   src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" priority />
+            <div className="flex justify-center">
+              <p className="text-gray-500">مرخص و موثوق من</p>
+              <p className="bg-goldColor px-5 pt-0.5 pb-1 text-whiteColor mr-3 rounded-2xl">قريبا</p>
+            </div>
+                
+            <div className="flex justify-center mt-5 blur-sm ">
+            <Image unoptimized={true}  loading="eager"  src="/assets/images/tadawul.svg" width={150} height={150} className="" alt="img" priority />
             </div>
           </div>
           
