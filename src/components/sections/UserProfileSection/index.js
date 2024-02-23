@@ -31,6 +31,7 @@ import SelectUserCompaniesInput from "../SelectUserCompaniesInput";
 import { FiSearch } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import HighLowStocksTables from "../HighLowStocksTables";
+import StocksDetailsTable from "../StocksDetailsTable";
 
 const UserProfileSection = () => {
   const router = useRouter();
@@ -43,7 +44,8 @@ const UserProfileSection = () => {
     useState(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [deactivateAlert, setDeactivateAlert] = useState(false);
-  const [selectedMarketSectorName, setSelectedMarketSectorName] = useState("Energy");
+  const [selectedMarketSectorName, setSelectedMarketSectorName] =
+    useState("Energy");
   const [selectedSector, setSelectedSector] = useState("All");
   const [selectedMarket, setSelectedMarket] = useState("TASI");
   const [activeData, setActiveData] = useState([]);
@@ -51,7 +53,9 @@ const UserProfileSection = () => {
   const [highStocksData, setHighStocksData] = useState([]);
   const [stocksByValueData, setStocksByValueData] = useState([]);
   const [stocksByQuantityData, setStocksByQuantityData] = useState([]);
-  const [stockDetailsSelectedMarket, setStockDetailsSelectedMarket] = useState('TASI');
+  const [stockDetailsSelectedMarket, setStockDetailsSelectedMarket] =
+    useState("TASI");
+  const [stockDetailsTableData, setStockDetailsTableData] = useState([]);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -108,7 +112,7 @@ const UserProfileSection = () => {
     const response = await apiCall("/auth/api/user/");
     const data = response.result;
     if (data) {
-      console.log(data, "hello data" )
+      console.log(data, "hello data");
       const { countryCode, phoneNumber } = extractCountryCodeFromPhoneNumber(
         data.phoneNumber
       );
@@ -135,41 +139,40 @@ const UserProfileSection = () => {
     fetchUserData();
   }, []);
 
-
   const fakeStatsData = {
     financials: [
-      { name: 'صافي الدخل', value: 99 },
-      { name: 'إجمالي الإيرادات', value: 99 },
-      { name: 'الربح الإجمالي', value: 99 },
-      { name: 'إجمالي الصرف', value: 99 },
+      { name: "صافي الدخل", value: 99 },
+      { name: "إجمالي الإيرادات", value: 99 },
+      { name: "الربح الإجمالي", value: 99 },
+      { name: "إجمالي الصرف", value: 99 },
     ],
     fundamental_info: [
-      { name: 'القيمة السوقية', value: 99 },
-      { name: 'السعر الحالي', value: '52.10' },
-      { name: 'معدل التوزيع السنوي', value: 99 },
-      { name: 'نسبة السعر إلى الأرباح', value: '35.36' },
-      { name: 'نسبة السعر إلى القيمة الدفترية', value: 99 },
-      { name: 'تاريخ آخر توزيع', value: 99 },
+      { name: "القيمة السوقية", value: 99 },
+      { name: "السعر الحالي", value: "52.10" },
+      { name: "معدل التوزيع السنوي", value: 99 },
+      { name: "نسبة السعر إلى الأرباح", value: "35.36" },
+      { name: "نسبة السعر إلى القيمة الدفترية", value: 99 },
+      { name: "تاريخ آخر توزيع", value: 99 },
     ],
     general_view: [
-      { name: 'سعر الافتتاح', value: '51.90' },
-      { name: 'نسبة التغير اليومي', value: '0.97' },
-      { name: 'أعلى سعر', value: '52.30' },
-      { name: 'أدنى سعر', value: '51.70' },
-      { name: 'حجم التداول', value: '2171' },
-      { name: 'القيمة السوقية', value: 99 },
+      { name: "سعر الافتتاح", value: "51.90" },
+      { name: "نسبة التغير اليومي", value: "0.97" },
+      { name: "أعلى سعر", value: "52.30" },
+      { name: "أدنى سعر", value: "51.70" },
+      { name: "حجم التداول", value: "2171" },
+      { name: "القيمة السوقية", value: 99 },
     ],
     trades_info: [
-      { name: 'عدد الصفقات الداخلة', value: '28.00' },
-      { name: 'كمية التداولات الداخلة', value: '1587.00' },
-      { name: 'قيمة التداولات الداخلة', value: '82509.00' },
-      { name: 'عدد الصفقات الخارجة', value: '19.00' },
-      { name: 'كمية التداولات الخارجة', value: '584.00' },
-      { name: 'قيمة التداولات الخارجة', value: '30367.50' },
-      { name: 'متوسط عدد الصفقات لآخر خمسة أيام', value: 99 },
+      { name: "عدد الصفقات الداخلة", value: "28.00" },
+      { name: "كمية التداولات الداخلة", value: "1587.00" },
+      { name: "قيمة التداولات الداخلة", value: "82509.00" },
+      { name: "عدد الصفقات الخارجة", value: "19.00" },
+      { name: "كمية التداولات الخارجة", value: "584.00" },
+      { name: "قيمة التداولات الخارجة", value: "30367.50" },
+      { name: "متوسط عدد الصفقات لآخر خمسة أيام", value: 99 },
     ],
   };
-  
+
   // let [page, setPage] = useState({
   //   name: "userprofile",
   //   value: "الخدمات الرئىيسية",
@@ -199,18 +202,17 @@ const UserProfileSection = () => {
     console.log(pathname, page.name, "pathname change");
 
     let userprofilePage = "";
-    
 
     window.addEventListener("popstate", (e) => {
       let userprofilePage = "";
-      console.log(e, "pathname")
-      
-      if(page.name == "payment"){
-      handlePageChange({ name: "my-account", value: "باقتي وحسابي" });
-      userprofilePage = { name: "my-account", value: "باقتي وحسابي" }
+      console.log(e, "pathname");
+
+      if (page.name == "payment") {
+        handlePageChange({ name: "my-account", value: "باقتي وحسابي" });
+        userprofilePage = { name: "my-account", value: "باقتي وحسابي" };
       }
 
-      if (!e.persisted) {        
+      if (!e.persisted) {
         handlePageChange(
           page.name == "payment"
             ? { name: "my-account", value: "باقتي وحسابي" }
@@ -229,7 +231,7 @@ const UserProfileSection = () => {
               };
         // This is not a page refresh, handle your logic here
         console.log("Not a page refresh");
-      } else {        
+      } else {
         handlePageChange(
           (page.name == "stock-notification" && {
             name: "stock-notification",
@@ -364,7 +366,7 @@ const UserProfileSection = () => {
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
         <Image
-          unoptimized={true} 
+          unoptimized={true}
           loading="eager"
           src="/assets/icons/message-glow-icon.svg"
           // src="/assets/icons/message-glow-icon.png"
@@ -380,7 +382,8 @@ const UserProfileSection = () => {
       title: " الأسعار المستهدفة للأسهم",
       desc: "يمكنك التحكم بإشعارات الواتساب وإدارتها",
       icon: (
-        <Image unoptimized={true} 
+        <Image
+          unoptimized={true}
           loading="eager"
           src="/assets/icons/point-glow-icon.svg"
           width={85}
@@ -390,7 +393,6 @@ const UserProfileSection = () => {
           // quality={75}
           // blurDataURL="/assets/icons/point-glow-icon.svg"
           // placeholder="blur"
-
         />
       ),
       page: { name: "target-prices", value: "الأسعار المستهدفة للأسهم" },
@@ -399,7 +401,8 @@ const UserProfileSection = () => {
       title: "تقارير أسهمي الاسبوعية",
       desc: "مشاهدة التقرير الاسبوعي لأسهمي",
       icon: (
-        <Image unoptimized={true} 
+        <Image
+          unoptimized={true}
           loading="eager"
           src="/assets/icons/progress-glow-icon.svg"
           width={85}
@@ -414,7 +417,8 @@ const UserProfileSection = () => {
       title: "باقتي وحسابي",
       desc: "تفاصيل باقتك والحساب الخاص بك",
       icon: (
-        <Image unoptimized={true} 
+        <Image
+          unoptimized={true}
           loading="eager"
           src="/assets/icons/profile-glow-icon.svg"
           width={85}
@@ -669,22 +673,41 @@ const UserProfileSection = () => {
     } catch (error) {
       console.error("Error fetching user stocks:", error.message);
     }
-    try {
-      const response = await apiCall("/api/stocks/user-stocks-profile/");
-      // console.log(response, "hello stock")
-      if (response && response.result) {
-        console.log(response, "hello api too");
-        setStockProfileData(response.result);
-      }
-    } catch (error) {
-      console.error("Error fetching user stocks:", error.message);
-    }
+    // try {
+    //   const response = await apiCall("/api/stocks/search-stock/",
+    //   "POST",
+    //   {
+    //     search_query : selectedSymbol,
+    //     subscription_type:  originalSubscriptionDetails?.subscriptionType,
+    //   });
+    //   // const response = await apiCall("/api/stocks/user-stocks-profile/");
+    //   if (response && response.result) {
+    //     console.log(response, "hello api too");
+    //     // setStockProfileData(response.result);
+
+    //   setActiveStat(response.result?.name || response.result?.symbol);
+    //   setSelectedSymbol(response.result?.symbol);
+    //   setStockProfileData({[response.result?.symbol]:
+    //     {
+    //       general_view: response.result?.general_view || {},
+    //       trades_info: response.result?.trades_info || {},
+    //       financials: response.result?.financials || {},
+    //       fundamental_info: response.result?.fundamental_info || {},
+    //     }});
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching user stocks:", error.message);
+    // }
   };
 
   useEffect(() => {
     fetchUserStocks();
     handleTagClick(apiRange, activeStat);
   }, [page, originalSubscriptionDetails?.subscriptionType]);
+
+  useEffect(() => {
+    handleStatisticsChange(selectedSymbol);
+  }, [originalSubscriptionDetails?.subscriptionType]);
 
   const handleTagClick = async (range, symbol) => {
     if (symbol) {
@@ -764,29 +787,63 @@ const UserProfileSection = () => {
     }
   };
 
-  const handleStatisticsChange = async(symbol) => {
-      const response = await apiCall("/api/stocks/user-stocks-profile/");
-      // console.log(response, "hello stock")
-      if (response && response.result) {
-        console.log(response.result, symbol, "hello api too");
-        // setSelectedSymbol(symbol);
-        // setSelectedSymbol(Object.keys(response.result)[0]);
-        setStockProfileData(response.result);
-        if (response.result[symbol]) {
-          console.log(
-            response.result[symbol],
-            stockProfileData,
-            "user-stock-profile"
-          );
-          setSelectedStockProfileCurrentValue(response.result[symbol]);
-        }
-        // setSelectedStockProfileCurrentValue(response.result[selectedSymbol]);
+  const handleStatisticsChange = async (symbol) => {
+    const response = await apiCall("/api/stocks/search-stock/", "POST", {
+      search_query: symbol,
+      subscription_type: originalSubscriptionDetails?.subscriptionType,
+    });
+    // const response = await apiCall("/api/stocks/user-stocks-profile/");
+    // console.log(response, "hello stock")
+    if (response && response.result) {
+      console.log(
+        response.result,
+        symbol,
+        selectedStockProfileCurrentValue,
+        {
+          [response.result?.symbol]: {
+            general_view: response.result?.general_view || {},
+            trades_info: response.result?.trades_info || {},
+            financials: response.result?.financials || {},
+            fundamental_info: response.result?.fundamental_info || {},
+          },
+        }[(response.result, symbol)],
+        "hello api too"
+      );
+      // setStockProfileData(response.result);
 
-      }
-    else {
+      // setActiveStat(response.result?.name || response.result?.symbol);
+      setSelectedSymbol(response.result?.symbol);
+      setStockProfileData({
+        [response.result?.symbol]: {
+          general_view: response.result?.general_view || {},
+          trades_info: response.result?.trades_info || {},
+          financials: response.result?.financials || {},
+          fundamental_info: response.result?.fundamental_info || {},
+        },
+      });
+      // console.log(selectedStockProfileCurrentValue)
+      setSelectedStockProfileCurrentValue(
+        {
+          [response.result?.symbol]: {
+            general_view: response.result?.general_view || {},
+            trades_info: response.result?.trades_info || {},
+            financials: response.result?.financials || {},
+            fundamental_info: response.result?.fundamental_info || {},
+          },
+        }[(response.result, symbol)]
+      );
+      // if (response.result[symbol]) {
+      //   console.log(
+      //     response.result[symbol],
+      //     stockProfileData,
+      //     "user-stock-profile"
+      //   );
+      //   setSelectedStockProfileCurrentValue(response.result[symbol]);
+      // }
+    } else {
       console.log("Error fetching user stocks:");
     }
-  }
+  };
 
   const statisticsData = [
     "نظرة عامة",
@@ -884,9 +941,9 @@ const UserProfileSection = () => {
 
   useEffect(() => {
     // Fetch user's stocks and available stocks
-    console.log(page, "hello refresh")
-    if(page.name == "userprofile"){
-    fetchStocks();
+    console.log(page, "hello refresh");
+    if (page.name == "userprofile") {
+      fetchStocks();
     }
   }, [page.name]);
 
@@ -1026,110 +1083,160 @@ const UserProfileSection = () => {
     );
   };
 
-
-  const handleHighStocksData = async(market, sector) => {
-    
-    const response = await apiCall(
-      `/api/stocks/get-top-gainers/`,
-      "POST",
-      {
-        index : market ? market : selectedMarket, // market_id
-        sector: sector ? sector : selectedSector,
-      }
-    );
+  const handleHighStocksData = async (market, sector) => {
+    const response = await apiCall(`/api/stocks/get-top-gainers/`, "POST", {
+      index: market ? market : selectedMarket, // market_id
+      sector: sector ? sector : selectedSector,
+      subscription_type: originalSubscriptionDetails?.subscriptionType,
+    });
     if (response && response.result) {
       console.log(response, "high stock data");
       setActiveData(response.result);
       setHighStocksData(response.result);
     } else {
-      console.log("high stock data error")
+      console.log("high stock data error");
     }
-  }
-  const handleLowStocksData = async(market, sector) => {
-    const response = await apiCall(
-      `/api/stocks/get-top-losers/`,
-      "POST",
-      {
-        index : market ? market : selectedMarket, // market_id
-        sector: sector ? sector : selectedSector,
-      }
-    );
+  };
+  const handleLowStocksData = async (market, sector) => {
+    const response = await apiCall(`/api/stocks/get-top-losers/`, "POST", {
+      index: market ? market : selectedMarket, // market_id
+      sector: sector ? sector : selectedSector,
+      subscription_type: originalSubscriptionDetails?.subscriptionType,
+    });
     if (response && response.result) {
       console.log(response, "low stock data");
       setActiveData(response.result);
       setLowStocksData(response.result);
     } else {
-      console.log("low stock data error")
+      console.log("low stock data error");
     }
-  }
+  };
 
-  const handleStocksByValueAndQuantity = async(type, market, sector) => {
-    
+  const handleStocksByValueAndQuantity = async (type, market, sector) => {
     const response = await apiCall(
       `/api/stocks/get_top_volume_and_value_stocks/`,
       "POST",
       {
-        index : market ? market : selectedMarket, // market_id
+        index: market ? market : selectedMarket, // market_id
         sector: sector ? sector : selectedSector,
+        subscription_type: originalSubscriptionDetails?.subscriptionType,
       }
     );
     if (response && response.result) {
       console.log(response, "quantity stock data");
-      if(type == "quantity"){
+      if (type == "quantity") {
         setActiveData(response.result.volumes);
         setStocksByQuantityData(response.result.volumes);
       }
-      if(type == "value"){
+      if (type == "value") {
         setActiveData(response.result.values);
         setStocksByValueData(response.result.values);
       }
       // stocksByValueAndQuantityData
     } else {
-      console.log("high stock data error")
+      console.log("high stock data error");
     }
-  }
-
+  };
 
   const sectorsMarketNames = [
-       { name: "TASI", arabic_name: "تاسي", type: "market" },
-       { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
-       { name: "Energy", arabic_name: "الطاقة", type: "sector" },
-       { name: "Diversified Financials", arabic_name: "الخدمات المالية", type: "sector" },
-       { name: "Consumer Durables & Apparel", arabic_name: "السلع طويلة الأجل", type: "sector" },
-       { name: "Consumer Services", arabic_name: "الخدمات الإستهلاكية", type: "sector" },
-       { name: "Commercial & Professional Svc", arabic_name: "الخدمات التجارية والمهنية", type: "sector" },
-       { name: "Capital Goods", arabic_name: "السلع الرأسمالية", type: "sector" },
-       { name: "Banks", arabic_name: "البنوك", type: "sector" },
-       { name: "Automobiles & Components", arabic_name: "السيارات والمكونات", type: "sector" },
-       { name: "PharmaBiotech & Life Science", arabic_name: "الادوية", type: "sector" },
-       { name: "Materials", arabic_name: "المواد الأساسية", type: "sector" },
-       { name: "Media", arabic_name: "وسائل الإعلام", type: "sector" },
-       { name: "Insurance", arabic_name: "التأمين", type: "sector" },
-       { name: "Household & Personal Products", arabic_name: "منتجات الأسرة والشخصية", type: "sector" },
-       { name: "Health Care Equipment & Svc", arabic_name: "الرعاية الصحية", type: "sector" },
-       { name: "Food & Staples Retailing", arabic_name: "تجزئة السلع الكمالية", type: "sector" },
-       { name: "Food & Beverages", arabic_name: "إنتاج الأغذية", type: "sector" },
-       { name: "Utilities", arabic_name: "الخدمات العامة", type: "sector" },
-       { name: "Telecommunication Services", arabic_name: "الإتصالات", type: "sector" },
-       { name: "Transportation", arabic_name: "النقل", type: "sector" },
-       { name: "Technology Hardware & Equip", arabic_name: "أجهزة التكنولوجيا والمعدات", type: "sector" },
-       { name: "Software & Services", arabic_name: "التطبيقات وخدمات التقنية", type: "sector" },
-       { name: "Semiconductors & Semiconductor Equip", arabic_name: "شرائح النصف الموصلة ومعداتها", type: "sector" },
-       { name: "Real Estate Investment Trust", arabic_name: "الصناديق العقارية المتداولة", type: "sector" },
-       { name: "Real Estate Mgmt & Development", arabic_name: "إدارة وتطوير العقارات", type: "sector" },
-       { name: "Retailing", arabic_name: "التجزئة", type: "sector" },
-      //  { name: "OTC Debt Securities", arabic_name: "الأوراق المالية خارج البورصة - الديون", type: "market" },
-      //  { name: "OTC Equity Securities", arabic_name: "الأوراق المالية خارج البورصة - الأسهم", type: "market" },
-      //  { name: "Options", arabic_name: "خيارات", type: "market" },
-      //  { name: "Futures", arabic_name: "عقود الآجلة", type: "market" },
-      //  { name: "Buy-In Debt Market", arabic_name: "سوق الديون بالشراء", type: "market" },
-      //  { name: "Buy-In Equity Market", arabic_name: "سوق الأسهم بالشراء", type: "market" },
-      //  { name: "Sukuk", arabic_name: "صكوك", type: "market" },
-     ];
-   
-   
+    { name: "TASI", arabic_name: "تاسي", type: "market" },
+    { name: "NOMU", arabic_name: "سوق نمو", type: "market" },
+    { name: "Energy", arabic_name: "الطاقة", type: "sector" },
+    {
+      name: "Diversified Financials",
+      arabic_name: "الخدمات المالية",
+      type: "sector",
+    },
+    {
+      name: "Consumer Durables & Apparel",
+      arabic_name: "السلع طويلة الأجل",
+      type: "sector",
+    },
+    {
+      name: "Consumer Services",
+      arabic_name: "الخدمات الإستهلاكية",
+      type: "sector",
+    },
+    {
+      name: "Commercial & Professional Svc",
+      arabic_name: "الخدمات التجارية والمهنية",
+      type: "sector",
+    },
+    { name: "Capital Goods", arabic_name: "السلع الرأسمالية", type: "sector" },
+    { name: "Banks", arabic_name: "البنوك", type: "sector" },
+    {
+      name: "Automobiles & Components",
+      arabic_name: "السيارات والمكونات",
+      type: "sector",
+    },
+    {
+      name: "PharmaBiotech & Life Science",
+      arabic_name: "الادوية",
+      type: "sector",
+    },
+    { name: "Materials", arabic_name: "المواد الأساسية", type: "sector" },
+    { name: "Media", arabic_name: "وسائل الإعلام", type: "sector" },
+    { name: "Insurance", arabic_name: "التأمين", type: "sector" },
+    {
+      name: "Household & Personal Products",
+      arabic_name: "منتجات الأسرة والشخصية",
+      type: "sector",
+    },
+    {
+      name: "Health Care Equipment & Svc",
+      arabic_name: "الرعاية الصحية",
+      type: "sector",
+    },
+    {
+      name: "Food & Staples Retailing",
+      arabic_name: "تجزئة السلع الكمالية",
+      type: "sector",
+    },
+    { name: "Food & Beverages", arabic_name: "إنتاج الأغذية", type: "sector" },
+    { name: "Utilities", arabic_name: "الخدمات العامة", type: "sector" },
+    {
+      name: "Telecommunication Services",
+      arabic_name: "الإتصالات",
+      type: "sector",
+    },
+    { name: "Transportation", arabic_name: "النقل", type: "sector" },
+    {
+      name: "Technology Hardware & Equip",
+      arabic_name: "أجهزة التكنولوجيا والمعدات",
+      type: "sector",
+    },
+    {
+      name: "Software & Services",
+      arabic_name: "التطبيقات وخدمات التقنية",
+      type: "sector",
+    },
+    {
+      name: "Semiconductors & Semiconductor Equip",
+      arabic_name: "شرائح النصف الموصلة ومعداتها",
+      type: "sector",
+    },
+    {
+      name: "Real Estate Investment Trust",
+      arabic_name: "الصناديق العقارية المتداولة",
+      type: "sector",
+    },
+    {
+      name: "Real Estate Mgmt & Development",
+      arabic_name: "إدارة وتطوير العقارات",
+      type: "sector",
+    },
+    { name: "Retailing", arabic_name: "التجزئة", type: "sector" },
+    //  { name: "OTC Debt Securities", arabic_name: "الأوراق المالية خارج البورصة - الديون", type: "market" },
+    //  { name: "OTC Equity Securities", arabic_name: "الأوراق المالية خارج البورصة - الأسهم", type: "market" },
+    //  { name: "Options", arabic_name: "خيارات", type: "market" },
+    //  { name: "Futures", arabic_name: "عقود الآجلة", type: "market" },
+    //  { name: "Buy-In Debt Market", arabic_name: "سوق الديون بالشراء", type: "market" },
+    //  { name: "Buy-In Equity Market", arabic_name: "سوق الأسهم بالشراء", type: "market" },
+    //  { name: "Sukuk", arabic_name: "صكوك", type: "market" },
+  ];
+
   // const handleSectorsMarketNames = async() => {
-    
+
   //   const response = await apiCall(
   //     `/api/stocks/get-stock-sectors-market-names/`,
   //     "GET",
@@ -1143,99 +1250,101 @@ const UserProfileSection = () => {
   //   }
   // }
 
-  
   const [activeFilter, setActiveFilter] = useState("highest");
 
-
-  const handleStockTableDetail = async(market) => {
-    
+  const handleStockTableDetail = async (market) => {
     const response = await apiCall(
       `/api/stocks/get_stock_table_detail/`,
       "POST",
       {
-        index : market ? market : stockDetailsSelectedMarket, // market_id
-        subscription_type: currentPlan,
+        index: market ? market : stockDetailsSelectedMarket, // market_id
+        subscription_type: originalSubscriptionDetails?.subscriptionType,
       }
     );
     if (response && response.result) {
       console.log(response, "high stock data");
-      setActiveData(response.result);
-      setStockDetailsSelectedMarket(response.result);
+      // setActiveData(response.result);
+      // setStockDetailsSelectedMarket(response.result);
+      setStockDetailsTableData(response.result);
     } else {
-      console.log("high stock data error")
+      console.log("high stock data error");
     }
-  }
+  };
 
   useEffect(() => {
-
-    console.log(currentPlan, "hello subscriptionType")
+    console.log(currentPlan, "hello subscriptionType");
     handleHighStocksData(selectedMarket, selectedSector);
-    handleStockTableDetail(stockDetailsSelectedMarket)
+    handleStockTableDetail(stockDetailsSelectedMarket);
     localStorage.setItem("highlowTableTab", activeFilter);
     localStorage.setItem("highlowCurrentSector", selectedSector);
     localStorage.setItem("highlowCurrentMarket", selectedMarket);
     // handleLowStocksData();
     // handleStocksByValueAndQuantity();
     // handleSectorsMarketNames();
-  }, [])
+  }, [originalSubscriptionDetails?.subscriptionType]);
 
-
-  const handleGlobalSearch = async(name) => {
-    
-    console.log(name, "search stock data")
-    const response = await apiCall(
-      `/api/stocks/search-stock/`,
-      "POST",
-      {
-        search_query : name, 
-      }
-    );
+  const handleGlobalSearch = async (name) => {
+    console.log(name, "search stock data");
+    const response = await apiCall(`/api/stocks/search-stock/`, "POST", {
+      search_query: name,
+      subscription_type: originalSubscriptionDetails?.subscriptionType,
+    });
     if (response && response.result) {
       console.log(response, "search stock data");
-      handleTagClick(apiRange, response.result?.symbol)
+      handleTagClick(apiRange, response.result?.symbol);
       // handleTagClick(apiRange, item.stock_company);
       setActiveStat(response.result?.name || response.result?.symbol);
       setSelectedSymbol(response.result?.symbol);
-      setStockProfileData({[response.result?.symbol]: 
-        {
+      setStockProfileData({
+        [response.result?.symbol]: {
           general_view: response.result?.general_view || {},
           trades_info: response.result?.trades_info || {},
           financials: response.result?.financials || {},
           fundamental_info: response.result?.fundamental_info || {},
-        }});
+        },
+      });
       // setHighStocksData(response.result)
     } else {
       console.log(response);
     }
-  }
-
-
-
+  };
 
   useEffect(() => {
     // Call the API initially
-    
-    // handleHighStocksData(selectedMarket, selectedSector);
-    // handleLowStocksData(selectedMarket, selectedSector);
-    // handleStocksByValueAndQuantity("quantity", selectedMarket, selectedSector);
-    // handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
+
+    // console.log(originalSubscriptionDetails?.subscriptionType, "hello current data")
     let intervalId = "";
     // Set up an interval to call the API every one minute (60,000 milliseconds)
-    if(isOpen("10:00AM", "3:00PM", zone) == "open") { 
-    intervalId = setInterval((e) => {
-      
-    console.log(selectedMarket, selectedSector, selectedMarketSectorName, "hello current data");
-      // console.log(e, "console time")
-    handleHighStocksData(selectedMarket, selectedSector);
-    handleLowStocksData(selectedMarket, selectedSector);
-    handleStocksByValueAndQuantity("quantity", selectedMarket, selectedSector);
-    handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
-
-    }, 60000)}
+    if (isOpen("10:00AM", "3:00PM", zone) == "open") {
+      intervalId = setInterval((e) => {
+        console.log(
+          originalSubscriptionDetails?.subscriptionType,
+          selectedMarket,
+          selectedSector,
+          selectedMarketSectorName,
+          "hello current data"
+        );
+        // console.log(e, "console time")
+        handleHighStocksData(selectedMarket, selectedSector);
+        handleLowStocksData(selectedMarket, selectedSector);
+        handleStocksByValueAndQuantity(
+          "quantity",
+          selectedMarket,
+          selectedSector
+        );
+        handleStocksByValueAndQuantity("value", selectedMarket, selectedSector);
+        handleStockTableDetail(stockDetailsSelectedMarket);
+      }, 60000);
+    }
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
   }, [selectedMarket, selectedSector]);
+
+  const marketList = [
+    { name: "TASI", arabic_name: "تاسي" },
+    { name: "NOMU", arabic_name: "سوق نمو" },
+  ];
 
   return (
     <div>
@@ -1309,7 +1418,8 @@ const UserProfileSection = () => {
                         >
                           <ArrowList
                             leftIcon={
-                              <Image unoptimized={true} 
+                              <Image
+                                unoptimized={true}
                                 loading="eager"
                                 src="/assets/icons/arrow-right.svg"
                                 width={8}
@@ -1369,70 +1479,76 @@ const UserProfileSection = () => {
                         )}
                       </div>
                       <div className="flex items-center justify-end flex-1">
-                      <div
-                        onClick={() => {
-                          setSearchInputShow(!searchInputShow);
-                        }}
-                        // className={` `}
-                      >
-                        {searchInputShow ? (
-                          <div className="bg-secondaryColor shadow-xl rounded-lg  cursor-pointer p-2">
-                            <RxCross2 size={22} className=" text-whiteColor " />
-                          </div>
-                        ) : (
-                          <div className="bg-whiteColor shadow-xl rounded-lg  cursor-pointer p-2">
-                            <FiSearch
-                              size={22}
-                              className="text-secondaryColor"
-                            />
-                          </div>
-                        )}
+                        <div
+                          onClick={() => {
+                            setSearchInputShow(!searchInputShow);
+                          }}
+                          // className={` `}
+                        >
+                          {searchInputShow ? (
+                            <div className="bg-secondaryColor shadow-xl rounded-lg  cursor-pointer p-2">
+                              <RxCross2
+                                size={22}
+                                className=" text-whiteColor "
+                              />
+                            </div>
+                          ) : (
+                            <div className="bg-whiteColor shadow-xl rounded-lg  cursor-pointer p-2">
+                              <FiSearch
+                                size={22}
+                                className="text-secondaryColor"
+                              />
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    </div>
-                    {searchInputShow == true ?
-                    <div className="!m-0">
-                      <>
-                        <SelectUserCompaniesInput
-                          originalData={originalData}
-                          setFilteredData={setFilteredData}
-                          setSearchQuery={setSearchQuery}
-                          currentSelectedValue={currentSelectedValue}
-                          setCurrentSelectedValue={setCurrentSelectedValue}
-                          handleGlobalSearch={handleGlobalSearch}
-                          handleTagClick={handleTagClick}
-                          setActiveStat={setActiveStat}
-                          setSelectedSymbol={setSelectedSymbol}
-                          apiRange={apiRange}
-                          originalSubscriptionDetails={
-                            originalSubscriptionDetails
-                          }
-                          searchQuery={searchQuery}
-                          handleSearch={handleSearch}
-                          filteredData={filteredData}
-                          // filteredData={selectedItems}
-                          dataList={filteredData}
-                          AddCompanySelection={AddCompanySelection}
-                          setSelectedItems={setSelectedItems}
-                          selectedItems={selectedItems}
-                          setErrorAlert={setErrorAlert}
-                          setErrorMessage={setErrorMessage}
-                          errorAlert={errorAlert}
-                          errorMessage={errorMessage}
-                          successCompaniesAlert={successCompaniesAlert}
-                          successCompaniesMessage={successCompaniesMessage}
-                          setSuccessCompaniesAlert={setSuccessCompaniesAlert}
-                          selectedSymbol={selectedSymbol}
-                          stockProfileData={stockProfileData}
-                          // selectedSymbol={setSelectedStockProfileCurrentValue}
-                          // stockProfileData={setSelectedStockProfileCurrentValue}
-                          setSelectedStockProfileCurrentValue={
-                            setSelectedStockProfileCurrentValue
-                          }
-                        />
-                      </>
-                  </div> : ""}
-                    <UserProfileStatistics                      
+                    {searchInputShow == true ? (
+                      <div className="!m-0">
+                        <>
+                          <SelectUserCompaniesInput
+                            originalData={originalData}
+                            setFilteredData={setFilteredData}
+                            setSearchQuery={setSearchQuery}
+                            currentSelectedValue={currentSelectedValue}
+                            setCurrentSelectedValue={setCurrentSelectedValue}
+                            handleGlobalSearch={handleGlobalSearch}
+                            handleTagClick={handleTagClick}
+                            setActiveStat={setActiveStat}
+                            setSelectedSymbol={setSelectedSymbol}
+                            apiRange={apiRange}
+                            originalSubscriptionDetails={
+                              originalSubscriptionDetails
+                            }
+                            searchQuery={searchQuery}
+                            handleSearch={handleSearch}
+                            filteredData={filteredData}
+                            // filteredData={selectedItems}
+                            dataList={filteredData}
+                            AddCompanySelection={AddCompanySelection}
+                            setSelectedItems={setSelectedItems}
+                            selectedItems={selectedItems}
+                            setErrorAlert={setErrorAlert}
+                            setErrorMessage={setErrorMessage}
+                            errorAlert={errorAlert}
+                            errorMessage={errorMessage}
+                            successCompaniesAlert={successCompaniesAlert}
+                            successCompaniesMessage={successCompaniesMessage}
+                            setSuccessCompaniesAlert={setSuccessCompaniesAlert}
+                            selectedSymbol={selectedSymbol}
+                            stockProfileData={stockProfileData}
+                            // selectedSymbol={setSelectedStockProfileCurrentValue}
+                            // stockProfileData={setSelectedStockProfileCurrentValue}
+                            setSelectedStockProfileCurrentValue={
+                              setSelectedStockProfileCurrentValue
+                            }
+                          />
+                        </>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    <UserProfileStatistics
                       setFilteredData={setFilteredData}
                       originalData={originalData}
                       setSearchQuery={setSearchQuery}
@@ -1467,29 +1583,44 @@ const UserProfileSection = () => {
                       handlePageChange={handlePageChange}
                     />
                   </div>
-                  <div className="!mt-0"> 
+                  <div className="!mt-0">
                     <HighLowStocksTables
-                    setActiveFilter={setActiveFilter}
-                    activeFilter={activeFilter}
-                    selectedSector={selectedSector}
-                    selectedMarket={selectedMarket}
-                    activeData={activeData}
-                    highStocksData={highStocksData}
-                    lowStocksData={lowStocksData}
-                    stocksByQuantityData={stocksByQuantityData}
-                    stocksByValueData={stocksByValueData}
-                    setSelectedSector={setSelectedSector}
-                    setSelectedMarket={setSelectedMarket}
-                     handleHighStocksData={handleHighStocksData}
-                     handleLowStocksData={handleLowStocksData}
-                     handleStocksByValueAndQuantity={handleStocksByValueAndQuantity}
-                     sectorsMarketNames={sectorsMarketNames}
-                     setSelectedMarketSectorName={setSelectedMarketSectorName}
-                     selectedMarketSectorName={selectedMarketSectorName}
-                     handlePageChange={handlePageChange} 
-                     page={{ name: "my-account", value: "باقتي وحسابي" }}
-                     currentPlan={currentPlan}
-                     />
+                      setActiveFilter={setActiveFilter}
+                      activeFilter={activeFilter}
+                      selectedSector={selectedSector}
+                      selectedMarket={selectedMarket}
+                      activeData={activeData}
+                      highStocksData={highStocksData}
+                      lowStocksData={lowStocksData}
+                      stocksByQuantityData={stocksByQuantityData}
+                      stocksByValueData={stocksByValueData}
+                      setSelectedSector={setSelectedSector}
+                      setSelectedMarket={setSelectedMarket}
+                      handleHighStocksData={handleHighStocksData}
+                      handleLowStocksData={handleLowStocksData}
+                      handleStocksByValueAndQuantity={
+                        handleStocksByValueAndQuantity
+                      }
+                      sectorsMarketNames={sectorsMarketNames}
+                      setSelectedMarketSectorName={setSelectedMarketSectorName}
+                      selectedMarketSectorName={selectedMarketSectorName}
+                      handlePageChange={handlePageChange}
+                      page={{ name: "my-account", value: "باقتي وحسابي" }}
+                      currentPlan={currentPlan}
+                    />
+                  </div>
+
+                  <div className="!mt-0">
+                    <StocksDetailsTable
+                      currentPlan={currentPlan}
+                      list={marketList}
+                      handleStockTableDetail={handleStockTableDetail}
+                      activeStat={stockDetailsSelectedMarket}
+                      setStockDetailsSelectedMarket={
+                        setStockDetailsSelectedMarket
+                      }
+                      stockDetailsTableData={stockDetailsTableData}
+                    />
                   </div>
                   <div className="w-full bg-[#F5F7F9] py-6 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300">
                     {/* <div className="w-full bg-[#F5F7F9] py-4 !mt-3 px-4 rounded-3xl space-y-4 border border-gray-300"> */}
@@ -1499,7 +1630,8 @@ const UserProfileSection = () => {
                     >
                       <div className="mx-auto inline-flex">
                         <span className="text-secondaryColor group-hover:text-primaryColor font-medium flex items-center whitespace-nowrap">
-                          <Image unoptimized={true} 
+                          <Image
+                            unoptimized={true}
                             loading="eager"
                             src="/assets/icons/whatsapp.svg"
                             width={30}
