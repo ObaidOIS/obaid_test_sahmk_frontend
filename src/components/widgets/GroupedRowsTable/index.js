@@ -50,7 +50,7 @@ const locations = [
                 <tr className='rounded-3xl overflow-x-scroll'>
                 {tableHeadings.map((item, index) => {
                 return (
-                  <th index={index} scope="col" 
+                  <th key={index} scope="col" 
                   className='sticky top-0 z-10 whitespace-nowrap border-b first:rounded-t-3xl last:rounded-t-3xl border-gray-300 bg-white bg-opacity-75 py-3.5 pl-4 pr-3 text-right text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8'>
                   {/* // className="py-3.5 pl-4 pr-3 text-right text-sm font-semibold text-gray-900 sm:pl-3"> */}
                     {item.arabic_name}
