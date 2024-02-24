@@ -29,6 +29,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to App Engine
+        if: github.ref == 'refs/heads/main'
         uses: google-github-actions/deploy-appengine@v0.2.0
         with:
           deliverables: app.yaml
@@ -37,8 +38,26 @@ jobs:
           credentials: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Deploy Dispatch Configuration
+        if: github.ref == 'refs/heads/main'
         uses: google-github-actions/deploy-appengine@v0.2.0
         with:
           deliverables: dispatch.yaml
           project_id: ${{ secrets.PROJECT_ID }}
           credentials: ${{ secrets.SERVICE_ACCOUNT }}
+
+      - name: Deploy to App Engine
+        if: github.ref == 'refs/heads/development'
+        uses: google-github-actions/deploy-appengine@v0.2.0
+        with:
+          deliverables: test-app.yaml
+          version: v1
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+          credentials: ${{ secrets.TEST_SERVICE_ACCOUNT }}
+
+      - name: Deploy Dispatch Configuration
+        if: github.ref == 'refs/heads/development'
+        uses: google-github-actions/deploy-appengine@v0.2.0
+        with:
+          deliverables: test-dispatch.yaml
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+          credentials: ${{ secrets.TEST_SERVICE_ACCOUNT }}

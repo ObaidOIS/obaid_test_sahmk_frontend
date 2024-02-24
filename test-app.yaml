@@ -1,0 +1,14 @@
+runtime: nodejs20
+service: sahmk-test
+
+handlers:
+  # Serve all static files from the Next.js build
+  # - url: /_next/static/(.+)
+  #   static_files: .next/static/\1
+  #   upload: .next/static/(.+)
+  #   secure: always
+
+  # Next.js server to handle SSR and API routes
+  - url: /.*
+    script: auto
+    secure: always
